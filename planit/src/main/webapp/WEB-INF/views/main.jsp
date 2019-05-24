@@ -3,5 +3,5 @@
     pageEncoding="UTF-8"%>
 <div id = "box">
 	<h1>content1</h1>
-	<a href="<c:url value="/adminHome"/>">관리자페이지</a>gggg
+	<a href="<c:url value="/adminHome"/>">관리자페이지</a>
 </div>
