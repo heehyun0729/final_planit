@@ -5,7 +5,7 @@
 		<h1>플래너</h1>
 		<div id="floating-panel">
 			<input id="address" type="text"> 
-			<input id="submit" type="button" value="찾기">
+			<input id="search" type="button" value="찾기">
 		</div>
 	</div>
 	<div id="map"></div>
