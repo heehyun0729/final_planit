@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Plan it!</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/map.css'/>">
 </head>
 <body>
 <div id = "wrap">
