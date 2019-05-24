@@ -32,7 +32,7 @@
 		</select>
 		<br>
 		<label for="mem_birthyear">생일</label><input type="number" id="mem_birthyear" name="mem_birthyear" value="${sysYear}">
-		<!-- onclick,onchange -->
+		<!-- onclick,onchange로 해보기 -->
 		<br>
 		<input type="submit" value="가입">
 	</form>
