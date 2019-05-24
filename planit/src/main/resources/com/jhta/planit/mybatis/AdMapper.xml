@@ -7,4 +7,7 @@
 	<insert id="insert" parameterType="com.jhta.planit.vo.AdVo">
 		insert into ad values(ad_num_seq.nextval,#{id},#{company},#{url},#{startDate},#{endDate},#{chance},0,0,0,#{price},sysdate,null)
 	</insert>
+	<select id="checkPeriod" parameterType="com.jhta.planit.vo.AdVo">
+		select * from ad where
+	</select>
 </mapper>
