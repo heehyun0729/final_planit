@@ -9,13 +9,17 @@ function initMap() {
 	});
 	var geocoder = new google.maps.Geocoder();
 
-	document.getElementById('submit').addEventListener('click', function() {
+	document.getElementById('search').addEventListener('click', function() {
 		geocodeAddress(geocoder, map);
 	});
 }
 
 function geocodeAddress(geocoder, resultsMap) {
 	var address = document.getElementById('address').value;
+	options = {
+		      types: ['(cities)']
+		    }
+	 var autocomplete = new google.maps.places.Autocomplete(address, options);
 	geocoder.geocode({
 		'address' : address
 	}, function(results, status) {
@@ -26,8 +30,7 @@ function geocodeAddress(geocoder, resultsMap) {
 				position : results[0].geometry.location
 			});
 		} else {
-			alert('Geocode was not successful for the following reason: '
-					+ status);
+			alert('검색 결과가 없습니다.');
 		}
 	});
 }
