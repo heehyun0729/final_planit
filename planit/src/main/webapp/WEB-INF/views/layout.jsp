@@ -23,3 +23,6 @@
 		<tiles:insertAttribute name = "footer"/>
 	</div>
 </div>
+<script type="text/javascript" src = "<c:url value='/resources/js/map.js'/>"></script>
+</body>
+</html>
