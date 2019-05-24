@@ -24,5 +24,8 @@
 	</div>
 </div>
 <script type="text/javascript" src = "<c:url value='/resources/js/map.js'/>"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo&callback=initMap"
+	async defer></script>
 </body>
 </html>
