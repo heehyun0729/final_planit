@@ -9,6 +9,6 @@
   		<typeAlias type="com.jhta.spring21.vo.MovieVo" alias = "movie"/>
   	</typeAliases>
   <mappers>
-  	<mapper resource="com/jhta/spring21/mybatis/CommentsMapper.xml"/>
+  	<mapper resource="com/jhta/planit/mybatis/AdMapper.xml"/>
   </mappers>
 </configuration>
