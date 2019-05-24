@@ -2,12 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <!-- 수정해서 사용!! -->
 <mapper namespace="com.jhta.planit.mybatis.AdMapper">
 	<insert id="insert" parameterType="com.jhta.planit.vo.AdVo">
 		insert into ad values(ad_num_seq.nextval,#{id},#{company},#{url},#{startDate},#{endDate},#{chance},0,0,0,#{price},sysdate,null)
 	</insert>
-	<select id="checkPeriod" parameterType="com.jhta.planit.vo.AdVo">
-		select * from ad where
+	<select id="checkPeriod" parameterType="hashmap" resultType="com.jhta.planit.vo.AdVo">
+		select * from ad where startDate>=#{startDate} and <![CDATA[endDate<={endDate}]]>
 	</select>
 </mapper>
