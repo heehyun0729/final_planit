@@ -1,11 +1,10 @@
 @charset "UTF-8";
-
-#map {
-	height: 100%;
+#box{
+	width:20%;
+	float:left;
 }
-
-html, body {
+#map {
+	float:left;
+	width: 80%;
 	height: 100%;
-	margin: 0;
-	padding: 0;
 }

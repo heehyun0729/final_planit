@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Plan it!</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css'/>">
@@ -22,5 +23,3 @@
 		<tiles:insertAttribute name = "footer"/>
 	</div>
 </div>
-</body>
-</html>
