@@ -14,6 +14,7 @@
 	</bean>
 	<bean id="sqlsessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="DataSource"/>
+		<property name="configLocation" value="classpath:com/jhta/planit/mybatis/mybatis-config.xml"/>
 	</bean>
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlsessionFactory"/>
