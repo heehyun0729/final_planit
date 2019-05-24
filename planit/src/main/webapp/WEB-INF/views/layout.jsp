@@ -5,9 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Plan it!</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/map.css'/>">
 </head>
 <body>
 <div id = "wrap">
@@ -21,5 +23,9 @@
 		<tiles:insertAttribute name = "footer"/>
 	</div>
 </div>
+<script type="text/javascript" src = "<c:url value='/resources/js/map.js'/>"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo&callback=initMap"
+	async defer></script>
 </body>
 </html>
