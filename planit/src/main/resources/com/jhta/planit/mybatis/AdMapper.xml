@@ -4,9 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.mybatis.AdMapper">
 	<insert id="insert" parameterType="com.jhta.planit.admin.vo.AdVo">
-		insert into ad values(ad_num_seq.nextval,#{id},#{company},#{url},#{startDate},#{endDate},#{chance},0,0,0,#{price},sysdate,null)
+		insert into ad values(ad_num_seq.nextval,#{mem_id},#{ad_company},#{ad_url},#{ad_startDate},#{ad_endDate},#{ad_chance},0,0,0,#{ad_price},sysdate,null)
 	</insert>
-	<select id="checkPeriod" parameterType="hashmap" resultType="com.jhta.planit.admin.vo.AdVo">
-		select * from ad where ad_startDate>=#{startDate} and <![CDATA[ad_endDate<=#{endDate}]]>
+	<select id="getRecentAdNum" resultType="int">
+		select aa.ad_num from(select ad_num, rownum rnum  from ad order by ad_num desc)aa where rnum=1
+	</select>
+	<insert id="imgInsert" parameterType="com.jhta.planit.admin.vo.AdImageVo">
+		insert into adImage values(adImg_num_seq.nextval,#{ad_num},#{adImg_orgImg},#{adImg_savImg})
+	</insert>
+	<select id="getChance" parameterType="hashmap" resultType="com.jhta.planit.admin.vo.AdVo">
+		select * from ad where ad_enddate between #{ad_startDate} and #{ad_endDate}
+	</select>
+	<select id="getPeriod" parameterType="hashmap" resultType="int">
+		select to_date(#{ad_endDate})-to_date(#{ad_startDate})+1 day from dual
 	</select>
 </mapper>

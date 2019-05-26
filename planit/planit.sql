@@ -5,7 +5,7 @@ sqlplus system/java1234
 create user planit identified by admin1234;
 
 grant resource, connect to planit;
-
+grant create view to planit;
 conn planit/admin1234;
 
 
@@ -46,3 +46,22 @@ create table qnaImage(
    qnaImg_orgImg varchar2(50),
    qnaImg_saveImg varchar(50)
 );
+
+CREATE TABLE ad
+(
+	ad_num number(7,0) NOT NULL,
+	mem_id varchar2(15) NOT NULL,
+	ad_company varchar2(50),
+	ad_url varchar2(100),
+	ad_startDate date,
+	ad_endDate date,
+	ad_chance number(4,0),
+	ad_hit number(7,0),
+	ad_click number(7,0),
+	ad_status number(2,0),
+	ad_price number(7,0),
+	ad_requestDate date,
+	ad_approveDate date,
+	PRIMARY KEY (ad_num)
+);
+create sequence ad_num_seq;
