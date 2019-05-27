@@ -4,10 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <!-- 수정해서 사용!! -->
 <configuration>
+<!--
   	<typeAliases>
   		<typeAlias type="com.jhta.spring21.vo.CommentsVo" alias="comments"/>
   		<typeAlias type="com.jhta.spring21.vo.MovieVo" alias = "movie"/>
   	</typeAliases>
+-->
   <mappers>
   	<mapper resource="com/jhta/planit/mybatis/AdMapper.xml"/>
   </mappers>
