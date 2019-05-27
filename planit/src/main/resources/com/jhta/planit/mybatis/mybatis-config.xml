@@ -12,5 +12,6 @@
 -->
   <mappers>
   	<mapper resource="com/jhta/planit/mybatis/AdMapper.xml"/>
+  	<mapper resource="com/jhta/planit/user/mybatis/membersMapper.xml"/>
   </mappers>
 </configuration>

@@ -27,8 +27,8 @@
 		<label for="mem_email">이메일</label> <input type="email" id="mem_email" name="mem_email">
 		<br>
 		<label for="mem_gender">성별</label><select id="mem_gender" name="mem_gender">
-			<option value="m">남(man)</option>
-			<option value="w">녀(woman)</option>
+			<option value="m">남(Man)</option>
+			<option value="w">녀(Woman)</option>
 		</select>
 		<br>
 		<label for="mem_birthyear">생일</label><input type="number" id="mem_birthyear" name="mem_birthyear" value="${sysYear}">
