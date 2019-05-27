@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.planit.mybatis.MsgTableMapper">
+	<insert id="insert"
+		parameterType="com.jhta.planit.vo.MsgTableVo">
+		insert into MSGTABLE
+		values(MsgTable_SEQ.nextval,#{msgContent},#{SendUserId},#{ReceiveUserId},sysdate,0,1)
+	</insert>
+	<sql id="search">
+		<where>
+			<if test="field!=null and field!=''">
+			 ${field} like '%'||#{keyword}||'%'
+			</if>
+			<if test="type='RECEIVE'">
+			 or ${msgType=}=#{receiveMemId}
+			</if>
+			<if test="type='SEND'">
+			 or ${msgType=}=#{sendMemId}
+			</if>
+		</where>
+	</sql>
+	<select id="count" resultType="int" parameterType="hashmap">
+		select NVL(count(*),0) cnt from MSGTABLE
+		<include refid="search" />
+	</select>
+	<select id="listAll" resultType="com.jhta.planit.vo.MsgTableVo"
+		parameterType="hashmap">
+		select * from(
+		select aa.*,rownum rnum from(
+		select * from MSGTABLE
+		where NVL(MSGDELETE,' ') != #{MSGDELETE}
+		<include refid="search" />
+		order by msgWdate desc
+		)aa
+		)
+		<![CDATA[ where rnum >=#{startRow} and rnum <= #{endRow} ]]>
+	</select>
+	<select id="next" parameterType="int"
+		resultType="com.jhta.planit.vo.MsgTableVo">
+		select * from
+		(
+		select * from MSGTABLE
+		where msgNum>#{msgNum}
+		order by msgNum asc
+		)
+		where rownum=1
+	</select>
+	<select id="prev" parameterType="int"
+		resultType="com.jhta.planit.vo.MsgTableVo">
+		select * from
+		(
+		select * from MSGTABLE
+			<![CDATA[ where msgNum<#{msgNum} ]]>
+		order by msgNum desc
+		)
+		where rownum=1
+	</select>
+	<select id="find" resultType="com.jhta.planit.vo.MsgTableVo"
+		parameterType="int">
+		select * from MSGTABLE where msgNum=#{msgNum}
+	</select>
+	<update id="update1"
+		parameterType="com.jhta.planit.vo.MsgTableVo">
+		update MSGTABLE set msgDelete=#{msgDelete} where
+		msgNum=#{msgNum}
+	</update>
+	<update id="updateMsgCheck"
+		parameterType="com.jhta.planit.vo.MsgTableVo">
+		update MSGTABLE set updateMsgCheck=2 where
+		msgNum=#{msgNum}
+	</update>
+
+</mapper>
