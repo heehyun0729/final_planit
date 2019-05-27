@@ -10,9 +10,8 @@
 <title>Plan it!</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/map.css'/>">
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo&region=GB"></script>
-<script type="text/javascript" src = "<c:url value = '/resources/js/jquery-3.4.0.min.js'/>"></script>
-<script type="text/javascript" src = "<c:url value = '/resources/js/plan/gmap3.js'/>"></script>
+
+
 </head>
 <body>
 <div id = "wrap">
@@ -26,7 +25,10 @@
 		<tiles:insertAttribute name = "footer"/>
 	</div>
 </div>
+<script async defer type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo&callback=initAutocomplete&libraries=places"></script>
 
+<script type="text/javascript" src = "<c:url value = '/resources/js/jquery-3.4.0.min.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/map.js'/>"></script>
+
 </body>
 </html>
