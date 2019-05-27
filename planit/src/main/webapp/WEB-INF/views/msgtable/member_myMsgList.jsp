@@ -101,9 +101,9 @@ function detailClose() {
 		</div>
 		<div>
 			<a 
-				href="${pageContext.request.contextPath}/msgReceiveList?memId=lunar&msgType=RECEIVE">받은쪽지함</a>
+				href="${pageContext.request.contextPath}/msgReceiveList?memId=${mem_id }&msgType=RECEIVE">받은쪽지함</a>
 			<a 
-				href="${pageContext.request.contextPath}/msgSendList?memId=lunar&msgType=SEND">보낸쪽지함</a>
+				href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND">보낸쪽지함</a>
 			<table class="myPageTable">
 				<tr>
 					<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
