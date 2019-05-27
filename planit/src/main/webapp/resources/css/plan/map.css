@@ -15,8 +15,6 @@
 #floating-panel {
 	z-index: 5;
 	background-color: #fff;
-	padding: 5px;
-	border: 1px solid #999;
 	text-align: center;
 }
 
