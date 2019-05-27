@@ -23,7 +23,7 @@ public class MsgSendListController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field",field);
 		map.put("keyword",keyword);
-		map.put("mem_id","lunar");
+		map.put("mem_id",memId);
 		map.put("MSGDELETE",msgDelete);
 		if(msgType.equals("SEND")) {
 			msgType="sendMemId";
@@ -38,7 +38,7 @@ public class MsgSendListController {
 		map.put("endRow",pu.getEndRow());
 		List<MsgTableVo> list = service.list(map);
 		
-		ModelAndView mv = new ModelAndView("member_myMsgList");
+		ModelAndView mv = new ModelAndView("/msgtable/member_myMsgList");
 		mv.addObject("list", list);
 		mv.addObject("type", "SEND");
 		mv.addObject("pu", pu);

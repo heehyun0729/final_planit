@@ -23,7 +23,7 @@ public class MsgReceiveListController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field",field);
 		map.put("keyword",keyword);
-		map.put("memId","lunar");
+		map.put("memId",memId);
 		map.put("MSGDELETE",msgDelete);
 		System.out.println("Dd");
 		if(msgType.equals("RECEIVE")) {
@@ -38,7 +38,7 @@ public class MsgReceiveListController {
 		map.put("endRow",pu.getEndRow());
 		List<MsgTableVo> list = service.list(map);
 		
-		ModelAndView mv = new ModelAndView("member_myMsgList");
+		ModelAndView mv = new ModelAndView("/msgtable/member_myMsgList");
 		mv.addObject("list", list);
 		mv.addObject("type", "RECEIVE");
 		mv.addObject("pu", pu);
