@@ -7,4 +7,7 @@
 		insert into members
 		values(#{mem_id},#{mem_pwd},#{mem_nickname},#{mem_email},#{mem_gender},#{mem_birthyear},5,null)
 	</insert>
+	<select id="loginbcry" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="hashmap">
+		select * from members where mem_id=#{mem_id}
+	</select>
 </mapper>

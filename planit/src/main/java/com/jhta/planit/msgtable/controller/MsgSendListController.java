@@ -19,16 +19,21 @@ public class MsgSendListController {
 	
 	@RequestMapping("/msgSendList")
 	public ModelAndView list(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
-			String field,String keyword,String memId,String msgDelete,String msgType) {
+			String field,String keyword,String memId,String msgType) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println(pageNum+","+field+","+keyword+","+memId+","+msgType);
 		map.put("field",field);
 		map.put("keyword",keyword);
 		map.put("mem_id",memId);
-		map.put("MSGDELETE",msgDelete);
+		if(msgType==null) {
+			msgType="null";
+		}
 		if(msgType.equals("SEND")) {
 			msgType="sendMemId";
 		}else if(msgType.equals("RECEIVE")) {
 			msgType="receiveMemId";
+		}else {
+			
 		}
 		map.put("type", msgType);
 		
@@ -43,7 +48,6 @@ public class MsgSendListController {
 		mv.addObject("type", "SEND");
 		mv.addObject("pu", pu);
 		mv.addObject("mem_id", memId);
-		mv.addObject("msgDelete", msgDelete);
 		mv.addObject("field", field);
 		mv.addObject("keyword", keyword);
 		return mv;

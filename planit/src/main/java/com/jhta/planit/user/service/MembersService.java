@@ -22,6 +22,11 @@ public class MembersService {
 
 	public boolean login(HashMap<String, String> map) {
 		MembersVo vo = dao.login(map);
-		return bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd());
+		if (vo != null) {
+			return bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd());
+		}else {
+			return false;
+		}
+
 	}
 }

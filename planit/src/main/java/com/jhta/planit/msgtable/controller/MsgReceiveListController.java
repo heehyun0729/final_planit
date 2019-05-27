@@ -19,17 +19,21 @@ public class MsgReceiveListController {
 	
 	@RequestMapping("/msgReceiveList")
 	public ModelAndView list(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
-			String field,String keyword,String memId,String msgDelete,String msgType) {
+			String field,String keyword,String memId,String msgType) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field",field);
 		map.put("keyword",keyword);
 		map.put("memId",memId);
-		map.put("MSGDELETE",msgDelete);
 		System.out.println("Dd");
+		if(msgType==null) {
+			msgType="null";
+		}
 		if(msgType.equals("RECEIVE")) {
 			msgType="receiveMemId";
 		}else if(msgType.equals("SEND")) {
 			msgType="sendMemId";
+		}else {
+			
 		}
 		map.put("type", msgType);
 		int totalRowCount = service.count(map);
@@ -43,7 +47,6 @@ public class MsgReceiveListController {
 		mv.addObject("type", "RECEIVE");
 		mv.addObject("pu", pu);
 		mv.addObject("mem_id", memId);
-		mv.addObject("msgDelete", msgDelete);
 		mv.addObject("field", field);
 		mv.addObject("keyword", keyword);
 		return mv;

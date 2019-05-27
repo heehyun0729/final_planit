@@ -33,7 +33,7 @@
 		select * from(
 		select aa.*,rownum rnum from(
 		select * from MSGTABLE
-		where NVL(MSGDELETE,' ') != #{MSGDELETE}
+		<!-- where NVL(MSGDELETE,' ') != #{MSGDELETE} -->
 		<include refid="search" />
 		order by msgWdate desc
 		)aa
