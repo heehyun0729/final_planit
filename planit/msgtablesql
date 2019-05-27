@@ -1,0 +1,38 @@
+select * from members;
+
+drop table MsgTable;
+CREATE TABLE MsgTable
+(
+	msgNum number(4) NOT NULL,
+	msgContent varchar2(1000) NOT NULL,
+	receiveMemId varchar2(20) NOT NULL,
+	sendMemId varchar2(20) NOT NULL,
+	msgWdate date NOT NULL,
+	msgCheck number(1) NOT NULL,
+	PRIMARY KEY (msgNum)
+);
+ALTER TABLE MsgTable
+	ADD FOREIGN KEY (SendMemId)
+	REFERENCES Members (mem_id)
+;
+
+
+ALTER TABLE MsgTable
+	ADD FOREIGN KEY (ReceiveMemId)
+	REFERENCES Members (mem_id)
+;
+CREATE SEQUENCE MsgTable_SEQ;
+ALTER TABLE MsgTable ADD(msgDelete varchar(50) );
+
+create table members(
+    mem_id VARCHAR2(15) primary key,
+    mem_pwd VARCHAR2(100) NOT NULL,
+    mem_nickname VARCHAR2(200) NOT NULL,
+    mem_email VARCHAR2(30) NOT NULL,
+    mem_gender char,
+    mem_birthYear NUMBER(4,0),
+    mem_stat NUMBER(2,0),
+    mem_api VARCHAR2(10)
+);
+select * from members;
+select * from msgTable;
