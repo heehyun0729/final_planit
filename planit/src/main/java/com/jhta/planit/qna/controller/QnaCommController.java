@@ -1,4 +1,4 @@
-package com.jhta.planit.qna.Controller;
+package com.jhta.planit.qna.controller;
 
 public class QnaCommController {
 

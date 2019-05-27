@@ -1,4 +1,4 @@
-package com.jhta.planit.qna.Controller;
+package com.jhta.planit.qna.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,5 +9,4 @@ public class QnaController {
 	public String QnaMain() {
 		return ".qna.qnaList";
 	}
-	
 }
