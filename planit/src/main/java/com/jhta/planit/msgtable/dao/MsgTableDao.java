@@ -11,7 +11,7 @@ import com.jhta.planit.msgtable.vo.MsgTableVo;
 @Repository
 public class MsgTableDao {
 	@Autowired private SqlSession sqlSession;
-	private final String NAMESPACE="com.jhta.planit.mybatis.MsgTableMapper";
+	private final String NAMESPACE="com.jhta.planit.msgtable.mybatis.MsgTableMapper";
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession =sqlSession;
 	}
@@ -27,11 +27,11 @@ public class MsgTableDao {
 	public int delete(int msgNum) {
 		return sqlSession.delete(NAMESPACE+".delete",msgNum);
 	}
-	public MsgTableVo next(int msgNum) {
-		return sqlSession.selectOne(NAMESPACE+".next",msgNum);
+	public MsgTableVo next(int num) {
+		return sqlSession.selectOne(NAMESPACE+".next",num);
 	}
-	public MsgTableVo prev(int msgNum) {
-		return sqlSession.selectOne(NAMESPACE+".prev",msgNum);
+	public MsgTableVo prev(int num) {
+		return sqlSession.selectOne(NAMESPACE+".prev",num);
 	}
 	public int update1(MsgTableVo vo) {
 		return sqlSession.delete(NAMESPACE+".update1",vo);
