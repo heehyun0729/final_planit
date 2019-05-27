@@ -15,7 +15,7 @@ $(document).ready(function() {
 			data: form_data,
 			success: function(data) {
 				if (data==="success") {
-					$(location).attr('href', '/');
+					$(location).attr('href', '/planit');
 				}else{
 					$("#errMsg").html("로그인정보가 올바르지 않습니다.");
 				}

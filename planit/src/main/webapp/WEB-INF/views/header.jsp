@@ -11,7 +11,7 @@
 	</ul>
 	<ul>
 		<c:choose>
-			<c:when test="${sessionScope.id!=null }">
+			<c:when test="${sessionScope.mem_id!=null }">
 				<li><a href="<c:url value='/logout'/>">로그아웃</a></li>
 			</c:when>
 			<c:otherwise>
