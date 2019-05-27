@@ -1,4 +1,4 @@
-package com.jhta.planit.user.Controller;
+package com.jhta.planit.user.controller;
 
 import org.springframework.stereotype.Controller;
 
