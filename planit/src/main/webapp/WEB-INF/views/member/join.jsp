@@ -16,9 +16,9 @@
 	</c:set>
 	<h1>회원가입</h1>
 	<form method="post" action="<c:url value='/join'/>">
-		<label for="mem_id">아이디</label> <input type="text" id="mem_id" name="mem_id"><input type="button" id="idcheck" name="idcheck" value="중복검사"> <span id="idcheckresult"></span>
+		<label for="mem_id">아이디(5~14 사이의 소문자 영문과 숫자)</label> <input type="text" id="mem_id" name="mem_id"><input type="button" id="idcheck" name="idcheck" value="중복검사" disabled="disabled"> <span id="idcheckresult"></span>
 		<br>
-		<label for="mem_pwd">비밀번호</label> <input type="password" id="mem_pwd" name="mem_pwd"><span id="pwdresult"></span>
+		<label for="mem_pwd">비밀번호(10~20 사이의 특수문자를 포함한 영문(대소문자 구분)과 숫자)</label> <input type="password" id="mem_pwd" name="mem_pwd"><span id="pwdresult"></span>
 		<br>
 		<label for="mem_pwdck">비밀번호 확인</label> <input type="password" id="mem_pwdck" name="mem_pwdck"><span id="pwdckresult"></span>
 		<br>

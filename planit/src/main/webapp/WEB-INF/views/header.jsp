@@ -17,8 +17,8 @@
 			</c:when>
 			<c:otherwise>
 				<li><a href="<c:url value='/login'/>">로그인</a></li>
+				<li><a href="<c:url value='/join'/>">회원가입</a></li>
 			</c:otherwise>
 		</c:choose>
-		<li><a href="<c:url value='/join'/>">회원가입</a></li>
 	</ul>
 </div>

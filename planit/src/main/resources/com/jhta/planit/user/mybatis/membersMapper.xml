@@ -10,4 +10,7 @@
 	<select id="loginbcry" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="hashmap">
 		select * from members where mem_id=#{mem_id}
 	</select>
+	<select id="idcheck" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="String">
+		select * from members where mem_id=#{mem_id}
+	</select>
 </mapper>
