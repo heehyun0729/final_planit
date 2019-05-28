@@ -94,3 +94,27 @@ CREATE TABLE ad
 	PRIMARY KEY (ad_num)
 );
 create sequence ad_num_seq;
+
+DROP TABLE buddy_apply CASCADE CONSTRAINTS;
+DROP TABLE buddy CASCADE CONSTRAINTS;
+CREATE TABLE buddy
+(
+	buddy_num number(7,0) NOT NULL,
+	mem_id varchar2(15) NOT NULL,
+	buddy_country varchar2(30),
+	buddy_city varchar2(30),
+	buddy_gender char,
+	buddy_birthyear number(7,0),
+	buddy_inDate date,
+	buddy_outDate date,
+	buddy_msg clob,
+	buddy_state number(2,0) NOT NULL,
+	PRIMARY KEY (buddy_num)
+);
+CREATE TABLE buddy_apply
+(
+	apply_num number(5,0) NOT NULL,
+	buddy_num number(7,0) NOT NULL,
+	mem_id varchar2(15) NOT NULL,
+	PRIMARY KEY (apply_num)
+);

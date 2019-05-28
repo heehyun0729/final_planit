@@ -1,7 +1,5 @@
 package com.jhta.planit.user.dao;
 
-import java.util.HashMap;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,7 +15,15 @@ public class MembersDao {
 		return sqlSession.insert(NAMESPACE + ".membersJoin", vo);
 	}
 
-	public MembersVo login(HashMap<String, String> map) {
-		return sqlSession.selectOne(NAMESPACE + ".loginbcry", map);
+	public MembersVo login(String mem_id) {
+		return sqlSession.selectOne(NAMESPACE + ".loginbcry", mem_id);
+	}
+
+	public MembersVo idcheck(String mem_id) {
+		return sqlSession.selectOne(NAMESPACE + ".idcheck", mem_id);
+	}
+
+	public MembersVo emailcheck(String mem_email) {
+		return sqlSession.selectOne(NAMESPACE + ".emailcheck", mem_email);
 	}
 }

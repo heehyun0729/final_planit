@@ -21,12 +21,19 @@ public class MembersService {
 	}
 
 	public boolean login(HashMap<String, String> map) {
-		MembersVo vo = dao.login(map);
+		MembersVo vo = dao.login(map.get("mem_id"));
 		if (vo != null) {
 			return bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd());
 		}else {
 			return false;
 		}
+	}
 
+	public MembersVo idCheck(String mem_id) {
+		return dao.idcheck(mem_id);
+	}
+
+	public MembersVo emailCheck(String mem_email) {
+		return dao.emailcheck(mem_email);
 	}
 }

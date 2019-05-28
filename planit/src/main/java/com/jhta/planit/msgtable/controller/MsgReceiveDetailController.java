@@ -14,17 +14,13 @@ import com.jhta.planit.msgtable.vo.MsgTableVo;
 import com.jhta.util.PageUtil;
 
 @Controller
-public class MsgReceiveListController {
+public class MsgReceiveDetailController {
 	@Autowired private MsgTableService service;
 	
-	@RequestMapping("/msgReceiveList")
-	public ModelAndView list(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
-			String field,String keyword,String memId,String msgType) {
+	@RequestMapping("/msgReceiveDetail")
+	public ModelAndView list(int msgNum,String msgType) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("field",field);
-		map.put("keyword",keyword);
-		map.put("memId",memId);
-		System.out.println("Dd");
+		map.put("msgNum",msgNum);
 		if(msgType==null) {
 			msgType="null";
 		}
@@ -36,19 +32,12 @@ public class MsgReceiveListController {
 			
 		}
 		map.put("type", msgType);
-		int totalRowCount = service.count(map);
-		PageUtil pu = new PageUtil(pageNum,totalRowCount,5,5);
-		map.put("startRow",pu.getStartRow());
-		map.put("endRow",pu.getEndRow());
-		List<MsgTableVo> list = service.list(map);
-		
-		ModelAndView mv = new ModelAndView(".msgtable.member_myMsgList");
-		mv.addObject("list", list);
+		MsgTableVo vo = service.find(msgNum);
+		service.updateMsgCheck(msgNum);
+		ModelAndView mv = new ModelAndView("/msgtable/member_myMsgDetail");
+		mv.addObject("vo", vo);
 		mv.addObject("type", "RECEIVE");
-		mv.addObject("pu", pu);
-		mv.addObject("mem_id", memId);
-		mv.addObject("field", field);
-		mv.addObject("keyword", keyword);
+		mv.addObject("msgNum", msgNum);
 		return mv;
 	}
 }

@@ -7,9 +7,9 @@
 		<th>쪽지내용</th>
 	</tr>
 	<tr>
-		<td>${type=="SEND" ? vo.receiveUserId : vo.sendUserId}</td>
+		<td>${type=="SEND" ? vo.receiveMemId : vo.sendMemId}</td>
 		<td>${vo.msgWdate}</td>
-		<td width="300">${vo.msgContent}</td>
+		<td>${vo.msgContent}</td>
 	</tr>
 </table>
 <br />
