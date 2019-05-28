@@ -6,6 +6,7 @@
 	<div id="leftBox">
 		<h1>플래너1</h1>
 		<input type="text" id="address">
+		<div id = "cities"></div>
 	</div>
 	<div id="map"></div>
 </div>

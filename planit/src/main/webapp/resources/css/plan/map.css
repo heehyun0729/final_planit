@@ -12,10 +12,12 @@
 	float: left;
 }
 
-#leftBox div{
+#leftBox #cities{
 	width: 100%;
-	display: inline-block;
+	height: 80%;
 	float: left;
+	overflow: scroll;
+	border: 2px solid gray;
 }
 
 #map {

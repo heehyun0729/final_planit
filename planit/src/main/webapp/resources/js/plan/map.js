@@ -22,13 +22,12 @@ function initMap() {
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker();
     
-    var cnt = 0;
+    var cityInfo = [];
     // 자동완성검색 선택했을 때 실행할 리스너 ==> 마커 찍고 인포윈도우 띄우기
     autocomplete.addListener('place_changed', function() {
 		var place = autocomplete.getPlace();	// 장소(도시) 정보 가져오기
-		// 지리 정보 받아서 마커, 인포윈도우 표시
-      //  geocodeAddress(geocoder, map, place, infowindow, marker);
 		
+		// api에서 도시 정보 가져오기
 		$.getJSON('/planit/googleMap', {
 			placeid: place.place_id,
 			key: 'AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo'
@@ -59,15 +58,8 @@ function initMap() {
 		        });
 		        // 마커 위치에 인포윈도우 만들고 도시명, 국가명 띄우기
 		        infowindow = new google.maps.InfoWindow({
-		       	 content: city + ", " + country + " <input type = 'button' id = 'addCity' value = '추가'>"
-		        }, function() {
-			        $("#addCity").on('click', function(){
-		        		console.log(11);
-						$("#leftBox").append("<div>" +
-								city + ", " + country +
-							"</div>");
-					});
-				});
+		       	 content: city + ", " + country + " <a href = 'javascript:addCity(\"" + city + "\",\"" + country + "\")'>추가</a>"
+		        });
 		        infowindow.open(map, marker);
 		      } else {
 		        alert('해당 도시 정보를 찾을 수 없습니다.');
@@ -76,3 +68,8 @@ function initMap() {
 		});
     });
   }
+function addCity(city, country) {
+	var str = "";
+	str += "<div>" + city + ", " + country + "</div>";
+	$('#cities').append(str);
+}
