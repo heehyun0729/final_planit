@@ -3,12 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
-
 <div id="find_buddy">
 	<form>
 		<div id="choice_date">
@@ -25,10 +19,10 @@
 				<c:forEach var="country" items="${countryList}">
 					<tr>
 						<td>${country }</td>
-						<c:forEach var="map" items="${cityList}">
-							<c:if test="${map.key==country }">
-								<c:forEach var="cc" items="${map.value}">
-									<td><input type="checkbox" id="${cc }" value="${cc }" name="${cc }">${cc }</td>
+						<c:forEach var="city" items="${cityList}">
+							<c:if test="${city.key==country }">
+								<c:forEach var="cityVal" items="${city.value}">
+									<td><input type="checkbox" id="${cityVal }" value="${cityVal }" name="${cityVal }">${cityVal }</td>
 								</c:forEach>
 							</c:if>
 						</c:forEach>
@@ -62,11 +56,20 @@
 		<table id="buddyTable" style="width: 80%">
 			<tr>
 				<th>여행자</th>
-				<th>날짜</th>
+				<th>여행날짜</th>
 				<th>성별</th>
 				<th>나이</th>
 				<th>여행 소개</th>
 			</tr>
+			<c:forEach var="buddy" items="${buddyList}">
+				<tr>
+					<th>${buddy.mem_id }</th>
+					<th>${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</th>
+					<th>${buddy.buddy_gender }</th>
+					<th>${buddy.buddy_birthYear }</th>
+					<th>${buddy.buddy_msg }</th>
+				</tr>
+			</c:forEach>
 		</table>
 	</div>
 	<div id="button_div">

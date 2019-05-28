@@ -19,11 +19,16 @@ public class BuddyService {
 		return dao.insert(vo);
 	}
 	
-	public List<BuddyVo> showCity(String country){
-		return dao.showCity(country);
+	public List<BuddyVo> showAll(){
+		return dao.showAll();
 	}
 	
 	public List<String> showCountry(){
 		return dao.showCoutry();
 	}
+	
+	public List<BuddyVo> showCity(String country){
+		return dao.showCity(country);
+	}
+	
 }

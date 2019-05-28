@@ -20,11 +20,15 @@ public class BuddyDao {
 		return sqlSession.insert(NAMESPACE + ".buddy_insert",vo);
 	}
 	
-	public List<BuddyVo> showCity(String country){
-		return sqlSession.selectList(NAMESPACE + ".buddy_showCity",country);
+	public List<BuddyVo> showAll(){
+		return sqlSession.selectList(NAMESPACE + ".buddy_showAll");
 	}
 	
 	public List<String> showCoutry(){
 		return sqlSession.selectList(NAMESPACE + ".buddy_showCountry");
+	}
+	
+	public List<BuddyVo> showCity(String country){
+		return sqlSession.selectList(NAMESPACE + ".buddy_showCity",country);
 	}
 }

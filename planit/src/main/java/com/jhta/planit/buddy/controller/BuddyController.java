@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.Response;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +19,8 @@ public class BuddyController {
 	
 	@RequestMapping(value="/buddyList", method=RequestMethod.GET)
 	public ModelAndView goBuddyList() {
+		
+		//체크 박스 동적 생성
 		List<String> countryList=service.showCountry();
 		HashMap<String, Object>map=new HashMap<String, Object>();
 		for(int i=0;i<countryList.size();i++) {
@@ -35,7 +34,12 @@ public class BuddyController {
 			}
 			map.put(country, cities);
 		}
+		
+		//리스트 뽑기
+		List<BuddyVo> buddyList=service.showAll();
+		
 		ModelAndView mv=new ModelAndView(".buddy.buddyList");
+		mv.addObject("buddyList",buddyList);
 		mv.addObject("countryList",countryList);
 		mv.addObject("cityList",map);
 		return mv;
