@@ -16,11 +16,16 @@ import com.jhta.planit.user.vo.MembersVo;
 public class MembersJoinController {
 	@Autowired private MembersService service;
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String joinchoiceForm() {
+		return "member/joinchoice";
+	}
+	
+	@RequestMapping(value = "/nomaljoin", method = RequestMethod.GET)
 	public String joinForm() {
 		return "member/join";
 	}
 
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	@RequestMapping(value = "/nomaljoin", method = RequestMethod.POST)
 	public String join(MembersVo vo, Model model) {
 		int n = service.membersJoin(vo);
 		if (n>0) {

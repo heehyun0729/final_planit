@@ -148,9 +148,6 @@ $(document).ready(function() {
 	$("#emailcheck").click(function() {
 		if(RegexEmailDomain.test($("#mem_email2").val())){
 			let mem_email=$("#mem_email1").val()+"@"+$("#mem_email2").val();
-			console.log($("#mem_email1").val());
-			console.log($("#mem_email2").val());
-			console.log(mem_email);
 			$.ajax({
 				url : $(location).attr('href')+"/emailcheck",
 				type : "post",
@@ -199,11 +196,6 @@ $(document).ready(function() {
 			$("#mem_email1").focus();
 		}
 		$("#submitError").attr("style", "color:red");
-		console.log("chkid: "+chkid);
-		console.log("chkpwd: "+chkpwd);
-		console.log("chkpwdck: "+chkpwdck);
-		console.log("chknick: "+chknick);
-		console.log("chkemail: "+chkemail);
 		if (!formresult) {
 			event.preventDefault();
 		}

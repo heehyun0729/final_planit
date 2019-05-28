@@ -14,16 +14,16 @@ conn planit/admin1234;
 
 -- 테이블 생성(sqlplus)
 DROP TABLE MEMBERS CASCADE CONSTRAINTS;
-create table members(
-	mem_id varchar2(15) NOT NULL,
-	mem_pwd varchar2(100),
-	mem_nickname varchar2(20),
-	mem_email varchar2(30),
-	buddy_gender char,
-	buddy_birthYear number(4),
-	mem_stat number(2),
-	mem_api varchar2(10),
-	PRIMARY KEY (mem_id)
+CREATE TABLE members(
+	mem_id varchar2(40) PRIMARY KEY,
+	mem_pwd varchar2(100) NOT NULL,
+	mem_nickname varchar2(25) UNIQUE,
+	mem_email varchar2(50) UNIQUE,
+	mem_gender char NOT NULL,
+	mem_birthYear number(4) NOT NULL,
+	mem_stat number(2) NOT NULL,
+	-- 어떤 값이 들어갈지 몰라 하나 만들어 둡니다
+	mem_api varchar2(10)
 );
 
 DROP TABLE ACCOM CASCADE CONSTRAINTS;
