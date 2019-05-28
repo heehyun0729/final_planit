@@ -1,3 +1,4 @@
+var routelist = [];
 function initMap() {
 	// 지도 초기화
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -15,6 +16,7 @@ function initMap() {
     
     // 자동완성검색
     var options = { types: ['(cities)'] };	// 장소 검색 범위를 도시로 제한
+    var addrBox = document.getElementById('addrBox');
     var input = document.getElementById('address');
     $(input).click(function() {
 		input.value = "";
@@ -23,7 +25,7 @@ function initMap() {
     autocomplete.bindTo('bounds', map);
     autocomplete.setFields(
             ['address_components', 'geometry', 'name', 'place_id']);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(addrBox);
   
     var geocoder = new google.maps.Geocoder();
     
@@ -77,7 +79,24 @@ function initMap() {
     });
   }
 function addCity(city, country) {
+	date_in = new Date($("#startDate").val());
+	date_out = new Date(date_in.getFullYear(),date_in.getMonth(), date_in.getDate()+eval(1));
+
 	var str = "";
-	str += "<div>" + city + ", " + country + "</div>";
+	str += "<div>" +
+			city + ", " + country + "<br>" +
+			date_in.getFullYear() + "-" + date_in.getMonth() + 1 + "-" + "~" + date_out +
+			"</div>";
 	$('#route').append(str);
 }
+$(function() {
+	$("#startDate").datepicker({
+		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
+                        "8월", "9월", "10월", "11월", "12월"],	
+		yearSuffix: "년",	
+		showMonthAfterYear: true,	
+		dateFormat: "yy-mm-dd"
+	});
+	$('#startDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
+});
