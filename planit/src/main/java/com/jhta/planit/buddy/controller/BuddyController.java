@@ -17,12 +17,8 @@ public class BuddyController {
 		return ".buddy.buddyInsert";
 	}
 	@RequestMapping(value="/buddyInsert", method=RequestMethod.POST)
-	public String BuddyInsert(BuddyVo vo) {
-		System.out.println("1:"+vo.getBuddy_gender());
-		System.out.println("2:"+vo.getBuddy_country());
-		System.out.println("3:"+vo.getBuddy_indate());
-		System.out.println("4:"+vo.getBuddy_outdate());
-		System.out.println("5:"+vo.getBuddy_msg());
+	public String buddyInsert(BuddyVo vo) {
+		System.out.println("1 : "+ vo.getBuddy_indate());
 		return ".buddy.buddyList";
 	}
 }

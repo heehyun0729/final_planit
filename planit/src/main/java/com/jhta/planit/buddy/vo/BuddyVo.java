@@ -1,7 +1,5 @@
 package com.jhta.planit.buddy.vo;
 
-import java.sql.Date;
-
 public class BuddyVo {
 	private int buddy_num;
 	private String mem_id;
@@ -9,15 +7,15 @@ public class BuddyVo {
 	private String buddy_city;
 	private String buddy_gender;
 	private int buddy_birthYear;
-	private Date buddy_indate;
-	private Date buddy_outdate;
+	private String buddy_indate;
+	private String buddy_outdate;
 	private String buddy_msg;
 	private int buddy_state;
 	public BuddyVo() {
 		// TODO Auto-generated constructor stub
 	}
 	public BuddyVo(int buddy_num, String mem_id, String buddy_country, String buddy_city, String buddy_gender,
-			int buddy_birthYear, Date buddy_indate, Date buddy_outdate, String buddy_msg, int buddy_state) {
+			int buddy_birthYear, String buddy_indate, String buddy_outdate, String buddy_msg, int buddy_state) {
 		super();
 		this.buddy_num = buddy_num;
 		this.mem_id = mem_id;
@@ -66,16 +64,16 @@ public class BuddyVo {
 	public void setBuddy_birthYear(int buddy_birthYear) {
 		this.buddy_birthYear = buddy_birthYear;
 	}
-	public Date getBuddy_indate() {
+	public String getBuddy_indate() {
 		return buddy_indate;
 	}
-	public void setBuddy_indate(Date buddy_indate) {
+	public void setBuddy_indate(String buddy_indate) {
 		this.buddy_indate = buddy_indate;
 	}
-	public Date getBuddy_outdate() {
+	public String getBuddy_outdate() {
 		return buddy_outdate;
 	}
-	public void setBuddy_outdate(Date buddy_outdate) {
+	public void setBuddy_outdate(String buddy_outdate) {
 		this.buddy_outdate = buddy_outdate;
 	}
 	public String getBuddy_msg() {
