@@ -10,7 +10,12 @@
 	height: 100%;
 	display: inline-block;
 	float: left;
+}
+
+#leftBox div{
+	width: 100%;
 	display: inline-block;
+	float: left;
 }
 
 #map {
@@ -18,16 +23,4 @@
 	float: left;
 	width: 80%;
 	height: 100%;
-}
-
-#infowindow-content .title {
-	font-weight: bold;
-}
-
-#infowindow-content {
-	display: none;
-}
-
-#map #infowindow-content {
-	display: inline;
 }
