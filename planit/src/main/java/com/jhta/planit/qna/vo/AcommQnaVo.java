@@ -13,7 +13,6 @@ public class AcommQnaVo {
 	public AcommQnaVo() {}
 	public AcommQnaVo(int acommQna_num, int acomm_num, String mem_id, String acommQna_content, Date acommQna_date,
 			int acommQna_step, int acommQna_ref) {
-		super();
 		this.acommQna_num = acommQna_num;
 		this.acomm_num = acomm_num;
 		this.mem_id = mem_id;
