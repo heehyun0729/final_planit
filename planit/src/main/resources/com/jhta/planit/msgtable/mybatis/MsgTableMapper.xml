@@ -69,10 +69,8 @@
 		update MSGTABLE set msgDelete=#{msgDelete} where
 		msgNum=#{msgNum}
 	</update>
-	<update id="updateMsgCheck"
-		parameterType="com.jhta.planit.msgtable.vo.MsgTableVo">
-		update MSGTABLE set updateMsgCheck=2 where
-		msgNum=#{msgNum}
+	<update id="updateMsgCheck" parameterType="int">
+		update MSGTABLE set MSGCHECK=1 where msgNum=#{msgNum}
 	</update>
 
 </mapper>

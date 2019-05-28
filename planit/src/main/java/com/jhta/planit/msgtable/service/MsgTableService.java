@@ -30,8 +30,8 @@ public class MsgTableService {
 	public int update1(MsgTableVo vo){
 		return dao.update1(vo);
 	}
-	public int updateMsgCheck(MsgTableVo vo){
-		return dao.update1(vo);
+	public int updateMsgCheck(int msgNum){
+		return dao.updateMsgCheck(msgNum);
 	}
 	public MsgTableVo find(int msgNum){
 		return dao.find(msgNum);
