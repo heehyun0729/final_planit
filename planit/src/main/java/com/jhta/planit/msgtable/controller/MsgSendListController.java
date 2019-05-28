@@ -42,7 +42,7 @@ public class MsgSendListController {
 		map.put("endRow",pu.getEndRow());
 		List<MsgTableVo> list = service.list(map);
 		
-		ModelAndView mv = new ModelAndView("/msgtable/member_myMsgList");
+		ModelAndView mv = new ModelAndView(".msgtable.member_myMsgList");
 		mv.addObject("list", list);
 		mv.addObject("type", "SEND");
 		mv.addObject("pu", pu);
