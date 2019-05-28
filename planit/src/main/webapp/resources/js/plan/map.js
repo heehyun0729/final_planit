@@ -4,18 +4,26 @@ function initMap() {
       center: {lat: 46.519, lng: 6.632},
       zoom: 5,
       mapTypeId: 'roadmap',
-      scrollwheel : true
+      scrollwheel : true,
+      zoomControl: true,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false
     });
     
     // 자동완성검색
     var options = { types: ['(cities)'] };	// 장소 검색 범위를 도시로 제한
     var input = document.getElementById('address');
+    $(input).click(function() {
+		input.value = "";
+	});
     var autocomplete = new google.maps.places.Autocomplete(input, options);
-    
     autocomplete.bindTo('bounds', map);
-    
     autocomplete.setFields(
             ['address_components', 'geometry', 'name', 'place_id']);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
   
     var geocoder = new google.maps.Geocoder();
     
@@ -71,5 +79,5 @@ function initMap() {
 function addCity(city, country) {
 	var str = "";
 	str += "<div>" + city + ", " + country + "</div>";
-	$('#cities').append(str);
+	$('#route').append(str);
 }

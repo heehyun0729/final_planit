@@ -10,7 +10,9 @@
 <title>Plan it!</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/map.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
 <script type="text/javascript" src = "<c:url value = '/resources/js/jquery-3.4.0.min.js'/>"></script>
+<script type="text/javascript" src = "<c:url value = '/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/map.js'/>"></script>
 
 </head>
