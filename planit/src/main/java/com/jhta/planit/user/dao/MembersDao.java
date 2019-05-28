@@ -26,4 +26,8 @@ public class MembersDao {
 	public MembersVo emailcheck(String mem_email) {
 		return sqlSession.selectOne(NAMESPACE + ".emailcheck", mem_email);
 	}
+
+	public MembersVo nickcheck(String mem_nickname) {
+		return sqlSession.selectOne(NAMESPACE + ".nickcheck", mem_nickname);
+	}
 }

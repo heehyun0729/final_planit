@@ -38,7 +38,7 @@
 		<br>
 		<label for="mem_gender">*성별</label><select id="mem_gender" name="mem_gender">
 			<option value="m">남(Man)</option>
-			<option value="w">녀(Woman)</option>
+			<option value="f">녀(Female)</option>
 		</select>
 		<br>
 		<label for="mem_birthyear">*생년</label><select id="mem_birthyear" name="mem_birthyear">
@@ -51,5 +51,6 @@
 		<br>
 		<input type="submit" value="가입">
 	</form>
+	<div id="submitError"></div>
 </body>
 </html>

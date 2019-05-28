@@ -16,4 +16,7 @@
 	<select id="emailcheck" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="String">
 		select * from members where mem_email=#{mem_email}
 	</select>
+	<select id="nickcheck" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="String">
+		select * from members where mem_nickname=#{mem_nickname}
+	</select>
 </mapper>

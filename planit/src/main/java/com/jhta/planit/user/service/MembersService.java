@@ -36,4 +36,8 @@ public class MembersService {
 	public MembersVo emailCheck(String mem_email) {
 		return dao.emailcheck(mem_email);
 	}
+
+	public MembersVo nickCheck(String mem_nickname) {
+		return dao.nickcheck(mem_nickname);
+	}
 }

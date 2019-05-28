@@ -49,8 +49,9 @@ public class MembersJoinController {
 	@RequestMapping(value = "/join/nickcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int nickcheck(HttpServletRequest request) {
-		String mem_id = request.getParameter("mem_id");
-		MembersVo vo = service.idCheck(mem_id);
+		String mem_nickname = request.getParameter("mem_nickname");
+		System.out.println(mem_nickname);
+		MembersVo vo = service.nickCheck(mem_nickname);
 
 		int result = 0;
 		if (vo != null) {
