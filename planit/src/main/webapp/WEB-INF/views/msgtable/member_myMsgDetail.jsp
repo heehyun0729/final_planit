@@ -9,7 +9,7 @@
 	<tr>
 		<td>${type=="SEND" ? vo.receiveMemId : vo.sendMemId}</td>
 		<td>${vo.msgWdate}</td>
-		<td width="300">${vo.msgContent}</td>
+		<td>${vo.msgContent}</td>
 	</tr>
 </table>
 <br />

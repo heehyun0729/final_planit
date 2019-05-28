@@ -68,10 +68,10 @@ function sendMessageResult() {
 		}
 	}
 }
-function detailMessage(msgNum){
+function detailMessage(num){
 	xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=detailFormHtml;
-	xhr.open("get","${pageContext.request.contextPath}/msg${type=='SEND'?'Send':'Receive'}Detail?msgNum="+msgNum,true);
+	xhr.open("get","${pageContext.request.contextPath}/msg${type=='SEND'?'Send':'Receive'}Detail?msgNum="+num,true);
 	xhr.send();
 }
 function detailSendForm(){
