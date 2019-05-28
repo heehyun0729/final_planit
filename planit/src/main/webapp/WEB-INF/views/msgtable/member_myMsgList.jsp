@@ -38,7 +38,7 @@ function sendMessage() {
 		return false;
 	}
 	var memChk = document.getElementById("memChk_ok");
-	if(memChkId != mem_id.value || memChk == null || memChk.length == 0 ){
+	if(memChkId != memId.value || memChk == null || memChk.length == 0 ){
 		document.getElementById("memChk_res").innerHTML='<font color="red" id="memChk_ok">아이디 확인을 해주세요.</font>';
 		memId.focus();
 		return false;
@@ -55,7 +55,7 @@ function sendMessage() {
 	xhr.onreadystatechange=sendMessageResult;
 	xhr.open("post","${pageContext.request.contextPath}/msgSendForm",true);	
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xhr.send("sendMemId=${mem_id}&receiveMemId=" + mem_id.value+"&content="+contHtml);
+	xhr.send("sendMemId=${mem_id}&receiveMemId=" + memId.value+"&content="+contHtml);
 }
 function sendMessageResult() {
 	if(xhr.readyState==4 && xhr.status==200){
