@@ -2,12 +2,18 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhta.planit.user.mybatis.buddyMapper">
+<mapper namespace="com.jhta.planit.buddy.mybatis.buddyMapper">
 	<insert id="buddy_insert" parameterType="com.jhta.planit.buddy.vo.BuddyVo">
 		insert into buddy
-		values(#{},#{},#{},#{},#{},#{})
+		values(buddy_seq.nextval,'test1',#{buddy_country},#{buddy_city},#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
 	</insert>
 	<select id="buddy_showAll" resultType="com.jhta.planit.buddy.vo.BuddyVo">
 		select * from buddy
+	</select>
+	<select id="buddy_showCountry" resultType="String">
+		select distinct buddy_country from buddy
+	</select>
+	<select id="buddy_showCity" parameterType="String" resultType="com.jhta.planit.buddy.vo.BuddyVo">
+		select distinct buddy_city from buddy where buddy_country =#{country}
 	</select>
 </mapper>

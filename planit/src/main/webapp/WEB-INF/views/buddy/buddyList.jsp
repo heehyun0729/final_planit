@@ -22,6 +22,18 @@
 					<th>국가</th>
 					<th>도시</th>
 				</tr>
+				<c:forEach var="country" items="${countryList}">
+					<tr>
+						<td>${country }</td>
+						<c:forEach var="map" items="${cityList}">
+							<c:if test="${map.key==country }">
+								<c:forEach var="cc" items="${map.value}">
+									<td><input type="checkbox" id="${cc }" value="${cc }" name="${cc }">${cc }</td>
+								</c:forEach>
+							</c:if>
+						</c:forEach>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 		

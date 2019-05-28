@@ -17,12 +17,8 @@
 		</div>
 		
 		<div id="choice_city">
-			<table id="cityTable" style="width: 80%">
-				<tr>
-					<th>국가 <input type="text" name="buddy_country"></th>
-					<th>도시 <input type="text" name="buddy_city"></th>
-				</tr>
-			</table>
+			국가 : <input type="text" name="buddy_country">
+			도시 : <input type="text" name="buddy_city">
 		</div>
 		
 		<div>
@@ -56,14 +52,14 @@
 			monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 			yearSuffix: "년",
 			showMonthAfterYear: true,
-			dateFormat: "yy년mm월dd일"
+			dateFormat: "yy-mm-dd"
 		});
 		$("#endDate").datepicker({
 			dayNamesMin: ["일","월","화","수","목","금","토"],
 			monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 			yearSuffix: "년",
 			showMonthAfterYear: true,
-			dateFormat: "yy년mm월dd일"
+			dateFormat: "yy-mm-dd"
 		});
 	});
 </script>
