@@ -19,8 +19,8 @@
 		<div id="choice_city">
 			<table id="cityTable" style="width: 80%">
 				<tr>
-					<th>국가</th>
-					<th>도시</th>
+					<th>국가 <input type="text" name="buddy_country"></th>
+					<th>도시 <input type="text" name="buddy_city"></th>
 				</tr>
 			</table>
 		</div>
