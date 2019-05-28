@@ -38,12 +38,15 @@ public class BuddyController {
 		//리스트 뽑기
 		List<BuddyVo> buddyList=service.showAll();
 		
+		//뷰 페이지로 이동
 		ModelAndView mv=new ModelAndView(".buddy.buddyList");
 		mv.addObject("buddyList",buddyList);
 		mv.addObject("countryList",countryList);
 		mv.addObject("cityList",map);
 		return mv;
 	}
+	
+	//글 등록
 	@RequestMapping(value="/buddyInsert", method=RequestMethod.GET)
 	public String goBuddyInsertForm() {
 		return ".buddy.buddyInsert";

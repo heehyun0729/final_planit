@@ -78,20 +78,29 @@
 </div>
 <script type="text/javascript">
 	$(function() {
+		var startDate=null;
 		$("#startDate").datepicker({
 			dayNamesMin: ["일","월","화","수","목","금","토"],
 			monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 			yearSuffix: "년",
 			showMonthAfterYear: true,
-			dateFormat: "yy년mm월dd일"
+			dateFormat: "yy-mm-dd",
+			minDate : 0
 		});
 		$("#endDate").datepicker({
 			dayNamesMin: ["일","월","화","수","목","금","토"],
 			monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 			yearSuffix: "년",
 			showMonthAfterYear: true,
-			dateFormat: "yy년mm월dd일"
+			dateFormat: "yy-mm-dd",
+			minDate : 0
 		});
+		
+		$("#startDate").change(function(){
+			startDate=$("#startDate").val();
+			$("#endDate").val(startDate);
+		});
+		
 		$("#insert_buddy").click(function(){
 			window.location.href="<c:url value='/buddyInsert' />";
 		});
