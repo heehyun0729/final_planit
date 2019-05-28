@@ -32,4 +32,8 @@ public class MembersService {
 	public MembersVo idCheck(String mem_id) {
 		return dao.idcheck(mem_id);
 	}
+
+	public MembersVo emailCheck(String mem_email) {
+		return dao.emailcheck(mem_email);
+	}
 }

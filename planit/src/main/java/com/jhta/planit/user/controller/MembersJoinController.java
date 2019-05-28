@@ -35,7 +35,37 @@ public class MembersJoinController {
 	@ResponseBody
 	public int idcheck(HttpServletRequest request) {
 		String mem_id = request.getParameter("mem_id");
+		System.out.println(mem_id);
 		MembersVo vo = service.idCheck(mem_id);
+
+		int result = 0;
+		if (vo != null) {
+			result = 1;
+		}
+		return result;
+	}
+	
+
+	@RequestMapping(value = "/join/nickcheck", method = RequestMethod.POST)
+	@ResponseBody
+	public int nickcheck(HttpServletRequest request) {
+		String mem_id = request.getParameter("mem_id");
+		MembersVo vo = service.idCheck(mem_id);
+
+		int result = 0;
+		if (vo != null) {
+			result = 1;
+		}
+		return result;
+	}
+	
+
+	@RequestMapping(value = "/join/emailcheck", method = RequestMethod.POST)
+	@ResponseBody
+	public int emailcheck(HttpServletRequest request) {
+		String mem_email = request.getParameter("mem_email");
+		System.out.println(mem_email);
+		MembersVo vo = service.emailCheck(mem_email);
 
 		int result = 0;
 		if (vo != null) {
