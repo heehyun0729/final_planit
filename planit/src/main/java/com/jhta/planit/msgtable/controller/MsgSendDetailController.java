@@ -31,6 +31,7 @@ public class MsgSendDetailController {
 		}else {
 			
 		}
+		System.out.println("g");
 		map.put("type", msgType);
 		MsgTableVo vo = service.find(msgNum);
 		ModelAndView mv = new ModelAndView("/msgtable/member_myMsgDetail");

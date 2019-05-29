@@ -10,6 +10,7 @@
 	</insert>
 	<sql id="search">
 		<where>
+		
 			<if test="type=='receiveMemId'">
 			receiveMemId=#{mem_id}
 			</if>

@@ -27,7 +27,7 @@ public class MsgSendListController {
 		if(msgType==null) {
 			memId="mem_id";
 		}
-		if(msgType.equals("SEND")) {//¿©±ä°¡??
+		if(msgType.equals("SEND")) {
 			msgType="sendMemId";
 		}else if(msgType.equals("RECEIVE")) {
 			msgType="receiveMemId";

@@ -28,13 +28,14 @@ public class MsgReceiveListController {
 		if(msgType==null) {
 			memId="mem_id";
 		}
-		if(msgType.equals("RECEIVE")) {
-			msgType="receiveMemId";
-		}else if(msgType.equals("SEND")) {
+		if(msgType.equals("SEND")) {
 			msgType="sendMemId";
+		}else if(msgType.equals("RECEIVE")) {
+			msgType="receiveMemId";
 		}else {
 			
 		}
+		System.out.println("g");
 		map.put("type", msgType);
 		int totalRowCount = service.count(map);
 		PageUtil pu = new PageUtil(pageNum,totalRowCount,5,5);

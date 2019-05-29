@@ -74,7 +74,7 @@ function detailClose() {
 				href="${pageContext.request.contextPath}/msgReceiveList?memId=${mem_id }&msgType=RECEIVE">받은쪽지함</a>
 			<a 
 				href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND">보낸쪽지함</a>
-			<table class="myPageTable" border=1 width:500>
+			<table  border=1 width:500>
 				<tr>
 					<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
 					<th>쪽지내용</th>

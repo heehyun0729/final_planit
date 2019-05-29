@@ -19,7 +19,7 @@ public class MsgSendFormController {
 	}
 	@RequestMapping(value="/msgSendForm",method = RequestMethod.GET)
 	public String join() {
-		return "/msgtable/member_myMsgSend";//뷰이름!
+		return "/msgtable/member_myMsgSend";
 	}
 	@RequestMapping(value="/msgSendForm",method = RequestMethod.POST) //json코드 
 	public ModelAndView joinOk(MsgTableVo vo) {

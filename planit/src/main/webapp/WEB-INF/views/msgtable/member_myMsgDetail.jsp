@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table class="myPageTable" border=1 width:500>
+<table class="myPageTable" border=1 width:400>
 	<tr>
 		<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
 		<th>보낸시간</th>
