@@ -13,6 +13,6 @@
 	</div>
 	<div id="map"></div>
 	<div class="addrBox" id = "addrBox">
-		<input type="text" id="address">
+		<input type="text" id="address" class = "address">
 	</div>
 </div>
