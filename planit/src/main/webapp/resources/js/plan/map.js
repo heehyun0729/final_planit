@@ -86,7 +86,7 @@ function initMap() {
 		        var content = "<div>" +
 		        		"<img style = 'float:left;margin-right:5px;' src = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&maxheight=75&photoreference="+ photoreference + "&key=" + key + "'>" + 
 		        		"<div style='display:inline-block'><h3>" + city + "</h3><p>" + country + "</p></div>" +
-		        		"<a href = 'javascript:addCity(" + params + ")'><span style='color:Tomato;margin:5px;'><i class='fas fa-plus-square fa-3x'></i></span></a>"
+		        		"<a href = 'javascript:addCity(" + params + ")'><span style='color:skyblue;margin:5px;'><i class='fas fa-plus-square fa-3x'></i></span></a>"
 		        		"</div>";
 		        infowindow = new google.maps.InfoWindow({
 		       	 content: content
