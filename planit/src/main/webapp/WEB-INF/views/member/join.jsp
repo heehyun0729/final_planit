@@ -30,7 +30,6 @@
 			<option value="1" selected="selected">직접입력</option>
 			<option value="naver.com">naver.com</option>
 			<option value="hanmail.net">hanmail.net</option>
-			<option value="hotmail.com">hotmail.com</option>
 			<option value="nate.com">nate.com</option>
 			<option value="gmail.com">gmail.com</option>
 		</select> 
