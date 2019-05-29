@@ -48,7 +48,14 @@ $(document).ready(function() {
 	//비밀번호 유효성 체크
 	$("#mem_pwd").on("propertychange change keyup paste input", function() {
 		chkpwd=false;
-		$("#pwdresult").text("");
+		chkpwdck=false;
+		$("#pwdckresult").text("");
+		let mem_pwdval=$("#mem_pwd").val();
+		let mem_pwdcheckval=$("#mem_pwdck").val();
+		console.log(mem_pwdcheckval);
+		if(mem_pwdcheckval !== ""){
+			checkPwdCk(mem_pwdval,mem_pwdcheckval);
+		}
 		let mem_id=$('#mem_id').val();
 		if (typeof mem_id === "undefined") {
 			mem_id="";
@@ -92,7 +99,12 @@ $(document).ready(function() {
 	$("#mem_pwdck").on("propertychange change keyup paste input", function() {
 		chkpwdck=false;
 		let mem_pwdval=$("#mem_pwd").val();
-		if ($(this).val() === mem_pwdval) {
+		let mem_pwdcheckval=$(this).val();
+		checkPwdCk(mem_pwdval,mem_pwdcheckval);
+		
+	});
+	function checkPwdCk(mem_pwdval,mem_pwdcheckval){
+		if (mem_pwdcheckval === mem_pwdval) {
 			$("#pwdckresult").text("일치");
 			$("#pwdckresult").attr("style", "color:blue");
 			chkpwdck=true;
@@ -100,7 +112,7 @@ $(document).ready(function() {
 			$("#pwdckresult").text("비밀번호와 일치하지 않습니다.");
 			$("#pwdckresult").attr("style", "color:red");
 		}
-	});
+	}
 	
 	//닉네임 유효성 체크
 	$("#mem_nickname").on("propertychange change keyup paste input", function() {
