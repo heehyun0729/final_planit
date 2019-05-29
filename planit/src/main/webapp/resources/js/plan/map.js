@@ -1,4 +1,13 @@
 var routelist = [];
+Route = function(city, country, lat, lng, stay, date_in, date_out) {
+	this.city = city;
+	this.country = country;
+	this.lat = lat;
+	this.lng = lng;
+	this.stay = stay;
+	this.date_in=date_in;
+	this.date_out=date_out;
+}
 var key = 'AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo';
 function initMap() {
 	// 지도 초기화
@@ -43,7 +52,6 @@ function initMap() {
 			fields: 'address_components,geometry,photos,place_id',
 			key: key
 		}, function(data) {
-			console.log(data);
 			var city = "";
 			var country = "";
 			var result = data.result;
@@ -57,6 +65,8 @@ function initMap() {
 					country = address[i].long_name;
 				}
 			}
+			var lat = result.geometry.location.lat;
+			var lng = result.geometry.location.lng;
 			var photoreference = result.photos[0].photo_reference;
 			// 장소 위치(위도, 경도)로 도시 정보 받아오기 ==> 마커, 인포윈도우 표시
 		    geocoder.geocode({'location': place.geometry.location}, function(results, status) {
@@ -72,15 +82,19 @@ function initMap() {
 		          position: place.geometry.location
 		        });
 		        // 마커 위치에 인포윈도우 만들고 도시명, 국가명 띄우기
+		        var params = "\"" + city + "\",\"" + country + "\",\"" + lat + "\",\"" + lng + "\"";
 		        var content = "<div>" +
 		        		"<img style = 'float:left;margin-right:5px;' src = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&maxheight=75&photoreference="+ photoreference + "&key=" + key + "'>" + 
 		        		"<div style='display:inline-block'><h3>" + city + "</h3><p>" + country + "</p></div>" +
-		        		"<a href = 'javascript:addCity(\"" + city + "\",\"" + country + "\")'><span style='color:Tomato;margin:5px;'><i class='fas fa-plus-square fa-3x'></i></span></a>"
+		        		"<a href = 'javascript:addCity(" + params + ")'><span style='color:Tomato;margin:5px;'><i class='fas fa-plus-square fa-3x'></i></span></a>"
 		        		"</div>";
 		        infowindow = new google.maps.InfoWindow({
 		       	 content: content
 		        });
 		        infowindow.open(map, marker);
+		        marker.addListener('click', function(e) {
+			        infowindow.open(map, marker);
+		        });
 		      } else {
 		        alert('해당 도시 정보를 찾을 수 없습니다.');
 		      }
@@ -88,19 +102,56 @@ function initMap() {
 		});
     });
   }
+// routelist에 도시 정보 추가, 왼쪽 div에 정보 추가하는 함수
+function addCity(city, country, lat, lng) {
+	// 머무르는 날짜 구하기
+	var date_in, date_out;
+	if(routelist.length == 0){
+		date_in = new Date($("#startDate").val());
+		date_out = new Date(date_in.getFullYear(),date_in.getMonth(), date_in.getDate() + eval(1));
+	}else{
+		var startdate = new Date($("#startDate").val());
+		
+		var term  = 0;
+		for (var i = 0 ; i < routelist.length ; i++){
+			term = term + eval(routelist[i].stay);
+		}
 
-function addCity(city, country) {
-	date_in = new Date($("#startDate").val());
-	date_out = new Date(date_in.getFullYear(),date_in.getMonth(), date_in.getDate()+eval(1));
-
-	var str = "";
-	str += "<div>" +
-			city + ", " + country + "<br>" +
-			formatDate(date_in) + "~" + formatDate(date_out) +
-			"</div>";
-	$('#route').append(str);
+		date_in = new Date(startdate.getFullYear(), startdate.getMonth(), startdate.getDate() + eval(term));
+		date_out = new Date(date_in.getFullYear(), date_in.getMonth(), date_in.getDate() + eval(1));
+	}
+	// routelist 배열에 Route 객체 추가
+	routelist[routelist.length] = new Route(city, country, lat, lng, 1, date_in, date_out);
+	setRouteDiv();
 }
-
+// 왼쪽 div에 정보 추가
+function setRouteDiv() {
+	var str = "";
+	for(var i = 0 ; i < routelist.length ; i++){
+		str += "<div style = 'padding: 5px;margin-bottom:10px;border-top:1px solid #aaa;border-bottom:1px solid #aaa;'>" +
+					"<div style = 'height:50px;display:inline-block;float:left;'>" +
+						"<select id = 'stay' style = 'margin-top:15px;margin-right:5px;'>" +
+							"<option value = '0'>0박</option>" +
+							"<option value = '1' selected = 'selected'>1박</option>" +
+							"<option value = '2'>2박</option>" +
+							"<option value = '1'>1박</option>" +
+							"<option value = '1'>1박</option>" +
+							"<option value = '1'>1박</option>" +
+							"<option value = '1'>1박</option>" +
+							"<option value = '1'>1박</option>" +
+							"<option value = '1'>1박</option>" +
+							"<option value = '1'>1박</option>" +
+						"</select>" +
+					"</div>" +
+					"<div>" +
+						"<span style = 'font-size:20px;font-weight:bold;'>" + routelist[i].city + "</span><span> " + routelist[i].country + "</span>" +
+						"<p style = 'font-size:12px;color:gray;margin-top: 5px;'>" + formatDate(routelist[i].date_in) + "~" + formatDate(routelist[i].date_out) + "</p>" +
+					"</div>" +
+				"</div>";
+		$('#route').html(str);
+	}
+}
+// Date 객체를 format해서 리턴하는 함수
 function formatDate(date) {
 	var y = date.getFullYear();
 	var m = date.getMonth() + 1;
@@ -109,7 +160,28 @@ function formatDate(date) {
 	var day = week[date.getDay()];
 	return y + "-" + m + "-" + d + "(" + day + ")";
 }
-
+// routelist date_in, date_out 수정
+function setRouteDate(date) {
+	var startdate = new Date(date);
+	var date_in, date_out;
+	for(var i = 0 ; i < routelist.length ; i++){
+		if(routelist.length == 1){
+			date_in = startdate;
+			routelist[i].date_in = date_in;
+			date_out = new Date(date_in.getFullYear(),date_in.getMonth(), date_in.getDate() + eval(routelist[i].stay));
+			routelist[i].date_out = date_out;
+			startdate = date_out;
+		}else{
+			date_in = startdate;
+			routelist[i].date_in = date_in;
+			date_out = new Date(date_in.getFullYear(), date_in.getMonth(), date_in.getDate() + eval(routelist[i].stay));
+			routelist[i].date_out = date_out;
+			startdate = date_out;
+		}
+	}
+	setRouteDiv();
+}
+// datepicker 설정
 $(function() {
 	$("#startDate").datepicker({
 		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
@@ -117,7 +189,11 @@ $(function() {
                         "8월", "9월", "10월", "11월", "12월"],	
 		yearSuffix: "년",	
 		showMonthAfterYear: true,	
-		dateFormat: "yy-mm-dd"
+		dateFormat: "yy-mm-dd",
+		onSelect: function(date) {
+			$(this).datepicker( "hide" );
+			setRouteDate(date);
+		}
 	});
 	$('#startDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
 });

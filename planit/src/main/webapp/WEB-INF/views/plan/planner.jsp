@@ -4,15 +4,15 @@
 	src="//maps.googleapis.com/maps/api/js?key=AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo&callback=initMap&libraries=places"></script>
 
 <div id="planner">
-	<div class="addrBox" id = "addrBox">
-		<input type="text" id="address">
-	</div>
 	<div id="leftBox">
 		<h1>플래너</h1>
-		<p>
-			출국: <input type="text" id="startDate">
-		</p>
+		<div>
+			출국 <input type="text" id="startDate">
+		</div>
 		<div id="route"></div>
 	</div>
 	<div id="map"></div>
+	<div class="addrBox" id = "addrBox">
+		<input type="text" id="address">
+	</div>
 </div>

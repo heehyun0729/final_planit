@@ -16,6 +16,11 @@
 	float: left;
 }
 
+#leftBox #startDate {
+	
+	width: 60%;
+}
+
 #leftBox #route {
 	width: 100%;
 	height: 90%;
