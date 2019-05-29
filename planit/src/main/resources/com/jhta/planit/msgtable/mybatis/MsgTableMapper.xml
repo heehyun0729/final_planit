@@ -29,8 +29,7 @@
 		parameterType="hashmap">
 		select * from(
 		select aa.*,rownum rnum from(
-		select * from MSGTABLE 
-		<!-- where NVL(MSGDELETE,' ') != #{MSGDELETE} -->
+		select * from MSGTABLE
 		<include refid="search" />
 		order by msgWdate desc
 		)aa

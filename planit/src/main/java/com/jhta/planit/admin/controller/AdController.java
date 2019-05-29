@@ -3,6 +3,7 @@ package com.jhta.planit.admin.controller;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -14,12 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.planit.admin.service.AdService;
 import com.jhta.planit.admin.vo.AdImageVo;
+import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
 
 @Controller
@@ -39,10 +40,11 @@ public class AdController {
 		return ".admin.adminAdRequestForm";
 	}
 	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)
-	public String adminAdRequestFormPost(AdVo vo, MultipartFile file, HttpSession session) {
-		service.insert(vo);//신청정보 DB 저장 @트랜잭션 처리 하기
+	public String adminAdRequestFormPost(AdVo vo, String[] order, Date[] orderDate, int[] orderPrice, MultipartFile file, HttpSession session) {
+		int ad_num=service.getRecentAdNum();
 		String path=session.getServletContext().getRealPath("/resources/adImage");//파일 업로드
-		String adImg_orgImg=file.getOriginalFilename();//업로드 파일정보 DB 저장
+		System.out.println(path);
+		String adImg_orgImg=file.getOriginalFilename();
 		String adImg_savImg=UUID.randomUUID() + "_" + adImg_orgImg;
 		try {
 			InputStream in=file.getInputStream();
@@ -50,31 +52,42 @@ public class AdController {
 			FileCopyUtils.copy(in, out);
 			in.close();
 			out.close();
-			int ad_num=service.getRecentAdNum();
-			AdImageVo imgVo=new AdImageVo(0, ad_num, adImg_orgImg, adImg_savImg);
-			System.out.println(imgVo);
-			service.imgInsert(imgVo);//@트랜잭션 처리 하기
 		}catch(Exception e) {
 			e.printStackTrace();
-		}
+		}		
+		
+		AdImageVo adImageVo=new AdImageVo(0, ad_num, adImg_orgImg, adImg_savImg);
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("adVo", vo);
+		map.put("order", order);
+		map.put("orderDate", orderDate);
+		map.put("orderPrice", orderPrice);
+		map.put("file", file);
+		map.put("ad_num", ad_num);
+		map.put("adImageVo", adImageVo);
+		boolean success=service.insert(map);//service에서 DB정보 저장--> 리턴값이 에러일경우 파일삭제 코드 추가하기
 		return ".admin.adminAdRequestFormOk";
 	}
 	@RequestMapping(value="/adminAdGetChance", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public HashMap<String, Object> adminAdGetChance(String ad_startDate, String ad_endDate) {
+	public HashMap<String, Object> adminAdGetChance(String todayYear, String todayMonth, int lastDate) {
 		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("ad_startDate", ad_startDate);
-		map.put("ad_endDate", ad_endDate);
-		int peroid=service.getPeriod(map);
-		map.put("peroid", peroid);
-		List<AdVo> list=service.getChance(map);
-		int chance=100;
-		for(AdVo vo:list) {
-			chance-=vo.getAd_chance();
-			System.out.println(vo.getAd_chance());
-		}
-		System.out.println("chance:" + chance);
-		map.put("chance", chance);
+		String startDate=todayYear+"-"+todayMonth+"-1";
+		String endDate=todayYear+"-"+todayMonth+"-"+lastDate;
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		List<AdInfoVo> list=service.getChance(map);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d"); 
+		for(int i=1;i<=lastDate;i++) {
+			int chance=0;
+			for(int a=0;a<list.size();a++) {
+				String date = formatter.format(list.get(a).getAdInfo_date());
+				if(date.toString().equals(todayYear+"-"+todayMonth+"-"+i)) {
+					chance+=list.get(a).getAdInfo_chance();
+				}
+			}
+			map.put("chance"+i, chance);
+		}		
 		return map;
 	}
 }
