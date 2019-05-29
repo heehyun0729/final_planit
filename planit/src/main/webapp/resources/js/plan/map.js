@@ -1,4 +1,5 @@
 var routelist = [];
+var key = 'AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo';
 function initMap() {
 	// 지도 초기화
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -32,7 +33,6 @@ function initMap() {
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker();
     
-    var cityInfo = [];
     // 자동완성검색 선택했을 때 실행할 리스너 ==> 마커 찍고 인포윈도우 띄우기
     autocomplete.addListener('place_changed', function() {
 		var place = autocomplete.getPlace();	// 장소(도시) 정보 가져오기
@@ -40,11 +40,15 @@ function initMap() {
 		// api에서 도시 정보 가져오기
 		$.getJSON('/planit/googleMap', {
 			placeid: place.place_id,
-			key: 'AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo'
+			fields: 'address_components,geometry,photos,place_id',
+			key: key
 		}, function(data) {
+			console.log(data);
 			var city = "";
 			var country = "";
-			var address = data.result.address_components;
+			var result = data.result;
+			var address = result.address_components;
+		    var cityInfo = [];	// 0: 도시명, 1: 국가명, 2: [lat, lng], 3: lng
 			for(var i = 0 ; i < address.length ; i++){
 				if(address[i].types[0] == 'locality'){
 					city = address[i].short_name;
@@ -53,6 +57,7 @@ function initMap() {
 					country = address[i].long_name;
 				}
 			}
+			var photoreference = result.photos[0].photo_reference;
 			// 장소 위치(위도, 경도)로 도시 정보 받아오기 ==> 마커, 인포윈도우 표시
 		    geocoder.geocode({'location': place.geometry.location}, function(results, status) {
 		      if (status === 'OK') {
@@ -67,8 +72,13 @@ function initMap() {
 		          position: place.geometry.location
 		        });
 		        // 마커 위치에 인포윈도우 만들고 도시명, 국가명 띄우기
+		        var content = "<div>" +
+		        		"<img style = 'float:left;margin-right:5px;' src = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&maxheight=75&photoreference="+ photoreference + "&key=" + key + "'>" + 
+		        		"<div style='display:inline-block'><h3>" + city + "</h3><p>" + country + "</p></div>" +
+		        		"<a href = 'javascript:addCity(\"" + city + "\",\"" + country + "\")'><span style='color:Tomato;margin:5px;'><i class='fas fa-plus-square fa-3x'></i></span></a>"
+		        		"</div>";
 		        infowindow = new google.maps.InfoWindow({
-		       	 content: city + ", " + country + " <a href = 'javascript:addCity(\"" + city + "\",\"" + country + "\")'>추가</a>"
+		       	 content: content
 		        });
 		        infowindow.open(map, marker);
 		      } else {
@@ -78,6 +88,7 @@ function initMap() {
 		});
     });
   }
+
 function addCity(city, country) {
 	date_in = new Date($("#startDate").val());
 	date_out = new Date(date_in.getFullYear(),date_in.getMonth(), date_in.getDate()+eval(1));
@@ -85,10 +96,20 @@ function addCity(city, country) {
 	var str = "";
 	str += "<div>" +
 			city + ", " + country + "<br>" +
-			date_in.getFullYear() + "-" + date_in.getMonth() + 1 + "-" + "~" + date_out +
+			formatDate(date_in) + "~" + formatDate(date_out) +
 			"</div>";
 	$('#route').append(str);
 }
+
+function formatDate(date) {
+	var y = date.getFullYear();
+	var m = date.getMonth() + 1;
+	var d = date.getDate();
+	var week = ["일", "월", "화", "수", "목", "금", "토"];
+	var day = week[date.getDay()];
+	return y + "-" + m + "-" + d + "(" + day + ")";
+}
+
 $(function() {
 	$("#startDate").datepicker({
 		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],

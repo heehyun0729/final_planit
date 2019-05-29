@@ -16,7 +16,7 @@ import com.jhta.util.PageUtil;
 @Controller
 public class MsgSendListController {
 	@Autowired private MsgTableService service;
-	
+	//쪽지 알람은 ajax,소켓, 안읽음만 받아오던가 3중에 1를 해야함.
 	@RequestMapping("/msgSendList")
 	public ModelAndView list(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
 			String field,String keyword,String memId,String msgType) {
@@ -25,7 +25,7 @@ public class MsgSendListController {
 		map.put("keyword",keyword);
 		map.put("mem_id",memId);
 		if(msgType==null) {
-			msgType="null";
+			memId="mem_id";
 		}
 		if(msgType.equals("SEND")) {
 			msgType="sendMemId";

@@ -1,6 +1,7 @@
 package com.jhta.planit.msgtable.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +24,30 @@ public class MsgReceiveListController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field",field);
 		map.put("keyword",keyword);
-		map.put("memId",memId);
-		System.out.println("Dd");
+		map.put("mem_id",memId);
 		if(msgType==null) {
-			msgType="null";
+			memId="mem_id";
 		}
-		if(msgType.equals("RECEIVE")) {
-			msgType="receiveMemId";
-		}else if(msgType.equals("SEND")) {
+		if(msgType.equals("SEND")) {
 			msgType="sendMemId";
+		}else if(msgType.equals("RECEIVE")) {
+			msgType="receiveMemId";
 		}else {
 			
 		}
+		System.out.println("g");
 		map.put("type", msgType);
 		int totalRowCount = service.count(map);
 		PageUtil pu = new PageUtil(pageNum,totalRowCount,5,5);
 		map.put("startRow",pu.getStartRow());
 		map.put("endRow",pu.getEndRow());
+		 Iterator<String> iterator = map.keySet().iterator();
+		 while (iterator.hasNext()) {
+		        String key = (String) iterator.next();
+		        System.out.print("key="+key);
+		        System.out.println(" value="+map.get(key));
+		    }
+
 		List<MsgTableVo> list = service.list(map);
 		
 		ModelAndView mv = new ModelAndView(".msgtable.member_myMsgList");

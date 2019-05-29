@@ -18,9 +18,9 @@ public class PlanController {
 
 	@RequestMapping(value = "/googleMap", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String googleMap(String placeid, String key) throws Exception{
+	public String googleMap(String placeid, String fields, String key) throws Exception{
 		StringBuffer sb=new StringBuffer();
-		String surl="https://maps.googleapis.com/maps/api/place/details/json?language=ko&key="+ key +"&placeid="+placeid;
+		String surl="https://maps.googleapis.com/maps/api/place/details/json?language=ko&key="+ key +"&placeid="+placeid + "&fields=" + fields;
 		
 		URL url=new URL(surl);
 		HttpURLConnection conn=(HttpURLConnection)url.openConnection();	// java에서 외부 url 접속

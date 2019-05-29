@@ -36,7 +36,7 @@ public class MembersJoinController {
 		}
 	}
 	
-	@RequestMapping(value = "/join/idcheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/nomaljoin/idcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int idcheck(HttpServletRequest request) {
 		String mem_id = request.getParameter("mem_id");
@@ -51,7 +51,7 @@ public class MembersJoinController {
 	}
 	
 
-	@RequestMapping(value = "/join/nickcheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/nomaljoin/nickcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int nickcheck(HttpServletRequest request) {
 		String mem_nickname = request.getParameter("mem_nickname");
@@ -66,7 +66,7 @@ public class MembersJoinController {
 	}
 	
 
-	@RequestMapping(value = "/join/emailcheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/nomaljoin/emailcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int emailcheck(HttpServletRequest request) {
 		String mem_email = request.getParameter("mem_email");

@@ -30,7 +30,6 @@
 			<option value="1" selected="selected">직접입력</option>
 			<option value="naver.com">naver.com</option>
 			<option value="hanmail.net">hanmail.net</option>
-			<option value="hotmail.com">hotmail.com</option>
 			<option value="nate.com">nate.com</option>
 			<option value="gmail.com">gmail.com</option>
 		</select> 
@@ -48,8 +47,8 @@
 			</c:forEach>
 			
 		</select>
-		<!-- onclick,onchange로 해보기 -->
 		<br>
+		<label for="sellck"></label>
 		<input type="submit" value="가입">
 	</form>
 	<div id="submitError"></div>

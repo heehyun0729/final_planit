@@ -10,17 +10,15 @@
 	</insert>
 	<sql id="search">
 		<where>
-			<if test="field!=null and field!=''">
-			 ${field} like '%'||#{keyword}||'%'
+		
+			<if test="type=='receiveMemId'">
+			receiveMemId=#{mem_id}
 			</if>
-			<if test="type=='RECEIVE'">
-			 or ${msgType=}=#{receiveMemId}
-			</if>
-			<if test="type=='SEND'">
-			 or ${msgType=}=#{sendMemId}
+			<if test="type=='sendMemId'">
+			 sendMemId=#{mem_id}
 			</if>
 			<if test="field!=null and field!=''">
-			 or ${field} like '%'||#{keyword}||'%'
+			 and ${field} like '%'||#{keyword}||'%'
 			</if>
 		</where>
 	</sql>
@@ -32,7 +30,7 @@
 		parameterType="hashmap">
 		select * from(
 		select aa.*,rownum rnum from(
-		select * from MSGTABLE
+		select * from MSGTABLE 
 		<!-- where NVL(MSGDELETE,' ') != #{MSGDELETE} -->
 		<include refid="search" />
 		order by msgWdate desc
