@@ -457,7 +457,7 @@
 			<div id="cart"></div><br>
 			<div id="price"></div><br>
 			<form id="form" method="post" action="<c:url value="/adminAdRequestForm"/>" enctype="multipart/form-data">
-				<input type="hidden" name="mem_id" value="Master">
+				<input type="hidden" name="mem_id" value="${mem_id }">
 				<input type="hidden" name="ad_price" value="">
 				<div id="chanceDiv" class="chanceDiv"></div>	
 				<div id="ordersDiv"></div>

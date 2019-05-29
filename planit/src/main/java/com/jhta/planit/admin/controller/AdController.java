@@ -1,5 +1,6 @@
 package com.jhta.planit.admin.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.sql.Date;
@@ -41,9 +42,8 @@ public class AdController {
 	}
 	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)
 	public String adminAdRequestFormPost(AdVo vo, String[] order, Date[] orderDate, int[] orderPrice, MultipartFile file, HttpSession session) {
-		int ad_num=service.getRecentAdNum();
 		String path=session.getServletContext().getRealPath("/resources/adImage");//파일 업로드
-		System.out.println(path);
+		//System.out.println(path);//업로드 경로
 		String adImg_orgImg=file.getOriginalFilename();
 		String adImg_savImg=UUID.randomUUID() + "_" + adImg_orgImg;
 		try {
@@ -55,17 +55,23 @@ public class AdController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}		
-		
-		AdImageVo adImageVo=new AdImageVo(0, ad_num, adImg_orgImg, adImg_savImg);
-		HashMap<String, Object> map=new HashMap<String, Object>();
+		HashMap<String, Object> map=new HashMap<String, Object>();//service에서 쓰일 정보들 map에 담기
 		map.put("adVo", vo);
 		map.put("order", order);
 		map.put("orderDate", orderDate);
 		map.put("orderPrice", orderPrice);
 		map.put("file", file);
-		map.put("ad_num", ad_num);
-		map.put("adImageVo", adImageVo);
-		boolean success=service.insert(map);//service에서 DB정보 저장--> 리턴값이 에러일경우 파일삭제 코드 추가하기
+		map.put("adImg_orgImg", adImg_orgImg);
+		map.put("adImg_savImg", adImg_savImg);
+		try {
+			service.insert(map);//service에서 DB정보 저장
+		}catch(Exception e) {//오류가 발생할경우 업로드 되었던 파일 삭제
+			System.out.println(e.getMessage());
+			File f=new File(path + "/" + adImg_savImg);
+			f.delete();
+			System.out.println("파일 삭제 완료");
+			return ".error";
+		}		
 		return ".admin.adminAdRequestFormOk";
 	}
 	@RequestMapping(value="/adminAdGetChance", produces="application/json;charset=utf-8")
