@@ -17,4 +17,7 @@ public class QnaService {
 	public List<QnaVo> list(HashMap<String, Object>map){
 		return dao.list(map);
 	}
+	public int insert(QnaVo vo) {
+		return dao.insert(vo);
+	}
 }

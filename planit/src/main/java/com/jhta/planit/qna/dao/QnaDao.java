@@ -15,7 +15,11 @@ public class QnaDao {
 	public void setSeqlSession(SqlSession seqlSession) {
 		this.sqlSession = seqlSession;
 	}
+	public int insert(QnaVo vo) {
+		return sqlSession.selectOne(NAMESPACE + ".insert",vo);
+	}
 	public List<QnaVo> list(HashMap<String, Object>map){
 		return sqlSession.selectList(NAMESPACE + ".list",map);
 	}
+	
 }

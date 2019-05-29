@@ -8,7 +8,9 @@
 		<li><a href = "<c:url value='/plan'/>">계획짜기</a></li>
 		<li><a href = "<c:url value='/buddyList'/>">동행찾기</a></li>
 		<li><a href = "<c:url value='/adminHome'/>">관리자페이지</a></li>
-		<li><a href = "<c:url value='/qna'/>">문의게시판</a></li>
+		<li><a href = "<c:url value='/qna'/>">여행문의</a></li>
+		<li><a href = "<c:url value='/acommQna'/>">숙소문의</a></li>
+		
 	</ul>
 	<ul>
 		<c:choose>

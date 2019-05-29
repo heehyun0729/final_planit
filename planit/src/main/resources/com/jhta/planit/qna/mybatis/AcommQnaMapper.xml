@@ -5,6 +5,6 @@
 <mapper namespace="com.jhta.planit.mybatis.AcommQnaMapper">
 	<insert id="insert" parameterType="com.jhta.planit.qna.vo.AcommQnaVo">
 		insert into ACOMMQNA 
-		values(ACOMMQNA_num_Seq.nextval,#{ACOMMQNA_content},#{ACOMMQNA_ref},#{ACOMMQNA_step},sysdate)
+		values(acommQna_num_Seq.nextval,#{acommQna_content},#{acommQna_ref},#{acommQna_step},sysdate)
 	</insert>
 </mapper>

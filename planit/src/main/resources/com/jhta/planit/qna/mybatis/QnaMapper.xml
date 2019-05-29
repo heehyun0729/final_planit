@@ -13,4 +13,8 @@
 		)
 		<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>  
+	<insert id="insert" parameterType="com.jhta.planit.qna.vo">
+		into into qna
+		values(qna_num_seq.nextval,#{qna_cate},#{qna_title},#{qna.content},sysdate) 
+	</insert>
 </mapper>
