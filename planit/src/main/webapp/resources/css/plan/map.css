@@ -5,17 +5,28 @@
 	height: 100%;
 }
 
-#leftBox {
-	width: 20%;
-	height: 100%; display : inline-block;
-	float: left;
-	display: inline-block;
+.addrBox {
+	margin: 10px 0 0 10px;
 }
 
-#floating-panel {
-	z-index: 5;
-	background-color: #fff;
-	text-align: center;
+#leftBox {
+	width: 20%;
+	height: 100%;
+	display: inline-block;
+	float: left;
+}
+
+#leftBox #startDate {
+	
+	width: 60%;
+}
+
+#leftBox #route {
+	width: 100%;
+	height: 90%;
+	float: left;
+	overflow: auto;
+	border: 2px solid gray;
 }
 
 #map {

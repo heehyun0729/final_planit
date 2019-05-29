@@ -36,8 +36,8 @@ public class MsgTableDao {
 	public int update1(MsgTableVo vo) {
 		return sqlSession.delete(NAMESPACE+".update1",vo);
 	}
-	public int updateMsgCheck(MsgTableVo vo) {
-		return sqlSession.delete(NAMESPACE+".updateMsgCheck",vo);
+	public int updateMsgCheck(int msgNum) {
+		return sqlSession.delete(NAMESPACE+".updateMsgCheck",msgNum);
 	}
 	public MsgTableVo find(int msgNum) {
 		return sqlSession.selectOne(NAMESPACE+".find",msgNum);

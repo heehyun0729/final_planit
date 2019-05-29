@@ -1,44 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <script>
 var memChkId = "";
 var xhr = null;
-function checkUser() {
-	var memId = document.getElementsByName("mem_id")[0];
-	if(memId.value.length < 4 ){
-		document.getElementById("memChk_res").innerHTML='<font color="red" id="memChk_ok">아이디는 최소 5자로 입력하세요.</font>';
-		userId.value.focus();
-		return false;
-	}
-	xhr=new XMLHttpRequest();
-	xhr.onreadystatechange=checkUserResult;
-	xhr.open("post","${pageContext.request.contextPath}/member/check",true);	
-	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xhr.send("memId=" + mem_id.value);
-}
-function checkUserResult() {
-	if(xhr.readyState==4 && xhr.status==200){
-		var data=xhr.responseText;
-		var result=eval("(" + data +")");
-		if (result.code == "success") {
-			document.getElementById("memChk_res").innerHTML='<font color="gray" id="memChk_ok">사용 가능한 ID 입니다.</font>';
-		} else {
-			document.getElementById("memChk_res").innerHTML='<font color="red" id="memChk_fail">존재하지 않는 ID 입니다.</font>';
-		}
-		memChkId = document.getElementsByName("mem_id")[0].value;
-	}
-}
 function sendMessage() {
 	var memId = document.getElementsByName("mem_id")[0];
-	if(memId.value.length < 4 ){
-		document.getElementById("memChk_res").innerHTML='<font color="red" id="memChk_ok">아이디는 최소 5자로 입력하세요.</font>';
-		memId.focus();
-		return false;
-	}
+	console.log(memId);
 	var memChk = document.getElementById("memChk_ok");
-	if(memChkId != mem_id.value || memChk == null || memChk.length == 0 ){
+	if(memChkId != memId.value() || memChk == null || memChk.length == 0 ){
 		document.getElementById("memChk_res").innerHTML='<font color="red" id="memChk_ok">아이디 확인을 해주세요.</font>';
 		memId.focus();
 		return false;
@@ -55,7 +25,7 @@ function sendMessage() {
 	xhr.onreadystatechange=sendMessageResult;
 	xhr.open("post","${pageContext.request.contextPath}/msgSendForm",true);	
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xhr.send("sendMemId=${mem_id}&receiveMemId=" + mem_id.value+"&content="+contHtml);
+	xhr.send("sendMemId=${mem_id}&receiveMemId=" + memId.value+"&content="+contHtml);
 }
 function sendMessageResult() {
 	if(xhr.readyState==4 && xhr.status==200){
@@ -68,10 +38,10 @@ function sendMessageResult() {
 		}
 	}
 }
-function detailMessage(msgNum){
+function detailMessage(num){
 	xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=detailFormHtml;
-	xhr.open("get","${pageContext.request.contextPath}/msg${type=='SEND'?'Send':'Receive'}Detail?msgNum="+msgNum,true);
+	xhr.open("get","${pageContext.request.contextPath}/msg${type=='SEND'?'Send':'Receive'}Detail?msgNum="+num,true);
 	xhr.send();
 }
 function detailSendForm(){
@@ -101,10 +71,10 @@ function detailClose() {
 		</div>
 		<div>
 			<a 
-				href="${pageContext.request.contextPath}/msgReceiveList?memId=${msgNum}">받은쪽지함</a>
+				href="${pageContext.request.contextPath}/msgReceiveList?memId=${mem_id }&msgType=RECEIVE">받은쪽지함</a>
 			<a 
-				href="${pageContext.request.contextPath}/msgSendList?memId=${msgNum}">보낸쪽지함</a>
-			<table class="myPageTable">
+				href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND">보낸쪽지함</a>
+			<table  border=1 width:500>
 				<tr>
 					<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
 					<th>쪽지내용</th>
