@@ -128,28 +128,40 @@ function addCity(city, country, lat, lng) {
 function setRouteDiv() {
 	var str = "";
 	for(var i = 0 ; i < routelist.length ; i++){
-		str += "<div style = 'padding: 5px;margin-bottom:10px;border-top:1px solid #aaa;border-bottom:1px solid #aaa;'>" +
-					"<div style = 'height:50px;display:inline-block;float:left;'>" +
-						"<select id = 'stay' style = 'margin-top:15px;margin-right:5px;'>" +
-							"<option value = '0'>0박</option>" +
-							"<option value = '1' selected = 'selected'>1박</option>" +
-							"<option value = '2'>2박</option>" +
-							"<option value = '1'>1박</option>" +
-							"<option value = '1'>1박</option>" +
-							"<option value = '1'>1박</option>" +
-							"<option value = '1'>1박</option>" +
-							"<option value = '1'>1박</option>" +
-							"<option value = '1'>1박</option>" +
-							"<option value = '1'>1박</option>" +
-						"</select>" +
+		str += "<div style = 'padding-left: 5px;'>" +
+				"<div style='width:28px;height:7pt;border-right:3px solid skyblue'></div>" +
+					"<div style = 'width:50px;height:50px;display:inline-block;float:left;margin-right:15px;border:3px solid skyblue;border-radius:28px;'>" +
+						"<select id = 'stay" + i + "' style = 'margin-top:15px;margin-left:2px;' onchange = 'javascript:changeStay(" + i + ")'>";
+							for(var j = 0 ; j < 10 ; j++){
+								str += "<option value = '" + j + "' ";
+								if(j == routelist[i].stay){
+									str += "selected = 'selected'";
+								}
+								str += ">" + j + "박</option>";
+							}
+				str += "</select>" +
 					"</div>" +
 					"<div>" +
 						"<span style = 'font-size:20px;font-weight:bold;'>" + routelist[i].city + "</span><span> " + routelist[i].country + "</span>" +
 						"<p style = 'font-size:12px;color:gray;margin-top: 5px;'>" + formatDate(routelist[i].date_in) + "~" + formatDate(routelist[i].date_out) + "</p>" +
 					"</div>" +
+					"<div style='width:28px;height:7pt;border-right:3px solid skyblue;clear:both;'></div>" +
 				"</div>";
+		if(i < routelist.length - 1){
+			str += "<div style='width:28px;height:15pt;padding-left: 5px;border-right:3px solid skyblue;'></div>";
+		}
 		$('#route').html(str);
 	}
+}
+// 머무는 날짜 바꾸면 동작하는 함수
+function changeStay(i) {
+	var stay = $("#stay" + i).val();
+	// routelist의 해당 배열 stay 수정
+	routelist[i].stay = stay;
+	// routelist의 모든 date_in, date_out 수정
+	var date = $("#startDate").val();
+	setRouteDate(date);
+	setRouteDiv();
 }
 // Date 객체를 format해서 리턴하는 함수
 function formatDate(date) {
