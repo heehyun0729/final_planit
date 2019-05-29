@@ -9,9 +9,11 @@ Route = function(city, country, lat, lng, stay, date_in, date_out) {
 	this.date_out=date_out;
 }
 var key = 'AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo';
+var markers = [];
+var map;
 function initMap() {
 	// 지도 초기화
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 46.519, lng: 6.632},
       zoom: 5,
       mapTypeId: 'roadmap',
@@ -76,10 +78,19 @@ function initMap() {
 	    	    marker.setMap(null);
 		        map.setCenter(place.geometry.location);
 		        // 마커 만들기
+		        var icon = "/planit/resources/planImages/marker.png";
+		        var image = {
+        		  url: icon,
+        		  size: new google.maps.Size(71, 71),
+        		  origin: new google.maps.Point(0, 0),
+        		  anchor: new google.maps.Point(17, 34),
+        		  scaledSize: new google.maps.Size(25, 25)
+        		};
 		        marker = new google.maps.Marker({
 		          map: map,
 		          title: place.name,
-		          position: place.geometry.location
+		          position: place.geometry.location,
+		          icon: image
 		        });
 		        // 마커 위치에 인포윈도우 만들고 도시명, 국가명 띄우기
 		        var params = "\"" + city + "\",\"" + country + "\",\"" + lat + "\",\"" + lng + "\"";
@@ -102,6 +113,30 @@ function initMap() {
 		});
     });
   }
+// 지도에 마커, 경로 추가하는 함수
+function setMapRoute() {
+	 markers.forEach(function(marker) {
+         marker.setMap(null);
+     });
+     markers = [];
+     
+	var icon = "/planit/resources/planImages/circle.png";
+    var image = {
+	  url: icon,
+	  origin: new google.maps.Point(0, 0),
+	  anchor: new google.maps.Point(17, 34),
+	  scaledSize: new google.maps.Size(25, 25)
+	};
+	for(var i = 0 ; i < routelist.length ; i++){
+		markers.push(new google.maps.Marker({
+			map: map,
+			icon: image,
+			title: routelist[i].city,
+			position: {lat: Number(routelist[i].lat), lng: Number(routelist[i].lng)},
+			label: routelist[i].stay.toString()
+		}));
+	}
+}
 // routelist에 도시 정보 추가, 왼쪽 div에 정보 추가하는 함수
 function addCity(city, country, lat, lng) {
 	// 머무르는 날짜 구하기
@@ -123,6 +158,7 @@ function addCity(city, country, lat, lng) {
 	// routelist 배열에 Route 객체 추가
 	routelist[routelist.length] = new Route(city, country, lat, lng, 1, date_in, date_out);
 	setRouteDiv();
+	setMapRoute();
 }
 // 왼쪽 div에 정보 추가
 function setRouteDiv() {
@@ -162,6 +198,7 @@ function changeStay(i) {
 	var date = $("#startDate").val();
 	setRouteDate(date);
 	setRouteDiv();
+	setMapRoute();
 }
 // Date 객체를 format해서 리턴하는 함수
 function formatDate(date) {
