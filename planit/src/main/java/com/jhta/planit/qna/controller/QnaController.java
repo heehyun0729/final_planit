@@ -24,12 +24,13 @@ public class QnaController {
 	public ModelAndView insert(QnaVo vo) {
 		ModelAndView mv=new ModelAndView("/qna/result");
 		int n=service.insert(vo);
+		System.out.println("id:" + vo.getMem_id());
 		if(n>0) {
+			
 			mv.addObject("result","success");
 		}else {
 			mv.addObject("result","fail");
 		}
 		return mv;
 	}
-	
 }
