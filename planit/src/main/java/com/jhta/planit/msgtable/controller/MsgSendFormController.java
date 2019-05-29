@@ -21,6 +21,7 @@ public class MsgSendFormController {
 	public String join() {
 		return "/msgtable/member_myMsgSend";
 	}
+	
 	@RequestMapping(value="/msgSendForm",method = RequestMethod.POST) 
 	@ResponseBody
 	public Object joinOk(MsgTableVo vo) {

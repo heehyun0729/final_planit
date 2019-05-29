@@ -35,6 +35,7 @@ public class MsgReceiveListController {
 		}else {
 			
 		}
+		
 		map.put("type", msgType);
 		int totalRowCount = service.count(map);
 		PageUtil pu = new PageUtil(pageNum,totalRowCount,5,5);

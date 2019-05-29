@@ -35,7 +35,6 @@ public class MsgSendListController {
 			
 		}
 		map.put("type", msgType);
-		
 		int totalRowCount = service.count(map);
 		PageUtil pu = new PageUtil(pageNum,totalRowCount,5,5);
 		map.put("startRow",pu.getStartRow());

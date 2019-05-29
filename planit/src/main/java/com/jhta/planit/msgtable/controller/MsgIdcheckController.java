@@ -20,6 +20,7 @@ public class MsgIdcheckController {
 		map.put("mem_id",memId);
 		MembersVo vo = service.idCheck(memId);
 		JSONObject json = new JSONObject();
+		
 		if (vo != null) {
 			json.put("code", "success");
 		} else {

@@ -31,6 +31,7 @@ public class MsgReceiveDetailController {
 		}else {
 			
 		}
+		
 		map.put("type", msgType);
 		MsgTableVo vo = service.find(msgNum);
 		service.updateMsgCheck(msgNum);

@@ -210,7 +210,7 @@ function detailClose() {
 		<div>
 			<br/> <input id="msgSendBtn" class="userMypageUpdateBtn"
 				type="button" value="쪽지보내기" onclick="detailSendForm()" /><br>
-			<br/> <a href="<c:url value='/'/>">메인페이지</a>
+			<br/> <a href="<c:url value='/'/>">메인 페이지</a>
 		</div>
 	</div>
 </div>
