@@ -212,4 +212,15 @@ $(document).ready(function() {
 			event.preventDefault();
 		}
 	});
+	
+	$(".joinhref").click(function(event){
+		let picheck=$("#personal_information_terms_agree").prop("checked");
+		let termscheck=$("#terms_agree").prop("checked");
+		console.log("약관에 동의해 주십시오");
+		if (!picheck||!termscheck) {
+			$("#plzcheckMsg").text("약관에 동의해 주십시오");
+			$("#plzcheckMsg").attr("style", "color:red");
+			event.preventDefault();
+		}
+	});
 });

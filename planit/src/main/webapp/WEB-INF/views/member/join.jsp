@@ -47,8 +47,8 @@
 			</c:forEach>
 			
 		</select>
-		<!-- onclick,onchange로 해보기 -->
 		<br>
+		<label for="sellck"></label>
 		<input type="submit" value="가입">
 	</form>
 	<div id="submitError"></div>
