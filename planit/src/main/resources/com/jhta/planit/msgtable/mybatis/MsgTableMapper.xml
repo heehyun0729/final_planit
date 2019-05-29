@@ -6,11 +6,10 @@
 	<insert id="insert"
 		parameterType="com.jhta.planit.msgtable.vo.MsgTableVo">
 		insert into MSGTABLE
-		values(MsgTable_SEQ.nextval,#{msgContent},#{SendUserId},#{ReceiveUserId},sysdate,0,1)
+		values(MsgTable_SEQ.nextval,#{msgContent},#{sendMemId},#{receiveMemId},sysdate,0,1)
 	</insert>
 	<sql id="search">
 		<where>
-		
 			<if test="type=='receiveMemId'">
 			receiveMemId=#{mem_id}
 			</if>

@@ -1,12 +1,12 @@
 package com.jhta.planit.msgtable.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.jhta.planit.msgtable.service.MsgTableService;
 import com.jhta.planit.msgtable.vo.MsgTableVo;
 import com.jhta.planit.user.vo.MembersVo;
@@ -21,15 +21,16 @@ public class MsgSendFormController {
 	public String join() {
 		return "/msgtable/member_myMsgSend";
 	}
-	@RequestMapping(value="/msgSendForm",method = RequestMethod.POST) //jsonÄÚµå 
-	public ModelAndView joinOk(MsgTableVo vo) {
-		int n =service.insert(vo);
-		ModelAndView mv =new ModelAndView("/msgtable/member_result");
-		if(n>0) {
-			mv.addObject("result", "success");
-		}else {
-			mv.addObject("result", "fail");
+	@RequestMapping(value="/msgSendForm",method = RequestMethod.POST) 
+	@ResponseBody
+	public Object joinOk(MsgTableVo vo) {
+		int n = service.insert(vo);
+		JSONObject json = new JSONObject();
+		if (n>0) {
+			json.put("code", "success");
+		} else {
+			json.put("code", "fail");
 		}
-		return mv;
+		return json.toString();
 	}
 }

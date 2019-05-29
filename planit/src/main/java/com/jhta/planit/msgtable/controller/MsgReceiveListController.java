@@ -35,21 +35,12 @@ public class MsgReceiveListController {
 		}else {
 			
 		}
-		System.out.println("g");
 		map.put("type", msgType);
 		int totalRowCount = service.count(map);
 		PageUtil pu = new PageUtil(pageNum,totalRowCount,5,5);
 		map.put("startRow",pu.getStartRow());
 		map.put("endRow",pu.getEndRow());
-		 Iterator<String> iterator = map.keySet().iterator();
-		 while (iterator.hasNext()) {
-		        String key = (String) iterator.next();
-		        System.out.print("key="+key);
-		        System.out.println(" value="+map.get(key));
-		    }
-
 		List<MsgTableVo> list = service.list(map);
-		
 		ModelAndView mv = new ModelAndView(".msgtable.member_myMsgList");
 		mv.addObject("list", list);
 		mv.addObject("type", "RECEIVE");

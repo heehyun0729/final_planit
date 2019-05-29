@@ -4,13 +4,13 @@
 	<tr>
 		<td>받을사람</td>
 		<td>
-			<input type="text" id="memId" name="memId" value="${param.mem_id }" /> <input class="userMsgOkBtn" type="button" value="확인" onclick="checkUser()" /><span id="memChk_res"></span>
+			<input type="text" id="memId" name="memId" /> <input type="button" value="확인" onclick="checkId()" /><span id="memChk_res"></span>
 		</td>
 	</tr>
 	<tr>
 		<td>쪽지내용</td>
 		<td>
-			<textarea rows="5" cols="70%" id="textarea1" name="content"></textarea>
+			<textarea rows="5" cols="70%" id="content" name="content"></textarea>
 		</td>
 	</tr>
 </table>
