@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.planit.msgtable.service.MsgTableService;
 import com.jhta.planit.msgtable.vo.MsgTableVo;
+import com.jhta.planit.user.vo.MembersVo;
 
 @Controller
 public class MsgSendFormController {
@@ -20,7 +21,7 @@ public class MsgSendFormController {
 	public String join() {
 		return "/msgtable/member_myMsgSend";//뷰이름!
 	}
-	@RequestMapping(value="/msgSendForm",method = RequestMethod.POST)
+	@RequestMapping(value="/msgSendForm",method = RequestMethod.POST) //json코드 
 	public ModelAndView joinOk(MsgTableVo vo) {
 		int n =service.insert(vo);
 		ModelAndView mv =new ModelAndView("/msgtable/member_result");

@@ -14,7 +14,7 @@
 		<c:choose>
 			<c:when test="${sessionScope.mem_id!=null }">
 				<li><a href="<c:url value='/logout'/>">로그아웃</a></li>
-				<li><a href="<c:url value="/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>">쪽지</a></li>
+				<li><a href="<c:url value="/msgReceiveList?memId=${sessionScope.mem_id }&msgType=RECEIVE"/>">쪽지</a></li>
 			</c:when>
 			<c:otherwise>
 				<li><a href="<c:url value='/login'/>">로그인</a></li>
