@@ -63,4 +63,5 @@ public class AcommQnaVo {
 	public void setAcommQna_ref(int acommQna_ref) {
 		this.acommQna_ref = acommQna_ref;
 	}
+	
 }
