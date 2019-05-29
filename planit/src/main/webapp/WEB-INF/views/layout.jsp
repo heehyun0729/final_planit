@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/map.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <script type="text/javascript" src = "<c:url value = '/resources/js/jquery-3.4.0.min.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/map.js'/>"></script>
