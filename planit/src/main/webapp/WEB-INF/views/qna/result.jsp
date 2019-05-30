@@ -10,5 +10,5 @@
 			<h1>오류로 인해 요청작업을 실패했습니다.</h1>
 		</c:otherwise>
 	</c:choose>
-<a href="${pageContext.request.contextPath }/insertQna">돌아가기</a>
+<a href="${pageContext.request.contextPath }/qnaList">돌아가기</a>
 </div>

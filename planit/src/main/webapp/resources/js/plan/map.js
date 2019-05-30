@@ -1,3 +1,25 @@
+var key = "";
+$(function() {
+	// key 설정
+	$.getJSON('/planit/apiKey', function(data) {
+		key = data.key;
+	});
+	// datepicker 설정
+	$("#startDate").datepicker({
+		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
+                        "8월", "9월", "10월", "11월", "12월"],	
+		yearSuffix: "년",	
+		showMonthAfterYear: true,	
+		dateFormat: "yy-mm-dd",
+		onSelect: function(date) {
+			$(this).datepicker( "hide" );
+			setRouteDate(date);
+		}
+	});
+	$('#startDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
+});
+
 var routelist = [];
 Route = function(city, country, lat, lng, stay, date_in, date_out) {
 	this.city = city;
@@ -8,10 +30,90 @@ Route = function(city, country, lat, lng, stay, date_in, date_out) {
 	this.date_in=date_in;
 	this.date_out=date_out;
 }
-var key = 'AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo';
 var markers = [];
+var arrow, line;
 var map;
+
 function initMap() {
+	// 지도 스타일
+	var styledMapType = new google.maps.StyledMapType([
+  	  {
+  	    "featureType": "administrative",
+  	    "elementType": "geometry",
+  	    "stylers": [{ "visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "administrative",
+  	    "elementType": "labels.icon",
+  	    "stylers": [{ "color": "#c5c5c5"}]
+  	  },
+  	  {
+  	    "featureType": "administrative",
+  	    "elementType": "labels.text.stroke",
+  	    "stylers": [{"visibility": "off" }]
+  	  },
+  	  {
+  	    "featureType": "administrative.country",
+  	    "elementType": "labels.text.fill",
+  	    "stylers": [{"color": "#acacac"}]
+  	  },
+  	  {
+  	    "featureType": "administrative.locality",
+  	    "elementType": "labels.text.fill",
+  	    "stylers": [{"color": "#bcbcbc"}]
+  	  },
+  	  {
+  	    "featureType": "landscape",
+  	    "stylers": [{"color": "#ffffff"}]
+  	  },
+  	  {
+  	    "featureType": "landscape.man_made",
+  	    "elementType": "geometry.fill",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "landscape.man_made",
+  	    "elementType": "geometry.stroke",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "poi",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "poi",
+  	    "elementType": "labels.text",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "road",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "road",
+  	    "elementType": "labels",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "road",
+  	    "elementType": "labels.icon",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "transit",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "water",
+  	    "elementType": "geometry.fill",
+  	    "stylers": [{"color": "#cfedf8"}]
+  	  },
+  	  {
+  	    "featureType": "water",
+  	    "elementType": "labels.text",
+  	    "stylers": [{"visibility": "off"} ]
+  	  }
+  	]);
 	// 지도 초기화
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 46.519, lng: 6.632},
@@ -23,9 +125,10 @@ function initMap() {
       scaleControl: false,
       streetViewControl: false,
       rotateControl: false,
-      fullscreenControl: false
+      fullscreenControl: false,
     });
-    
+    map.mapTypes.set('styled_map', styledMapType);
+    map.setMapTypeId('styled_map');
     // 자동완성검색
     var options = { types: ['(cities)'] };	// 장소 검색 범위를 도시로 제한
     var addrBox = document.getElementById('addrBox');
@@ -115,11 +218,29 @@ function initMap() {
   }
 // 지도에 마커, 경로 추가하는 함수
 function setMapRoute() {
-	 markers.forEach(function(marker) {
-         marker.setMap(null);
-     });
-     markers = [];
-     
+	// 기존 마커, 경로 삭제
+	markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+    markers = [];
+    
+    // 경로 화살표 모양 설정
+    arrow = {
+	  path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+	};
+	line = new google.maps.Polyline({
+	  icons: [{
+	    icon: arrow,
+	    offset: '100%'
+	  }],
+	  strokeColor: '#878787',
+	  strokeOpacity: 0.9,
+	  strokeWeight: 2,
+	  map: map
+	});
+	var path = line.getPath();
+    
+    // 마커 모양 설정
 	var icon = "/planit/resources/planImages/circle.png";
     var image = {
 	  url: icon,
@@ -128,6 +249,9 @@ function setMapRoute() {
 	  scaledSize: new google.maps.Size(25, 25)
 	};
 	for(var i = 0 ; i < routelist.length ; i++){
+		// 선 그리기
+		path.push(new google.maps.LatLng({lat: Number(routelist[i].lat), lng: Number(routelist[i].lng)}));
+		// 마커 그리기
 		markers.push(new google.maps.Marker({
 			map: map,
 			icon: image,
@@ -230,19 +354,3 @@ function setRouteDate(date) {
 	}
 	setRouteDiv();
 }
-// datepicker 설정
-$(function() {
-	$("#startDate").datepicker({
-		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
-		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
-                        "8월", "9월", "10월", "11월", "12월"],	
-		yearSuffix: "년",	
-		showMonthAfterYear: true,	
-		dateFormat: "yy-mm-dd",
-		onSelect: function(date) {
-			$(this).datepicker( "hide" );
-			setRouteDate(date);
-		}
-	});
-	$('#startDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
-});

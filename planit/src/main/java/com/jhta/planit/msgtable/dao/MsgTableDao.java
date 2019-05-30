@@ -34,10 +34,13 @@ public class MsgTableDao {
 		return sqlSession.selectOne(NAMESPACE+".prev",num);
 	}
 	public int update1(MsgTableVo vo) {
-		return sqlSession.delete(NAMESPACE+".update1",vo);
+		return sqlSession.update(NAMESPACE+".update1",vo);
+	}
+	public int update2(MsgTableVo vo) {
+		return sqlSession.update(NAMESPACE+".update2",vo);
 	}
 	public int updateMsgCheck(int msgNum) {
-		return sqlSession.delete(NAMESPACE+".updateMsgCheck",msgNum);
+		return sqlSession.update(NAMESPACE+".updateMsgCheck",msgNum);
 	}
 	public MsgTableVo find(int msgNum) {
 		return sqlSession.selectOne(NAMESPACE+".find",msgNum);

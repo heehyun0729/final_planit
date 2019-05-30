@@ -20,4 +20,7 @@ public class QnaService {
 	public int insert(QnaVo vo) {
 		return dao.insert(vo);
 	}
+	public QnaVo detail(int qna_num) {
+		return dao.detail(qna_num);
+	}
 }

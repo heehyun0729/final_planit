@@ -2,19 +2,27 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhta.planit.mypatis.QnaMapper">
-	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.qna.vo">
+<mapper namespace="com.jhta.planit.qna.mybatis.QnaMapper">
+	<insert id="insert" parameterType="com.jhta.planit.qna.vo.QnaVo">
+		insert into qna
+		values(qna_num_seq.nextval,#{mem_id},#{qna_cate},#{qna_title},#{qna_content},sysdate) 
+	</insert>
+	
+	<!-- list -->
+	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.qna.vo.QnaVo">
 		select * from(
 		select qa.*,rownum rnum from(
 		select * from qna
-		<include refid="search"/>
-		order by num desc
+		order by qna_num desc
 		)qa
 		)
-		<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
-	</select>  
-	<insert id="insert" parameterType="com.jhta.planit.qna.vo">
-		into into qna
-		values(qna_num_seq.nextval,#{qna_cate},#{qna_title},#{qna.content},sysdate) 
-	</insert>
+		<!-- 
+			<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+		
+		 -->
+	</select> 
+	<select id="details" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
+		select * from qna where qna_num=#{qna_num}
+	</select>
+	
 </mapper>

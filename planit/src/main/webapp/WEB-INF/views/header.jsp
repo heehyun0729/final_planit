@@ -8,7 +8,7 @@
 		<li><a href = "<c:url value='/plan'/>">계획짜기</a></li>
 		<li><a href = "<c:url value='/buddyList'/>">동행찾기</a></li>
 		<li><a href = "<c:url value='/adminHome'/>">관리자페이지</a></li>
-		<li><a href = "<c:url value='/qna'/>">여행문의</a></li>
+		<li><a href = "<c:url value='/qnaList'/>">여행문의</a></li>
 		<li><a href = "<c:url value='/acommQna'/>">숙소문의</a></li>
 		
 	</ul>
@@ -16,7 +16,7 @@
 		<c:choose>
 			<c:when test="${sessionScope.mem_id!=null }">
 				<li><a href="<c:url value='/logout'/>">로그아웃</a></li>
-				<li><a href="<c:url value="/msgReceiveList?memId=${sessionScope.mem_id }&msgType=RECEIVE"/>">쪽 지</a></li>
+				<li><a href="<c:url value="/msgReceiveList?memId=${sessionScope.mem_id }&msgType=RECEIVE"/>">쪽지함</a></li>
 			</c:when>
 			<c:otherwise>
 				<li><a href="<c:url value='/login'/>">로그인</a></li>

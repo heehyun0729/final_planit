@@ -19,4 +19,13 @@
 	<select id="nickcheck" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="String">
 		select * from members where mem_nickname=#{mem_nickname}
 	</select>
+	<insert id="createAuthKey" parameterType="hashmap">
+		insert into userAuth values(#{mem_email}, #{authKey}, #{mem_id})
+	</insert>
+	<update id="userAuth" parameterType="String">
+		<![CDATA[update members set mem_stat = 2 where (select count(*) from userAuth where mem_email = #{mem_email}) > 0]]>
+	</update>
+	<select id="userAuthChk" parameterType="String" resultType="Integer">
+		select nvl(mem_state,0) from members where mem_email=#{mem_email};
+	</select>
 </mapper>

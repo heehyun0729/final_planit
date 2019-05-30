@@ -2,22 +2,23 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhta.planit.msgtable.mybatis.MsgTableMapper">
+<mapper
+	namespace="com.jhta.planit.msgtable.mybatis.MsgTableMapper">
 	<insert id="insert"
 		parameterType="com.jhta.planit.msgtable.vo.MsgTableVo">
 		insert into MSGTABLE
-		values(MsgTable_SEQ.nextval,#{msgContent},#{sendMemId},#{receiveMemId},sysdate,0,1)
+		values(MsgTable_SEQ.nextval,#{msgContent},#{sendMemId},#{receiveMemId},sysdate,0,1,1)
 	</insert>
 	<sql id="search">
 		<where>
 			<if test="type=='receiveMemId'">
-			receiveMemId=#{mem_id}
+				 receiveMemId=#{mem_id} and msgDeletee!=#{mem_id}
 			</if>
 			<if test="type=='sendMemId'">
-			 sendMemId=#{mem_id}
+				 sendMemId=#{mem_id} and msgDelete!=#{mem_id}
 			</if>
 			<if test="field!=null and field!=''">
-			 and ${field} like '%'||#{keyword}||'%'
+				and ${field} like '%'||#{keyword}||'%'
 			</if>
 		</where>
 	</sql>
@@ -25,7 +26,8 @@
 		select NVL(count(*),0) cnt from MSGTABLE
 		<include refid="search" />
 	</select>
-	<select id="listAll" resultType="com.jhta.planit.msgtable.vo.MsgTableVo"
+	<select id="listAll"
+		resultType="com.jhta.planit.msgtable.vo.MsgTableVo"
 		parameterType="hashmap">
 		select * from(
 		select aa.*,rownum rnum from(
@@ -56,7 +58,8 @@
 		)
 		where rownum=1
 	</select>
-	<select id="find" resultType="com.jhta.planit.msgtable.vo.MsgTableVo"
+	<select id="find"
+		resultType="com.jhta.planit.msgtable.vo.MsgTableVo"
 		parameterType="int">
 		select * from MSGTABLE where msgNum=#{msgNum}
 	</select>
@@ -65,8 +68,14 @@
 		update MSGTABLE set msgDelete=#{msgDelete} where
 		msgNum=#{msgNum}
 	</update>
+	<update id="update2"
+		parameterType="com.jhta.planit.msgtable.vo.MsgTableVo">
+		update MSGTABLE set msgDeletee=#{msgDeletee} where
+		msgNum=#{msgNum}
+	</update>
 	<update id="updateMsgCheck" parameterType="int">
-		update MSGTABLE set MSGCHECK=1 where msgNum=#{msgNum}
+		update MSGTABLE set
+		MSGCHECK=1 where msgNum=#{msgNum}
 	</update>
 
 </mapper>

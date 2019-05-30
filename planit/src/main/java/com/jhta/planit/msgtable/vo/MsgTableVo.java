@@ -10,11 +10,12 @@ public class MsgTableVo {
 	private Date msgWdate;
 	private int msgCheck;
 	private String msgDelete;
+	private String msgDeletee;
 	
 	public MsgTableVo() {}
 
 	public MsgTableVo(int msgNum, String msgContent, String sendMemId, String receiveMemId, Date msgWdate, int msgCheck,
-			String msgDelete) {
+			String msgDelete, String msgDeletee) {
 		super();
 		this.msgNum = msgNum;
 		this.msgContent = msgContent;
@@ -23,6 +24,7 @@ public class MsgTableVo {
 		this.msgWdate = msgWdate;
 		this.msgCheck = msgCheck;
 		this.msgDelete = msgDelete;
+		this.msgDeletee = msgDeletee;
 	}
 
 	public int getMsgNum() {
@@ -81,6 +83,19 @@ public class MsgTableVo {
 		this.msgDelete = msgDelete;
 	}
 
-	
+	public String getMsgDeletee() {
+		return msgDeletee;
+	}
+
+	public void setMsgDeletee(String msgDeletee) {
+		this.msgDeletee = msgDeletee;
+	}
+
+	@Override
+	public String toString() {
+		return "MsgTableVo [msgNum=" + msgNum + ", msgContent=" + msgContent + ", sendMemId=" + sendMemId
+				+ ", receiveMemId=" + receiveMemId + ", msgWdate=" + msgWdate + ", msgCheck=" + msgCheck
+				+ ", msgDelete=" + msgDelete + ", msgDeletee=" + msgDeletee + "]";
+	}
 }
 
