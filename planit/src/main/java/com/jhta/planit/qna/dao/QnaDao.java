@@ -24,4 +24,7 @@ public class QnaDao {
 	public QnaVo detail(int qna_num) {
 		return sqlSession.selectOne(NAMESPACE + ".details",qna_num);
 	}
+	public int count(HashMap<String , Object>map) {
+		return sqlSession.selectOne(NAMESPACE + ".count",map);
+	}
 }

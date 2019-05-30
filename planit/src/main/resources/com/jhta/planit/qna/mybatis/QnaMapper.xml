@@ -7,22 +7,51 @@
 		insert into qna
 		values(qna_num_seq.nextval,#{mem_id},#{qna_cate},#{qna_title},#{qna_content},sysdate) 
 	</insert>
+		
+	<sql id="search">
+		<if test="field!=null and field!=''">
+			where ${field} like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
+	<select id="count" resultType="int">
+		select NVL(count(*),0) cnt from qna
+		<include refid="search"/>
+	</select>
 	
 	<!-- list -->
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.qna.vo.QnaVo">
 		select * from(
 		select qa.*,rownum rnum from(
 		select * from qna
+		<include refid="search" />
 		order by qna_num desc
 		)qa
 		)
-		<!-- 
-			<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
-		
-		 -->
-	</select> 
+		<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+	</select>
+	 
 	<select id="details" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
 		select * from qna where qna_num=#{qna_num}
 	</select>
-	
+	<!-- next -->
+	<select id="next" parameterType="hashmap" resultType="com.jhta.planit.qna.vo.QnaVo">
+		select * from
+		(
+			select * from qna
+			<![CDATA[where qna_num>#{qna_num}]]>
+			order by qna_num asc
+		)
+		where rownum=1
+	</select>
+	<!-- prev -->
+	<select id="prev" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
+		select * from
+		(
+		select * from qna
+		<![CDATA[where qna_num>#{qna_num}]]>
+		order by num desc
+		)
+		where rownum=1
+	</select>
 </mapper>

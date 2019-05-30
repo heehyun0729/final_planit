@@ -21,5 +21,25 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="<c:url value='/qna/insertQna'/>">글쓰기</a>
+		<br>
+		<!-- 
+		
+		<div id="page">
+			<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+				<c:choose>
+					<c:when test="${pu.pageNum==i }">
+					<%--current page --%>
+					<a href='<c:url value='/qnaList?pageNum=${i }
+				</c:choose>
+			
+			</c:forEach>
+		</div>
+		<c:choose>
+			<c:when test="${sessionScope.mem_id!=null }">
+				<a href="<c:url value='/qna/insertQna'/>">글쓰기</a>
+			</c:when>
+		</c:choose>
+		 -->
+		
+		
 </div>
