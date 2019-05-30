@@ -21,5 +21,7 @@ public class QnaDao {
 	public List<QnaVo> list(HashMap<String, Object>map){
 		return sqlSession.selectList(NAMESPACE + ".list",map);
 	}
-	
+	public QnaVo detail(int qna_num) {
+		return sqlSession.selectOne(NAMESPACE + ".details",qna_num);
+	}
 }

@@ -20,6 +20,9 @@
 			<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
 		
 		 -->
-	</select>  
+	</select> 
+	<select id="details" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
+		select * from qna where qna_num=#{qna_num}
+	</select>
 	
 </mapper>

@@ -15,7 +15,7 @@
 				<tr>
 					<td>${vo.qna_num }</td>
 					<td>${vo.qna_cate }</td>
-					<td><a href='<c:url value='/qna/qnaDetails?qna_num=${vo.qna_num }'/>'>${vo.qna_title }</a></td>
+					<td><a href='<c:url value='/qnaDetails?qna_num=${vo.qna_num }'/>'>${vo.qna_title }</a></td>
 					<td>${vo.mem_id }</td>
 					<td>${vo.qna_date }</td>
 				</tr>
