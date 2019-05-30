@@ -7,16 +7,19 @@
 		insert into qna
 		values(qna_num_seq.nextval,#{mem_id},#{qna_cate},#{qna_title},#{qna_content},sysdate) 
 	</insert>
-	<!--  
+	
+	<!-- list -->
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.qna.vo.QnaVo">
 		select * from(
 		select qa.*,rownum rnum from(
 		select * from qna
-		order by num desc
+		order by qna_num desc
 		)qa
 		)
-		<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+		<!-- 
+			<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+		
+		 -->
 	</select>  
-	-->
 	
 </mapper>

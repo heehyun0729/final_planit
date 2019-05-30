@@ -18,8 +18,8 @@ public class QnaDao {
 	public int insert(QnaVo vo) {
 		return sqlSession.insert(NAMESPACE + ".insert",vo);
 	}
-	/*public List<QnaVo> list(HashMap<String, Object>map){
+	public List<QnaVo> list(HashMap<String, Object>map){
 		return sqlSession.selectList(NAMESPACE + ".list",map);
-	}*/
+	}
 	
 }

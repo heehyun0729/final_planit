@@ -16,8 +16,8 @@ public class QnaController {
 	public String qnaMain() {
 		return ".qna.qnaMain";
 	}
-	@RequestMapping(value="/insertQna",method = RequestMethod.GET)
-	public String insertQna() {
+	@RequestMapping(value="qna/insertQna",method = RequestMethod.GET)
+	public String insertQna2() {
 		return ".qna.insertQna";
 	}
 	@RequestMapping(value="/qna/insertQna",method = RequestMethod.POST)
