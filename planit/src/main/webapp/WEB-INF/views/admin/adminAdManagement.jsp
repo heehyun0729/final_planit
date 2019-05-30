@@ -110,28 +110,9 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.0.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
-<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		calendar();
-		$("#form").on('submit', function(){//에러메시지 출력
-			if($("#company").val()==""){
-				$("#companyErrMsg").fadeIn(300).delay(1000).fadeOut(300);
-				return false;	
-			}
-			if($("#file").val()==""){
-				$("#fileErrMsg").fadeIn(300).delay(1000).fadeOut(300);
-				return false;
-			}
-			if($("#url").val()==""){
-				$("#urlErrMsg").fadeIn(300).delay(1000).fadeOut(300);
-				return false;	
-			}
-			if($("#cart").children().length<3){
-				$("#cartErrMsg").fadeIn(300).delay(1000).fadeOut(300);
-				return false;
-			};
-		});
 		$("body").click(function(event) {//바디에 이벤트주기
 		    if($(event.target).hasClass('hover')) {
 		    	getChance(event);
@@ -145,46 +126,7 @@
 		    }else{
 		    	$("#chanceDiv").hide();
 		    }
-		});
-		//네이버 페이 API
-		var oPay = Naver.Pay.create({
-	          "mode" : "development", // development or production
-	          "clientId": "u86j4ripEt8LRfPGzQ8"
-	    });
-
-	    var elNaverPayBtn = document.getElementById("naverPayBtn");
-
-	    elNaverPayBtn.addEventListener("click", function() {
-	        oPay.open({
-	          "merchantUserKey": "가맹점 사용자 식별키",
-	          "merchantPayKey": "가맹점 주문 번호",
-	          "productName": "상품명을 입력하세요",
-	          "totalPayAmount": "1000",
-	          "taxScopeAmount": "1000",
-	          "taxExScopeAmount": "0",
-	          "returnUrl": "사용자 결제 완료 후 결제 결과를 받을 URL"
-	        });
-	    });
-	    //카카오페이
-		$("#kakaoPayBtn").click(function() {
-			const cid="TC0ONETIME";
-			const partner_order_id="partner_order_id";
-			const partner_user_id="partner_user_id";			
-			const item_name="Planit광고";
-			const quantity=$("input[name='order']").length;
-			const total_amount=$("input[name='ad_price']").val();
-			const vat_amount=$("input[name='ad_price']").val()/10;
-			const tax_free_amount="0";
-			const approval_url="http://localhost:9090/adminAdKakaoPayOk";
-			const fail_url="http://localhost:9090/adminAdKakaoPayFail";
-			const cancel_url="http://localhost:9090/adminAdKakaoPayCancel";
-			$.getJSON("<c:url value='/adminAdKakaoPay'/>",{cid:cid, partner_order_id:partner_order_id, partner_user_id:partner_user_id, item_name:item_name, quantity:quantity, total_amount:total_amount, vat_amount:vat_amount, tax_free_amount:tax_free_amount, approval_url:approval_url, fail_url:fail_url, cancel_url:cancel_url} ,
-					function(data) {
-				if(data!=null){
-					window.open(data.next_redirect_pc_url,"KakaoPay결제","width=450,height=500");
-				}
-			});					
-		});
+		});	    
 	});
 	var idChance=[];//id 순서별 확률 모음
 	var orderedId=[];//주문한 날짜를 포함한 id 배열
@@ -246,32 +188,6 @@
 		});
 		getPrice();
 	}
-	function getPrice(){//가격 계산
-		if($("#cart").children().length==1){
-			$("#cart").empty();
-		};
-		const orders=$("input[name='order']");
-		let price=0;
-		$("#ordersDiv").empty();
-		$.each(orders, function(){
-			const chance=parseInt($(this).val().toString().split("%")[0]);
-			const chancePrice=chance*1000;
-			const id=$(this).prop("id");
-			$("#ordersDiv").append("<input id='" + id + "orderPrice' name='orderPrice' type='hidden' value='" + chancePrice + "'>");
-			price += chancePrice;
-		});
-		$("input[name='ad_price']").val(price);
-		var reg = /(^[+-]?\d+)(\d{3})/;
-	    price += '';
-	    while (reg.test(price))
-	    price = price.replace(reg, '$1' + ',' + '$2');
-	    if($("#cart").children().length<3){
-	    	$("#cart").empty();
-	    	$("#price").html("");
-		}else{
-			$("#price").html("결제 금액 : " + price + "&#8361;");
-		};
-	}	
 	//달력에 필요한 변수
 	var realToday=new Date();
 	var today=new Date();
@@ -289,7 +205,7 @@
 	}
 	if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
 		lastDate[1]=29;
-	}	
+	}
 	var todayDay=today.getDay();//요일
 	function nextMonth(){
 		todayMonth+=1;
@@ -492,41 +408,6 @@
 <section>
 	<article class="formWrapper">
 		<div id="calendar" class="calendarWrapper"></div>
-		<input type="hidden" id="tempId">
-		<div class="stick">
-			<div id="cart"></div><br>
-			<div id="price"></div><br>
-			<form id="form" method="post" action="<c:url value="/adminAdRequestForm"/>" enctype="multipart/form-data">
-				<input type="hidden" name="mem_id" value="${mem_id }">
-				<input type="hidden" name="ad_price" value="">
-				<div id="chanceDiv" class="chanceDiv"></div>	
-				<div id="ordersDiv"></div>
-				<label for="company">회사 이름</label>
-				<br>
-				<input type="text" name="ad_company" id="company" placeholder="플랜잇(Planit)">
-				<br><span id="companyErrMsg" class="errMsg">회사 이름을 입력하세요.</span>
-				<br>
-				<label for="file">광고 이미지(50*200)</label>
-				<br>
-				<input type="file" name="file" id="file">
-				<br><span id="fileErrMsg" class="errMsg">광고할 이미지를 첨부하세요.</span>
-				<br>
-				<label for="url">연결 주소</label>
-				<br>
-				<input type="text" name="ad_url" id="url" placeholder="http://www.planit.com">
-				<br><span id="urlErrMsg" class="errMsg">연결 주소를 입력하세요.</span><span id="cartErrMsg" class="errMsg">광고를 표시할 날짜를 선택하세요.</span>
-				<br>
-				<label for="howPay">결제 방식</label>
-				<br>
-				<input type="radio" name="howPay" value="deposit">무통장입금
-				<input type="radio" name="howPay" value="creditCard">카드결제<br>
-				<input type="radio" name="howPay" value="naverPay" checked="checked">네이버페이
-				<input type="radio" name="howPay" value="kakaoPay">카카오페이<br><br><span id="payErrMsg" class="errMsg">결제 수단을 선택하세요.</span>
-				<input type="submit" value="결제하기" id="pay">
-				<input type="button" id="naverPayBtn" value="네이버페이테스트">
-				<input type="button" id="kakaoPayBtn" value="카카오페이테스트">
-			</form>
-		</div>
 	</article>
 </section>
 <footer>

@@ -10,7 +10,7 @@
 		<ul>관리
 			<li>회원 관리</li>
 			<li>게시판 관리</li>
-			<li>광고 관리</li>
+			<li><a href="<c:url value='/adminAdManagement'/>">광고 관리</a></li>
 			<li><a href="<c:url value='/adminAdRequestInfo'/>">광고 신청</a></li>
 		</ul>
 		<ul>
