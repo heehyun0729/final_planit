@@ -1,3 +1,25 @@
+var key = "";
+$(function() {
+	// key 설정
+	$.getJSON('/planit/apiKey', function(data) {
+		key = data.key;
+	});
+	// datepicker 설정
+	$("#startDate").datepicker({
+		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
+                        "8월", "9월", "10월", "11월", "12월"],	
+		yearSuffix: "년",	
+		showMonthAfterYear: true,	
+		dateFormat: "yy-mm-dd",
+		onSelect: function(date) {
+			$(this).datepicker( "hide" );
+			setRouteDate(date);
+		}
+	});
+	$('#startDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
+});
+
 var routelist = [];
 Route = function(city, country, lat, lng, stay, date_in, date_out) {
 	this.city = city;
@@ -8,9 +30,10 @@ Route = function(city, country, lat, lng, stay, date_in, date_out) {
 	this.date_in=date_in;
 	this.date_out=date_out;
 }
-var key = 'AIzaSyBJZmVpy1Zt3vbL5tusNVtcsJQnGjMLOQo';
 var markers = [];
+var arrow, line;
 var map;
+
 function initMap() {
 	// 지도 초기화
     map = new google.maps.Map(document.getElementById('map'), {
@@ -115,11 +138,29 @@ function initMap() {
   }
 // 지도에 마커, 경로 추가하는 함수
 function setMapRoute() {
-	 markers.forEach(function(marker) {
-         marker.setMap(null);
-     });
-     markers = [];
-     
+	// 기존 마커, 경로 삭제
+	markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+    markers = [];
+    
+    // 경로 화살표 모양 설정
+    arrow = {
+	  path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+	};
+	line = new google.maps.Polyline({
+	  icons: [{
+	    icon: arrow,
+	    offset: '100%'
+	  }],
+	  strokeColor: '#878787',
+	  strokeOpacity: 0.9,
+	  strokeWeight: 2,
+	  map: map
+	});
+	var path = line.getPath();
+    
+    // 마커 모양 설정
 	var icon = "/planit/resources/planImages/circle.png";
     var image = {
 	  url: icon,
@@ -128,6 +169,9 @@ function setMapRoute() {
 	  scaledSize: new google.maps.Size(25, 25)
 	};
 	for(var i = 0 ; i < routelist.length ; i++){
+		// 선 그리기
+		path.push(new google.maps.LatLng({lat: Number(routelist[i].lat), lng: Number(routelist[i].lng)}));
+		// 마커 그리기
 		markers.push(new google.maps.Marker({
 			map: map,
 			icon: image,
@@ -230,19 +274,3 @@ function setRouteDate(date) {
 	}
 	setRouteDiv();
 }
-// datepicker 설정
-$(function() {
-	$("#startDate").datepicker({
-		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
-		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
-                        "8월", "9월", "10월", "11월", "12월"],	
-		yearSuffix: "년",	
-		showMonthAfterYear: true,	
-		dateFormat: "yy-mm-dd",
-		onSelect: function(date) {
-			$(this).datepicker( "hide" );
-			setRouteDate(date);
-		}
-	});
-	$('#startDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
-});
