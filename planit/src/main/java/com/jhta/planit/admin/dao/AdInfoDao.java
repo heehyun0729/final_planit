@@ -17,6 +17,9 @@ public class AdInfoDao {
 	public int insert(AdInfoVo adInfoVo) {
 		return sqlSession.insert(NAMESPACE + "insert", adInfoVo);
 	}
+	public int getRecentAdInfoNum() {
+		return sqlSession.selectOne(NAMESPACE + "getRecentAdInfoNum");
+	}	 
 	public List<AdInfoVo> getChance(HashMap<String, Object> map) {
 		return sqlSession.selectList(NAMESPACE + "getChance", map);
 	}
