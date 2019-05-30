@@ -1,5 +1,7 @@
 package com.jhta.planit.user.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +20,23 @@ public class MembersJoinController {
 	@Autowired private MembersService service;
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String joinchoiceForm() {
-		return "member/joinchoice";
+		return "user/joinchoice";
 	}
 	
 	@RequestMapping(value = "/nomaljoin", method = RequestMethod.GET)
 	public String joinForm() {
-		return "member/join";
+		return "user/join";
 	}
 
 	@RequestMapping(value = "/nomaljoin", method = RequestMethod.POST)
-	public String join(MembersVo vo, Model model,RedirectAttributes attributes) throws Exception{
+	public String join(MembersVo vo, Model model, RedirectAttributes attributes) throws Exception{
 		int n = service.membersJoin(vo);
-
-		System.out.println("@@@@@!!!!!!!!! testcontroller !!!!!!!!!!!!@@@@@@@@@@@@");
 		if (n>0) {
-			attributes.addFlashAttribute("authMsg", "메일인증을 완료해 주시기 바랍니다");
-			return "redirect:/"	;
+			attributes.addFlashAttribute("authMsg", "가입이 완료되었습니다. 메일 인증해 주시기 바랍니다.");
+			return "redirect:/member/result";
 		}else {
 			model.addAttribute("vo", vo);
-			return "member/join";
+			return "user/join";
 		}
 	}
 	
@@ -79,5 +79,25 @@ public class MembersJoinController {
 			result = 1;
 		}
 		return result;
+	}
+	
+	@RequestMapping("/member/result")
+	public String result(){
+		return ".member.result";
+	}
+	
+	@RequestMapping(value = "/member/emailConfirm", method = RequestMethod.GET)
+	public String emailConfirm(String mem_email, String key, RedirectAttributes attributes) throws Exception { // 이메일인증
+		HashMap<String, String> map=new HashMap<String, String>();
+		map.put("mem_email", mem_email);
+		map.put("authKey", key);
+		int n = service.userAuth(map);
+		if (n>0) {
+			String mem_id=service.getId(mem_email);
+			attributes.addFlashAttribute("authMsg", mem_id+"님의 인증이 끝났습니다. 회원가입을 진심으로 축하합니다.");
+		}else {
+			attributes.addFlashAttribute("authMsg", "인증이 완료되었거나 존재하지 않는 회원입니다.");
+		}
+		return "redirect:/member/result";
 	}
 }

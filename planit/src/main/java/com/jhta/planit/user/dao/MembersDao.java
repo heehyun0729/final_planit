@@ -10,8 +10,7 @@ import com.jhta.planit.user.vo.MembersVo;
 
 @Repository
 public class MembersDao {
-	@Autowired
-	private SqlSession sqlSession;
+	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jhta.planit.user.mybatis.membersMapper";
 
 	public int membersJoin(MembersVo vo) {
@@ -34,7 +33,7 @@ public class MembersDao {
 		return sqlSession.selectOne(NAMESPACE + ".nickcheck", mem_nickname);
 	}
 
-	public int createAuthKey(HashMap<String, Object>map) {
+	public int createAuthKey(HashMap<String, Object> map) {
 		return sqlSession.insert(NAMESPACE + ".createAuthKey", map);
 	}
 
@@ -42,8 +41,15 @@ public class MembersDao {
 		return sqlSession.selectOne(NAMESPACE + ".userAuthChk", userEmail);
 	}
 
-	public int userAuth(String userEmail) throws Exception {
-		return sqlSession.update(NAMESPACE + ".userAuth", userEmail);
+	public int userAuth(HashMap<String, String> map) throws Exception {
+		return sqlSession.update(NAMESPACE + ".userAuth", map);
 	}
 
+	public int delAuth(String mem_email) {
+		return sqlSession.delete(NAMESPACE + ".delAuth", mem_email);
+	}
+
+	public String getId(String mem_email) {
+		return sqlSession.selectOne(NAMESPACE + ".getid", mem_email);
+	}
 }

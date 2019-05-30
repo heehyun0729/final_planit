@@ -37,13 +37,12 @@ public class MembersService {
 		dao.createAuthKey(map);
 
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[Planit 서비스 이메일 인증]");
+		sendMail.setSubject("[Planit 서비스 이메일 인증(네이버 담당자님! 웹구현 테스트 중입니다! 절대 스팸 아닙니다!)]");
 		sendMail.setText(
-				new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:9090/planit/member/emailConfirm?user_email=").append(vo.getMem_email()).append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>").toString());
+				new StringBuffer().append("<h1>Planit 회원 가입 인증</h1>").append("<a href='http://localhost:9090/planit/member/emailConfirm?mem_email=").append(vo.getMem_email()).append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>").toString());
 		sendMail.setFrom("limsr95@gmail.com", "Planit");
 		sendMail.setTo(vo.getMem_email());
 		sendMail.send();
-		System.out.println("@@@@@!!!!!!!!! testservice !!!!!!!!!!!!@@@@@@@@@@@@");
 		return n;
 	}
 
@@ -66,5 +65,20 @@ public class MembersService {
 
 	public MembersVo nickCheck(String mem_nickname) {
 		return dao.nickcheck(mem_nickname);
+	}
+	
+	public String getId(String mem_email) {
+		return dao.getId(mem_email);
+	}
+	
+	@Transactional
+	public int userAuth(HashMap<String, String> map) throws Exception {
+		Integer mem_stat = dao.userAuthChk(map.get("mem_email"));
+		if (mem_stat == 5) {
+			int n = (dao.userAuth(map) == dao.delAuth(map.get("mem_email"))) ? 1 : -1;
+			return n;
+		} else {
+			return 0;
+		}
 	}
 }
