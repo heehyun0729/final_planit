@@ -16,8 +16,14 @@ public class BuddyDao {
 		this.sqlSession = sqlSession;
 	}
 	
-	public int insert(BuddyVo vo) {
+	public int buddyInsert(BuddyVo vo) {
 		return sqlSession.insert(NAMESPACE + ".buddy_insert",vo);
+	}
+	public int buddyCountryInsert(BuddyVo vo) {
+		return sqlSession.insert(NAMESPACE + ".buddyCountry_insert",vo);
+	}
+	public int buddyCityInsert(BuddyVo vo) {
+		return sqlSession.insert(NAMESPACE + ".buddyCity_insert",vo);
 	}
 	
 	public List<BuddyVo> showAll(){
