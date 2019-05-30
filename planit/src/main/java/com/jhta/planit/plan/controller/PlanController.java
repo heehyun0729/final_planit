@@ -4,9 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -16,7 +19,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PlanController {
 	@RequestMapping("/plan")
-	public String planHome() {
+	public String planHome(HttpSession session) {
+		FileReader fr = null;
+		String key = "";
+		try {
+			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\js\\plan\\apiKey1.txt"));
+			while(true) {
+				int n = fr.read();
+				if(n == -1) break;
+				key += (char)n;
+			}
+			session.setAttribute("key", key);
+		}catch(FileNotFoundException fe){
+			fe.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				fr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return ".plan.planner";
 	}
 
@@ -51,7 +75,7 @@ public class PlanController {
 		FileReader fr = null;
 		String key = "";
 		try {
-			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\js\\plan\\apiKey.txt"));
+			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\js\\plan\\apiKey2.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;

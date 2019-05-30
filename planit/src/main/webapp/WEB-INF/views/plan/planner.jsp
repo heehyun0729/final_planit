@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script async defer type="text/javascript"
-	src="//maps.googleapis.com/maps/api/js?key=AIzaSyCiIwuWGOXz5PWAqAuSkQN3P1LTfWgOrxg&callback=initMap&libraries=places"></script>
+	src="//maps.googleapis.com/maps/api/js?key=${sessionScope.key }&callback=initMap&libraries=places"></script>
 
 <div id="planner">
 	<div id="leftBox">

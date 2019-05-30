@@ -35,6 +35,85 @@ var arrow, line;
 var map;
 
 function initMap() {
+	// 지도 스타일
+	var styledMapType = new google.maps.StyledMapType([
+  	  {
+  	    "featureType": "administrative",
+  	    "elementType": "geometry",
+  	    "stylers": [{ "visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "administrative",
+  	    "elementType": "labels.icon",
+  	    "stylers": [{ "color": "#c5c5c5"}]
+  	  },
+  	  {
+  	    "featureType": "administrative",
+  	    "elementType": "labels.text.stroke",
+  	    "stylers": [{"visibility": "off" }]
+  	  },
+  	  {
+  	    "featureType": "administrative.country",
+  	    "elementType": "labels.text.fill",
+  	    "stylers": [{"color": "#acacac"}]
+  	  },
+  	  {
+  	    "featureType": "administrative.locality",
+  	    "elementType": "labels.text.fill",
+  	    "stylers": [{"color": "#bcbcbc"}]
+  	  },
+  	  {
+  	    "featureType": "landscape",
+  	    "stylers": [{"color": "#ffffff"}]
+  	  },
+  	  {
+  	    "featureType": "landscape.man_made",
+  	    "elementType": "geometry.fill",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "landscape.man_made",
+  	    "elementType": "geometry.stroke",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "poi",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "poi",
+  	    "elementType": "labels.text",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "road",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "road",
+  	    "elementType": "labels",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "road",
+  	    "elementType": "labels.icon",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "transit",
+  	    "stylers": [{"visibility": "off"}]
+  	  },
+  	  {
+  	    "featureType": "water",
+  	    "elementType": "geometry.fill",
+  	    "stylers": [{"color": "#cfedf8"}]
+  	  },
+  	  {
+  	    "featureType": "water",
+  	    "elementType": "labels.text",
+  	    "stylers": [{"visibility": "off"} ]
+  	  }
+  	]);
 	// 지도 초기화
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 46.519, lng: 6.632},
@@ -46,9 +125,10 @@ function initMap() {
       scaleControl: false,
       streetViewControl: false,
       rotateControl: false,
-      fullscreenControl: false
+      fullscreenControl: false,
     });
-    
+    map.mapTypes.set('styled_map', styledMapType);
+    map.setMapTypeId('styled_map');
     // 자동완성검색
     var options = { types: ['(cities)'] };	// 장소 검색 범위를 도시로 제한
     var addrBox = document.getElementById('addrBox');
