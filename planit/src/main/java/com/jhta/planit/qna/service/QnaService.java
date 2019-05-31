@@ -23,4 +23,7 @@ public class QnaService {
 	public QnaVo detail(int qna_num) {
 		return dao.detail(qna_num);
 	}
+	public int count(HashMap<String, Object> map){
+		return dao.count(map);
+	}
 }

@@ -20,11 +20,12 @@ public class MsgReceiveListController {
 	
 	@RequestMapping("/msgReceiveList")
 	public ModelAndView list(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
-			String field,String keyword,String memId,String msgType) {
+			String field,String keyword,String memId,String msgType,String msgDeletee) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field",field);
 		map.put("keyword",keyword);
 		map.put("mem_id",memId);
+		map.put("msgDeletee",msgDeletee);
 		if(msgType==null) {
 			memId="mem_id";
 		}
@@ -47,6 +48,7 @@ public class MsgReceiveListController {
 		mv.addObject("type", "RECEIVE");
 		mv.addObject("pu", pu);
 		mv.addObject("mem_id", memId);
+		mv.addObject("msgDeletee", msgDeletee);
 		mv.addObject("field", field);
 		mv.addObject("keyword", keyword);
 		return mv;

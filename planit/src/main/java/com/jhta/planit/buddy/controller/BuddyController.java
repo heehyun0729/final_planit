@@ -60,7 +60,7 @@ public class BuddyController {
 		System.out.println("5 : "+ vo.getBuddy_birthYear());
 		System.out.println("6 : "+ vo.getBuddy_gender());
 		System.out.println("7 : "+ vo.getBuddy_msg());
-		int n=service.insert(vo);
+		int n=service.buddyInsert(vo);
 		return "redirect:/buddyList";
 	}
 }

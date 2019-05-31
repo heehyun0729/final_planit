@@ -18,7 +18,7 @@ public class MembersLoginController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm() {
-		return "member/login";
+		return "user/login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -33,7 +33,7 @@ public class MembersLoginController {
 		} else {
 			model.addAttribute("mem_id", mem_id);
 			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
-			return "member/login";
+			return "user/login";
 		}
 	}
 

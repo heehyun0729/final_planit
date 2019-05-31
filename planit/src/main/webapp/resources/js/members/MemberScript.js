@@ -11,7 +11,7 @@ $(document).ready(function() {
 	var RegexEmail = /^[a-z0-9]{1,20}$/;
 	var RegexEmailDomain = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var RegexId =  /^[a-z0-9]{5,13}$/;
-	var RegexPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/;
+	var RegexPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 	var RegxNickname1 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]{3,10}$/;
 	var RegxNickname2 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/;
 	
@@ -70,8 +70,8 @@ $(document).ready(function() {
 	function checkPassword(password,id){
 	    let checkNumber = password.search(/[0-9]/g);
 	    let checkEnglish = password.search(/[a-z]/ig);
-	    if(password.length<10){
-	    	$("#pwdresult").text("낮음(비밀번호는 10자리 이상 20자리 이하여야 합니다.)");
+	    if(password.length<8){
+	    	$("#pwdresult").text("낮음(비밀번호는 8자리 이상 20자리 이하여야 합니다.)");
 			$("#pwdresult").attr("style", "color:red");
 	        return false;
 	    }
@@ -87,6 +87,11 @@ $(document).ready(function() {
 	    }
 	    else if(password.search(id) > -1&&id!==""){
 	    	$("#pwdresult").text("낮음(비밀번호에 아이디가 포함되었습니다.)");
+			$("#pwdresult").attr("style", "color:red");
+	        return false;
+	    }
+	    else if(password.length>20){
+	    	$("#pwdresult").text("경고! 비밀번호가 20자리를 넘었습니다");
 			$("#pwdresult").attr("style", "color:red");
 	        return false;
 	    }

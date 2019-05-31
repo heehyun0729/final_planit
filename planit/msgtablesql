@@ -36,3 +36,5 @@ create table members(
 );
 select * from members;
 select * from msgTable;
+//추가사항
+ALTER TABLE MsgTable ADD(msgDeletee varchar(50) );

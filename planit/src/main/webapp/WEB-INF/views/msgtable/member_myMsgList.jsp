@@ -33,26 +33,17 @@ function sendMessage() {
 	var memId = document.getElementById("memId").value;
 	console.log("lll:"+memId);
 	var memChk = document.getElementById("memChk_ok");
-	//if(memChkId != memId || memChk == null || memChk.length == 0 ){
-		//document.getElementById("memChk_res").innerHTML='<font color="red" id="memChk_ok">아이디 확인을 해주세요.</font>';
-		//memId.focus();
-		//return false;
-	//}
-	//memChkId = memId.value;
 	var content = document.getElementsByName("content")[0];
-	console.log(content);
 	if(content.value.length == 0 ){
 		document.getElementById("memChk_res").innerHTML='<font color="red" id="memChk_ok">쪽지 내용을 입력하세요.</font>';
 		content.focus();
 		return false;
 	}
 	var contHtml = content.value.replace(/\r/g,'').replace(/\n/g,'<br/>');
-	console.log(contHtml);
 	xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=sendMessageResult;
 	xhr.open("post","${pageContext.request.contextPath}/msgSendForm",true);	
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	console.log("sendMemId=${mem_id}&receiveMemId=" + memId+"&msgContent="+contHtml);
 	xhr.send("receiveMemId=${mem_id}&sendMemId=" + memId+"&msgContent="+contHtml);
 }
 function sendMessageResult() {
@@ -134,9 +125,16 @@ function detailClose() {
 								<c:if test="${type=='SEND'}">
 									<td>${vo.msgCheck > 0 ? "읽음" : "안읽음"}</td>
 								</c:if>
-								<td><input class="Btn" type="button" value="삭제"
+								<c:if test="${type=='SEND'}">
+								<td><input type="button" value="삭제"
 									onclick="javascript:location.href='${pageContext.request.contextPath}/msgDelete?msgNum=${vo.msgNum}'">
 								</td>
+								</c:if>
+								<c:if test="${type=='RECEIVE'}">
+								<td><input type="button" value="파워삭제"
+									onclick="javascript:location.href='${pageContext.request.contextPath}/msgDeletee?msgNum=${vo.msgNum}'">
+								</td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
@@ -147,7 +145,7 @@ function detailClose() {
 					<c:choose>
 						<c:when test="${pu.startPageNum  > 5 }">
 							<a
-								href="${pageContext.request.contextPath }/msgReceiveList?pageNum=${pu.startPageNum - 1}&field=${field}&keyword=${keyword}">[이전]</a>
+								href="${pageContext.request.contextPath }/msgReceiveList?pageNum=${pu.startPageNum - 1}&field=${field}&keyword=${keyword}&memId=${mem_id}&msgType=RECEIVE">[이전]</a>
 						</c:when>
 					</c:choose>
 					<c:forEach var="i" begin="${pu.startPageNum}"
@@ -168,7 +166,7 @@ function detailClose() {
 					<c:choose>
 						<c:when test="${pu.endPageNum < pu.totalPageCount}">
 							<a
-								href="${pageContext.request.contextPath }/msgReceiveList?pageNum=${pu.endPageNum + 1}&field=${field}&keyword=${keyword}">[다음]</a>
+								href="${pageContext.request.contextPath }/msgReceiveList?pageNum=${pu.endPageNum + 1}&field=${field}&keyword=${keyword}&memId=${mem_id}&msgType=RECEIVE">[다음]</a>
 						</c:when>
 					</c:choose>
 				</c:if>
@@ -178,7 +176,7 @@ function detailClose() {
 					<c:choose>
 						<c:when test="${pu.startPageNum  > 5 }">
 							<a
-								href="${pageContext.request.contextPath }/msgSendList?pageNum=${pu.startPageNum - 1}&field=${field}&keyword=${keyword}">[이전]</a>
+								href="${pageContext.request.contextPath }/msgSendList?pageNum=${pu.startPageNum - 1}&field=${field}&keyword=${keyword}&memId=${mem_id}&msgType=SEND">[이전]</a>
 						</c:when>
 					</c:choose>
 					<c:forEach var="i" begin="${pu.startPageNum}"
@@ -199,7 +197,7 @@ function detailClose() {
 					<c:choose>
 						<c:when test="${pu.endPageNum < pu.totalPageCount}">
 							<a
-								href="${pageContext.request.contextPath }/msgSendList?pageNum=${pu.endPageNum + 1}&field=${field}&keyword=${keyword}">[다음]</a>
+								href="${pageContext.request.contextPath }/msgSendList?pageNum=${pu.endPageNum + 1}&field=${field}&keyword=${keyword}&memId=${mem_id}&msgType=SEND">[다음]</a>
 						</c:when>
 					</c:choose>
 				</c:if>

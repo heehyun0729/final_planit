@@ -6,8 +6,8 @@
 <div id="insert_buddy">
 	<form method="post" action="<c:url value='/buddyInsert' />" onsubmit="return check()">
 		<div id="choice_date">
-			여행 시작 날짜 : <input name="buddy_indate" type="text" id="buddy_indate">
-			여행 종료 날짜 : <input name="buddy_outdate" type="text" id="buddy_outdate">
+			여행 시작 날짜 : <input name="buddy_indate" type="text" id="buddy_indate" readonly="readonly">
+			여행 종료 날짜 : <input name="buddy_outdate" type="text" id="buddy_outdate" readonly="readonly">
 		</div>
 		
 		<div id="choice_city">
@@ -38,27 +38,40 @@
 			<p>내 여행 소개</p>
 			<textarea id="buddy_msg" name="buddy_msg" rows="10" cols="40"></textarea>	
 		</div>
-		<input id="buddy_insert" type="submit" value="등록하기"><input type="button" value="취소하기">
+		<input id="buddy_insert" type="submit" value="등록하기"><input type="button" id="cancle" value="취소하기">
 	</form>
 </div>
 <script type="text/javascript">
 	$(function() {
-		$("#buddy_indate").datepicker({
-			dayNamesMin: ["일","월","화","수","목","금","토"],
-			monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-			yearSuffix: "년",
-			showMonthAfterYear: true,
-			dateFormat: "yy-mm-dd",
-			minDate : 0
-		});
-		$("#buddy_outdate").datepicker({
-			dayNamesMin: ["일","월","화","수","목","금","토"],
-			monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-			yearSuffix: "년",
-			showMonthAfterYear: true,
-			dateFormat: "yy-mm-dd",
-			minDate : 0
-		});
+		$.datepicker.regional['calendar'] = {
+				closeText: '닫기',
+		        prevText: '이전달',
+		        nextText: '다음달',
+		        currentText: '오늘',
+		        monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
+		        '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
+		        monthNamesShort: ['1월','2월','3월','4월','5월','6월',
+		        '7월','8월','9월','10월','11월','12월'],
+		        dayNames: ['일','월','화','수','목','금','토'],
+		        dayNamesShort: ['일','월','화','수','목','금','토'],
+		        dayNamesMin: ['일','월','화','수','목','금','토'],
+		        dateFormat: 'yy-mm-dd',
+		        minDate: 0,
+		        showMonthAfterYear: true,
+		        yearSuffix: '년',
+		        changeMonth: true,
+		        changeYear: true,
+		        yearRange: 'c-99:c+99',
+		        showButtonPanel: true
+		}
+		$.datepicker.setDefaults($.datepicker.regional['calendar']);
+		
+		$("#buddy_indate").datepicker();
+		
+	    $('#buddy_indate').datepicker("option", "onSelect", function ( selectedDate ) {
+	    	$("#buddy_outdate").datepicker();
+	    	$("#buddy_outdate").datepicker( "option", "minDate", selectedDate );
+	    });
 		
 	});
 	function check(){
@@ -81,6 +94,8 @@
 		}else{
 			return true;
 		}
-		
 	}
+	$("#cancle").click(function(){
+		window.location.href="<c:url value='/buddyList' />";
+	});
 </script>
