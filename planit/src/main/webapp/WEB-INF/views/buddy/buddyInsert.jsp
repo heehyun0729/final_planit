@@ -10,9 +10,13 @@
 			여행 종료 날짜 : <input name="buddy_outdate" type="text" id="buddy_outdate" readonly="readonly">
 		</div>
 		
-		<div id="choice_city">
-			국가 : <input type="text" id="buddy_country" name="buddy_country">
-			도시 : <input type="text" id="buddy_city" name="buddy_city">
+		<div id="choice">
+			국가 : <br><input type="text" id="buddy_country" name="buddy_country"><br>
+			도시 : <br><input type="text" id="buddy_city" name="buddy_city">
+			<input type="button" id="add_cc" value="여행지 추가하기">
+			<div id="add_opt">
+			
+			</div>
 		</div>
 		
 		<div>
@@ -97,5 +101,9 @@
 	}
 	$("#cancle").click(function(){
 		window.location.href="<c:url value='/buddyList' />";
+	});
+	$("#add_cc").click(function(){
+		$("#add_opt").append("추가 할 국가 : <input type='text' id='buddy_country' name='buddy_country'><br>");
+		$("#add_opt").append("추가 할 도시 : <input type='text' id='buddy_city' name='buddy_city'><br>");
 	});
 </script>
