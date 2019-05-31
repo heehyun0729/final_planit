@@ -19,9 +19,10 @@
 		border-bottom-right-radius: 25px;
 	}
 	.errMsg{
-		color: red;
-		font-size: 0.8em;
-		display: none;
+		color: white;
+		font-weight: bolder;
+		margin-left: 10px;
+		margin-right: 10px; 
 	}
 	.formWrapper{
 		width: 90%;
@@ -32,7 +33,7 @@
 		overflow:hidden;
 		text-align: center;
 		float: left;
-		margin: 30px;
+		margin: 15px;
 		background: #fff;
 		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 		border-radius: 25px;
@@ -114,14 +115,26 @@
 	}
 	#kakaoPay:hover{
 		cursor: pointer;
-		border: solid 2px white;
 	}
 	.form-box{
+		float: left;
 		background: #fff;
-		margin: 30px auto;
-		max-width: 500px;
+		margin: 15px auto;
+		width: 285px;
 		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 		text-align: center;
+		border-radius: 25px;
+	}
+	.cursor{
+		cursor: pointer;
+	}
+	.arrowBox{
+		margin-top: 20px;
+		text-align: center;
+	}
+	.speechBubble{
+		position: absolute;
+		background-color: #FF0000;
 		border-radius: 25px;
 	}
 </style>
@@ -131,23 +144,111 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		calendar();
-		$("#kakaoPay").on('click', function(){//결제 버튼을 클릭하면
-			if($("#company").val()==""){//에러메시지 출력
-				$("#companyErrMsg").fadeIn(300).delay(1000).fadeOut(300);
-				return;
+		$("#addFile").on('click', function(){//파일 추가 이벤트
+			$("#none").empty();
+			$("#none").append("<input type='file' id='newFile' name='file' onchange='moveFile(this);'>");
+			$("#newFile").click();
+		});
+		$("body").click(function(event) {//바디에 이벤트주기
+			console.log(event.pageX,event.pageY);//마우스 위치 좌표 확인
+			if($(event.target).hasClass('hover')) {
+				getChance(event);
+			}else if($(event.target).hasClass('chances')){
+				addOrder(event);
+			}else if($(event.target).hasClass('ordered')){
+				getCancel(event);
+			}else if($(event.target).hasClass('cancel')){
+				const id=$("#tempId").val();
+				deleteOrder(id,todayMonth);
+			}else{
+				$("#chanceDiv").hide();
 			}
-			if($("#file").val()==""){
-				$("#fileErrMsg").fadeIn(300).delay(1000).fadeOut(300);
+		});
+		var maxDivNum=3;
+		var nowNum=1;//사용자 입력 정보 창 이동
+		$("#formInfo").hide();
+		$("#formInfo2").hide();
+		$("#preview").hide();
+		$("#leftBtn").on('click', function() {
+			if(nowNum==1){
+				$("#infoWrapper .form-box").eq(0).hide();
+				$("#infoWrapper .form-box").eq(1).hide();
+				$("#infoWrapper .form-box").eq(2).show();
+				nowNum=maxDivNum;
+			}else if(nowNum==2){
+				$("#infoWrapper .form-box").eq(0).show();
+				$("#infoWrapper .form-box").eq(1).hide();
+				$("#infoWrapper .form-box").eq(2).hide();
+				nowNum--;
+			}else if(nowNum==3){
+				$("#infoWrapper .form-box").eq(0).hide();
+				$("#infoWrapper .form-box").eq(1).show();
+				$("#infoWrapper .form-box").eq(2).hide();
+				nowNum--;
+			}
+		});
+		$("#rightBtn").on('click', function() {
+			if(nowNum==1){
+				$("#infoWrapper .form-box").eq(0).hide();
+				$("#infoWrapper .form-box").eq(1).show();
+				$("#infoWrapper .form-box").eq(2).hide();
+				nowNum++;
+			}else if(nowNum==2){
+				$("#infoWrapper .form-box").eq(0).hide();
+				$("#infoWrapper .form-box").eq(1).hide();
+				$("#infoWrapper .form-box").eq(2).show();
+				nowNum++;
+			}else if(nowNum==3){
+				$("#infoWrapper .form-box").eq(0).show();
+				$("#infoWrapper .form-box").eq(1).hide();
+				$("#infoWrapper .form-box").eq(2).hide();
+				nowNum=1;
+			}			
+		});
+		$("#kakaoPay").on('click', function(){//결제 버튼을 클릭하면
+			if(orderedId.length==0){//결제목록이 없을경우
+				$("#infoWrapper .form-box").eq(0).show();
+				$("#infoWrapper .form-box").eq(1).hide();
+				$("#infoWrapper .form-box").eq(2).hide();
+				nowNum=1;
+				$("#speechBubble").empty();
+				$("#speechBubble").append("<span class='errMsg'>주문을 먼저 해주십시오.</span>");
+				$("#speechBubble").css("left", 1550);//좌표 입력
+				$("#speechBubble").css("top", 320);
+				$("#speechBubble").hide();
+				$("#speechBubble").fadeIn(300).delay(1000).fadeOut(300);
+				return;
+			};
+			if($("#preview").attr("src")==""){
+				$("#infoWrapper .form-box").eq(0).hide();
+				$("#infoWrapper .form-box").eq(1).show();
+				$("#infoWrapper .form-box").eq(2).hide();
+				nowNum=2;
+				$("#speechBubble").empty();
+				$("#speechBubble").append("<span class='errMsg'>광고 이미지를 추가해 주십시오.</span>");
+				$("#speechBubble").css("left", 1525);//좌표 입력
+				$("#speechBubble").css("top", 455);
+				$("#speechBubble").hide();
+				$("#speechBubble").fadeIn(300).delay(1000).fadeOut(300);
+				return;
+			}	
+			if($("#company").val()==""){//에러메시지 출력
+				$("#infoWrapper .form-box").eq(0).hide();
+				$("#infoWrapper .form-box").eq(1).hide();
+				$("#infoWrapper .form-box").eq(2).show();
+				nowNum=3;
+				$("#speechBubble").empty();
+				$("#speechBubble").append("<span class='errMsg'>주문 정보를 입력해 주십시오.</span>");
+				$("#speechBubble").css("left", 1585);//좌표 입력
+				$("#speechBubble").css("top", 390);
+				$("#speechBubble").hide();
+				$("#speechBubble").fadeIn(300).delay(1000).fadeOut(300);
 				return;
 			}
 			if($("#url").val()==""){
 				$("#urlErrMsg").fadeIn(300).delay(1000).fadeOut(300);
 				return;	
-			}
-			if($("#cart").children().length<3){
-				$("#cartErrMsg").fadeIn(300).delay(1000).fadeOut(300);
-				return;
-			};
+			}			
 			//카카오페이결제
 			const cid="TC0ONETIME";
 			const partner_order_id="partner_order_id";
@@ -178,21 +279,30 @@
 			});
 			return;
 		});
-	});
-	$("body").click(function(event) {//바디에 이벤트주기
-		if($(event.target).hasClass('hover')) {
-			getChance(event);
-		}else if($(event.target).hasClass('chances')){
-			addOrder(event);
-		}else if($(event.target).hasClass('ordered')){
-			getCancel(event);
-		}else if($(event.target).hasClass('cancel')){
-			const id=$("#tempId").val();
-			deleteOrder(id,todayMonth);
-		}else{
-			$("#chanceDiv").hide();
-		}
 	});	
+	function moveFile(name){//이미지 파일 미리보기
+		$("#file").empty();
+		$("#file").append($("#newFile"));//파일 Form으로 이동
+		const fileList=name.files;
+		const reader=new FileReader();//파일리더 객체 생성
+		reader.readAsDataURL(fileList[0]);//파일 읽기
+		reader.onload=function(){
+			const tempImage=new Image();//이미지 객체 생성
+			tempImage.src=reader.result;//url 주입
+			tempImage.onload=function(){
+				const canvas=document.createElement('canvas');//리사이즈를 위해 캔버스 객체 생성
+				const canvasContext=canvas.getContext("2d");
+				const width=canvas.width=100;//캔버스 크기 설정
+				const height=canvas.height=400;
+				canvasContext.drawImage(this, 0, 0, width, height);//캔버스에 이미지 그리기
+				const dataURL=canvas.toDataURL("image/jpeg");//이미지를 url로 변환
+				$("#preview").attr("src", dataURL);
+				$("#preview").attr("alt", fileList[0].name);
+				$("#imageInfo").text(fileList[0].name);
+				$("#preview").show();
+			};
+		};		
+	};
 	var idChance=[];//id 순서별 확률 모음
 	var orderedId=[];//주문한 날짜를 포함한 id 배열
 	function getChance(event){//확률 가져오고 메뉴 열기
@@ -214,9 +324,6 @@
 		const id=$("#tempId").val()
 		const day=id.replace("do","");
 		const chanceDate=chance+id+todayMonth+"y"+todayYear;
-		if($("#cart").children().length==0){
-			$("#cart").append("<div>주문 현황</div><br>");
-		};
 		$("#form").append("<input id='" + id + "order' name='order' type='hidden' value='" + chanceDate + "'>");
 		$("#form").append("<input id='" + id + "orderDate' name='orderDate' type='hidden' value='" + todayYear + "-" + todayMonth + "-" + day + "'>");
 		$("#cart").append("<div id='" + id + "cart'>" + todayYear + "-" + todayMonth + "-" + day + " : " + chance + " <a href='javascript:deleteOrder(\"" + id + "\","+ todayMonth +")'><img src='<c:url value='/resources/adminImages/delete.png'/>'/></a>"+"</div>");
@@ -225,7 +332,8 @@
 		$("#"+id).removeClass('hover');
 		$("#"+id).text("");
 		orderedId.push(id+todayMonth);
-		getPrice();
+		$("#cartMsg").hide();
+		getPrice();		
 	}
 	function getCancel(event){//취소 메뉴 열기
 		const x=event.pageX;
@@ -251,12 +359,13 @@
 		orderedId=$.grep(orderedId, function(value){
 			return value != idMonth;
 		});
+		if(orderedId.length==0){
+			$("#cartMsg").show();
+			$("#price").hide();
+		};
 		getPrice();
 	}
 	function getPrice(){//가격 계산
-		if($("#cart").children().length==1){
-			$("#cart").empty();
-		};
 		const orders=$("input[name='order']");
 		let price=0;
 		$("#ordersDiv").empty();
@@ -272,12 +381,7 @@
 	    price += '';
 	    while (reg.test(price))
 	    price = price.replace(reg, '$1' + ',' + '$2');
-	    if($("#cart").children().length<3){
-	    	$("#cart").empty();
-	    	$("#price").html("");
-		}else{
-			$("#price").html("<span class=''>결제 금액 : " + price + "&#8361;</span>");
-		};
+	    $("#price").html("<br><span class=''>결제 금액 : " + price + "&#8361;</span><br><br>");
 	}	
 	//달력에 필요한 변수
 	var realToday=new Date();
@@ -316,9 +420,9 @@
 		$("#calendar").append("<div style='clear: both;'></div>");
 		$("#calendarDate").html(todayYear + ". " + todayMonth);
 		if(todayMonth==today.getMonth()+1){
-			$("#nextMonth").html("<a href='#' onclick='javascript:nextMonth()'>></a>");
+			$("#nextMonth").html("<a href='#' onclick='javascript:nextMonth()'><img alt='다음 달' src='<c:url value='/resources/adminImages/right-arrow.png'/>'></a>");
 		}else{
-			$("#prevMonth").html("<a href='#' onclick='javascript:prevMonth()'><</a>");
+			$("#prevMonth").html("<a href='#' onclick='javascript:prevMonth()'><img alt='이전 달' src='<c:url value='/resources/adminImages/left-arrow.png'/>'></a>");
 		}
 		var firstDate=new Date(todayYear,todayMonth-1,1);
 		var firstDay=firstDate.getDay();
@@ -497,42 +601,43 @@
 <header>
 </header>
 <section>
-	<article class="formWrapper">
+	<article class="formWrapper">		
 		<div id="calendar" class="calendarWrapper" ></div>
 		<input type="hidden" id="tempId">
-		<div class="stick">
-			<div class="form-box">
-				<div id="cart"></div>
+		<div id="infoWrapper" class="stick">
+			<div class="arrowBox">
+				<img id="leftBtn" class="cursor" alt="이전 정보" src="<c:url value='/resources/adminImages/left-arrow.png'/>">
+				<img id="rightBtn" class="cursor" alt="다음 정보" src="<c:url value='/resources/adminImages/right-arrow.png'/>">
+			</div>
+			<div id="cartInfo" class="form-box" class="stick">
+				<br><div id="cart"><div>주문 현황</div>
+				<p id="cartMsg"><br>광고할 날짜를 클릭해 주문해주세요.</p><br></div>
 				<div id="price"></div>
-			</div>
-			<div class="form-box">
-				<form id="form" method="post" action="<c:url value="/adminAdRequestForm"/>" enctype="multipart/form-data">
-					<input type="hidden" name="mem_id" value="${mem_id }">
-					<input type="hidden" name="ad_price" value="">
-					<div id="chanceDiv" class="chanceDiv"></div>	
-					<div id="ordersDiv"></div>
-					<label class="label-control" for="company"><span class="label-text">회사 이름</span></label>
-					<br>
-					<input class="form-control" type="text" name="ad_company" id="company" placeholder="플랜잇(Planit)">
-					<br><span id="companyErrMsg" class="errMsg">회사 이름을 입력하세요.</span>
-					<br>
-					<label class="label-control" for="file"><span class="label-text">광고 이미지</span></label>
-					<br>
-					<input type="file" name="file" id="file">
-					<br><span id="fileErrMsg" class="errMsg">광고할 이미지를 첨부하세요.</span>
-					<br>
-					<label class="label-control" for="url"><span class="label-text">연결 주소</span></label>
-					<br>
-					<input class="form-control" type="url" name="ad_url" id="url" placeholder="http://www.planit.com">
-					<br><span id="urlErrMsg" class="errMsg">연결 주소를 입력하세요.</span><span id="cartErrMsg" class="errMsg">광고를 표시할 날짜를 선택하세요.</span>
-					<br>
-				</form>
-			</div>
-			<img id="kakaoPay" src="<c:url value='/resources/adminImages/payment_icon_yellow_medium.png'/>">
+			</div>			
+			<form id="form" method="post" action="<c:url value="/adminAdRequestForm"/>" enctype="multipart/form-data">
+				<input type="hidden" name="mem_id" value="${mem_id }">
+				<input type="hidden" name="ad_price" value="">
+				<div id="file" style="display: none;"></div>
+				<div id="formInfo2" class="form-box">
+					<br><p>광고 이미지</p><br>
+					<img id="preview" src="" alt=""><br><br>
+					<span id="imageInfo">이미지를 추가해주세요.<br>(100 * 400)</span><br><br>
+					<img id="addFile" class="cursor" alt="이미지추가" src="<c:url value='/resources/adminImages/paper-clip.png'/>"><br><br>					
+				</div>
+				<div id="formInfo" class="form-box">
+					<div id="ordersDiv"></div><br>	
+					<span>주문 정보</span><br><br>
+					<input class="form-control" type="text" name="ad_company" id="company" placeholder="회사 이름"><br><br>
+					<input class="form-control" type="url" name="ad_url" id="url" placeholder="연결 주소"><br><br>
+					<img id="kakaoPay" alt="카카오페이" src="<c:url value='/resources/adminImages/payment_icon_yellow_medium.png'/>"><br><br>
+				</div>				
+			</form>			
 		</div>
+		<div id="chanceDiv" class="chanceDiv"></div>
+		<div id="speechBubble" class="speechBubble"></div>
+		<div id="none" style="display: none;"></div>
 	</article>
 </section>
 <footer>
-	
 </footer>
 </div>
