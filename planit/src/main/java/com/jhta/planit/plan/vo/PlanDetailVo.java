@@ -1,21 +1,19 @@
 package com.jhta.planit.plan.vo;
 
-import java.sql.Date;
-
 public class PlanDetailVo {
 	private int planDetail_num;
 	private int plan_num;
 	private int planDetail_order;
 	private String planDetail_country;
 	private String planDetail_city;
-	private Date planDetail_inDate;
-	private Date planDetail_outDate;
+	private String planDetail_inDate;
+	private String planDetail_outDate;
 	private String planDetail_detail;
 	
 	public PlanDetailVo() {}
 
 	public PlanDetailVo(int planDetail_num, int plan_num, int planDetail_order, String planDetail_country,
-			String planDetail_city, Date planDetail_inDate, Date planDetail_outDate, String planDetail_detail) {
+			String planDetail_city, String planDetail_inDate, String planDetail_outDate, String planDetail_detail) {
 		super();
 		this.planDetail_num = planDetail_num;
 		this.plan_num = plan_num;
@@ -67,19 +65,19 @@ public class PlanDetailVo {
 		this.planDetail_city = planDetail_city;
 	}
 
-	public Date getPlanDetail_inDate() {
+	public String getPlanDetail_inDate() {
 		return planDetail_inDate;
 	}
 
-	public void setPlanDetail_inDate(Date planDetail_inDate) {
+	public void setPlanDetail_inDate(String planDetail_inDate) {
 		this.planDetail_inDate = planDetail_inDate;
 	}
 
-	public Date getPlanDetail_outDate() {
+	public String getPlanDetail_outDate() {
 		return planDetail_outDate;
 	}
 
-	public void setPlanDetail_outDate(Date planDetail_outDate) {
+	public void setPlanDetail_outDate(String planDetail_outDate) {
 		this.planDetail_outDate = planDetail_outDate;
 	}
 

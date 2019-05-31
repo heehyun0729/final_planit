@@ -11,13 +11,60 @@ import java.net.URL;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jhta.planit.plan.service.PlanDetailService;
+import com.jhta.planit.plan.service.PlanService;
+import com.jhta.planit.plan.vo.PlanDetailVo;
+import com.jhta.planit.plan.vo.PlanVo;
+
 @Controller
 public class PlanController {
+	@Autowired private PlanService planService;
+	@Autowired private PlanDetailService planDetailService;
+	
+	@RequestMapping(value = "/plan/insert", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String insert(HttpSession session, String routelist, String stays, String img) {
+		int plan_num = planService.count();
+	//	String mem_id = (String)session.getAttribute("mem_id");
+		int n = planService.insert(new PlanVo(plan_num, "qweqwe", stays + "일간 여행", img, 0));
+		try {
+			if(n > 0) {
+				JSONArray array = new JSONArray(routelist);
+				for(int i = 0 ; i < array.length() ; i++) {
+					JSONObject route = (JSONObject)array.get(i);
+					int planDetail_num = planDetailService.count();
+					String country = route.get("country").toString();
+					String city = route.get("city").toString();
+					String date_in = route.get("date_in").toString().substring(0, 10);
+					String date_out = route.get("date_out").toString().substring(0, 10);
+					int n1 = planDetailService.insert(new PlanDetailVo(planDetail_num, plan_num, i, country, city, date_in, date_out, ""));
+					if(n1 < 1) {
+						Exception e = new Exception("planDetail insert 실패");
+						throw e;
+					}
+				}
+			}else {
+				Exception e = new Exception("plan insert 실패");
+				throw e;
+			}
+			JSONObject json = new JSONObject();
+			json.put("result", "success");
+			return json.toString();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			JSONObject json = new JSONObject();
+			json.put("result", "false");
+			return json.toString();
+		}
+	}
+	
 	public String getApi() throws IOException {
 	FileReader fr = null;
 	String key = "";

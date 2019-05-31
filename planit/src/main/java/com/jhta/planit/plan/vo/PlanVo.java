@@ -4,15 +4,18 @@ public class PlanVo {
 	private int plan_num;
 	private String mem_id;
 	private String plan_title;
+	private String plan_img;
 	private int plan_public;
-	
-	public PlanVo() {}
 
-	public PlanVo(int plan_num, String mem_id, String plan_title, int plan_public) {
+	public PlanVo() {
+	}
+
+	public PlanVo(int plan_num, String mem_id, String plan_title, String plan_img, int plan_public) {
 		super();
 		this.plan_num = plan_num;
 		this.mem_id = mem_id;
 		this.plan_title = plan_title;
+		this.plan_img = plan_img;
 		this.plan_public = plan_public;
 	}
 
@@ -40,6 +43,14 @@ public class PlanVo {
 		this.plan_title = plan_title;
 	}
 
+	public String getPlan_img() {
+		return plan_img;
+	}
+
+	public void setPlan_img(String plan_img) {
+		this.plan_img = plan_img;
+	}
+
 	public int getPlan_public() {
 		return plan_public;
 	}
@@ -47,5 +58,5 @@ public class PlanVo {
 	public void setPlan_public(int plan_public) {
 		this.plan_public = plan_public;
 	}
-	
+
 }
