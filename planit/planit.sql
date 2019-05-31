@@ -118,6 +118,7 @@ create table plan(
     plan_num number(7) primary key,
     mem_id varchar2(40) references members(mem_id),
     plan_title varchar2(50),
+    plan_img clob,
     plan_public number(2)   -- 0: 공개, 1: 비공개
 );
 

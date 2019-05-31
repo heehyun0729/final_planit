@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jhta.planit.buddy.service.BuddyService;
 import com.jhta.planit.buddy.vo.BuddyCityVo;
 import com.jhta.planit.buddy.vo.BuddyCountryVo;
+import com.jhta.planit.buddy.vo.BuddyListVo;
 import com.jhta.planit.buddy.vo.BuddyVo;
 
 @Controller
@@ -38,22 +39,14 @@ public class BuddyController {
 		}
 		
 		//리스트 뽑기
-		List<BuddyVo> buddyList=service.showAll();
-		
-		//검색
-//		System.out.println("1 : "+ vo.getBuddy_indate());
-//		System.out.println("2 : "+ vo.getBuddy_outdate());
-//		System.out.println("3 : "+ countryVo.getBuddy_country());
-//		System.out.println("4 : "+ cityVo.getBuddy_city());
-//		System.out.println("5 : "+ vo.getBuddy_birthYear());
-//		System.out.println("6 : "+ vo.getBuddy_gender());
-//		System.out.println("7 : "+ vo.getBuddy_msg());
+		List<BuddyListVo> buddyList=service.showAll();
 		
 		//뷰 페이지로 이동
 		ModelAndView mv=new ModelAndView(".buddy.buddyList");
 		mv.addObject("buddyList",buddyList);
 		mv.addObject("countryList",countryList);
 		mv.addObject("cityList",map);
+		//mv.addObject("find_countryList",c_map);
 		return mv;
 	}
 	

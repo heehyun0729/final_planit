@@ -1,4 +1,12 @@
 var key = "";
+
+var routelist = [];
+var markers = [];
+var lines = [];
+var arrow, line;
+var map;
+var stays = 1;	// 총 여행 날짜
+
 $(function() {
 	// key 설정
 	$.getJSON('/planit/apiKey', function(data) {
@@ -18,22 +26,51 @@ $(function() {
 		}
 	});
 	$('#startDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
+	// 저장버튼
+	$("#btnSave").on('click', function() {
+		if(routelist.length == 0){
+			alert("도시를 하나 이상 추가한 뒤에 일정을 만들 수 있습니다.");
+		}else{
+			// 총 여행 날짜 구하기
+			for(var i = 0 ; i < routelist.length ; i++){
+				stays += Number(routelist[i].stay);
+			}
+			// 정적 지도 이미지 주소 생성
+			var img = 'https://maps.googleapis.com/maps/api/staticmap?size=400x400&mobile=true&visible=39,17&path=color:0x|weight:1|'
+				for(var i = 0 ; i < routelist.length ; i++){
+					img += routelist[i].lat + "," + routelist[i].lng;
+					if(i < routelist.length - 1){
+						img += "|";
+					}
+				}
+				for(var i = 0 ; i < routelist.length ; i++){
+					img += "&markers=scale:2|icon:http%3A%2F%2Fwww%2Estubbyplanner%2Ecom%2Fimg_v13%2Fmarker%2Fmycity_night" + routelist[i].stay + "%2Epng|" + routelist[i].lat + "," + routelist[i].lng;
+				}
+				img += "&key=" + key;
+				img += "&format=png&maptype=roadmap&style=feature:administrative%7Celement:geometry%7Cvisibility:off&style=feature:administrative%7Celement:labels.icon%7Ccolor:0xc5c5c5&style=feature:administrative%7Celement:labels.text.stroke%7Cvisibility:off&style=feature:administrative.country%7Celement:labels.text.fill%7Ccolor:0xacacac&style=feature:administrative.land_parcel%7Cvisibility:off&style=feature:administrative.locality%7Cvisibility:off&style=feature:administrative.locality%7Celement:labels.text.fill%7Ccolor:0xbcbcbc&style=feature:administrative.neighborhood%7Cvisibility:off&style=feature:landscape%7Ccolor:0xffffff&style=feature:landscape.man_made%7Celement:geometry.fill%7Cvisibility:off&style=feature:landscape.man_made%7Celement:geometry.stroke%7Cvisibility:off&style=feature:poi%7Cvisibility:off&style=feature:poi%7Celement:labels.text%7Cvisibility:off&style=feature:road%7Cvisibility:off&style=feature:road%7Celement:labels%7Cvisibility:off&style=feature:road%7Celement:labels.icon%7Cvisibility:off&style=feature:transit%7Cvisibility:off&style=feature:water%7Celement:geometry.fill%7Ccolor:0xcfedf8&style=feature:water%7Celement:labels.text%7Cvisibility:off";
+			$.ajax({
+				url: '/planit/plan/insert',
+				dataType: 'json',
+				method: 'post',
+				traditional:true,
+				data: {
+					routelist:JSON.stringify(routelist),
+					stays:stays,
+					img:img
+				},
+				success: function(data) {
+					var result = data.result;
+					if(result == 'success'){
+						location.href = '/planit/plan/list';
+					}else{
+						alert('오류로 인해 저장을 실패하였습니다.');
+					}
+				}
+			});
+		}
+	});
 });
 
-var routelist = [];
-Route = function(city, country, lat, lng, stay, date_in, date_out) {
-	this.city = city;
-	this.country = country;
-	this.lat = lat;
-	this.lng = lng;
-	this.stay = stay;
-	this.date_in=date_in;
-	this.date_out=date_out;
-}
-var markers = [];
-var lines = [];
-var arrow, line;
-var map;
 
 function initMap() {
 	// 지도 스타일
@@ -298,7 +335,15 @@ function addCity(city, country, lat, lng) {
 		date_out = new Date(date_in.getFullYear(), date_in.getMonth(), date_in.getDate() + eval(1));
 	}
 	// routelist 배열에 Route 객체 추가
-	routelist[routelist.length] = new Route(city, country, lat, lng, 1, date_in, date_out);
+	var route = new Object();
+	route.city = city;
+	route.country = country;
+	route.lat = lat;
+	route.lng = lng;
+	route.stay = 1;
+	route.date_in = date_in;
+	route.date_out = date_out;
+	routelist.push(route);
 	setRouteDiv();
 	setMapRoute();
 }
@@ -391,8 +436,4 @@ function setRouteDate() {
 		}
 	}
 	setRouteDiv();
-}
-// 저장버튼 눌렀을 때 DB에 데이터 저장하는 함수
-function savePlan() {
-	
 }

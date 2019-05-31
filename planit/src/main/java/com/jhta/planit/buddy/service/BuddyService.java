@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jhta.planit.buddy.dao.BuddyDao;
 import com.jhta.planit.buddy.vo.BuddyCityVo;
 import com.jhta.planit.buddy.vo.BuddyCountryVo;
+import com.jhta.planit.buddy.vo.BuddyListVo;
 import com.jhta.planit.buddy.vo.BuddyVo;
 
 @Service
@@ -17,7 +18,7 @@ public class BuddyService {
 	public void setDao(BuddyDao dao) {
 		this.dao = dao;
 	}
-	@Transactional
+	
 	public int buddyInsert(BuddyVo vo,BuddyCountryVo countryVo,BuddyCityVo cityVo) {
 		String country=countryVo.getBuddy_country();
 		String[] countries=country.split(",");
@@ -38,7 +39,7 @@ public class BuddyService {
 		return n1;
 	}
 	
-	public List<BuddyVo> showAll(){
+	public List<BuddyListVo> showAll(){
 		return dao.showAll();
 	}
 	
@@ -49,5 +50,4 @@ public class BuddyService {
 	public List<BuddyCityVo> showCity(String country){
 		return dao.showCity(country);
 	}
-	
 }
