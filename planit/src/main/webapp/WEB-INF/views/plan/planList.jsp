@@ -4,7 +4,7 @@
 <div id = "box">
 	<div id = "planTop">
 		<h2>Planit과 함께 여행을 즐겨보세요.</h2>
-		<span id = "startPlanner">
+		<span>
 			<a href = "<c:url value = '/plan/planner'/>">플래너 시작</a>
 		</span>
 	</div>
