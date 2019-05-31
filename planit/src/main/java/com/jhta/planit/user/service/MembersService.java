@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jhta.planit.user.dao.MembersDao;
+import com.jhta.planit.user.dao.MypageDao;
 import com.jhta.planit.user.security.AuthenticationKeyGeneration;
 import com.jhta.planit.user.security.MailHandler;
 import com.jhta.planit.user.vo.MembersVo;
@@ -18,6 +19,7 @@ import com.jhta.planit.user.vo.MembersVo;
 @Service
 public class MembersService {
 	@Autowired private MembersDao dao;
+	@Autowired private MypageDao mdao;
 	@Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Inject
     private JavaMailSender mailSender;
@@ -26,8 +28,11 @@ public class MembersService {
 	public int membersJoin(MembersVo vo) throws Exception {
 		String encodingPwd=bCryptPasswordEncoder.encode(vo.getMem_pwd());
 		vo.setMem_pwd(encodingPwd);
-		
 		int n=dao.membersJoin(vo);
+		
+		mdao.joinProfileImg(vo.getMem_id());
+		mdao.joinProfileInfo(vo);
+		
 		String key = new AuthenticationKeyGeneration().getKey(50, false); // 인증키 생성
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -37,7 +42,7 @@ public class MembersService {
 		dao.createAuthKey(map);
 
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[Planit 서비스 이메일 인증(네이버 담당자님! 웹구현 테스트 중입니다! 절대 스팸 아닙니다!)]");
+		sendMail.setSubject("[Planit 서비스 이메일 인증]");
 		sendMail.setText(
 				new StringBuffer().append("<h1>Planit 회원 가입 인증</h1>").append("<a href='http://localhost:9090/planit/member/emailConfirm?mem_email=").append(vo.getMem_email()).append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>").toString());
 		sendMail.setFrom("limsr95@gmail.com", "Planit");

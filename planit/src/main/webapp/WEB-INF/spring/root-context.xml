@@ -28,11 +28,11 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	<context:annotation-config><!-- 트랜잭션 어노테이션 -->
+	<context:annotation-config/><!-- 트랜잭션 어노테이션 -->
 		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 			<property name="dataSource" ref="DataSource"/>
 		</bean>
-	</context:annotation-config>
+
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<aop:aspectj-autoproxy/>
 	
