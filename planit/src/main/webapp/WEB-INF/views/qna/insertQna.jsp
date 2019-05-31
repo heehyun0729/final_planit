@@ -11,7 +11,7 @@
 	제목<input type="text" name="qna_title"><br>
 	내용<br>
 	<textarea rows="10" cols="50" name="qna_content"></textarea><br>
-<!--첨부파일<input type="file" name="file1"><br>  -->	
+	파일첨부<input type="file" name="file"><br>
 	<input type="submit" value="등록">
 </form>
 </div>
