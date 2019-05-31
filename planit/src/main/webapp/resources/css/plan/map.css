@@ -5,13 +5,6 @@
 	height: 100%;
 }
 
-.addrBox {
-	margin: 10px 0 0 10px;
-}
-.addrBox .address{
-	height: 2em;
-}
-
 #leftBox {
 	width: 20%;
 	height: 100%;
@@ -35,4 +28,23 @@
 	float: left;
 	width: 80%;
 	height: 100%;
+}
+
+.addrBox {
+	margin: 10px 0 0 10px;
+}
+
+.addrBox .address {
+	height: 2em;
+}
+
+.saveBox {
+	margin: 10px 10px 0 0;
+}
+
+.saveBox .btnSave {
+	height: 2em;
+	width: 150px;
+	background-color: #ca85eb;
+	color: white;
 }

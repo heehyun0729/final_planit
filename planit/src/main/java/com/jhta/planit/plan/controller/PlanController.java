@@ -18,29 +18,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PlanController {
-	@RequestMapping("/plan")
-	public String planHome(HttpSession session) {
-		FileReader fr = null;
-		String key = "";
-		try {
-			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\js\\plan\\apiKey1.txt"));
-			while(true) {
-				int n = fr.read();
-				if(n == -1) break;
-				key += (char)n;
-			}
-			session.setAttribute("key", key);
-		}catch(FileNotFoundException fe){
-			fe.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				fr.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	public String getApi() throws IOException {
+	FileReader fr = null;
+	String key = "";
+	try {
+		fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
+		while(true) {
+			int n = fr.read();
+			if(n == -1) break;
+			key += (char)n;
 		}
+	}catch(FileNotFoundException fe){
+		fe.printStackTrace();
+	}finally {
+		fr.close();
+	}
+	return key;
+	}
+	
+	@RequestMapping("/plan")
+	public String planHome(HttpSession session) throws Exception {
+		String key = getApi();
+		session.setAttribute("key", key);
 		return ".plan.planner";
 	}
 
@@ -71,24 +70,12 @@ public class PlanController {
 	
 	@RequestMapping(value = "/apiKey", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String apiKey() throws Exception{
-		FileReader fr = null;
-		String key = "";
-		try {
-			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\js\\plan\\apiKey2.txt"));
-			while(true) {
-				int n = fr.read();
-				if(n == -1) break;
-				key += (char)n;
-			}
-			System.out.println(key);
-		}catch(FileNotFoundException fe){
-			fe.printStackTrace();
-		}finally {
-			fr.close();
-		}
+	public String getApiJson() throws Exception{
+		String key = getApi();
 		JSONObject json = new JSONObject();
 		json.put("key", key);
 		return json.toString();
 	}
+	
+	
 }
