@@ -32,13 +32,15 @@
 		</div>
 		
 		<div>
-			성별 : <br>
-			<input type="radio" name="gender" value="0" checked="checked">
-			남 <input type="radio" name="gender" value="1"> 여
+			성별 :
+			<input type="radio" name="buddy_gender" value="X" checked="checked"> 상관없음
+			<input type="radio" name="buddy_gender" value="M"> 남 
+			<input type="radio" name="buddy_gender" value="W"> 여
+			
 		</div>
 		
 		<div>
-			나이대 : <select name="choice_age">
+			나이대 : <select name="buddy_birthYear">
 				<option value="any">상관없음</option>
 				<option value="20">20대</option>
 				<option value="30">30대</option>
@@ -60,14 +62,16 @@
 				<th>성별</th>
 				<th>나이</th>
 				<th>여행 소개</th>
+				<th>여행할 도시</th>
 			</tr>
 			<c:forEach var="buddy" items="${buddyList}">
 				<tr>
 					<th>${buddy.mem_id }</th>
 					<th>${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</th>
 					<th>${buddy.buddy_gender }</th>
-					<th>${buddy.buddy_birthYear }</th>
+					<th>${buddy.buddy_birthyear }</th>
 					<th>${buddy.buddy_msg }</th>
+					<th>${buddy.buddy_city }</th>
 				</tr>
 			</c:forEach>
 		</table>

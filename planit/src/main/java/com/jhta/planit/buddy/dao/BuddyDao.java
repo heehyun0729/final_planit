@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jhta.planit.buddy.vo.BuddyCityVo;
 import com.jhta.planit.buddy.vo.BuddyCountryVo;
+import com.jhta.planit.buddy.vo.BuddyListVo;
 import com.jhta.planit.buddy.vo.BuddyVo;
 
 @Repository
@@ -27,8 +28,8 @@ public class BuddyDao {
 	public int buddyCityInsert(String data) {
 		return sqlSession.insert(NAMESPACE + ".buddyCity_insert",data);
 	}
-	
-	public List<BuddyVo> showAll(){
+
+	public List<BuddyListVo> showAll(){
 		return sqlSession.selectList(NAMESPACE + ".buddy_showAll");
 	}
 	

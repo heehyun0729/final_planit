@@ -3,6 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.buddy.mybatis.buddyMapper">
+	<resultMap type="com.jhta.planit.buddy.vo.BuddyListVo" id="buddylistvo">
+		<result property="mem_id" column="mem_id"/>
+		<result property="buddy_indate" column="buddy_indate"/>
+		<result property="buddy_outdate" column="buddy_outdate"/>
+		<result property="buddy_gender" column="buddy_gender"/>
+		<result property="buddy_birthyear" column="buddy_birthyear"/>
+		<result property="buddy_msg" column="buddy_msg"/>
+		<collection property="buddy_city" ofType="String">
+			<result property="buddy_city" column="buddy_city"/>
+		</collection>
+	</resultMap>
+	<select id="buddy_showAll" resultMap="buddylistvo">
+		select  b.mem_id,TO_CHAR(b.buddy_indate, 'YYYY-MM-DD') buddy_indate,TO_CHAR(b.buddy_outdate, 'YYYY-MM-DD') buddy_outdate,b.buddy_gender,b.buddy_birthyear,b.buddy_msg,t.buddy_city
+		from buddy b, buddy_country c, buddy_city t where b.buddy_num=c.buddy_num and c.country_num=t.country_num
+	</select>
 	
 	<insert id="buddy_insert" parameterType="com.jhta.planit.buddy.vo.BuddyVo">
 		insert into buddy
@@ -17,16 +32,7 @@
 		values(buddycity_seq.nextval,buddycountry_seq.currval,#{buddy_city})
 	</insert>
 	
-	<select id="buddy_showAll" resultType="com.jhta.planit.buddy.vo.BuddyVo">
-		select * from buddy where buddy_state=0
-	</select>
-	<select id="find_id_country" resultType="com.jhta.planit.buddy.vo.BuddyVo">
-		select buddy_country from buddy_country where buddy_num in (select buddy_num from buddy where mem_id='test' and buddy_state=0)
-	</select>
-	<select id="find_id_city" resultType="com.jhta.planit.buddy.vo.BuddyVo">
-		select buddy_city from buddy_city where country_num in (select country_num from buddy_country where buddy_num=(select buddy_num from buddy where mem_id='test' and buddy_state=0))
-	</select>
-	
+
 	<select id="buddy_showCountry" resultType="String">
 		select distinct buddy_country from buddy_country c, buddy b where b.buddy_state=0
 	</select>
