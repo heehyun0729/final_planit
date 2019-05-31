@@ -11,15 +11,17 @@ import com.jhta.planit.qna.vo.QnaVo;
 @Repository
 public class QnaDao {
 	@Autowired private SqlSession sqlSession;
-	public final String NAMESPACE="com.jhta.mybatis.QnaMapper";
-	public void setSeqlSession(SqlSession seqlSession) {
-		this.sqlSession = seqlSession;
+	public final String NAMESPACE="com.jhta.planit.qna.mybatis.QnaMapper";
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
 	}
 	public int insert(QnaVo vo) {
-		return sqlSession.selectOne(NAMESPACE + ".insert",vo);
+		return sqlSession.insert(NAMESPACE + ".insert",vo);
 	}
 	public List<QnaVo> list(HashMap<String, Object>map){
 		return sqlSession.selectList(NAMESPACE + ".list",map);
 	}
-	
+	public QnaVo detail(int qna_num) {
+		return sqlSession.selectOne(NAMESPACE + ".details",qna_num);
+	}
 }

@@ -13,7 +13,7 @@ public class acommQnaController {
 	@Autowired private acommQnaService service;
 	@RequestMapping(value="/acommQna",method=RequestMethod.GET)
 	public String insert() {
-		return "/acommQna/insertAcommQna";
+		return ".acommQna.insertAcommQna";
 	}
 	@RequestMapping(value="/acommQna/insertAcommQna", method=RequestMethod.POST)
 	public ModelAndView insert(AcommQnaVo vo) {

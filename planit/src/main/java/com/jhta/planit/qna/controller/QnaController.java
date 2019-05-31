@@ -16,20 +16,21 @@ public class QnaController {
 	public String qnaMain() {
 		return ".qna.qnaMain";
 	}
-	@RequestMapping(value="/insertQna",method = RequestMethod.GET)
-	public String insertQna() {
+	@RequestMapping(value="qna/insertQna",method = RequestMethod.GET)
+	public String insertQna2() {
 		return ".qna.insertQna";
 	}
 	@RequestMapping(value="/qna/insertQna",method = RequestMethod.POST)
 	public ModelAndView insert(QnaVo vo) {
 		ModelAndView mv=new ModelAndView("/qna/result");
 		int n=service.insert(vo);
+		System.out.println("id:" + vo.getMem_id());
 		if(n>0) {
+			
 			mv.addObject("result","success");
 		}else {
 			mv.addObject("result","fail");
 		}
 		return mv;
 	}
-	
 }

@@ -9,10 +9,11 @@ $(document).ready(function() {
 	var chknick=false;
 	var chkemail=false;
 	var RegexEmail = /^[a-z0-9]{1,20}$/;
-	
 	var RegexEmailDomain = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var RegexId =  /^[a-z0-9]{5,13}$/;
 	var RegexPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/;
+	var RegxNickname1 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]{3,10}$/;
+	var RegxNickname2 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/;
 	
 	//id 유효성 체크
 	$("#mem_id").on("propertychange change keyup paste input", function() {
@@ -117,7 +118,18 @@ $(document).ready(function() {
 	//닉네임 유효성 체크
 	$("#mem_nickname").on("propertychange change keyup paste input", function() {
 		chknick=false;
+		$("#nickcheck").prop("disabled", true);
 		$("#nickckresult").text("");
+		let cknick=$(this).val();
+		if(RegxNickname1.test(cknick)){
+			$("#nickcheck").prop("disabled", false);
+		}else{
+			$("#nickcheck").prop("disabled", true);
+			if(!RegxNickname2.test(cknick)){
+				$("#nickckresult").text("한글과 영문,숫자 이외엔 사용할 수 없습니다");
+				$("#nickckresult").attr("style", "color:red");
+			}
+		}
 	});
 	$("#nickcheck").click(function() {
 		$.ajax({

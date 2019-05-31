@@ -12,12 +12,14 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -122,9 +124,20 @@ public class AdController {
 		map.add("approval_url", approval_url);
 		map.add("fail_url", fail_url);
 		map.add("cancel_url", cancel_url);
-		org.springframework.http.HttpEntity<org.springframework.util.MultiValueMap<String, String>> request = new org.springframework.http.HttpEntity<org.springframework.util.MultiValueMap<String,String>>(map,headers);
+		HttpEntity<MultiValueMap<String, String>> request = new org.springframework.http.HttpEntity<MultiValueMap<String,String>>(map,headers);
 	    Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
-	    System.out.println(obj);
 		return obj;
+	}
+	@RequestMapping(value="/adminAdKakaoPayApproval")
+	public String adminAdKakaoPayOk() {
+		return ".admin.adminAdKakaoPayApproval";
+	}
+	@RequestMapping(value="/adminAdKakaoPayFail")
+	public String adminAdKakaoPayFail() {
+		return ".admin.adminAdKakaoPayFail";
+	}
+	@RequestMapping(value="/adminAdKakaoPayCancel")
+	public String adminAdKakaoPayCancel() {
+		return ".admin.adminAdKakaoPayCancel";
 	}
 }
