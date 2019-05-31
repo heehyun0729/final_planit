@@ -12,15 +12,21 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.planit.admin.service.AdService;
-import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
 
@@ -95,5 +101,43 @@ public class AdController {
 			map.put("chance"+i, chance);
 		}		
 		return map;
+	}
+	@RequestMapping(value="/adminAdKakaoPay", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public Object adminAdKakaoPay(String cid, String partner_order_id, String partner_user_id, String item_name, String quantity, String total_amount, String vat_amount, String tax_free_amount, String approval_url, String fail_url, String cancel_url) {
+		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+		String url="https://kapi.kakao.com/v1/payment/ready";
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK 41e45222d802939978052d57dd29bdad");
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		org.springframework.util.MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+		map.add("cid", cid);
+		map.add("partner_order_id", partner_order_id);
+		map.add("partner_user_id", partner_user_id);
+		map.add("item_name", item_name);
+		map.add("quantity", quantity);
+		map.add("total_amount", total_amount);
+		map.add("vat_amount", vat_amount);
+		map.add("tax_free_amount", tax_free_amount);
+		map.add("approval_url", approval_url);
+		map.add("fail_url", fail_url);
+		map.add("cancel_url", cancel_url);
+		HttpEntity<MultiValueMap<String, String>> request = new org.springframework.http.HttpEntity<MultiValueMap<String,String>>(map,headers);
+	    Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
+		return obj;
+	}
+	@RequestMapping(value="/adminAdKakaoPayApproval")
+	public String adminAdKakaoPayOk() {
+		return ".admin.adminAdKakaoPayApproval";
+	}
+	@RequestMapping(value="/adminAdKakaoPayFail")
+	public String adminAdKakaoPayFail() {
+		return ".admin.adminAdKakaoPayFail";
+	}
+	@RequestMapping(value="/adminAdKakaoPayCancel")
+	public String adminAdKakaoPayCancel() {
+		return ".admin.adminAdKakaoPayCancel";
 	}
 }

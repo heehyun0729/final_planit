@@ -3,26 +3,34 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.buddy.mybatis.buddyMapper">
+	
 	<insert id="buddy_insert" parameterType="com.jhta.planit.buddy.vo.BuddyVo">
 		insert into buddy
-		values(buddy_seq.nextval,'test1',#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
+		values(buddy_seq.nextval,'test',#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
 	</insert>
-	<insert id="buddyCountry_insert" parameterType="com.jhta.planit.buddy.vo.BuddyVo">
+	<insert id="buddyCountry_insert" parameterType="String">
 		insert into buddy_country
 		values(buddycountry_seq.nextval,buddy_seq.currval,#{buddy_country})
 	</insert>
-	<insert id="buddyCity_insert" parameterType="com.jhta.planit.buddy.vo.BuddyVo">
+	<insert id="buddyCity_insert" parameterType="String">
 		insert into buddy_city
 		values(buddycity_seq.nextval,buddycountry_seq.currval,#{buddy_city})
 	</insert>
 	
 	<select id="buddy_showAll" resultType="com.jhta.planit.buddy.vo.BuddyVo">
-		select * from buddy b, buddy_country c, buddy_city t where b.buddy_num=c.buddy_num and c.country_num=t.country_num
+		select * from buddy where buddy_state=0
 	</select>
+	<select id="find_id_country" resultType="com.jhta.planit.buddy.vo.BuddyVo">
+		select buddy_country from buddy_country where buddy_num in (select buddy_num from buddy where mem_id='test' and buddy_state=0)
+	</select>
+	<select id="find_id_city" resultType="com.jhta.planit.buddy.vo.BuddyVo">
+		select buddy_city from buddy_city where country_num in (select country_num from buddy_country where buddy_num=(select buddy_num from buddy where mem_id='test' and buddy_state=0))
+	</select>
+	
 	<select id="buddy_showCountry" resultType="String">
-		select distinct buddy_country from buddy_country
+		select distinct buddy_country from buddy_country c, buddy b where b.buddy_state=0
 	</select>
-	<select id="buddy_showCity" parameterType="String" resultType="com.jhta.planit.buddy.vo.BuddyVo">
-		select distinct buddy_city from buddy_city t, buddy_country c where c.country_num=t.country_num and c.buddy_country=#{country}
+	<select id="buddy_showCity" parameterType="String" resultType="com.jhta.planit.buddy.vo.BuddyCityVo">
+		select distinct buddy_city from buddy b, buddy_city t, buddy_country c where c.country_num=t.country_num and b.buddy_state=0 and c.buddy_country=#{country}
 	</select>
 </mapper>

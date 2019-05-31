@@ -35,8 +35,7 @@
 		<beans:property name="order" value="2"/>
 	</beans:bean>
 	
-	<context:component-scan base-package="com.jhta.planit" />
-	<context:component-scan base-package="com.jhta.planit.user.controller"/>
+	<context:component-scan base-package="com.jhta.planit.*.controller"/>
 	<!--  -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
 		<!-- 최대업로드사이즈 설정(byte단위) -->
