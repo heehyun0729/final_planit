@@ -54,4 +54,11 @@
 		)
 		where rownum=1
 	</select>
+	<update id="update" parameterType="com.jhta.planit.qna.vo.QnaVo">
+		update qna
+		set qna_title=#{qna_title},qna_content=#{qna_content} where mem_id=#{mem_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from qna where qna_num=#{qna_num}
+	</delete>
 </mapper>

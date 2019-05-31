@@ -17,14 +17,13 @@ public class QnaController {
 		return ".qna.qnaMain";
 	}
 	@RequestMapping(value="qna/insertQna",method = RequestMethod.GET)
-	public String insertQna2() {
+	public String insertQna() {
 		return ".qna.insertQna";
 	}
 	@RequestMapping(value="/qna/insertQna",method = RequestMethod.POST)
 	public ModelAndView insert(QnaVo vo) {
 		ModelAndView mv=new ModelAndView("/qna/result");
 		int n=service.insert(vo);
-		System.out.println("id:" + vo.getMem_id());
 		if(n>0) {
 			
 			mv.addObject("result","success");

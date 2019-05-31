@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div id="detail">
+<div id="update">
 	<table border="1">
 		<tr>
 			<td>글번호</td><td>${vo.qna_num }</td>
@@ -22,4 +22,10 @@
 			<td>작성일자</td><td>${vo.qna_date }</td>
 		</tr>
 	</table>
+	<c:choose>
+		<c:when test="${sessionScope.mem_id == mem_id}">
+			<a href="${pageContext.request.contextPath }/qna/updateQna?qna_num=${vo.qna_num}">글수정</a>
+			<a href="${pageContext.request.contextPath }/qna/deleteQna?qna_num=${vo.qna_num}">글삭제</a>
+		</c:when>	
+	</c:choose>
 </div>
