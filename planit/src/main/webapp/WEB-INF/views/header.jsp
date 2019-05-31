@@ -5,7 +5,7 @@
 	<h1>header</h1>
 	<ul>
 		<li><a href = "<c:url value='/'/>">홈</a></li>
-		<li><a href = "<c:url value='/plan'/>">계획짜기</a></li>
+		<li><a href = "<c:url value='/plan/list'/>">플래너</a></li>
 		<li><a href = "<c:url value='/buddyList'/>">동행찾기</a></li>
 		<li><a href = "<c:url value='/adminHome'/>">관리자페이지</a></li>
 		<li><a href = "<c:url value='/qnaList'/>">여행문의</a></li>

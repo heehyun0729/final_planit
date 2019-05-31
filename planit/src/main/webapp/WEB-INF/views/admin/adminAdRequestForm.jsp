@@ -2,9 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style type="text/css">
-	*{
+	.wrapper{
 		padding: 0px;
 		margin: 0px;
+		cursor: default;
 	}
 	.topLeftRadius{
 		border-top-left-radius: 25px;
@@ -137,6 +138,9 @@
 		background-color: #FF0000;
 		border-radius: 25px;
 	}
+	.form-control{
+		cursor: auto;
+	}
 </style>
 <link rel="stylesheet" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.0.min.js'/>"></script>
@@ -150,7 +154,7 @@
 			$("#newFile").click();
 		});
 		$("body").click(function(event) {//바디에 이벤트주기
-			console.log(event.pageX,event.pageY);//마우스 위치 좌표 확인
+			//console.log(event.pageX,event.pageY);//마우스 위치 좌표 확인
 			if($(event.target).hasClass('hover')) {
 				getChance(event);
 			}else if($(event.target).hasClass('chances')){
@@ -232,7 +236,7 @@
 				$("#speechBubble").fadeIn(300).delay(1000).fadeOut(300);
 				return;
 			}	
-			if($("#company").val()==""){//에러메시지 출력
+			if($("#company").val()=="" || $("#url").val()==""){//에러메시지 출력
 				$("#infoWrapper .form-box").eq(0).hide();
 				$("#infoWrapper .form-box").eq(1).hide();
 				$("#infoWrapper .form-box").eq(2).show();
@@ -244,11 +248,7 @@
 				$("#speechBubble").hide();
 				$("#speechBubble").fadeIn(300).delay(1000).fadeOut(300);
 				return;
-			}
-			if($("#url").val()==""){
-				$("#urlErrMsg").fadeIn(300).delay(1000).fadeOut(300);
-				return;	
-			}			
+			}		
 			//카카오페이결제
 			const cid="TC0ONETIME";
 			const partner_order_id="partner_order_id";
@@ -420,9 +420,9 @@
 		$("#calendar").append("<div style='clear: both;'></div>");
 		$("#calendarDate").html(todayYear + ". " + todayMonth);
 		if(todayMonth==today.getMonth()+1){
-			$("#nextMonth").html("<a href='#' onclick='javascript:nextMonth()'><img alt='다음 달' src='<c:url value='/resources/adminImages/right-arrow.png'/>'></a>");
+			$("#nextMonth").html("<a href='#' onclick='javascript:nextMonth()'><img alt='다음 달' class='cursor' src='<c:url value='/resources/adminImages/right-arrow.png'/>'></a>");
 		}else{
-			$("#prevMonth").html("<a href='#' onclick='javascript:prevMonth()'><img alt='이전 달' src='<c:url value='/resources/adminImages/left-arrow.png'/>'></a>");
+			$("#prevMonth").html("<a href='#' onclick='javascript:prevMonth()'><img alt='이전 달' class='cursor' src='<c:url value='/resources/adminImages/left-arrow.png'/>'></a>");
 		}
 		var firstDate=new Date(todayYear,todayMonth-1,1);
 		var firstDay=firstDate.getDay();
@@ -609,7 +609,7 @@
 				<img id="leftBtn" class="cursor" alt="이전 정보" src="<c:url value='/resources/adminImages/left-arrow.png'/>">
 				<img id="rightBtn" class="cursor" alt="다음 정보" src="<c:url value='/resources/adminImages/right-arrow.png'/>">
 			</div>
-			<div id="cartInfo" class="form-box" class="stick">
+			<div id="cartInfo" class="form-box">
 				<br><div id="cart"><div>주문 현황</div>
 				<p id="cartMsg"><br>광고할 날짜를 클릭해 주문해주세요.</p><br></div>
 				<div id="price"></div>
