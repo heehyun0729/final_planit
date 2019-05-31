@@ -31,6 +31,7 @@ Route = function(city, country, lat, lng, stay, date_in, date_out) {
 	this.date_out=date_out;
 }
 var markers = [];
+var lines = [];
 var arrow, line;
 var map;
 
@@ -141,7 +142,10 @@ function initMap() {
     autocomplete.setFields(
             ['address_components', 'geometry', 'name', 'place_id']);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(addrBox);
-  
+    // 저장버튼
+    var btnSave = document.getElementById("saveBox");
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox);
+    
     var geocoder = new google.maps.Geocoder();
     
     var infowindow = new google.maps.InfoWindow();
@@ -218,28 +222,17 @@ function initMap() {
   }
 // 지도에 마커, 경로 추가하는 함수
 function setMapRoute() {
-	// 기존 마커, 경로 삭제
-	markers.forEach(function(marker) {
-        marker.setMap(null);
-    });
-    markers = [];
-    
+	clearMarkers();
+	clearLines();
     // 경로 화살표 모양 설정
     arrow = {
 	  path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
 	};
-	line = new google.maps.Polyline({
-	  icons: [{
-	    icon: arrow,
-	    offset: '100%'
-	  }],
-	  strokeColor: '#878787',
-	  strokeOpacity: 0.9,
-	  strokeWeight: 2,
-	  map: map
-	});
-	var path = line.getPath();
-    
+    // 경로 position 배열
+	var lineCoordinates = [];
+	for(var i = 0 ; i < routelist.length ; i++){
+		lineCoordinates.push(new google.maps.LatLng({lat: Number(routelist[i].lat), lng: Number(routelist[i].lng)}));
+	}
     // 마커 모양 설정
 	var icon = "/planit/resources/planImages/circle.png";
     var image = {
@@ -250,7 +243,18 @@ function setMapRoute() {
 	};
 	for(var i = 0 ; i < routelist.length ; i++){
 		// 선 그리기
-		path.push(new google.maps.LatLng({lat: Number(routelist[i].lat), lng: Number(routelist[i].lng)}));
+		var line = new google.maps.Polyline({
+			path: lineCoordinates,
+			icons: [{
+				icon: arrow,
+				offset: '100%'
+			 }],
+			strokeColor: '#878787',
+			strokeOpacity: 0.9,
+			strokeWeight: 2
+		});
+		line.setMap(map);
+		lines.push(line);
 		// 마커 그리기
 		markers.push(new google.maps.Marker({
 			map: map,
@@ -261,6 +265,20 @@ function setMapRoute() {
 		}));
 	}
 }
+// 마커 삭제 함수
+function clearMarkers() {
+	for(var i = 0 ; i < markers.length ; i++){
+		markers[i].setMap(null);
+	}
+	markers = [];
+}
+function clearLines() {
+	for(var i = 0 ; i < lines.length ; i++){
+		lines[i].setMap(null);
+	}
+	lines = [];
+}
+// 경로 삭제 함수
 // routelist에 도시 정보 추가, 왼쪽 div에 정보 추가하는 함수
 function addCity(city, country, lat, lng) {
 	// 머무르는 날짜 구하기
@@ -301,9 +319,13 @@ function setRouteDiv() {
 							}
 				str += "</select>" +
 					"</div>" +
-					"<div>" +
-						"<span style = 'font-size:20px;font-weight:bold;'>" + routelist[i].city + "</span><span> " + routelist[i].country + "</span>" +
-						"<p style = 'font-size:12px;color:gray;margin-top: 5px;'>" + formatDate(routelist[i].date_in) + "~" + formatDate(routelist[i].date_out) + "</p>" +
+					"<div style = 'width:180px;float:left;'>" +
+						"<div>" +
+							"<span style = 'font-size:20px;font-weight:bold;'>" + routelist[i].city + "</span>" +
+							"<span> " + routelist[i].country + " </span>" +
+							"<a href='javascript:deleteCity(" + i + ")'><span style = 'font-size:10px;color:#aaa;'><i class='fas fa-times-circle'></i></span></a>" +
+						"</div>" +
+						"<div><span style = 'font-size:12px;color:gray;margin-top: 5px;'>" + formatDate(routelist[i].date_in) + "~" + formatDate(routelist[i].date_out) + "</span></div>" +
 					"</div>" +
 					"<div style='width:28px;height:7pt;border-right:3px solid skyblue;clear:both;'></div>" +
 				"</div>";
@@ -313,15 +335,30 @@ function setRouteDiv() {
 		$('#route').html(str);
 	}
 }
+// x 버튼 누르면 동작하는 루트 삭제 함수
+function deleteCity(i) {
+	if(confirm("정말 삭제하시겠습니까?")){
+		clearMarkers();
+		clearLines();
+		if(routelist.length == 1){
+			routelist = [];
+			$('#route').html("");
+		}else{
+			routelist.splice(i, 1);
+		}
+		setRouteDate();
+		setMapRoute();
+	}else{
+		return;
+	}
+}
 // 머무는 날짜 바꾸면 동작하는 함수
 function changeStay(i) {
 	var stay = $("#stay" + i).val();
 	// routelist의 해당 배열 stay 수정
 	routelist[i].stay = stay;
 	// routelist의 모든 date_in, date_out 수정
-	var date = $("#startDate").val();
-	setRouteDate(date);
-	setRouteDiv();
+	setRouteDate();
 	setMapRoute();
 }
 // Date 객체를 format해서 리턴하는 함수
@@ -333,8 +370,9 @@ function formatDate(date) {
 	var day = week[date.getDay()];
 	return y + "-" + m + "-" + d + "(" + day + ")";
 }
-// routelist date_in, date_out 수정
-function setRouteDate(date) {
+// datepicker 날짜 수정하면 routelist date_in, date_out 수정하는 함수
+function setRouteDate() {
+	var date = $("#startDate").val();
 	var startdate = new Date(date);
 	var date_in, date_out;
 	for(var i = 0 ; i < routelist.length ; i++){
@@ -353,4 +391,8 @@ function setRouteDate(date) {
 		}
 	}
 	setRouteDiv();
+}
+// 저장버튼 눌렀을 때 DB에 데이터 저장하는 함수
+function savePlan() {
+	
 }

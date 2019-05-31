@@ -14,7 +14,7 @@
 		</if>
 	</sql>
 	
-	<select id="count" resultType="int">
+	<select id="count" resultType="int" parameterType="hashmap">
 		select NVL(count(*),0) cnt from qna
 		<include refid="search"/>
 	</select>
@@ -35,11 +35,11 @@
 		select * from qna where qna_num=#{qna_num}
 	</select>
 	<!-- next -->
-	<select id="next" parameterType="hashmap" resultType="com.jhta.planit.qna.vo.QnaVo">
+	<select id="next" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
 		select * from
 		(
 			select * from qna
-			<![CDATA[where qna_num>#{qna_num}]]>
+			where qna_num>#{qna_num}
 			order by qna_num asc
 		)
 		where rownum=1
@@ -48,9 +48,9 @@
 	<select id="prev" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
 		select * from
 		(
-		select * from qna
-		<![CDATA[where qna_num>#{qna_num}]]>
-		order by num desc
+			select * from qna
+				<![CDATA[where qna_num<#{qna_num}]]>
+			order by num desc
 		)
 		where rownum=1
 	</select>

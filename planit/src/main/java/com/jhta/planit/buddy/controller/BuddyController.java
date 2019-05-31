@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.planit.buddy.service.BuddyService;
+import com.jhta.planit.buddy.vo.BuddyCityVo;
+import com.jhta.planit.buddy.vo.BuddyCountryVo;
 import com.jhta.planit.buddy.vo.BuddyVo;
 
 @Controller
@@ -26,7 +28,7 @@ public class BuddyController {
 		for(int i=0;i<countryList.size();i++) {
 			ArrayList<String> cities=new ArrayList<String>();
 			String country=countryList.get(i);
-			List<BuddyVo> cityList=service.showCity(country);
+			List<BuddyCityVo> cityList=service.showCity(country);
 			if(cityList!=null) {
 				for(int j=0;j<cityList.size();j++) {
 					cities.add(cityList.get(j).getBuddy_city());
@@ -37,6 +39,15 @@ public class BuddyController {
 		
 		//리스트 뽑기
 		List<BuddyVo> buddyList=service.showAll();
+		
+		//검색
+//		System.out.println("1 : "+ vo.getBuddy_indate());
+//		System.out.println("2 : "+ vo.getBuddy_outdate());
+//		System.out.println("3 : "+ countryVo.getBuddy_country());
+//		System.out.println("4 : "+ cityVo.getBuddy_city());
+//		System.out.println("5 : "+ vo.getBuddy_birthYear());
+//		System.out.println("6 : "+ vo.getBuddy_gender());
+//		System.out.println("7 : "+ vo.getBuddy_msg());
 		
 		//뷰 페이지로 이동
 		ModelAndView mv=new ModelAndView(".buddy.buddyList");
@@ -52,15 +63,8 @@ public class BuddyController {
 		return ".buddy.buddyInsert";
 	}
 	@RequestMapping(value="/buddyInsert", method=RequestMethod.POST)
-	public String buddyInsert(BuddyVo vo) {
-		System.out.println("1 : "+ vo.getBuddy_indate());
-		System.out.println("2 : "+ vo.getBuddy_outdate());
-		System.out.println("3 : "+ vo.getBuddy_country());
-		System.out.println("4 : "+ vo.getBuddy_city());
-		System.out.println("5 : "+ vo.getBuddy_birthYear());
-		System.out.println("6 : "+ vo.getBuddy_gender());
-		System.out.println("7 : "+ vo.getBuddy_msg());
-		int n=service.buddyInsert(vo);
+	public String buddyInsert(BuddyVo vo,BuddyCountryVo countryVo,BuddyCityVo cityVo) {
+		int n=service.buddyInsert(vo,countryVo,cityVo);
 		return "redirect:/buddyList";
 	}
 }

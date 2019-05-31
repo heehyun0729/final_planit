@@ -22,24 +22,26 @@
 			</c:forEach>
 		</table>
 		<br>
-		<!-- 
-		
 		<div id="page">
 			<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 				<c:choose>
 					<c:when test="${pu.pageNum==i }">
 					<%--current page --%>
-					<a href='<c:url value='/qnaList?pageNum=${i }
+						<a href="${pageContext.request.contextPath }/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }">
+							<span style='color:blue'>[${i }]</span>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath }/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }">
+						<span style='color:gray'>[${i }]</span>
+						</a>
+					</c:otherwise>
 				</c:choose>
-			
 			</c:forEach>
 		</div>
 		<c:choose>
 			<c:when test="${sessionScope.mem_id!=null }">
 				<a href="<c:url value='/qna/insertQna'/>">글쓰기</a>
 			</c:when>
-		</c:choose>
-		 -->
-		
-		
+		</c:choose>		
 </div>

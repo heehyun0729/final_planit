@@ -54,5 +54,10 @@ public class QnaVo {
 	public void setQna_date(Date qna_date) {
 		this.qna_date = qna_date;
 	}
+	@Override
+	public String toString() {
+		return "QnaVo [qna_num=" + qna_num + ",mem_id=" + mem_id +",qna_cate=" + qna_cate +", qna_title=" + qna_title
+				+ ",qna_content=" + qna_content + ",qna_date=" + qna_date + "]";
+	}
 	
 }

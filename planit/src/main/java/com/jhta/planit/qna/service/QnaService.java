@@ -26,4 +26,10 @@ public class QnaService {
 	public int count(HashMap<String, Object> map){
 		return dao.count(map);
 	}
+	public QnaVo next(int qna_num) {
+		return dao.next(qna_num);
+	}
+	public QnaVo prev(int qna_num) {
+		return dao.prev(qna_num);
+	}
 }
