@@ -15,4 +15,7 @@
 	<div class="addrBox" id = "addrBox">
 		<input type="text" id="address" class = "address">
 	</div>
+	<div class="saveBox" id = "saveBox">
+		<input type="button" value = "저장" id="btnSave" class = "btnSave">
+	</div>
 </div>
