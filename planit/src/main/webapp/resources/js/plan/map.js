@@ -33,7 +33,7 @@ $(function() {
 		}else{
 			// 총 여행 날짜 구하기
 			for(var i = 0 ; i < routelist.length ; i++){
-				stays += routelist[i].stay;
+				stays += Number(routelist[i].stay);
 			}
 			// 정적 지도 이미지 주소 생성
 			var img = 'https://maps.googleapis.com/maps/api/staticmap?size=400x400&mobile=true&visible=39,17&path=color:0x|weight:1|'
@@ -59,7 +59,12 @@ $(function() {
 					img:img
 				},
 				success: function(data) {
-					console.log(data.result);
+					var result = data.result;
+					if(result == 'success'){
+						location.href = '/planit/plan/list';
+					}else{
+						alert('오류로 인해 저장을 실패하였습니다.');
+					}
 				}
 			});
 		}

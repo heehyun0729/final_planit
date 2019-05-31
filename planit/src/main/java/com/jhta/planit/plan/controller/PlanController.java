@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -83,11 +86,18 @@ public class PlanController {
 	return key;
 	}
 	
-	@RequestMapping("/plan")
+	@RequestMapping("/plan/planner")
 	public String planHome(HttpSession session) throws Exception {
 		String key = getApi();
 		session.setAttribute("key", key);
 		return ".plan.planner";
+	}
+	
+	@RequestMapping("/plan/list")
+	public String planList(Model model) {
+		List<PlanVo> list = planService.list();
+		model.addAttribute("list", list);
+		return ".plan.planList";
 	}
 
 	@RequestMapping(value = "/googleMap", produces = "application/json;charset=utf-8")
