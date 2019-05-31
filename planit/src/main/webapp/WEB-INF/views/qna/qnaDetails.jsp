@@ -18,6 +18,7 @@
 			<td>내용</td><td><textarea cols="50" rows="8">${vo.qna_content }</textarea></td>
 		</tr>
 		<tr>
+		
 			<td>작성일자</td><td>${vo.qna_date }</td>
 		</tr>
 	</table>
