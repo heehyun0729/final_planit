@@ -27,13 +27,14 @@
 				<c:choose>
 					<c:when test="${pu.pageNum==i }">
 					<%--current page --%>
-						<a href="<c:url value='/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }'/>">
+						<a href="${pageContext.request.contextPath }/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }">
 							<span style='color:blue'>[${i }]</span>
 						</a>
 					</c:when>
 					<c:otherwise>
-						<a href="<c:url value='/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }'/>"></a>
+						<a href="${pageContext.request.contextPath }/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }">
 						<span style='color:gray'>[${i }]</span>
+						</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
