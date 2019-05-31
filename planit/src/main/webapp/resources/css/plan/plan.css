@@ -9,34 +9,13 @@
 	width: 100%;
 	height: 150px;
 	text-align: center;
-	color: gray;
-	padding-top: 20px;
-}
-
-#planTop #startPlanner {
-	display: inline-block;
-	width: 150px;
-	height: 2.5em;
-	padding-top: 1em; background-color : skyblue;
-	margin-top: 20px;
-	border-radius: 5px;
-	background-color: skyblue;
-}
-
-#planTop a {
-	color: white;
-	text-decoration: none;
-}
-
-#list {
-	text-align: center;
-	color: gray;
 }
 
 .userPlan {
 	display: inline-block;
 	float: left;
 	margin: 5px;
+	text-align: center;
 }
 
 .userPlan img {
