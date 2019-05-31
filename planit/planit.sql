@@ -27,19 +27,20 @@ CREATE TABLE members(
 );
 
 DROP TABLE ACCOM CASCADE CONSTRAINTS;
+drop sequence accom_num_seq;
 create table accom(
 	accom_num number(7) NOT NULL,
 	accom_name varchar2(50),
 	accom_addr varchar2(100),
 	accom_comm varchar2(1000),
 	acomm_contry varchar2(50),
-	acomm_city varchar2(50)
+	acomm_city varchar2(50),
 	PRIMARY KEY (accom_num)
 );
 create sequence accom_num_seq;
 
 DROP TABLE acommQna CASCADE CONSTRAINTS;
-
+drop sequence acommQna_num_seq;
 create table acommQna(
     acommQna_num number(7) NOT NULL,
     accom_num number(7) REFERENCES accom(accom_num),
@@ -53,6 +54,7 @@ create table acommQna(
 create sequence acommQna_num_seq;
 
 DROP TABLE qna CASCADE CONSTRAINTS;
+drop sequence qna_num_seq;
 create table qna(
    qna_num number(7) NOT NULL,
    mem_id varchar2(15) REFERENCES members(mem_id),
@@ -65,6 +67,7 @@ create table qna(
 create sequence qna_num_seq;
 
 DROP TABLE qnaComm CASCADE CONSTRAINTS;
+drop sequence qcomm_num_seq;
 create table qnaComm(
     qcomm_num number(7) NOT NULL,
     rcomm_content varchar2(1000),
@@ -78,16 +81,19 @@ create sequence qcomm_num_seq;
 
 
 DROP TABLE qnaImage CASCADE CONSTRAINTS;
+drop sequence qnaImg_num_seq;
 create table qnaImage(
    qnaImg_num number(7) NOT NULL,
-   qna_num number(7) reference qna(qna_num),
-   mem_id varchar2(15) reference members(mem_id),
+   qna_num number(7) references qna(qna_num),
+   mem_id varchar2(15) references members(mem_id),
    qnaImg_orgImg varchar2(50),
    qnaImg_saveImg varchar(50),
    PRIMARY KEY (qnaImg_num)
 );
 create sequence qnaImg_num_seq;
 
+DROP TABLE ad CASCADE CONSTRAINTS;
+drop sequence ad_num_seq;
 CREATE TABLE ad
 (
 	ad_num number(7,0) NOT NULL,
@@ -129,4 +135,24 @@ CREATE TABLE buddy_apply
 	buddy_num number(7,0) NOT NULL,
 	mem_id varchar2(15) NOT NULL,
 	PRIMARY KEY (apply_num)
+);
+
+drop table plan cascade constraints;
+create table plan(
+    plan_num number(7) primary key,
+    mem_id varchar2(40) references members(mem_id),
+    plan_title varchar2(50),
+    plan_public number(2)   -- 0: 공개, 1: 비공개
+);
+
+drop table planDetail cascade constraints;
+create table planDetail(
+    planDetail_num number(7) primary key,
+    plan_num number(7) references plan(plan_num),
+    planDetail_order number(3),
+    planDetail_country varchar2(30),
+    planDetail_city varchar2(40),
+    planDetail_inDate date,
+    planDetail_outDate date,
+    planDetail_detail clob
 );
