@@ -13,10 +13,10 @@
 		<c:forEach var = "vo" items="${list }">
 			<div class = "userPlan">
 				<div>
-					<img src = "${vo.plan_img }">
+					<a href = "<c:url value = '/plan/detail?plan_num=${vo.plan_num }'/>"><img src = "${vo.plan_img }"></a>
 				</div>
 				<div class = "planTitle">
-					${vo.plan_title }
+					<a href = "<c:url value = '/plan/detail?plan_num=${vo.plan_num }'/>">${vo.plan_title }</a>
 				</div>
 				<div class = "planId">
 					${vo.mem_id }

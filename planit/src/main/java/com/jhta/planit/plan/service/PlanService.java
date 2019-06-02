@@ -21,4 +21,7 @@ public class PlanService {
 	public List<PlanVo> list() {
 		return planDao.list();
 	}
+	public PlanVo detail(int plan_num) {
+		return planDao.detail(plan_num);
+	}
 }

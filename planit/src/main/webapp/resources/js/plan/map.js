@@ -31,6 +31,9 @@ $(function() {
 		if(routelist.length == 0){
 			alert("도시를 하나 이상 추가한 뒤에 일정을 만들 수 있습니다.");
 		}else{
+			// 여행 시작 날짜 구하기
+			var startDate = $("#startDate").val();
+			console.log(startDate);
 			// 총 여행 날짜 구하기
 			for(var i = 0 ; i < routelist.length ; i++){
 				stays += Number(routelist[i].stay);
@@ -55,6 +58,7 @@ $(function() {
 				traditional:true,
 				data: {
 					routelist:JSON.stringify(routelist),
+					startDate: startDate,
 					stays:stays,
 					img:img
 				},
@@ -202,7 +206,6 @@ function initMap() {
 			var country = "";
 			var result = data.result;
 			var address = result.address_components;
-		    var cityInfo = [];	// 0: 도시명, 1: 국가명, 2: [lat, lng], 3: lng
 			for(var i = 0 ; i < address.length ; i++){
 				if(address[i].types[0] == 'locality'){
 					city = address[i].short_name;

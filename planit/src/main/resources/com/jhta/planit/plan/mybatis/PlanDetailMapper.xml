@@ -5,10 +5,13 @@
 <mapper namespace="com.jhta.planit.plan.mybatis.PlanDetailMapper">
 	<insert id="insert" parameterType="com.jhta.planit.plan.vo.PlanDetailVo">
 		insert into planDetail values(
-			#{planDetail_num}, #{plan_num}, #{planDetail_order}, #{planDetail_country}, #{planDetail_city},
-			#{planDetail_inDate}, #{planDetail_outDate}, #{planDetail_detail})
+			#{planDetail_num}, #{plan_num}, #{planDetail_order}, #{planDetail_country}, #{planDetail_city}, #{planDetail_lat}, #{planDetail_lng},
+			#{planDetail_inDate}, #{planDetail_outDate}, #{planDetail_stay}, #{planDetail_detail})
 	</insert>
 	<select id="count" resultType="int">
 		select NVL(count(*), 0) from planDetail
+	</select>
+	<select id="detail" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanDetailVo">
+		select * from planDetail where plan_num = #{plan_num}
 	</select>
 </mapper>

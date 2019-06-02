@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.planit.plan.service.PlanDetailService;
@@ -33,10 +34,10 @@ public class PlanController {
 	
 	@RequestMapping(value = "/plan/insert", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String insert(HttpSession session, String routelist, String stays, String img) {
+	public String insert(HttpSession session, String routelist, String startDate, String stays, String img) {
 		int plan_num = planService.count();
 	//	String mem_id = (String)session.getAttribute("mem_id");
-		int n = planService.insert(new PlanVo(plan_num, "qweqwe", stays + "일간 여행", img, 0));
+		int n = planService.insert(new PlanVo(plan_num, "qweqwe", stays + "일간 여행", startDate, Integer.parseInt(stays), img, 0));
 		try {
 			if(n > 0) {
 				JSONArray array = new JSONArray(routelist);
@@ -45,9 +46,13 @@ public class PlanController {
 					int planDetail_num = planDetailService.count();
 					String country = route.get("country").toString();
 					String city = route.get("city").toString();
+					String lat = route.get("lat").toString().substring(0, 7);
+					String lng = route.get("lng").toString().substring(0, 7);
+					System.out.println(lat + ", " + lng);
 					String date_in = route.get("date_in").toString().substring(0, 10);
 					String date_out = route.get("date_out").toString().substring(0, 10);
-					int n1 = planDetailService.insert(new PlanDetailVo(planDetail_num, plan_num, i, country, city, date_in, date_out, ""));
+					int stay = Integer.parseInt(route.get("stay").toString());
+					int n1 = planDetailService.insert(new PlanDetailVo(planDetail_num, plan_num, i, country, city, lat, lng, date_in, date_out, stay, ""));
 					if(n1 < 1) {
 						Exception e = new Exception("planDetail insert 실패");
 						throw e;
@@ -68,11 +73,55 @@ public class PlanController {
 		}
 	}
 	
+	@RequestMapping("/plan/planner")
+	public String planHome(HttpSession session) throws Exception {
+		String key = getApi();
+		session.setAttribute("key", key);
+		return ".plan.planner";
+	}
+	
+	@RequestMapping("/plan/list")
+	public String list(Model model) {
+		List<PlanVo> list = planService.list();
+		model.addAttribute("list", list);
+		return ".plan.planList";
+	}
+	
+	@RequestMapping(value = "/plan/detail", method = RequestMethod.GET)
+	public String detail(String plan_num, Model model, HttpSession session) throws IOException {
+		String key = getApi();
+		session.setAttribute("key", key);
+		PlanVo vo = planService.detail(Integer.parseInt(plan_num));
+		model.addAttribute("vo", vo);
+		return ".plan.planDetail";
+	}
+	@RequestMapping(value = "/plan/detail", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String getPlanDetail(String plan_num) {
+		List<PlanDetailVo> list = planDetailService.detail(Integer.parseInt(plan_num));
+		JSONArray array = new JSONArray();
+		for(PlanDetailVo vo : list) {
+			JSONObject json = new JSONObject();
+			
+			json.put("order", vo.getPlanDetail_order());
+			json.put("country", vo.getPlanDetail_country());
+			json.put("city", vo.getPlanDetail_city());
+			json.put("lat", vo.getPlanDetail_lat());
+			json.put("lng", vo.getPlanDetail_lng());
+			json.put("date_in", vo.getPlanDetail_inDate());
+			json.put("date_out", vo.getPlanDetail_outDate());
+			json.put("stay", vo.getPlanDetail_stay());
+			json.put("detail", vo.getPlanDetail_detail());
+			array.put(json);
+		}
+		return array.toString();
+	}
+	
 	public String getApi() throws IOException {
 	FileReader fr = null;
 	String key = "";
 	try {
-		fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
+		fr = new FileReader(new File("C:\\spring\\workspace\\maven.1559389729634\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
 		while(true) {
 			int n = fr.read();
 			if(n == -1) break;
@@ -86,20 +135,6 @@ public class PlanController {
 	return key;
 	}
 	
-	@RequestMapping("/plan/planner")
-	public String planHome(HttpSession session) throws Exception {
-		String key = getApi();
-		session.setAttribute("key", key);
-		return ".plan.planner";
-	}
-	
-	@RequestMapping("/plan/list")
-	public String planList(Model model) {
-		List<PlanVo> list = planService.list();
-		model.addAttribute("list", list);
-		return ".plan.planList";
-	}
-
 	@RequestMapping(value = "/googleMap", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String googleMap(String placeid, String fields, String key) throws Exception{

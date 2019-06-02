@@ -1,5 +1,7 @@
 package com.jhta.planit.plan.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,8 @@ public class PlanDetailService {
 	}
 	public int count() {
 		return planDetailDao.count();
+	}
+	public List<PlanDetailVo> detail(int plan_num){
+		return planDetailDao.detail(plan_num);
 	}
 }

@@ -22,4 +22,7 @@ public class PlanDao {
 	public List<PlanVo> list(){
 		return sqlSession.selectList(NAMESPACE + ".list");
 	}
+	public PlanVo detail(int plan_num) {
+		return sqlSession.selectOne(NAMESPACE + ".detail", plan_num);
+	}
 }

@@ -166,6 +166,8 @@ create table plan(
     plan_num number(7) primary key,
     mem_id varchar2(40) references members(mem_id),
     plan_title varchar2(50),
+    plan_startDate date,
+    plan_stays number(3),
     plan_img clob,
     plan_public number(2)   -- 0: 공개, 1: 비공개
 );
@@ -177,8 +179,11 @@ create table planDetail(
     planDetail_order number(3),
     planDetail_country varchar2(30),
     planDetail_city varchar2(40),
+    planDetail_lat number(8),
+    planDetail_lng number(8),
     planDetail_inDate date,
     planDetail_outDate date,
+    planDetail_stay number(3),
     planDetail_detail clob
 );
 
