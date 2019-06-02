@@ -34,6 +34,10 @@ import com.jhta.planit.admin.vo.AdVo;
 public class AdController {
 	@Autowired
 	private AdService service;
+	@RequestMapping(value="/adminAdRequestFormOk", method=RequestMethod.GET)//완료페이지 실험용
+	public String adminAdRequestFormGetOk() {
+		return ".admin.adminAdRequestFormOk";
+	}
 	@RequestMapping(value="/adminHome", method=RequestMethod.GET)
 	public String adminHome() {
 		return ".admin.adminHome";
@@ -139,5 +143,9 @@ public class AdController {
 	@RequestMapping(value="/adminAdKakaoPayCancel")
 	public String adminAdKakaoPayCancel() {
 		return ".admin.adminAdKakaoPayCancel";
+	}
+	@RequestMapping(value="/adminAdManagement")
+	public String adminAdManagement() {
+		return ".admin.adminAdManagement";
 	}
 }
