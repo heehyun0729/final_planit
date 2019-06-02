@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jhta.planit.plan.service.PlanDetailService;
 import com.jhta.planit.plan.service.PlanService;
 import com.jhta.planit.plan.vo.PlanDetailVo;
@@ -48,9 +49,9 @@ public class PlanController {
 					String city = route.get("city").toString();
 					String lat = route.get("lat").toString().substring(0, 7);
 					String lng = route.get("lng").toString().substring(0, 7);
-					System.out.println(lat + ", " + lng);
 					String date_in = route.get("date_in").toString().substring(0, 10);
 					String date_out = route.get("date_out").toString().substring(0, 10);
+					System.out.println(date_in + " ~ " + date_out);
 					int stay = Integer.parseInt(route.get("stay").toString());
 					int n1 = planDetailService.insert(new PlanDetailVo(planDetail_num, plan_num, i, country, city, lat, lng, date_in, date_out, stay, ""));
 					if(n1 < 1) {

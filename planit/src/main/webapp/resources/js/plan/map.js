@@ -33,7 +33,6 @@ $(function() {
 		}else{
 			// 여행 시작 날짜 구하기
 			var startDate = $("#startDate").val();
-			console.log(startDate);
 			// 총 여행 날짜 구하기
 			for(var i = 0 ; i < routelist.length ; i++){
 				stays += Number(routelist[i].stay);
@@ -216,7 +215,9 @@ function initMap() {
 			}
 			var lat = result.geometry.location.lat;
 			var lng = result.geometry.location.lng;
-			var photoreference = result.photos[0].photo_reference;
+			if(result.photos != null){
+				var photoreference = result.photos[0].photo_reference;
+			}
 			// 장소 위치(위도, 경도)로 도시 정보 받아오기 ==> 마커, 인포윈도우 표시
 		    geocoder.geocode({'location': place.geometry.location}, function(results, status) {
 		      if (status === 'OK') {
@@ -344,9 +345,10 @@ function addCity(city, country, lat, lng) {
 	route.lat = lat;
 	route.lng = lng;
 	route.stay = 1;
-	route.date_in = date_in;
-	route.date_out = date_out;
+	route.date_in = formatDate(date_in);
+	route.date_out = formatDate(date_out);
 	routelist.push(route);
+	console.log(routelist);
 	setRouteDiv();
 	setMapRoute();
 }
@@ -373,7 +375,7 @@ function setRouteDiv() {
 							"<span> " + routelist[i].country + " </span>" +
 							"<a href='javascript:deleteCity(" + i + ")'><span style = 'font-size:10px;color:#aaa;'><i class='fas fa-times-circle'></i></span></a>" +
 						"</div>" +
-						"<div><span style = 'font-size:12px;color:gray;margin-top: 5px;'>" + formatDate(routelist[i].date_in) + "~" + formatDate(routelist[i].date_out) + "</span></div>" +
+						"<div><span style = 'font-size:12px;color:gray;margin-top: 5px;'>" + routelist[i].date_in + "~" + routelist[i].date_out + "</span></div>" +
 					"</div>" +
 					"<div style='width:28px;height:7pt;border-right:3px solid skyblue;clear:both;'></div>" +
 				"</div>";
@@ -413,7 +415,9 @@ function changeStay(i) {
 function formatDate(date) {
 	var y = date.getFullYear();
 	var m = date.getMonth() + 1;
+	m = m >= 10 ? m : "0" + m;
 	var d = date.getDate();
+	d = d >= 10 ? d : "0" + d;
 	var week = ["일", "월", "화", "수", "목", "금", "토"];
 	var day = week[date.getDay()];
 	return y + "-" + m + "-" + d + "(" + day + ")";
@@ -426,15 +430,15 @@ function setRouteDate() {
 	for(var i = 0 ; i < routelist.length ; i++){
 		if(routelist.length == 1){
 			date_in = startdate;
-			routelist[i].date_in = date_in;
+			routelist[i].date_in = formatDate(date_in);
 			date_out = new Date(date_in.getFullYear(),date_in.getMonth(), date_in.getDate() + eval(routelist[i].stay));
-			routelist[i].date_out = date_out;
+			routelist[i].date_out = formatDate(date_out);
 			startdate = date_out;
 		}else{
 			date_in = startdate;
-			routelist[i].date_in = date_in;
+			routelist[i].date_in = formatDate(date_in);
 			date_out = new Date(date_in.getFullYear(), date_in.getMonth(), date_in.getDate() + eval(routelist[i].stay));
-			routelist[i].date_out = date_out;
+			routelist[i].date_out = formatDate(date_out);
 			startdate = date_out;
 		}
 	}

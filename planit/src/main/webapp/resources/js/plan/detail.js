@@ -2,6 +2,7 @@ var plan_num;
 var routelist = [];
 var markers = [];
 var lines = [];
+var events = [];
 var arrow, line;
 var map;
 var stays = 1;	// 총 여행 날짜
@@ -103,9 +104,8 @@ function initDetailMap() {
     map.setMapTypeId('styled_map');
     
     var geocoder = new google.maps.Geocoder();
-    
 
-	plan_num = $("#plan_num").val();
+    plan_num = $("#plan_num").val();
 	$.ajax({
 		url: "/planit/plan/detail",
 		method: "post",
@@ -114,9 +114,32 @@ function initDetailMap() {
 		success: function(data) {
 			routelist = data;
 			for(var i = 0 ; i < routelist.length ; i++){
-				console.log(routelist[i].lat);
-				setMapRoute();
+				events.push({
+					order: routelist[i].order,
+					title: routelist[i].city,
+					start: routelist[i].date_in.substr(0, 10),
+					end: routelist[i].date_out.substr(0, 10)
+				});
 			}
+			map.setCenter({lat:Number(routelist[0].lat), lng:Number(routelist[0].lng)});
+			setMapRoute();
+			showCalendar();
 		}
+	});
+}
+function showCalendar() {
+	console.log(events);
+	$("#planCalendar").fullCalendar({
+		header: {
+			left: 'prev',
+			center: 'title',
+			right: 'next'
+		},
+		defaultDate: routelist[0].date_in,
+		buttonIcons: true, 
+		editable: false,
+		locale:'ko',
+		eventOrder: [ "order", "duration"],
+		events:events
 	});
 }

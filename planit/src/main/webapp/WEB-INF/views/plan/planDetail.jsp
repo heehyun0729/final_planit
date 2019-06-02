@@ -5,6 +5,10 @@
 
 <div id = "planDetail">
 	<input type ="hidden" id = "plan_num" value="${vo.plan_num }">
-	<h2>${vo.plan_title }</h2>
+	<div>
+		<h2>${vo.plan_title }</h2>
+		<div>${vo.mem_id }</div>
+	</div>
 	<div id = "detailMap"></div>
+	<div id = "planCalendar"></div>
 </div>

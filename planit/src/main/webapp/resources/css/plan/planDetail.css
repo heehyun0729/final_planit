@@ -4,7 +4,17 @@
 	width: 100%;
 	height: 100%;
 }
-#detailMap{
+
+#detailMap {
 	width: 60%;
-	height: 480px;
+	height: 500px;
+	display: inline-block;
+	float: left;
+}
+
+#planCalendar {
+	width: 40%;
+	height: 500px;
+	display: inline-block;
+	float: left;
 }
