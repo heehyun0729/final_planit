@@ -17,11 +17,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jhta.planit.admin.service.AdService;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
+import com.jhta.util.PageUtil;
 
 @Controller
 public class AdController {
@@ -128,12 +131,13 @@ public class AdController {
 		map.add("approval_url", approval_url);
 		map.add("fail_url", fail_url);
 		map.add("cancel_url", cancel_url);
-		HttpEntity<MultiValueMap<String, String>> request = new org.springframework.http.HttpEntity<MultiValueMap<String,String>>(map,headers);
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(map,headers);
 	    Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
 		return obj;
 	}
 	@RequestMapping(value="/adminAdKakaoPayApproval")
-	public String adminAdKakaoPayOk() {
+	public String adminAdKakaoPayOk(String tid, Model model) {
+		model.addAttribute("ad_tid", tid);
 		return ".admin.adminAdKakaoPayApproval";
 	}
 	@RequestMapping(value="/adminAdKakaoPayFail")
@@ -144,8 +148,58 @@ public class AdController {
 	public String adminAdKakaoPayCancel() {
 		return ".admin.adminAdKakaoPayCancel";
 	}
-	@RequestMapping(value="/adminAdManagement")
-	public String adminAdManagement() {
-		return ".admin.adminAdManagement";
+	@RequestMapping(value="/admin/adminAdManagement/approvedAdList")
+	public String adminAdManagementApprovedAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("ad_progress", "0");
+		int totalRowCount=service.getTotalRowCount(map);
+		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
+		map.put("pageNum", pageNum);
+		map.put("startPageNum", pu.getStartPageNum());
+		map.put("endPageNum", pu.getEndPageNum()); 
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<AdVo> getAdList=service.getAdList(map);
+		model.addAttribute("getAdList", getAdList);
+		model.addAttribute("map", map);
+		return ".admin.adminAdManagement.approvedAdList";
+	}
+	@RequestMapping(value="/admin/adminAdManagement/requestRefundAdList")
+	public String adminAdManagementRequestRefundAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("ad_progress", "3");
+		int totalRowCount=service.getTotalRowCount(map);
+		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
+		map.put("pageNum", pageNum);
+		map.put("startPageNum", pu.getStartPageNum());
+		map.put("endPageNum", pu.getEndPageNum()); 
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<AdVo> getAdList=service.getAdList(map);
+		model.addAttribute("getAdList", getAdList);
+		model.addAttribute("map", map);
+		return ".admin.adminAdManagement.requestRefundAdList";
+	}
+	@RequestMapping(value="/admin/adminAdManagement/allAdList")
+	public String adminAdManagementAllAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("ad_progress", "-1");
+		int totalRowCount=service.getTotalRowCount(map);
+		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
+		map.put("pageNum", pageNum);
+		map.put("startPageNum", pu.getStartPageNum());
+		map.put("endPageNum", pu.getEndPageNum()); 
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<AdVo> getAdList=service.getAdList(map);
+		model.addAttribute("getAdList", getAdList);
+		model.addAttribute("map", map);
+		return ".admin.adminAdManagement.allAdList";
 	}
 }

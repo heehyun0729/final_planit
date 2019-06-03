@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.planit.admin.dao.AdDao;
 import com.jhta.planit.admin.dao.AdImageDao;
@@ -59,5 +58,11 @@ public class AdService {
 	}	
 	public List<AdInfoVo> getChance(HashMap<String, Object> map) {
 		return adInfoDao.getChance(map);
+	}
+	public int getTotalRowCount(HashMap<String, Object> map) {
+		return adDao.getTotalRowCount(map);
+	}
+	public List<AdVo> getAdList(HashMap<String, Object> map) {
+		return adDao.getAdList(map);
 	}
 }

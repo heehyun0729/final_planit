@@ -21,8 +21,16 @@
 <section>
 	<article>
 		<div>
-			게시판 형식으로 만들기(오늘로부터 ~), 날짜 or 주문번호로 검색기능, 누르면 상세정보(나중에 마이페이지에 개인제공)
-			+결제정보(환불기능 만들기)
+			<table>
+				<tr>
+					<th>번호</th><th>신청자</th><th>회사명</th><th>신청일</th><th>결제금액</th>
+				</tr>
+				<c:forEach var="vo" items="${getRequestedAdList }">
+					<tr>
+						<td></td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</article>
 </section>

@@ -273,6 +273,7 @@
 						                   height: 600,
 						                   width: 500,
 						               });
+						$("input[name='ad_tid']").val(data.tid);
 						box.dialog().parents(".ui-dialog").find(".ui-dialog-titlebar").remove();
 						box.dialog('open');
 					}
@@ -617,6 +618,8 @@
 			<form id="form" method="post" action="<c:url value="/adminAdRequestForm"/>" enctype="multipart/form-data">
 				<input type="hidden" name="mem_id" value="${mem_id }">
 				<input type="hidden" name="ad_price" value="">
+				<input type="hidden" name="ad_payment" value="">
+				<input type="hidden" name="ad_tid" value="">
 				<div id="file" style="display: none;"></div>
 				<div id="formInfo2" class="form-box">
 					<br><p>광고 이미지</p><br>
