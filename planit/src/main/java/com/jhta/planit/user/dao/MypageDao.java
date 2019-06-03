@@ -14,8 +14,8 @@ public class MypageDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jhta.planit.user.mybatis.mypageMapper";
 
-	public HashMap<Object, Object> profileInfo(String mem_id) {
-		return sqlSession.selectOne(NAMESPACE + ".profileInfo", mem_id);
+	public HashMap<Object, Object> profileInfo(HashMap<String, String> parammap) {
+		return sqlSession.selectOne(NAMESPACE + ".profileInfo", parammap);
 	}
 
 	public void joinProfileImg(String mem_id) {
@@ -48,5 +48,15 @@ public class MypageDao {
 
 	public List<HashMap<Object, Object>> book(String mem_id) {
 		return sqlSession.selectList(NAMESPACE + ".book", mem_id);
+	}
+
+	public int follow(HashMap<String, Object> map) {
+		System.out.println("followdao");
+		return sqlSession.insert(NAMESPACE + ".follow", map);
+	}
+
+	public int unfollow(HashMap<String, Object> map) {
+		System.out.println("unfollowdao");
+		return sqlSession.insert(NAMESPACE + ".unfollow", map);
 	}
 }

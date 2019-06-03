@@ -12,8 +12,8 @@ import com.jhta.planit.user.dao.MypageDao;
 public class MypageService {
 	@Autowired private MypageDao dao;
 
-	public HashMap<Object, Object> profileInfo(String mem_id) {
-		return dao.profileInfo(mem_id);
+	public HashMap<Object, Object> profileInfo(HashMap<String, String> parammap) {
+		return dao.profileInfo(parammap);
 	}
 
 	public List<HashMap<Object, Object>> followedlist(String mem_id) {
@@ -38,5 +38,15 @@ public class MypageService {
 
 	public List<HashMap<Object, Object>> book(String mem_id) {
 		return dao.book(mem_id);
+	}
+
+	public int follow(HashMap<String, Object> map) {
+		String follow_grade = (String) map.get("follow_grade");
+		System.out.println("follow_grade: "+follow_grade);
+		if (follow_grade!=null && !follow_grade.equals("")) {
+			return dao.follow(map);
+		}else {
+			return dao.unfollow(map);
+		}
 	}
 }

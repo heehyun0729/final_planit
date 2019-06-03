@@ -22,7 +22,7 @@
 				
 				<script>
 				var xhr = null;
-				var cnum=setInterval(countList);
+				//var cnum=setInterval(countList);
 				function countList() {
 					xhrList = new XMLHttpRequest();
 					xhrList.onreadystatechange = countListOk;
