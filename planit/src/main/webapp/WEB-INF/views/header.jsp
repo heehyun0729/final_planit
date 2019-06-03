@@ -1,30 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
 
-</style>
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.4.0.min.js"></script>
-<script>
-var xhr = null;
-var cnum=setInterval(countList);
-function countList() {
-	xhrList = new XMLHttpRequest();
-	xhrList.onreadystatechange = countListOk;
-	xhrList.open('get', '${pageContext.request.contextPath }/mem/readCheck?memId=${sessionScope.mem_id}', true);
-	xhrList.send();
-}
-function countListOk() {
-	if(xhrList.readyState == 4 && xhrList.status == 200){
-		var data = xhrList.responseXML;
-		var mul = document.getElementById("mul");
-		var result=data.getElementsByTagName("result")[0];
-		var comm = result.getElementsByTagName("comm")[0];
-		var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
-	    mul.innerHTML=  c;
-	}
-}
-</script>
 <div id = "box">
 	<h1>header</h1>
 	<ul>
@@ -42,6 +19,27 @@ function countListOk() {
 				<li><a href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>">마이페이지</a></li>
 				<li><a href="<c:url value="/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>"><img style="width:20px"src='<c:url value='/resources/msgImage/message.png'/>'/><span id = "mul"></span></a></li>
 				<li><a href="<c:url value='/logout'/>">로그아웃</a></li>
+				
+				<script>
+				var xhr = null;
+				var cnum=setInterval(countList);
+				function countList() {
+					xhrList = new XMLHttpRequest();
+					xhrList.onreadystatechange = countListOk;
+					xhrList.open('get', '${pageContext.request.contextPath }/mem/readCheck?memId=${sessionScope.mem_id}', true);
+					xhrList.send();
+				}
+				function countListOk() {
+					if(xhrList.readyState == 4 && xhrList.status == 200){
+						var data = xhrList.responseXML;
+						var mul = document.getElementById("mul");
+						var result=data.getElementsByTagName("result")[0];
+						var comm = result.getElementsByTagName("comm")[0];
+						var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
+					    mul.innerHTML=  c;
+					}
+				}
+				</script>
 			</c:when>
 			<c:otherwise>
 				<li><a href="<c:url value='/login'/>">로그인</a></li>
