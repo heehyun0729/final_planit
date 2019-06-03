@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.planit.admin.service.AdService;
+import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
 import com.jhta.util.PageUtil;
@@ -56,7 +57,7 @@ public class AdController {
 	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)
 	public String adminAdRequestFormPost(AdVo vo, String[] order, Date[] orderDate, int[] orderPrice, MultipartFile file, HttpSession session) {
 		String path=session.getServletContext().getRealPath("/resources/adImage");//파일 업로드
-		//System.out.println(path);//업로드 경로
+		System.out.println(path);//업로드 경로
 		String adImg_orgImg=file.getOriginalFilename();
 		String adImg_savImg=UUID.randomUUID() + "_" + adImg_orgImg;
 		try {
@@ -206,8 +207,11 @@ public class AdController {
 	public String adminAdManagementAdInfo(int ad_num, Model model) {
 		AdVo getAdInfo=service.getAdInfo(ad_num);
 		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
+		int adInfo_Num=getAdInfoInfo.get(0).getAdInfo_num();
+		AdImageVo getAdInfoImage=service.getAdInfoImage(adInfo_Num);
 		model.addAttribute("getAdInfo", getAdInfo);
 		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
-		return ".admin.adminAdManagement.allAdList";
+		model.addAttribute("getAdInfoImage", getAdInfoImage);
+		return ".admin.adminAdManagement.adInfo";
 	}
 }
