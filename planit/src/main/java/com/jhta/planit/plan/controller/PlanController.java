@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jhta.planit.plan.service.PlanDetailService;
 import com.jhta.planit.plan.service.PlanService;
 import com.jhta.planit.plan.vo.PlanDetailVo;
@@ -37,8 +35,8 @@ public class PlanController {
 	@ResponseBody
 	public String insert(HttpSession session, String routelist, String startDate, String stays, String img) {
 		int plan_num = planService.count();
-	//	String mem_id = (String)session.getAttribute("mem_id");
-		int n = planService.insert(new PlanVo(plan_num, "qweqwe", stays + "老埃 咯青", startDate, Integer.parseInt(stays), img, 0));
+		String mem_id = (String)session.getAttribute("mem_id");
+		int n = planService.insert(new PlanVo(plan_num, mem_id, stays + "老埃 咯青", startDate, Integer.parseInt(stays), img, 0));
 		try {
 			if(n > 0) {
 				JSONArray array = new JSONArray(routelist);

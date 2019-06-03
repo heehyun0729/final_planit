@@ -12,6 +12,26 @@
 	float: left;
 }
 
+#planStays {
+	width: 70px;
+	height: 70px;
+	border-radius: 35px;
+	margin: 10px 10px 0 0;
+	border: 1px solid #eee;
+	background-color: white;
+	text-align: center;
+	font-size: 15px;
+}
+
+#planStays span {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#planStays div {
+	margin-top: 20px;
+}
+
 #planCalendar {
 	width: 40%;
 	height: 500px;

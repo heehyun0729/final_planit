@@ -5,7 +5,7 @@ var lines = [];
 var events = [];
 var arrow, line;
 var map;
-var stays = 1;	// 총 여행 날짜
+var bgcolors = ['#113f67', '#34699a', '#408ab4', '#65c6c4', '#35477d', '#6c5b7b', '#c06c84', '#f67280'];
 
 function initDetailMap() {
 	// 지도 스타일
@@ -102,6 +102,11 @@ function initDetailMap() {
     });
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
+
+    var planStays = document.getElementById("planStays");
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(planStays);
+    var planStartDate = document.getElementById("planStartDate");
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(planStartDate);
     
     var geocoder = new google.maps.Geocoder();
 
@@ -114,13 +119,25 @@ function initDetailMap() {
 		success: function(data) {
 			routelist = data;
 			for(var i = 0 ; i < routelist.length ; i++){
+				var date = new Date(routelist[i].date_out);
+				var date_out = new Date(date.getFullYear(), date.getMonth(), date.getDate() + eval(1));
+				var formattedDate = formatDate(date_out);
 				events.push({
 					order: routelist[i].order,
 					title: routelist[i].city,
 					start: routelist[i].date_in.substr(0, 10),
-					end: routelist[i].date_out.substr(0, 10)
+					end: formattedDate.substr(0, 10),
+					color: bgcolors[i % 8],
+					city:  routelist[i].city,
+					country: routelist[i].country,
+					description: 'asdasd'
 				});
 			}
+			events.push({
+				title: '출국일',
+				start: routelist[0].date_in.substr(0, 10),
+				color: '#999999'
+			});
 			map.setCenter({lat:Number(routelist[0].lat), lng:Number(routelist[0].lng)});
 			setMapRoute();
 			showCalendar();
@@ -128,18 +145,34 @@ function initDetailMap() {
 	});
 }
 function showCalendar() {
-	console.log(events);
 	$("#planCalendar").fullCalendar({
 		header: {
 			left: 'prev',
 			center: 'title',
-			right: 'next'
+			right: 'next' 
 		},
 		defaultDate: routelist[0].date_in,
 		buttonIcons: true, 
 		editable: false,
 		locale:'ko',
-		eventOrder: [ "order", "duration"],
-		events:events
+		events:events,
+		height: 460,
+		contentHeight:440,
+		eventRender: function(event, element) {
+			 element.qtip({
+			      content: {
+			    	  title: event.city + ", " + event.country,
+			    	  text: event.description
+			      },
+			      position: {
+			          my: 'bottom center',
+			          at: 'top center',
+			          target: element
+			      },
+			      style: {
+			          classes: 'qtip-light qtip-shadow'
+			      }
+			 });
+		}
 	});
 }

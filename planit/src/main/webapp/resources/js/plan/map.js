@@ -348,7 +348,6 @@ function addCity(city, country, lat, lng) {
 	route.date_in = formatDate(date_in);
 	route.date_out = formatDate(date_out);
 	routelist.push(route);
-	console.log(routelist);
 	setRouteDiv();
 	setMapRoute();
 }

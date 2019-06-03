@@ -10,5 +10,6 @@
 		<div>${vo.mem_id }</div>
 	</div>
 	<div id = "detailMap"></div>
+	<div id = "planStays"><div><span>${vo.plan_stays }</span>일</div></div>
 	<div id = "planCalendar"></div>
 </div>
