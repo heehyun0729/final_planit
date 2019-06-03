@@ -29,4 +29,7 @@ public class PlanDao {
 	public int updateStartDate(HashMap<String, String> map) {
 		return sqlSession.update(NAMESPACE + ".updateStartDate", map);
 	}
+	public int updateInfo(HashMap<String, String> map) {
+		return sqlSession.update(NAMESPACE + ".updateInfo", map);
+	}
 }

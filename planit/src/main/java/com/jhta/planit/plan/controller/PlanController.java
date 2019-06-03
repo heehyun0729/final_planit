@@ -35,6 +35,23 @@ import com.jhta.planit.plan.vo.PlanVo;
 public class PlanController {
 	@Autowired private PlanService planService;
 	@Autowired private PlanDetailService planDetailService;
+
+	@RequestMapping(value = "/plan/updateInfo", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String updateInfo(String num, String title, String plan_public) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("num", num);
+		map.put("title", title);
+		map.put("plan_public", plan_public);
+		int n = planService.updateInfo(map);
+		JSONObject json = new JSONObject();
+		if(n > 0) {
+			json.put("result", "success");
+		}else {
+			json.put("result", "fail");
+		}
+		return json.toString();
+	}
 	
 	@RequestMapping(value = "/plan/updateStartDate", produces = "application/json;charset=utf-8")
 	@ResponseBody
