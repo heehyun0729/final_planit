@@ -67,7 +67,7 @@
 										<td>${vo.ad_company }</td>
 										<td>${vo.ad_requestDate }</td>
 										<td><fmt:formatNumber value="${vo.ad_price}" pattern="#,###" /></td>
-										<td><a href=""><img alt='상세보기' src='<c:url value='/resources/adminImages/chat.png'/>'></a></td>
+										<td><a href="<c:url value='/admin/adminAdManagement/adInfo?ad_num=${vo.ad_num }'/>"><img alt='상세보기' src='<c:url value='/resources/adminImages/chat.png'/>'></a></td>
 									</tr>
 								</c:forEach>
 							</c:when>

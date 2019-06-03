@@ -202,4 +202,12 @@ public class AdController {
 		model.addAttribute("map", map);
 		return ".admin.adminAdManagement.allAdList";
 	}
+	@RequestMapping(value="/admin/adminAdManagement/adInfo")
+	public String adminAdManagementAdInfo(int ad_num, Model model) {
+		AdVo getAdInfo=service.getAdInfo(ad_num);
+		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
+		model.addAttribute("getAdInfo", getAdInfo);
+		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
+		return ".admin.adminAdManagement.allAdList";
+	}
 }

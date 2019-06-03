@@ -32,4 +32,7 @@
 		select * from(select aa.*, rownum rnum from(select * from ad <include refid="search"/>
 		 order by ad_num desc)aa) where rnum>=#{startRow} and <![CDATA[rnum<=#{endRow}]]>
 	</select>
+	<select id="getAdInfo" parameterType="int" resultType="com.jhta.planit.admin.vo.AdVo">
+		select * from ad where ad_num=#{ad_num}
+	</select>
 </mapper>

@@ -12,4 +12,7 @@
 	<select id="getChance" parameterType="hashmap" resultType="com.jhta.planit.admin.vo.AdInfoVo">
 		select * from adInfo where ADINFO_DATE between to_date(#{startDate}) and to_date(#{endDate})
 	</select>
+	<select id="getAdInfoInfo" parameterType="int" resultType="com.jhta.planit.admin.vo.AdInfoVo">
+		select * from adInfo where ad_num=#{ad_num}
+	</select>
 </mapper>
