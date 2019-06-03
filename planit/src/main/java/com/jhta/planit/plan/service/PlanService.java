@@ -31,4 +31,7 @@ public class PlanService {
 	public int updateInfo(HashMap<String, String> map) {
 		return planDao.updateInfo(map);
 	}
+	public int delete(int plan_num) {
+		return planDao.delete(plan_num);
+	}
 }

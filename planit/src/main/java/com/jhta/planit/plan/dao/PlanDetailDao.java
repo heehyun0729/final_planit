@@ -29,4 +29,7 @@ public class PlanDetailDao {
 	public int updateDate(HashMap<String, String> map) {
 		return sqlSession.update(NAMESPACE + ".updateDate", map);
 	}
+	public int delete(int plan_num) {
+		return sqlSession.delete(NAMESPACE + ".delete", plan_num);
+	}
 }

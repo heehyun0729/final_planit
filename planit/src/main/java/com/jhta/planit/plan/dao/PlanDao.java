@@ -32,4 +32,7 @@ public class PlanDao {
 	public int updateInfo(HashMap<String, String> map) {
 		return sqlSession.update(NAMESPACE + ".updateInfo", map);
 	}
+	public int delete(int plan_num) {
+		return sqlSession.delete(NAMESPACE + ".delete", plan_num);
+	}
 }

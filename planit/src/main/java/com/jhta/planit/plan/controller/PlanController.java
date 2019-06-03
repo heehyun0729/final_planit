@@ -36,6 +36,33 @@ public class PlanController {
 	@Autowired private PlanService planService;
 	@Autowired private PlanDetailService planDetailService;
 
+	@RequestMapping(value = "/plan/delete", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String delete(String num) {
+		int plan_num = Integer.parseInt(num);
+		JSONObject json = new JSONObject();
+		try {
+			int n = planDetailService.delete(plan_num);
+			if(n > 0) {
+				int n1 = planService.delete(plan_num);
+				if(n1 < 1) {
+					Exception e = new Exception("plan delete 실패");
+					throw e;
+				}
+			}else {
+				Exception e = new Exception("planDetail delete 실패");
+				throw e;
+			}
+			json.put("result", "success");
+			return json.toString();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			json = new JSONObject();
+			json.put("result", "false");
+			return json.toString();
+		}
+	}
+	
 	@RequestMapping(value = "/plan/updateInfo", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String updateInfo(String num, String title, String plan_public) {

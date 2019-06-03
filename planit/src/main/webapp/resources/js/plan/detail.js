@@ -359,3 +359,23 @@ function deleteSchedule(num) {
 		});
 	}
 }
+function deletePlan() {
+	if(confirm("정말 삭제하시겠습니까?")){
+		$.ajax({
+			url: '/planit/plan/delete',
+			dataType: 'json',
+			method: 'post',
+			data: {
+				num: plan_num
+				},
+			success: function(data) {
+				var result = data.result;
+				if(result == 'success'){
+					location.href = "/planit/plan/list";
+				}else{
+					alert("오류로 인해 작업을 실패했습니다.");
+				}
+			}
+		});
+	}
+}
