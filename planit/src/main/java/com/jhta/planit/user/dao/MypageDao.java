@@ -14,6 +14,7 @@ public class MypageDao {
 	private final String NAMESPACE = "com.jhta.planit.user.mybatis.mypageMapper";
 
 	public HashMap<Object, Object> profileInfo(String mem_id) {
+		System.out.println("dao");
 		return sqlSession.selectOne(NAMESPACE + ".profileInfo", mem_id);
 	}
 
