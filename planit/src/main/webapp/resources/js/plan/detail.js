@@ -221,11 +221,30 @@ function updateSchedule() {
 			if(result == 'success'){
 				location.href = "/planit/plan/detail?plan_num=" + plan_num;
 			}else{
-				alert("오류로 인해 수정 작업을 실패했습니다.");
+				alert("오류로 인해 작업을 실패했습니다.");
 			}
 		}
 	});
 }
 function deleteSchedule(num) {
-	planDetail_num = num;
+	if(confirm("정말 삭제하시겠습니까?")){
+		planDetail_num = num;
+		$.ajax({
+			url: '/planit/plan/updateDetail',
+			dataType: 'json',
+			method: 'post',
+			data: {
+				num: planDetail_num,
+				detail: ""
+				},
+			success: function(data) {
+				var result = data.result;
+				if(result == 'success'){
+					location.href = "/planit/plan/detail?plan_num=" + plan_num;
+				}else{
+					alert("오류로 인해 작업을 실패했습니다.");
+				}
+			}
+		});
+	}
 }

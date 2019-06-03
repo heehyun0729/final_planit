@@ -397,8 +397,6 @@ function deleteCity(i) {
 		}
 		setRouteDate();
 		setMapRoute();
-	}else{
-		return;
 	}
 }
 // 머무는 날짜 바꾸면 동작하는 함수
