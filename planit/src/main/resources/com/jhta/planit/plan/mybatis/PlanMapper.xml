@@ -24,4 +24,7 @@
 	<delete id="delete" parameterType="int">
 		delete from plan where plan_num = #{plan_num}
 	</delete>
+	<update id="update" parameterType="hashmap">
+		update plan set plan_startDate = #{startDate}, plan_stays = #{stays}, plan_img = #{img} where plan_num = #{plan_num}
+	</update>
 </mapper>

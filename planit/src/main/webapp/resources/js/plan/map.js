@@ -51,26 +51,51 @@ $(function() {
 				}
 				img += "&key=" + key;
 				img += "&format=png&maptype=roadmap&style=feature:administrative%7Celement:geometry%7Cvisibility:off&style=feature:administrative%7Celement:labels.icon%7Ccolor:0xc5c5c5&style=feature:administrative%7Celement:labels.text.stroke%7Cvisibility:off&style=feature:administrative.country%7Celement:labels.text.fill%7Ccolor:0xacacac&style=feature:administrative.land_parcel%7Cvisibility:off&style=feature:administrative.locality%7Cvisibility:off&style=feature:administrative.locality%7Celement:labels.text.fill%7Ccolor:0xbcbcbc&style=feature:administrative.neighborhood%7Cvisibility:off&style=feature:landscape%7Ccolor:0xffffff&style=feature:landscape.man_made%7Celement:geometry.fill%7Cvisibility:off&style=feature:landscape.man_made%7Celement:geometry.stroke%7Cvisibility:off&style=feature:poi%7Cvisibility:off&style=feature:poi%7Celement:labels.text%7Cvisibility:off&style=feature:road%7Cvisibility:off&style=feature:road%7Celement:labels%7Cvisibility:off&style=feature:road%7Celement:labels.icon%7Cvisibility:off&style=feature:transit%7Cvisibility:off&style=feature:water%7Celement:geometry.fill%7Ccolor:0xcfedf8&style=feature:water%7Celement:labels.text%7Cvisibility:off";
-			$.ajax({
-				url: '/planit/plan/insert',
-				dataType: 'json',
-				method: 'post',
-				traditional:true,
-				data: {
-					routelist:JSON.stringify(routelist),
-					startDate: startDate,
-					stays:stays,
-					img:img
-				},
-				success: function(data) {
-					var result = data.result;
-					if(result == 'success'){
-						location.href = '/planit/plan/list';
-					}else{
-						alert('오류로 인해 저장을 실패하였습니다.');
-					}
+				// plan_num 없는 경우 insert / 있는 경우 update
+				if(plan_num == null || plan_num == ""){
+					$.ajax({
+						url: '/planit/plan/insert',
+						dataType: 'json',
+						method: 'post',
+						traditional:true,
+						data: {
+							routelist:JSON.stringify(routelist),
+							startDate: startDate,
+							stays:stays,
+							img:img
+						},
+						success: function(data) {
+							var result = data.result;
+							if(result == 'success'){
+								location.href = '/planit/plan/list';
+							}else{
+								alert('오류로 인해 저장을 실패하였습니다.');
+							}
+						}
+					});
+				}else{
+					$.ajax({
+						url: '/planit/plan/update',
+						dataType: 'json',
+						method: 'post',
+						traditional:true,
+						data: {
+							plan_num: plan_num,
+							routelist:JSON.stringify(routelist),
+							startDate: startDate,
+							stays:stays,
+							img:img
+						},
+						success: function(data) {
+							var result = data.result;
+							if(result == 'success'){
+								location.href = '/planit/plan/list';
+							}else{
+								alert('오류로 인해 저장을 실패하였습니다.');
+							}
+						}
+					});
 				}
-			});
 		}
 	});
 });
@@ -197,6 +222,7 @@ function initMap() {
     		data: {plan_num: plan_num},
     		success: function(data) {
     			routelist = data;
+    			$("#startDate").datepicker("setDate", routelist[0].date_in);	// datepicker 설정
     			// 날짜정보 포맷 수정
     			for(var i = 0 ; i < routelist.length ; i++){
     				var date1 = new Date(routelist[i].date_in);
@@ -209,7 +235,6 @@ function initMap() {
     			// 첫 번째 도시로 지도 중앙 설정
     			map.setCenter({lat:Number(routelist[0].lat), lng:Number(routelist[0].lng)});
     			setMapRoute();	// 마커, 경로 표시
-    			$("#startDate").datepicker("setDate", routelist[0].date_in);	// datepicker 설정
     			setRouteDiv();	// 왼쪽 div에 루트 표시
     		}
     	});
