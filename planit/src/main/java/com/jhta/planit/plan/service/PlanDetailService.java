@@ -28,4 +28,7 @@ public class PlanDetailService {
 	public int updateDate(HashMap<String, String> map) {
 		return planDetailDao.updateDate(map);
 	}
+	public int delete(int plan_num) {
+		return planDetailDao.delete(plan_num);
+	}
 }

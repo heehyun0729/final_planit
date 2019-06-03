@@ -10,12 +10,21 @@
 		select NVL(count(*), 0) from plan
 	</select>
 	<select id="list" resultType="com.jhta.planit.plan.vo.PlanVo">
-		select * from plan order by plan_num desc
+		select * from plan where plan_public = 0 order by plan_num desc
 	</select>
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanVo">
 		select * from plan where plan_num = #{plan_num}
 	</select>
 	<update id="updateStartDate" parameterType="hashmap">
 		update plan set plan_startDate = #{startDate} where plan_num = #{num}	
+	</update>
+	<update id="updateInfo" parameterType="hashmap">
+		update plan set plan_title = #{title}, plan_public = #{plan_public} where plan_num = #{num}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from plan where plan_num = #{plan_num}
+	</delete>
+	<update id="update" parameterType="hashmap">
+		update plan set plan_startDate = #{startDate}, plan_stays = #{stays}, plan_img = #{img} where plan_num = #{plan_num}
 	</update>
 </mapper>

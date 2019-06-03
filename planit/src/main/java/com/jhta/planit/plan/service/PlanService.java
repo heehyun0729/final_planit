@@ -28,4 +28,13 @@ public class PlanService {
 	public int updateStartDate(HashMap<String, String> map) {
 		return planDao.updateStartDate(map);
 	}
+	public int updateInfo(HashMap<String, String> map) {
+		return planDao.updateInfo(map);
+	}
+	public int delete(int plan_num) {
+		return planDao.delete(plan_num);
+	}
+	public int update(HashMap<String, String> map) {
+		return planDao.update(map);
+	}
 }

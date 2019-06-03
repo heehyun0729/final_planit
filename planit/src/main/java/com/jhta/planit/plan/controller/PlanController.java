@@ -35,6 +35,96 @@ import com.jhta.planit.plan.vo.PlanVo;
 public class PlanController {
 	@Autowired private PlanService planService;
 	@Autowired private PlanDetailService planDetailService;
+
+	@RequestMapping(value = "/plan/update", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String update(String plan_num, String routelist, String startDate, String stays, String img) {
+		JSONObject json = new JSONObject();
+		try {
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("plan_num", plan_num);
+			map.put("startDate", startDate);
+			map.put("stays", stays);
+			map.put("img", img);
+			int n = planService.update(map);
+			if(n > 0) {
+				// planDetail delete-insert
+				int n1 = planDetailService.delete(Integer.parseInt(plan_num));
+				if(n1 < 1) {
+					Exception e = new Exception("planDetail delete 실패");
+					throw e;
+				}
+				JSONArray array = new JSONArray(routelist);
+				for(int i = 0 ; i < array.length() ; i++) {
+					JSONObject route = (JSONObject)array.get(i);
+					int planDetail_num = planDetailService.count();
+					String country = route.get("country").toString();
+					String city = route.get("city").toString();
+					String lat = route.get("lat").toString().substring(0, 7);
+					String lng = route.get("lng").toString().substring(0, 7);
+					String date_in = route.get("date_in").toString().substring(0, 10);
+					String date_out = route.get("date_out").toString().substring(0, 10);
+					int stay = Integer.parseInt(route.get("stay").toString());
+					int n2 = planDetailService.insert(new PlanDetailVo());
+					
+				}
+			}else {
+				Exception e = new Exception("planDetail delete 실패");
+				throw e;
+			}
+			json.put("result", "success");
+			return json.toString();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			json = new JSONObject();
+			json.put("result", "false");
+			return json.toString();
+		}
+	}
+	
+	@RequestMapping(value = "/plan/delete", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String delete(String num) {
+		int plan_num = Integer.parseInt(num);
+		JSONObject json = new JSONObject();
+		try {
+			int n = planDetailService.delete(plan_num);
+			if(n > 0) {
+				int n1 = planService.delete(plan_num);
+				if(n1 < 1) {
+					Exception e = new Exception("plan delete 실패");
+					throw e;
+				}
+			}else {
+				Exception e = new Exception("planDetail delete 실패");
+				throw e;
+			}
+			json.put("result", "success");
+			return json.toString();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			json = new JSONObject();
+			json.put("result", "false");
+			return json.toString();
+		}
+	}
+	
+	@RequestMapping(value = "/plan/updateInfo", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String updateInfo(String num, String title, String plan_public) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("num", num);
+		map.put("title", title);
+		map.put("plan_public", plan_public);
+		int n = planService.updateInfo(map);
+		JSONObject json = new JSONObject();
+		if(n > 0) {
+			json.put("result", "success");
+		}else {
+			json.put("result", "fail");
+		}
+		return json.toString();
+	}
 	
 	@RequestMapping(value = "/plan/updateStartDate", produces = "application/json;charset=utf-8")
 	@ResponseBody

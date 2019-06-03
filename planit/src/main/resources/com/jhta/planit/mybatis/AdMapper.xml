@@ -3,10 +3,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.mybatis.AdMapper">
+	<sql id="search">
+		<choose>
+			<when test="(field==null or field=='') and ad_progress=='-1'">
+				
+			</when>
+			<when test="field!=null and field!='' and ad_progress=='-1'">
+				where ${field} Like '%'||#{keyword}||'%'
+			</when>
+			<when test="field!=null and field!=''">
+				where ${field} Like '%'||#{keyword}||'%' and ad_progress=#{ad_progress}
+			</when>
+			<otherwise>
+				where ad_progress=#{ad_progress}
+			</otherwise>
+		</choose>
+	</sql>
 	<insert id="insert" parameterType="com.jhta.planit.admin.vo.AdVo">
-		insert into ad(ad_num, mem_id, ad_company, ad_url, ad_requestDate, ad_price) values(ad_num_seq.nextval,#{mem_id},#{ad_company},#{ad_url},sysdate,#{ad_price})
+		insert into ad(ad_num, mem_id, ad_company, ad_url, ad_requestDate, ad_price, ad_payment, ad_tid, ad_progress) values(ad_num_seq.nextval,#{mem_id},#{ad_company},#{ad_url},sysdate,#{ad_price},#{ad_payment},#{ad_tid},0)
 	</insert>
 	<select id="getRecentAdNum" resultType="int">
 		select aa.ad_num from(select ad_num, rownum rnum from ad order by ad_num desc)aa where rnum=1
+	</select>
+	<select id="getTotalRowCount" parameterType="hashmap" resultType="int">
+		select NVL(count(*),0) cnt from ad <include refid="search"/>
+	</select>
+	<select id="getAdList" parameterType="hashmap" resultType="com.jhta.planit.admin.vo.AdVo">
+		select * from(select aa.*, rownum rnum from(select * from ad <include refid="search"/>
+		 order by ad_num desc)aa) where rnum>=#{startRow} and <![CDATA[rnum<=#{endRow}]]>
 	</select>
 </mapper>
