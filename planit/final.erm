@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-05-21 22:32:51</creation_date>
-			<updated_date>2019-06-03 09:22:46</updated_date>
+			<updated_date>2019-06-03 09:23:16</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -2674,7 +2674,7 @@
 			<connections>
 				<relation>
 					<id>2</id>
-					<source>5</source>
+					<source>26</source>
 					<target>2</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2696,7 +2696,7 @@
 				</relation>
 				<relation>
 					<id>3</id>
-					<source>26</source>
+					<source>5</source>
 					<target>2</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2760,7 +2760,7 @@
 				<normal_column>
 					<id>11</id>
 					<referenced_column>30</referenced_column>
-					<relation>2</relation>
+					<relation>3</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2794,7 +2794,7 @@
 				<normal_column>
 					<id>12</id>
 					<referenced_column>146</referenced_column>
-					<relation>3</relation>
+					<relation>2</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3015,7 +3015,7 @@
 			<connections>
 				<relation>
 					<id>4</id>
-					<source>1</source>
+					<source>26</source>
 					<target>3</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -3037,7 +3037,7 @@
 				</relation>
 				<relation>
 					<id>5</id>
-					<source>26</source>
+					<source>1</source>
 					<target>3</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -3101,7 +3101,7 @@
 				<normal_column>
 					<id>19</id>
 					<referenced_column>4</referenced_column>
-					<relation>4</relation>
+					<relation>5</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3135,7 +3135,7 @@
 				<normal_column>
 					<id>20</id>
 					<referenced_column>146</referenced_column>
-					<relation>5</relation>
+					<relation>4</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5986,7 +5986,7 @@
 			<connections>
 				<relation>
 					<id>19</id>
-					<source>26</source>
+					<source>24</source>
 					<target>15</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -6008,7 +6008,7 @@
 				</relation>
 				<relation>
 					<id>20</id>
-					<source>24</source>
+					<source>26</source>
 					<target>15</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -6072,7 +6072,7 @@
 				<normal_column>
 					<id>87</id>
 					<referenced_column>134</referenced_column>
-					<relation>20</relation>
+					<relation>19</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6106,7 +6106,7 @@
 				<normal_column>
 					<id>88</id>
 					<referenced_column>146</referenced_column>
-					<relation>19</relation>
+					<relation>20</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>신청자아이디</logical_name>
@@ -9102,7 +9102,7 @@
 			<connections>
 				<relation>
 					<id>34</id>
-					<source>25</source>
+					<source>26</source>
 					<target>28</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -9124,7 +9124,7 @@
 				</relation>
 				<relation>
 					<id>35</id>
-					<source>26</source>
+					<source>25</source>
 					<target>28</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -9188,7 +9188,7 @@
 				<normal_column>
 					<id>158</id>
 					<referenced_column>146</referenced_column>
-					<relation>35</relation>
+					<relation>34</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -9222,7 +9222,7 @@
 				<normal_column>
 					<id>159</id>
 					<referenced_column>142</referenced_column>
-					<relation>34</relation>
+					<relation>35</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
