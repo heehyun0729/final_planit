@@ -5,6 +5,8 @@ var lines = [];
 var events = [];
 var arrow, line;
 var map;
+var scheduleDialog, scheduleForm;
+var planDetail_num;
 var bgcolors = ['#113f67', '#34699a', '#408ab4', '#65c6c4', '#35477d', '#6c5b7b', '#c06c84', '#f67280'];
 
 function initDetailMap() {
@@ -141,6 +143,7 @@ function initDetailMap() {
 			map.setCenter({lat:Number(routelist[0].lat), lng:Number(routelist[0].lng)});
 			setMapRoute();
 			showCalendar();
+			setScheduleDialog();
 		}
 	});
 }
@@ -175,4 +178,54 @@ function showCalendar() {
 			 });
 		}
 	});
+}
+function setScheduleDialog() {
+	scheduleDialog = $( "#scheduleDialog" ).dialog({
+      autoOpen: false,
+      height: 450,
+      width: 400,
+      modal: true,
+      buttons: {
+        "저장": updateSchedule,
+        "취소": function() {
+			scheduleDialog.dialog("close");
+		}
+      }
+    });
+}
+function openScheduleDialog(num) {
+	planDetail_num = num;
+	var route;
+	 for(var i = 0 ; i < routelist.length ; i++){
+		if(routelist[i].num == num){
+			route = routelist[i];
+		}
+	}
+	$("#scheduleCity").html(route.city + ", " + route.country);
+	$("#scheduleDate").html(formatDate(new Date(route.date_in)) + "~" + formatDate(new Date(route.date_out)));
+	scheduleDialog.dialog( "open" ); 
+}
+function updateSchedule() {
+	var detail = $("#scheduleDetail").val();
+	console.log(planDetail_num + " / " + detail);
+	$.ajax({
+		url: '/planit/plan/updateDetail',
+		dataType: 'json',
+		method: 'post',
+		data: {
+			num: planDetail_num,
+			detail: detail
+			},
+		success: function(data) {
+			var result = data.result;
+			if(result == 'success'){
+				location.href = "/planit/plan/detail?plan_num=" + plan_num;
+			}else{
+				alert("오류로 인해 수정 작업을 실패했습니다.");
+			}
+		}
+	});
+}
+function deleteSchedule(num) {
+	planDetail_num = num;
 }

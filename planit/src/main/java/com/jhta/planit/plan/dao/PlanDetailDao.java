@@ -1,5 +1,6 @@
 package com.jhta.planit.plan.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,7 +20,10 @@ public class PlanDetailDao {
 	public int count() {
 		return sqlSession.selectOne(NAMESPACE + ".count");
 	}
-	public List<PlanDetailVo> detail(int plan_num){
-		return sqlSession.selectList(NAMESPACE + ".detail", plan_num);
+	public List<PlanDetailVo> list(int plan_num){
+		return sqlSession.selectList(NAMESPACE + ".list", plan_num);
+	}
+	public int updateDetail(HashMap<String, String> map) {
+		return sqlSession.update(NAMESPACE + ".updateDetail", map);
 	}
 }

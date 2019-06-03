@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,12 +36,30 @@ public class PlanController {
 	@Autowired private PlanService planService;
 	@Autowired private PlanDetailService planDetailService;
 	
+	@RequestMapping(value = "/plan/updateDetail", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String updateDetail(String num, String detail) {
+		detail = detail.replaceAll("\n", "<br>");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("num", num);
+		map.put("detail", detail);
+		int n = planDetailService.updateDetail(map);
+		JSONObject json = new JSONObject();
+		if(n > 0) {
+			json.put("result", "success");
+		}else {
+			json.put("result", "fail");
+		}
+		return json.toString();
+	}
+	
 	@RequestMapping(value = "/plan/insert", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String insert(HttpSession session, String routelist, String startDate, String stays, String img) {
 		int plan_num = planService.count();
 		String mem_id = (String)session.getAttribute("mem_id");
 		int n = planService.insert(new PlanVo(plan_num, mem_id, stays + "일간 여행", startDate, Integer.parseInt(stays), img, 0));
+		JSONObject json = new JSONObject();
 		try {
 			if(n > 0) {
 				JSONArray array = new JSONArray(routelist);
@@ -61,12 +84,11 @@ public class PlanController {
 				Exception e = new Exception("plan insert 실패");
 				throw e;
 			}
-			JSONObject json = new JSONObject();
 			json.put("result", "success");
 			return json.toString();
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			JSONObject json = new JSONObject();
+			json = new JSONObject();
 			json.put("result", "false");
 			return json.toString();
 		}
@@ -87,21 +109,31 @@ public class PlanController {
 	}
 	
 	@RequestMapping(value = "/plan/detail", method = RequestMethod.GET)
-	public String detail(String plan_num, Model model, HttpSession session) throws IOException {
+	public String detail(String plan_num, Model model, HttpSession session) throws Exception {
 		String key = getApi();
 		session.setAttribute("key", key);
 		PlanVo vo = planService.detail(Integer.parseInt(plan_num));
 		model.addAttribute("vo", vo);
+		List<PlanDetailVo> dlist = planDetailService.list(Integer.parseInt(plan_num));
+		for(PlanDetailVo dvo : dlist) {
+			String date_in = dvo.getPlanDetail_inDate();
+			date_in = formatDate(date_in);
+			String date_out = dvo.getPlanDetail_outDate();
+			date_out = formatDate(date_out);
+			dvo.setPlanDetail_inDate(date_in);
+			dvo.setPlanDetail_outDate(date_out);
+		}
+		model.addAttribute("dlist", dlist);
 		return ".plan.planDetail";
 	}
 	@RequestMapping(value = "/plan/detail", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String getPlanDetail(String plan_num) {
-		List<PlanDetailVo> list = planDetailService.detail(Integer.parseInt(plan_num));
+		List<PlanDetailVo> list = planDetailService.list(Integer.parseInt(plan_num));
 		JSONArray array = new JSONArray();
 		for(PlanDetailVo vo : list) {
 			JSONObject json = new JSONObject();
-			
+			json.put("num", vo.getPlanDetail_num());
 			json.put("order", vo.getPlanDetail_order());
 			json.put("country", vo.getPlanDetail_country());
 			json.put("city", vo.getPlanDetail_city());
@@ -114,6 +146,20 @@ public class PlanController {
 			array.put(json);
 		}
 		return array.toString();
+	}
+	
+	public String formatDate(String date) throws Exception {
+		String year = date.substring(0, 4);
+		String month = date.substring(5, 7);
+		String day = date.substring(8, 10);
+		date = year + "-" + month + "-" + day;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = dateFormat.parse(date);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(d);
+		String[] week = {"일", "월", "화", "수", "목", "금", "토"};
+		String wday = week[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+		return year + "년" + month + "월" + day + "일" + "(" + wday + ")";
 	}
 	
 	public String getApi() throws IOException {
