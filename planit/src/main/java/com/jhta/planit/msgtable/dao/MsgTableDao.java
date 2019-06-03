@@ -45,4 +45,7 @@ public class MsgTableDao {
 	public MsgTableVo find(int msgNum) {
 		return sqlSession.selectOne(NAMESPACE+".find",msgNum);
 	}
+	public int countReceiveList(HashMap<String, Object>map) {
+		return sqlSession.selectOne(NAMESPACE+".countReceiveList",map);
+	}
 }
