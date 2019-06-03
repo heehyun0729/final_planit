@@ -6,6 +6,7 @@ var lines = [];
 var arrow, line;
 var map;
 var stays = 1;	// 총 여행 날짜
+var plan_num;
 
 $(function() {
 	// key 설정
@@ -185,12 +186,37 @@ function initMap() {
     // 저장버튼
     var btnSave = document.getElementById("saveBox");
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox);
-    
+    // 수정 작업 시 routelist 불러오기
+    plan_num = $("#plan_num").val();
+    console.log(plan_num);
+    if(plan_num != null && plan_num != ""){
+        $.ajax({
+    		url: "/planit/plan/detail",
+    		method: "post",
+    		dataType: "json",
+    		data: {plan_num: plan_num},
+    		success: function(data) {
+    			routelist = data;
+    			// 날짜정보 포맷 수정
+    			for(var i = 0 ; i < routelist.length ; i++){
+    				var date1 = new Date(routelist[i].date_in);
+    				var date_in = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+    				routelist[i].date_in = formatDate(date_in);
+    				var date2 = new Date(routelist[i].date_out);
+    				var date_out = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+    				routelist[i].date_out = formatDate(date_out);
+    			}
+    			// 첫 번째 도시로 지도 중앙 설정
+    			map.setCenter({lat:Number(routelist[0].lat), lng:Number(routelist[0].lng)});
+    			setMapRoute();	// 마커, 경로 표시
+    			$("#startDate").datepicker("setDate", routelist[0].date_in);	// datepicker 설정
+    			setRouteDiv();	// 왼쪽 div에 루트 표시
+    		}
+    	});
+    }
     var geocoder = new google.maps.Geocoder();
-    
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker();
-    
     // 자동완성검색 선택했을 때 실행할 리스너 ==> 마커 찍고 인포윈도우 띄우기
     autocomplete.addListener('place_changed', function() {
 		var place = autocomplete.getPlace();	// 장소(도시) 정보 가져오기
