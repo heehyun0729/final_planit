@@ -21,7 +21,7 @@ function countListOk() {
 		var result=data.getElementsByTagName("result")[0];
 		var comm = result.getElementsByTagName("comm")[0];
 		var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
-	    mul.innerHTML= c;
+	    mul.innerHTML=  c;
 	}
 }
 </script>
