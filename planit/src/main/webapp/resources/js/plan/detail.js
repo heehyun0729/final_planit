@@ -5,7 +5,8 @@ var lines = [];
 var events = [];
 var arrow, line;
 var map;
-var scheduleDialog, scheduleForm;
+var scheduleDialog, startDateDialog;
+var startDatepicker;
 var planDetail_num;
 var bgcolors = ['#113f67', '#34699a', '#408ab4', '#65c6c4', '#35477d', '#6c5b7b', '#c06c84', '#f67280'];
 
@@ -143,7 +144,7 @@ function initDetailMap() {
 			map.setCenter({lat:Number(routelist[0].lat), lng:Number(routelist[0].lng)});
 			setMapRoute();
 			showCalendar();
-			setScheduleDialog();
+			setDialog();
 		}
 	});
 }
@@ -179,7 +180,19 @@ function showCalendar() {
 		}
 	});
 }
-function setScheduleDialog() {
+function setDialog() {
+	startDateDialog = $( "#startDateDialog" ).dialog({
+      autoOpen: false,
+      height: 380,
+      width: 320,
+      modal: true,
+      buttons: {
+        "저장": updateStartDate,
+        "취소": function() {
+        	startDateDialog.dialog("close");
+		} 
+      } 
+    });
 	scheduleDialog = $( "#scheduleDialog" ).dialog({
       autoOpen: false,
       height: 450,
@@ -193,6 +206,18 @@ function setScheduleDialog() {
       }
     });
 }
+function openStartDateDialog() {
+	$( "#startDatepicker" ).datepicker({
+		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
+                        "8월", "9월", "10월", "11월", "12월"],	
+		yearSuffix: "년",	
+		showMonthAfterYear: true,	
+		dateFormat: "yy-mm-dd",
+		defaultDate: routelist[0].date_in
+	});
+	startDateDialog.dialog( "open" ); 
+}
 function openScheduleDialog(num) {
 	planDetail_num = num;
 	var route;
@@ -204,6 +229,43 @@ function openScheduleDialog(num) {
 	$("#scheduleCity").html(route.city + ", " + route.country);
 	$("#scheduleDate").html(formatDate(new Date(route.date_in)) + "~" + formatDate(new Date(route.date_out)));
 	scheduleDialog.dialog( "open" ); 
+}
+function updateStartDate() {
+	var startdate = new Date($( "#startDatepicker" ).datepicker("getDate"));
+	var date_in, date_out;
+	for(var i = 0 ; i < routelist.length ; i++){
+		if(routelist.length == 1){
+			date_in = startdate;
+			routelist[i].date_in = formatDate(date_in);
+			date_out = new Date(date_in.getFullYear(),date_in.getMonth(), date_in.getDate() + eval(routelist[i].stay));
+			routelist[i].date_out = formatDate(date_out);
+			startdate = date_out;
+		}else{
+			date_in = startdate;
+			routelist[i].date_in = formatDate(date_in);
+			date_out = new Date(date_in.getFullYear(), date_in.getMonth(), date_in.getDate() + eval(routelist[i].stay));
+			routelist[i].date_out = formatDate(date_out);
+			startdate = date_out;
+		}
+	}
+	$.ajax({
+		url: '/planit/plan/updateStartDate',
+		dataType: 'json',
+		method: 'post',
+		data: {
+			num: plan_num,
+			startDate: formatDate(startdate),
+			routelist:JSON.stringify(routelist)
+			},
+		success: function(data) {
+			var result = data.result;
+			if(result == 'success'){
+				location.href = "/planit/plan/detail?plan_num=" + plan_num;
+			}else{
+				alert("오류로 인해 작업을 실패했습니다.");
+			}
+		}
+	});
 }
 function updateSchedule() {
 	var detail = $("#scheduleDetail").val();

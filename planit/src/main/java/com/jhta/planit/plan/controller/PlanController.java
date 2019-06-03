@@ -36,6 +36,47 @@ public class PlanController {
 	@Autowired private PlanService planService;
 	@Autowired private PlanDetailService planDetailService;
 	
+	@RequestMapping(value = "/plan/updateStartDate", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String updateStartDate(String num, String startDate, String routelist) {
+		JSONObject json = new JSONObject();
+		try {
+			startDate = startDate.substring(0, 10);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("num", num);
+			map.put("startDate", startDate);
+			int n = planService.updateStartDate(map);
+			if(n > 0) {
+				JSONArray array = new JSONArray(routelist);
+				for(int i = 0 ; i < array.length() ; i++) {
+					JSONObject route = (JSONObject)array.get(i);
+					String planDetail_num = route.get("num").toString();
+					String date_in = route.get("date_in").toString().substring(0, 10);
+					String date_out = route.get("date_out").toString().substring(0, 10);
+					map = new HashMap<String, String>();
+					map.put("num", planDetail_num);
+					map.put("date_in", date_in);
+					map.put("date_out", date_out);
+					int n1 = planDetailService.updateDate(map);
+					if(n1 < 1) {
+						Exception e = new Exception("planDetail update 실패");
+						throw e;
+					}
+				}
+			}else {
+				Exception e = new Exception("plan update 실패");
+				throw e;
+			}
+			json.put("result", "success");
+			return json.toString();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			json = new JSONObject();
+			json.put("result", "false");
+			return json.toString();
+		}
+	}
+	
 	@RequestMapping(value = "/plan/updateDetail", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String updateDetail(String num, String detail) {
@@ -56,11 +97,11 @@ public class PlanController {
 	@RequestMapping(value = "/plan/insert", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String insert(HttpSession session, String routelist, String startDate, String stays, String img) {
-		int plan_num = planService.count();
-		String mem_id = (String)session.getAttribute("mem_id");
-		int n = planService.insert(new PlanVo(plan_num, mem_id, stays + "일간 여행", startDate, Integer.parseInt(stays), img, 0));
 		JSONObject json = new JSONObject();
 		try {
+			int plan_num = planService.count();
+			String mem_id = (String)session.getAttribute("mem_id");
+			int n = planService.insert(new PlanVo(plan_num, mem_id, stays + "일간 여행", startDate, Integer.parseInt(stays), img, 0));
 			if(n > 0) {
 				JSONArray array = new JSONArray(routelist);
 				for(int i = 0 ; i < array.length() ; i++) {
@@ -72,7 +113,6 @@ public class PlanController {
 					String lng = route.get("lng").toString().substring(0, 7);
 					String date_in = route.get("date_in").toString().substring(0, 10);
 					String date_out = route.get("date_out").toString().substring(0, 10);
-					System.out.println(date_in + " ~ " + date_out);
 					int stay = Integer.parseInt(route.get("stay").toString());
 					int n1 = planDetailService.insert(new PlanDetailVo(planDetail_num, plan_num, i, country, city, lat, lng, date_in, date_out, stay, ""));
 					if(n1 < 1) {

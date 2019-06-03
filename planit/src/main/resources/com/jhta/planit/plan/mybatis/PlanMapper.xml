@@ -15,4 +15,7 @@
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanVo">
 		select * from plan where plan_num = #{plan_num}
 	</select>
+	<update id="updateStartDate" parameterType="hashmap">
+		update plan set plan_startDate = #{startDate} where plan_num = #{num}	
+	</update>
 </mapper>

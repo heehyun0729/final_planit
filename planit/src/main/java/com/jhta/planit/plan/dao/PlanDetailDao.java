@@ -26,4 +26,7 @@ public class PlanDetailDao {
 	public int updateDetail(HashMap<String, String> map) {
 		return sqlSession.update(NAMESPACE + ".updateDetail", map);
 	}
+	public int updateDate(HashMap<String, String> map) {
+		return sqlSession.update(NAMESPACE + ".updateDate", map);
+	}
 }

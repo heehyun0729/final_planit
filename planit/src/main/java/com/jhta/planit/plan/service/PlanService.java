@@ -1,5 +1,6 @@
 package com.jhta.planit.plan.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,8 @@ public class PlanService {
 	}
 	public PlanVo detail(int plan_num) {
 		return planDao.detail(plan_num);
+	}
+	public int updateStartDate(HashMap<String, String> map) {
+		return planDao.updateStartDate(map);
 	}
 }

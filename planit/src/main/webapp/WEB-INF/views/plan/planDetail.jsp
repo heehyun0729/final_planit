@@ -12,11 +12,16 @@
 	</div>
 	<div id="planMenu">
 		<ul>
-			<li><a href="#">출발일변경</a></li>
+			<li><a href="javascript:openStartDateDialog('${vo.plan_startDate }')">출발일변경</a></li>
 			<li><a href="#">정보수정(제목, 공개여부)</a></li>
 			<li><a href="#">루트수정</a></li>
 			<li><a href="#">일정삭제</a></li>
 		</ul>
+	</div>
+	<div id = "startDateDialog" title = "출발일 변경">
+		<div>
+			<div id="startDatepicker"></div>
+		</div>
 	</div>
 	<div id="detailMap"></div>
 	<div id="planStays">

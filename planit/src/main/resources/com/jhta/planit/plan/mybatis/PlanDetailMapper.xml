@@ -17,4 +17,7 @@
 	<update id="updateDetail" parameterType="hashmap">
 		update planDetail set planDetail_detail = #{detail} where planDetail_num = #{num}
 	</update>
+	<update id="updateDate" parameterType="hashmap">
+		update planDetail set planDetail_inDate = #{date_in}, planDetail_outDate = #{date_out} where planDetail_num = #{num}
+	</update>
 </mapper>
