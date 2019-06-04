@@ -9,7 +9,6 @@ var stays = 1;	// 총 여행 날짜
 var plan_num;
 
 $(function() {
-    plan_num = $("#plan_num").val();
 	// key 설정
 	$.getJSON('/planit/apiKey', function(data) {
 		key = data.key;
@@ -213,6 +212,7 @@ function initMap() {
     var btnSave = document.getElementById("saveBox");
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox); 
     // 수정 작업 시 routelist 불러오기
+    plan_num = $("#plan_num").val();
     if(plan_num != null && plan_num != ""){ 
         $.ajax({
     		url: "/planit/plan/detail",

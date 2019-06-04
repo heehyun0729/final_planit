@@ -66,7 +66,7 @@ public class PlanController {
 					String date_in = route.get("date_in").toString().substring(0, 10);
 					String date_out = route.get("date_out").toString().substring(0, 10);
 					int stay = Integer.parseInt(route.get("stay").toString());
-					String detail = "";
+					String detail = "-";
 					if(route.get("detail") != null) {
 						System.out.println(111);
 						detail = route.get("detail").toString();
@@ -281,7 +281,11 @@ public class PlanController {
 			json.put("date_in", vo.getPlanDetail_inDate());
 			json.put("date_out", vo.getPlanDetail_outDate());
 			json.put("stay", vo.getPlanDetail_stay());
-			json.put("detail", vo.getPlanDetail_detail());
+			String detail = "-";
+			if(vo.getPlanDetail_detail() != null && vo.getPlanDetail_detail() != "") {
+				detail = vo.getPlanDetail_detail();
+			}
+			json.put("detail", detail);
 			array.put(json);
 		}
 		return array.toString();
