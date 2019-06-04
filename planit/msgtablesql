@@ -90,4 +90,58 @@ create table accommImage(
 );
 drop SEQUENCE accommImage_seq;
 CREATE SEQUENCE accommImage_seq;
-select * from accommImage;
+select * from accommImage;//판매자 테이블
+drop table seller;
+create table seller(
+    sell_num number(5) primary key,
+    mem_id varchar2(40) references members(mem_id),
+    sell_company varchar2(100),
+    sell_addr varchar2(200)
+);
+drop SEQUENCE seller_seq;
+CREATE SEQUENCE seller_seq;
+select * from seller;
+
+insert into seller values(seller_seq.nextval,'lunar','붕어싸만코','경기도하남');
+
+//숙소테이블
+drop table accom;
+create table accom(
+    accom_num number(7,0) primary key,
+    sell_num number(5) references seller(sell_num),
+    accom_name varchar2(100),
+    accom_addr varchar2(200),
+    accom_comm varchar2(300),
+    accom_country varchar2(50),
+    accom_city varchar2(50),
+);
+ALTER TABLE accom ADD(accommImg_orgImg varchar(500) );
+ALTER TABLE accom ADD(accommImg_saveImg varchar(500) );
+ALTER TABLE accom ADD(accomm_room number(3) );
+ALTER TABLE accom DROP COLUMN accomm_room;
+drop SEQUENCE accom_seq;
+CREATE SEQUENCE accom_seq;
+select * from accom;
+//방정보 테이블
+drop table room;
+create table room(
+    room_num number(7,0) primary key,
+    accom_num number(7,0) references accom(accom_num),
+    room_type varchar2(100),
+    room_price number(10,0),
+    room_comm varchar2(1000)
+);
+drop SEQUENCE room_seq;
+CREATE SEQUENCE room_seq;
+select * from room;
+//숙소이미지 테이블
+drop table roomImage;
+create table roomImage(
+    roomImg_num number(7,0) primary key,
+    room_num number(7,0) references room(room_num),
+    roomImg_orgImg varchar2(500),
+    roomImg_saveImg varchar2(500)
+);
+drop SEQUENCE roomImage_seq;
+CREATE SEQUENCE roomImage_seq;
+select * from roomImage;

@@ -22,5 +22,9 @@
   	<mapper resource="com/jhta/planit/qna/mybatis/QnaMapper.xml"/>
   	<mapper resource="com/jhta/planit/plan/mybatis/PlanMapper.xml"/>
   	<mapper resource="com/jhta/planit/plan/mybatis/PlanDetailMapper.xml"/>
+  	<mapper resource="com/jhta/planit/accom/mybatis/AccomMapper.xml"/>
+  	<mapper resource="com/jhta/planit/room/mybatis/RoomMapper.xml"/>
+  	<mapper resource="com/jhta/planit/roomImage/mybatis/RoomImageMapper.xml"/>
+  	<mapper resource="com/jhta/planit/seller/mybatis/SellerMapper.xml"/>
   </mappers>
 </configuration>
