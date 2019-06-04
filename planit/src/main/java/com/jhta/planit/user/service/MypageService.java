@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.planit.user.dao.MypageDao;
+import com.jhta.planit.user.vo.MembersVo;
 
 @Service
 public class MypageService {
@@ -51,5 +52,9 @@ public class MypageService {
 
 	public int followedcnt(String mem_id) {
 		return dao.followedcnt(mem_id);
+	}
+
+	public MembersVo userInfo(HashMap<String, Object> map) {
+		return null;
 	}
 }

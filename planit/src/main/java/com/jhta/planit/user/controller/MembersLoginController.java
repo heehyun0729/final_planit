@@ -14,8 +14,9 @@ import com.jhta.planit.user.service.MembersService;
 
 @Controller
 public class MembersLoginController {
-	@Autowired private MembersService service;
-	
+	@Autowired
+	private MembersService service;
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm() {
 		return "user/login";
@@ -26,8 +27,8 @@ public class MembersLoginController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("mem_id", mem_id);
 		map.put("mem_pwd", mem_pwd);
-		boolean result = service.login(map);
-		if (result) {
+		int result = service.login(map);
+		if (result > -2) {
 			session.setAttribute("mem_id", mem_id);
 			return "redirect:/";
 		} else {
@@ -35,6 +36,19 @@ public class MembersLoginController {
 			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
 			return "user/login";
 		}
+		/*if (result >= 0) {
+			session.setAttribute("mem_id", mem_id);
+			return "redirect:/";
+		} else {
+			model.addAttribute("mem_id", mem_id);
+			if (result == -1) {
+				model.addAttribute("errMsg", "이메일 인증을 완료해 주세요");
+			} else {
+				model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
+			}
+			return "user/login";
+		}*/
+
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

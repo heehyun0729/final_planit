@@ -53,13 +53,17 @@ public class MembersService {
 		return n;
 	}
 
-	public boolean login(HashMap<String, String> map) {
+	public int login(HashMap<String, String> map) {
+		int n = 0;
 		MembersVo vo = dao.login(map.get("mem_id"));
 		if (vo != null) {
-			return bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd());
+			if (bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd())) {
+				n = vo.getMem_stat();
+			}
 		} else {
-			return false;
+			n = -1;
 		}
+		return n;
 	}
 
 	public MembersVo idCheck(String mem_id) {
@@ -89,19 +93,9 @@ public class MembersService {
 		}
 	}
 
-	public MembersVo userInfo(HashMap<String, Object> map) {
-		MembersVo vo = dao.userInfo((String) map.get("mem_id"));
-		if (bCryptPasswordEncoder.matches((String) map.get("mem_pwd"), vo.getMem_pwd())) {
-			vo.setMem_pwd("");
-			return vo;
-		} else {
-			return null;
-		}
-	}
-
 	public int pwdChange(HashMap<String, Object> map) {
 		int n = -1;
-		MembersVo vo = dao.userInfo((String) map.get("mem_id"));
+		MembersVo vo = dao.userCheck((String) map.get("mem_id"));
 		if ((Boolean) map.get("forgot")) {
 			String encodingPwd = bCryptPasswordEncoder.encode((String) map.get("mem_pwd"));
 			map.put("mem_pwd", encodingPwd);
@@ -114,6 +108,20 @@ public class MembersService {
 			} else {
 				n = -10;
 			}
+		}
+		return n;
+	}
+
+	@Transactional
+	public int withdrawal(HashMap<String, String> map) {
+		int n = -1;
+		MembersVo vo = dao.userCheck(map.get("mem_id"));
+
+		if (bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd())) {
+			n = dao.withdrawal(map.get("mem_id"));
+			n = n + mdao.withdrawal(map.get("mem_id"));
+		} else {
+			n = -10;
 		}
 		return n;
 	}

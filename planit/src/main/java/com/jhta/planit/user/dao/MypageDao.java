@@ -61,4 +61,8 @@ public class MypageDao {
 	public int followedcnt(String mem_id) {
 		return sqlSession.selectOne(NAMESPACE + ".followedcnt", mem_id);
 	}
+
+	public int withdrawal(String mem_id) {
+		return sqlSession.update(NAMESPACE + ".withdrawal", mem_id);
+	}
 }

@@ -143,4 +143,19 @@ $(document).ready(function() {
 			event.preventDefault();
 		}
 	});
+	
+	$("#withdrawal").submit(function(event) {
+		let count=0;
+		let cftxt=['정말로 탈퇴하시겠습니까?','탈퇴를 하게 되면 저희 플랜잇에 등록하였던 정보 복구가 힘들어 집니다. 그래도 하시겠습니까?','마지막입니다. 정말로 탈퇴를 하시겠습니까?'];
+		for(let i=0;i<3;i++){
+			let withdrawalchk = confirm(cftxt[i]);
+			if (withdrawalchk) {
+				count++;
+			} else {
+				count=0;
+				event.preventDefault();
+				break;
+			}
+		}
+	});
 });

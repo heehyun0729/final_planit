@@ -8,6 +8,9 @@
 </head>
 <body>
 	<h1>비밀번호 입력</h1>
+	<h1>
+		<a href="<c:url value='/'/>">홈페이지</a>
+	</h1>
 	<form method="post" action="<c:url value='/user/edituserinfochk'/>">
 		<label for="mem_pwd">비밀번호</label><input type="password" id="mem_pwd" name="mem_pwd"><br>
 		<input type="submit" value="비밀번호 확인">

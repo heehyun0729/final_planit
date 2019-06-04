@@ -14,11 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jhta.planit.user.service.MembersService;
+import com.jhta.planit.user.service.MypageService;
 import com.jhta.planit.user.vo.MembersVo;
 
 @Controller
 public class EditUserInfoController {
-	@Autowired private MembersService service;
+	@Autowired private MembersService membersService;
+	@Autowired private MypageService mypageService;
 	
 	@RequestMapping(value = "/user/edit/{editInfo}", method = RequestMethod.GET)
 	public String editUsercheckForm(@PathVariable String editInfo, HttpSession session, RedirectAttributes attributes,Model model) {
@@ -46,7 +48,7 @@ public class EditUserInfoController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("mem_id", (String) session.getAttribute("mem_id"));
 		map.put("mem_pwd", mem_pwd);
-		MembersVo vo = service.userInfo(map);
+		MembersVo vo = mypageService.userInfo(map);
 		ModelAndView mv = new ModelAndView();
 		if (vo != null) {
 			mv.addObject("vo", vo);
@@ -66,7 +68,7 @@ public class EditUserInfoController {
 		map.put("before_mem_pwd", before_mem_pwd);
 		map.put("mem_pwd", mem_pwd);
 		map.put("forgot", forgot);
-		int n = service.pwdChange(map);
+		int n = membersService.pwdChange(map);
 		if (n > 0) {
 			attributes.addFlashAttribute("authMsg", "비밀번호가 수정되었습니다.");
 			return "redirect:/member/result";
@@ -83,16 +85,24 @@ public class EditUserInfoController {
 		}
 	}
 
-	@RequestMapping(value = "/user/editprofile", method = RequestMethod.POST)
-	public String editUserChange(MembersVo vo, Model model, RedirectAttributes attributes) throws Exception {
-		/*int n = service.editUserInfo(vo);
+	@RequestMapping(value = "/user/withdrawal", method = RequestMethod.POST)
+	public String withdrawal(HttpSession session, String mem_pwd, Model model, RedirectAttributes attributes)
+			throws Exception {
+		String mem_id = (String) session.getAttribute("mem_id");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mem_id", mem_id);
+		map.put("mem_pwd", mem_pwd);
+		int n = membersService.withdrawal(map);
 		if (n > 0) {
-			attributes.addFlashAttribute("authMsg", "회원정보가 수정되었습니다.");
+			attributes.addFlashAttribute("authMsg", "회원탈퇴가 완료 되었습니다.");
 			return "redirect:/member/result";
+		} else if (n < -9) {
+			model.addAttribute("errMsg", "비밀번호가 틀렸습니다.");
+			return "/user/withdrawal";
 		} else {
-			model.addAttribute("vo", vo);
-			return "user/join";
-		}*/
-		return null;
+			model.addAttribute("errMsg", "오류로 인해 탈퇴가 되지 않았습니다. 다시 시도해 주십시오");
+			return "/user/withdrawal";
+		}
+
 	}
 }

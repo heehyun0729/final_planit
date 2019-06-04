@@ -5,7 +5,7 @@
 <mapper namespace="com.jhta.planit.user.mybatis.membersMapper">
 	<insert id="membersJoin" parameterType="com.jhta.planit.user.vo.MembersVo">
 		insert into members
-		values(#{mem_id},#{mem_pwd},#{mem_nickname},#{mem_email},#{mem_gender},#{mem_birthyear},5,null)
+		values(#{mem_id},#{mem_pwd},#{mem_nickname},#{mem_email},#{mem_gender},#{mem_birthyear},-1,null)
 	</insert>
 	<select id="loginbcry" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="hashmap">
 		select * from members where mem_id=#{mem_id}
@@ -34,11 +34,15 @@
 	<delete id="delAuth" parameterType="String">
 		delete from userAuth where mem_email=#{mem_email}
 	</delete>
-	<select id="userInfo" parameterType="string" resultType="com.jhta.planit.user.vo.MembersVo">
+	<select id="usercheck" parameterType="string" resultType="com.jhta.planit.user.vo.MembersVo">
 		select * from members where mem_id=#{mem_id}
 	</select>
 	<update id="pwdChange" parameterType="hashmap">
 		update members set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
+	</update>
+	<update id="withdrawal" parameterType="string">
+		update members set mem_stat=-3 and mem_pwd='0' and mem_nickname=#{mem_id} and mem_email=#{mem_id}
+		where mem_num=mem_num; 
 	</update>
 	<update id="nickupdate" parameterType="hashmap">
 		update members set mem_nickname=#{mem_nickname}
