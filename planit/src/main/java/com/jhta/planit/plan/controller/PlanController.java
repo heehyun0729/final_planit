@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,11 +66,19 @@ public class PlanController {
 					String date_in = route.get("date_in").toString().substring(0, 10);
 					String date_out = route.get("date_out").toString().substring(0, 10);
 					int stay = Integer.parseInt(route.get("stay").toString());
-					int n2 = planDetailService.insert(new PlanDetailVo());
-					
+					String detail = "";
+					if(route.get("detail") != null) {
+						System.out.println(111);
+						detail = route.get("detail").toString();
+					}
+					int n2 = planDetailService.insert(new PlanDetailVo(planDetail_num, Integer.parseInt(plan_num), i, country, city, lat, lng, date_in, date_out, stay, detail));
+					if(n2 < 1) {
+						Exception e = new Exception("planDetail insert 실패");
+						throw e;
+					}
 				}
 			}else {
-				Exception e = new Exception("planDetail delete 실패");
+				Exception e = new Exception("plan update 실패");
 				throw e;
 			}
 			json.put("result", "success");

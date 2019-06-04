@@ -123,6 +123,12 @@ function initDetailMap() {
 				var date = new Date(routelist[i].date_out);
 				var date_out = new Date(date.getFullYear(), date.getMonth(), date.getDate() + eval(1));
 				var formattedDate = formatDate(date_out);
+				var description;
+				if(routelist[i].detail != null && routelist[i].detail != ""){
+					description = routelist[i].detail;
+				}else{
+					description = "-";
+				}
 				// 달력에 표시할 events 배열에 데이터 저장
 				events.push({
 					order: routelist[i].order,
@@ -132,7 +138,7 @@ function initDetailMap() {
 					color: bgcolors[i % 8],
 					city:  routelist[i].city,
 					country: routelist[i].country,
-					description: 'asdasd'
+					description: description
 				});
 			}
 			events.push({

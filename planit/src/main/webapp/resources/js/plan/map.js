@@ -9,6 +9,7 @@ var stays = 1;	// 총 여행 날짜
 var plan_num;
 
 $(function() {
+    plan_num = $("#plan_num").val();
 	// key 설정
 	$.getJSON('/planit/apiKey', function(data) {
 		key = data.key;
@@ -210,11 +211,9 @@ function initMap() {
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(addrBox);
     // 저장버튼
     var btnSave = document.getElementById("saveBox");
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox); 
     // 수정 작업 시 routelist 불러오기
-    plan_num = $("#plan_num").val();
-    console.log(plan_num);
-    if(plan_num != null && plan_num != ""){
+    if(plan_num != null && plan_num != ""){ 
         $.ajax({
     		url: "/planit/plan/detail",
     		method: "post",
@@ -222,6 +221,7 @@ function initMap() {
     		data: {plan_num: plan_num},
     		success: function(data) {
     			routelist = data;
+    			console.log(routelist);
     			$("#startDate").datepicker("setDate", routelist[0].date_in);	// datepicker 설정
     			// 날짜정보 포맷 수정
     			for(var i = 0 ; i < routelist.length ; i++){
