@@ -61,8 +61,14 @@ public class PlanController {
 					int planDetail_num = planDetailService.count();
 					String country = route.get("country").toString();
 					String city = route.get("city").toString();
-					String lat = route.get("lat").toString().substring(0, 7);
-					String lng = route.get("lng").toString().substring(0, 7);
+					String lat = route.get("lat").toString();
+					if(lat.length() > 7) {
+						lat = lat.substring(0, 7);
+					}
+					String lng = route.get("lng").toString();
+					if(lng.length() > 7) {
+						lng = lng.substring(0, 7);
+					}
 					String date_in = route.get("date_in").toString().substring(0, 10);
 					String date_out = route.get("date_out").toString().substring(0, 10);
 					int stay = Integer.parseInt(route.get("stay").toString());
@@ -208,12 +214,19 @@ public class PlanController {
 					int planDetail_num = planDetailService.count();
 					String country = route.get("country").toString();
 					String city = route.get("city").toString();
-					String lat = route.get("lat").toString().substring(0, 7);
-					String lng = route.get("lng").toString().substring(0, 7);
+					String lat = route.get("lat").toString();
+					if(lat.length() > 7) {
+						lat = lat.substring(0, 7);
+					}
+					String lng = route.get("lng").toString();
+					if(lng.length() > 7) {
+						lng = lng.substring(0, 7);
+					}
 					String date_in = route.get("date_in").toString().substring(0, 10);
 					String date_out = route.get("date_out").toString().substring(0, 10);
+					String detail = route.get("detail").toString();
 					int stay = Integer.parseInt(route.get("stay").toString());
-					int n1 = planDetailService.insert(new PlanDetailVo(planDetail_num, plan_num, i, country, city, lat, lng, date_in, date_out, stay, ""));
+					int n1 = planDetailService.insert(new PlanDetailVo(planDetail_num, plan_num, i, country, city, lat, lng, date_in, date_out, stay, detail));
 					if(n1 < 1) {
 						Exception e = new Exception("planDetail insert 실패");
 						throw e;
@@ -234,10 +247,24 @@ public class PlanController {
 	}
 	
 	@RequestMapping("/plan/planner")
-	public String planHome(HttpSession session) throws Exception {
-		String key = getApi();
-		session.setAttribute("key", key);
-		return ".plan.planner";
+	public String planHome(String plan_num, HttpSession session) throws Exception {
+		// plan_num 있는 경우(수정)
+		if(plan_num != null && plan_num != "") {
+			PlanVo vo = planService.detail(Integer.parseInt(plan_num));
+			String mem_id = (String)session.getAttribute("mem_id");
+			if(mem_id.equals(vo.getMem_id())) {	// 글쓴이 == 로그인한 회원
+				String key = getApi();
+				session.setAttribute("key", key);
+				return ".plan.planner";
+			}else {	// 글쓴이 != 로그인한 회원
+				return ".error";
+			}
+		// plan_num 없는 경우(등록)
+		}else {
+			String key = getApi();
+			session.setAttribute("key", key);
+			return ".plan.planner";
+		}
 	}
 	
 	@RequestMapping("/plan/list")
