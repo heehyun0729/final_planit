@@ -8,7 +8,7 @@ public class QnaImageVo {
 	private String qnaImg_saveImg;
 	
 	
-public QnaImageVo() {}
+public QnaImageVo() {} 
 
 public QnaImageVo(int qnaImg_num, int qna_num, String mem_id,String qnaImg_orgImg, String qnaImg_saveImg) {
 	super();
