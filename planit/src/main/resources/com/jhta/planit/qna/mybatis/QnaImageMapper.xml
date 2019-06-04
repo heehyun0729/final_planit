@@ -7,5 +7,4 @@
 		insert into qnaImage 
 		values (qnaImg_num_seq.nextval,#{qna_num},#{mem_id},#{qnaImg_orgImg},#{qnaImg_saveImg})
 	</insert>
-	
 </mapper>
