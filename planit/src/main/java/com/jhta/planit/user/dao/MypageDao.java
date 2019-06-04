@@ -51,12 +51,14 @@ public class MypageDao {
 	}
 
 	public int follow(HashMap<String, Object> map) {
-		System.out.println("followdao");
 		return sqlSession.insert(NAMESPACE + ".follow", map);
 	}
 
 	public int unfollow(HashMap<String, Object> map) {
-		System.out.println("unfollowdao");
 		return sqlSession.insert(NAMESPACE + ".unfollow", map);
+	}
+
+	public int followedcnt(String mem_id) {
+		return sqlSession.selectOne(NAMESPACE + ".followedcnt", mem_id);
 	}
 }

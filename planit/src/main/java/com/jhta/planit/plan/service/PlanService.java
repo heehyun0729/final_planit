@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.jhta.planit.plan.dao.PlanDao;
 import com.jhta.planit.plan.vo.PlanVo;
 
@@ -19,8 +18,8 @@ public class PlanService {
 	public int count() {
 		return planDao.count();
 	}
-	public List<PlanVo> list() {
-		return planDao.list();
+	public List<PlanVo> list(HashMap<String, Object> map) {
+		return planDao.list(map);
 	}
 	public PlanVo detail(int plan_num) {
 		return planDao.detail(plan_num);

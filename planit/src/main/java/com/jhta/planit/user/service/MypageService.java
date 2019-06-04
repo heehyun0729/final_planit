@@ -42,11 +42,14 @@ public class MypageService {
 
 	public int follow(HashMap<String, Object> map) {
 		String follow_grade = (String) map.get("follow_grade");
-		System.out.println("follow_grade: "+follow_grade);
-		if (follow_grade!=null && !follow_grade.equals("")) {
+		if (follow_grade.equals("0")) {
 			return dao.follow(map);
 		}else {
 			return dao.unfollow(map);
 		}
+	}
+
+	public int followedcnt(String mem_id) {
+		return dao.followedcnt(mem_id);
 	}
 }

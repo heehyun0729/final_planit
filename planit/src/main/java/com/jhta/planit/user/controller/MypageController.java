@@ -77,6 +77,11 @@ public class MypageController {
 		map.put("session_mem_id", session_mem_id);
 		map.put("follow_grade", follow_grade);
 		int n = service.follow(map);
+		if (n > 0) {
+			n = service.followedcnt(mem_id);
+		} else {
+			n = -1;
+		}
 		return n;
 	}
 	

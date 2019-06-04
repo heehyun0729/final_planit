@@ -26,3 +26,11 @@
 .userPlan .planId {
 	font-size: 10px;
 }
+
+#planPage {
+	clear: both;
+}
+
+#planPage a{
+	text-decoration: none;
+}

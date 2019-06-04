@@ -210,11 +210,10 @@ function initMap() {
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(addrBox);
     // 저장버튼
     var btnSave = document.getElementById("saveBox");
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox); 
     // 수정 작업 시 routelist 불러오기
     plan_num = $("#plan_num").val();
-    console.log(plan_num);
-    if(plan_num != null && plan_num != ""){
+    if(plan_num != null && plan_num != ""){ 
         $.ajax({
     		url: "/planit/plan/detail",
     		method: "post",
@@ -398,6 +397,7 @@ function addCity(city, country, lat, lng) {
 	route.stay = 1;
 	route.date_in = formatDate(date_in);
 	route.date_out = formatDate(date_out);
+	route.detail = "-";
 	routelist.push(route);
 	setRouteDiv();
 	setMapRoute();

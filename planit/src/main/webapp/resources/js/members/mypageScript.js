@@ -4,6 +4,7 @@
 
 $(document).ready(function() {
 	$("#mypage_followbtn").click(function() {
+		console.log($("#hidden_fg").val());
 		let hidden_id = $("#hidden_id").val();
 		if (hidden_id != "") {
 			$.ajax({
@@ -11,11 +12,16 @@ $(document).ready(function() {
 				type : "post",
 				data : {'follow_grade' : $("#hidden_fg").val()},
 				success : function(data) {
-					if (data > 0) {
+					if (data >= 0) {
+						$("#followedcnt").html("");
 						if ($("#hidden_fg").val() > 0) {
 							$("#mypage_followbtn").html("팔로우");
+							$("#followedcnt").html(data);
+							$("#hidden_fg").val("0");
 						} else {
 							$("#mypage_followbtn").html("팔로우 됨");
+							$("#followedcnt").html(data);
+							$("#hidden_fg").val("2");
 						}
 					} else {
 						alert("오류로 인해 정상적인 작업을 수행하지 못하였습니다.");
