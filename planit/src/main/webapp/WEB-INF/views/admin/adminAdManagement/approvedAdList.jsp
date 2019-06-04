@@ -10,7 +10,7 @@
 	}
 	.tableContentWrapper{
 		width: 100%;
-		height: 800px;
+		height: 600px;
 		margin: auto;
 	}
 	.tableContentDiv{
@@ -31,6 +31,9 @@
 	#searchBtn{/* 겹치는거 있음 찾아서 확인하기 */
 		cursor: pointer;
 	}
+	a:link{
+		text-decoration: none;
+	}
 </style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.0.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
@@ -38,6 +41,24 @@
 	$(document).ready(function(){
 		$("#searchBtn").on("click",function(){
 			$("#form").submit();
+		});
+		$(".table a").on("click", function(event){
+			event.preventDefault();
+			const src=$(event.target).parent().prop("href");
+			var box = $('<div id="popup"></div>').html('<iframe style="border: 0px; " src="' + src + '" width="100%" height="99%"></iframe>')
+            .dialog({
+                autoOpen: true,
+                closeOnEscape: true,
+                resizable: false,
+                draggable: false,
+                modal: true,
+                height: 860,
+                width: 860,
+                title: "상세정보"
+            });
+		});
+		$('body').on('dialogclose', '.ui-dialog', function(){
+			location.reload();
 		});
 	});
 </script>
@@ -67,7 +88,7 @@
 										<td>${vo.ad_company }</td>
 										<td>${vo.ad_requestDate }</td>
 										<td><fmt:formatNumber value="${vo.ad_price}" pattern="#,###" /></td>
-										<td><a href="<c:url value='/admin/adminAdManagement/adInfo?ad_num=${vo.ad_num }'/>"><img alt='상세보기' src='<c:url value='/resources/adminImages/chat.png'/>'></a></td>
+										<td><a href="<c:url value='/admin/adminAdManagement/approvedAdInfo?ad_num=${vo.ad_num }'/>"><img name="getInfo" alt='상세보기' src='<c:url value='/resources/adminImages/chat.png'/>'></a></td>
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -87,10 +108,10 @@
 					<c:forEach var="i" begin="${map.startPageNum }" end="${map.endPageNum }">
 						<c:choose>
 							<c:when test="${map.pageNum==i }">
-								<a href="${pageContext.request.contextPath }/admin/adminAdManagement/approvedAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}"><span style="color:blue">[${i }]</span></a>
+								<a href="${pageContext.request.contextPath }/admin/adminAdManagement/approvedAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}"><span style="color:black">[${i }]</span></a>
 							</c:when>
 							<c:otherwise>
-								<a href="${pageContext.request.contextPath }/admin/adminAdManagement/approvedAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}"><span style="color:red">[${i }]</span></a>
+								<a href="${pageContext.request.contextPath }/admin/adminAdManagement/approvedAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}"><span style="color:gray;">[${i }]</span></a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>

@@ -264,6 +264,7 @@
 			$.getJSON("<c:url value='/adminAdKakaoPay'/>",{cid:cid, partner_order_id:partner_order_id, partner_user_id:partner_user_id, item_name:item_name, quantity:quantity, total_amount:total_amount, vat_amount:vat_amount, tax_free_amount:tax_free_amount, approval_url:approval_url, fail_url:fail_url, cancel_url:cancel_url} ,
 				function(data) {
 					if(data!=null){
+						$("input[name='ad_tid']").val(data.tid);
 						var box = $('<div></div>').html('<iframe style="border: 0px; " src="' + data.next_redirect_pc_url + '" width="100%" height="99%"></iframe>')
 						               .dialog({
 						                   autoOpen: false,
@@ -272,8 +273,7 @@
 						                   modal: true,
 						                   height: 600,
 						                   width: 500,
-						               });
-						$("input[name='ad_tid']").val(data.tid);
+						               });						
 						box.dialog().parents(".ui-dialog").find(".ui-dialog-titlebar").remove();
 						box.dialog('open');
 					}

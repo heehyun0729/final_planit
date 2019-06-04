@@ -26,4 +26,13 @@ public class AdInfoDao {
 	public List<AdInfoVo> getAdInfoInfo(int ad_num){
 		return sqlSession.selectList(NAMESPACE + "getAdInfoInfo", ad_num);
 	}
+	public int adInfoApproved(int adInfo_num) {
+		return sqlSession.update(NAMESPACE + "adInfoApproved", adInfo_num);
+	}
+	public int adInfoDeclined(int adInfo_num) {
+		return sqlSession.update(NAMESPACE + "adInfoDeclined", adInfo_num);
+	}
+	public int adInfoRefunded(int adInfo_num) {
+		return sqlSession.update(NAMESPACE + "adInfoRefunded", adInfo_num);
+	}
 }

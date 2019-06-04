@@ -35,4 +35,16 @@
 	<select id="getAdInfo" parameterType="int" resultType="com.jhta.planit.admin.vo.AdVo">
 		select * from ad where ad_num=#{ad_num}
 	</select>
+	<update id="approveAd" parameterType="int">
+		update ad set ad_progress=1, ad_approvedate=sysdate where ad_num=#{ad_num}
+	</update>
+	<update id="declineAd" parameterType="int">
+		update ad set ad_progress=2, ad_approvedate=sysdate where ad_num=#{ad_num}
+	</update>
+	<update id="partRefundedAd" parameterType="int">
+		update ad set ad_progress=4, ad_approvedate=sysdate where ad_num=#{ad_num}
+	</update>
+	<update id="allRefundedAd" parameterType="int">
+		update ad set ad_progress=5, ad_approvedate=sysdate where ad_num=#{ad_num}
+	</update>
 </mapper>

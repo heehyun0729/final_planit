@@ -24,7 +24,7 @@ public class AdService {
 	@Autowired
 	private AdImageDao adImageDao;
 	@Transactional
-	public boolean insert(HashMap<String, Object> map) {
+	public boolean insert(HashMap<String, Object> map) {//광고 신청
 		AdVo adVo=(AdVo)map.get("adVo");
 		adDao.insert(adVo);//ad테이블 DB정보 저장		
 		
@@ -72,5 +72,41 @@ public class AdService {
 	}
 	public AdImageVo getAdInfoImage(int adInfo_num) {
 		return adImageDao.getAdInfoImage(adInfo_num);
+	}
+	@Transactional
+	public int approveAd(int ad_num) {//광고 승인
+		adDao.approveAd(ad_num);
+		List<AdInfoVo> getAdInfoInfo=adInfoDao.getAdInfoInfo(ad_num);
+		for(AdInfoVo vo:getAdInfoInfo) {
+			adInfoDao.adInfoApproved(vo.getAdInfo_num());
+		}
+		return 1;
+	}
+	@Transactional
+	public int declineAd(int ad_num) {//광고 거절
+		adDao.declineAd(ad_num);
+		List<AdInfoVo> getAdInfoInfo=adInfoDao.getAdInfoInfo(ad_num);
+		for(AdInfoVo vo:getAdInfoInfo) {
+			adInfoDao.adInfoDeclined(vo.getAdInfo_num());
+		}
+		return 1;
+	}
+	public int refundedAd(int adInfo_num) {//부분 광고 환불
+		return adInfoDao.adInfoRefunded(adInfo_num);
+	}
+	public int partRefundedAd(int ad_num) {//ad테이블 부분환불 표시
+		return adDao.partRefundedAd(ad_num);
+	}
+	@Transactional
+	public int refundAllAd(int ad_num) {//모든 광고 환불
+		adDao.allRefundedAd(ad_num);
+		List<AdInfoVo> getAdInfoInfo=adInfoDao.getAdInfoInfo(ad_num);
+		for(AdInfoVo vo:getAdInfoInfo) {
+			adInfoDao.adInfoRefunded(vo.getAdInfo_num());
+		}
+		return 1;
+	}
+	public int allRefundedAd(int ad_num) {//ad테이블 완전환불 표시
+		return adDao.allRefundedAd(ad_num);
 	}
 }
