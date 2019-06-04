@@ -1,5 +1,6 @@
 package com.jhta.planit.plan.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,16 @@ public class PlanDetailService {
 	public int count() {
 		return planDetailDao.count();
 	}
-	public List<PlanDetailVo> detail(int plan_num){
-		return planDetailDao.detail(plan_num);
+	public List<PlanDetailVo> list(int plan_num){
+		return planDetailDao.list(plan_num);
+	}
+	public int updateDetail(HashMap<String, String> map) {
+		return planDetailDao.updateDetail(map);
+	}
+	public int updateDate(HashMap<String, String> map) {
+		return planDetailDao.updateDate(map);
+	}
+	public int delete(int plan_num) {
+		return planDetailDao.delete(plan_num);
 	}
 }

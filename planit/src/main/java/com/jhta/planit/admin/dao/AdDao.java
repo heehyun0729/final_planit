@@ -1,6 +1,9 @@
 package com.jhta.planit.admin.dao;
 
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,5 +20,14 @@ public class AdDao {
 	}
 	public int getRecentAdNum() {
 		return sqlSession.selectOne(NAMESPACE + "getRecentAdNum");
-	}		
+	}
+	public int getTotalRowCount(HashMap<String, Object> map) {
+		return sqlSession.selectOne(NAMESPACE + "getTotalRowCount", map);
+	}
+	public List<AdVo> getAdList(HashMap<String, Object> map) {
+		return sqlSession.selectList(NAMESPACE + "getAdList", map);
+	}
+	public AdVo getAdInfo(int ad_num) {
+		return sqlSession.selectOne(NAMESPACE + "getAdInfo", ad_num);
+	}
 }

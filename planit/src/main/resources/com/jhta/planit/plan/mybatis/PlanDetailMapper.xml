@@ -11,7 +11,16 @@
 	<select id="count" resultType="int">
 		select NVL(count(*), 0) from planDetail
 	</select>
-	<select id="detail" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanDetailVo">
+	<select id="list" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanDetailVo">
 		select * from planDetail where plan_num = #{plan_num}
 	</select>
+	<update id="updateDetail" parameterType="hashmap">
+		update planDetail set planDetail_detail = #{detail} where planDetail_num = #{num}
+	</update>
+	<update id="updateDate" parameterType="hashmap">
+		update planDetail set planDetail_inDate = #{date_in}, planDetail_outDate = #{date_out} where planDetail_num = #{num}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from planDetail where plan_num = #{plan_num}
+	</delete>
 </mapper>

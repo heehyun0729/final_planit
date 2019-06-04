@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <script async defer type="text/javascript"
 	src="//maps.googleapis.com/maps/api/js?key=${sessionScope.key }&callback=initMap&libraries=places"></script>
-
+<input type = "hidden" value = "${param.plan_num }" id = "plan_num">
 <div id="planner">
 	<div id="leftBox">
 		<h1>플래너</h1>

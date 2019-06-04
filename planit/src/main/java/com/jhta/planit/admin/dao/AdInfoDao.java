@@ -23,4 +23,7 @@ public class AdInfoDao {
 	public List<AdInfoVo> getChance(HashMap<String, Object> map) {
 		return sqlSession.selectList(NAMESPACE + "getChance", map);
 	}
+	public List<AdInfoVo> getAdInfoInfo(int ad_num){
+		return sqlSession.selectList(NAMESPACE + "getAdInfoInfo", ad_num);
+	}
 }

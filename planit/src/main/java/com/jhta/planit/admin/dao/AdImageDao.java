@@ -15,4 +15,7 @@ public class AdImageDao {
 	public int insert(AdImageVo adImageVo) {
 		return sqlSession.insert(NAMESPACE + "insert", adImageVo);
 	}
+	public AdImageVo getAdInfoImage(int adInfo_num) {
+		return sqlSession.selectOne(NAMESPACE + "getAdInfoImage", adInfo_num);
+	}
 }
