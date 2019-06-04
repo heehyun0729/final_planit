@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.planit.admin.dao.AdDao;
 import com.jhta.planit.admin.dao.AdImageDao;
@@ -46,7 +45,6 @@ public class AdService {
 			Date adInfo_date=orderDate[i];
 			int adInfo_price=orderPrice[i];
 			AdInfoVo adInfoVo=new AdInfoVo(0, ad_num, adInfo_date, adInfo_chance, 0, 0, 0, adInfo_price);
-			System.out.println(adInfoVo);
 			adInfoDao.insert(adInfoVo); //adInfo테이블 DB정보 저장
 			int adInfo_num=adInfoDao.getRecentAdInfoNum();
 			AdImageVo adImageVo=new AdImageVo(0, adInfo_num, adImg_orgImg, adImg_savImg);
@@ -59,5 +57,20 @@ public class AdService {
 	}	
 	public List<AdInfoVo> getChance(HashMap<String, Object> map) {
 		return adInfoDao.getChance(map);
+	}
+	public int getTotalRowCount(HashMap<String, Object> map) {
+		return adDao.getTotalRowCount(map);
+	}
+	public List<AdVo> getAdList(HashMap<String, Object> map) {
+		return adDao.getAdList(map);
+	}
+	public List<AdInfoVo> getAdInfoInfo(int ad_num){
+		return adInfoDao.getAdInfoInfo(ad_num);
+	}
+	public AdVo getAdInfo(int ad_num){
+		return adDao.getAdInfo(ad_num);
+	}
+	public AdImageVo getAdInfoImage(int adInfo_num) {
+		return adImageDao.getAdInfoImage(adInfo_num);
 	}
 }

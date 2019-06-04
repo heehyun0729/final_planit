@@ -45,4 +45,7 @@ public class MsgTableService {
 	public MsgTableVo prev(int num) {
 		return dao.prev(num);
 	}
+	public int countReceiveList(HashMap<String, Object> map) {
+		return dao.countReceiveList(map);
+	}
 }

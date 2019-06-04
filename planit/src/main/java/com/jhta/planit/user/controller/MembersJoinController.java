@@ -52,7 +52,6 @@ public class MembersJoinController {
 		}
 		return result;
 	}
-	
 
 	@RequestMapping(value = "/nomaljoin/nickcheck", method = RequestMethod.POST)
 	@ResponseBody

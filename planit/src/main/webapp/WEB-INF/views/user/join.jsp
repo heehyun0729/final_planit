@@ -25,16 +25,16 @@
 		<br>
 		<label for="mem_nickname">*닉네임(3~10자리 한글,영문,숫자)</label> <input type="text" id="mem_nickname" name="mem_nickname" value="${vo.mem_nickname }"><input type="button" id="nickcheck" name="nickcheck" value="중복검사" disabled="disabled"><span id="nickckresult"></span>
 		<br>
-		<label for="mem_email1">*이메일</label> <input type="text" id="mem_email1" name="mem_email1"> <span>@</span> <input type="text" id="mem_email2" name="mem_email2" placeholder="example.com"> 
+		<label for="mem_email1">*이메일</label> <input type="text" id="mem_email1" name="mem_email1"> <span>@</span> <input type="text" id="mem_email2" name="mem_email2" placeholder="example.com" disabled="disabled" value="naver.com"> 
 		<select id="mem_email_select" name="mem_email_select">
-			<option value="1" selected="selected">직접입력</option>
 			<option value="naver.com">naver.com</option>
 			<option value="hanmail.net">hanmail.net</option>
 			<option value="nate.com">nate.com</option>
 			<option value="gmail.com">gmail.com</option>
+			<option value="1">직접입력</option>
 		</select> 
 		<input type="hidden" id="mem_email" name="mem_email" value="">
-		<input type="button" id="emailcheck" name="emailcheck" value="중복검사"> <span id="emailcheckresult"></span>
+		<input type="button" id="emailcheck" name="emailcheck" value="중복검사" disabled="disabled"> <span id="emailcheckresult"></span>
 		<br>
 		<label for="mem_gender">*성별</label><select id="mem_gender" name="mem_gender">
 			<option value="m">남(Man)</option>

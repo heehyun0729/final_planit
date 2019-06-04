@@ -77,5 +77,7 @@
 		update MSGTABLE set
 		MSGCHECK=1 where msgNum=#{msgNum}
 	</update>
-
+	<select id="countReceiveList" resultType="int" parameterType="hashmap">
+		select NVL(count(*),0) cnt  from MSGTABLE where receiveMemId=#{mem_id} and msgcheck=0 and msgDeletee ='1'
+	</select>
 </mapper>

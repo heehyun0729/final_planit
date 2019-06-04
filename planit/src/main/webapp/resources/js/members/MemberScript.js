@@ -53,7 +53,6 @@ $(document).ready(function() {
 		$("#pwdckresult").text("");
 		let mem_pwdval=$("#mem_pwd").val();
 		let mem_pwdcheckval=$("#mem_pwdck").val();
-		console.log(mem_pwdcheckval);
 		if(mem_pwdcheckval !== ""){
 			checkPwdCk(mem_pwdval,mem_pwdcheckval);
 		}
@@ -157,6 +156,11 @@ $(document).ready(function() {
 	//이메일 유효성 체크
 	$("#mem_email1").on("propertychange change keyup paste input", function() {
 		chkemail=false;
+		if (RegexEmail.test($("#mem_email1").val())) {
+			$("#emailcheck").prop("disabled", false);
+		}else{
+			$("#emailcheck").prop("disabled", true);
+		}
 	});
 	$("#mem_email2").on("propertychange change keyup paste input", function() {
 		chkemail=false;
@@ -233,7 +237,6 @@ $(document).ready(function() {
 	$(".joinhref").click(function(event){
 		let picheck=$("#personal_information_terms_agree").prop("checked");
 		let termscheck=$("#terms_agree").prop("checked");
-		console.log("약관에 동의해 주십시오");
 		if (!picheck||!termscheck) {
 			$("#plzcheckMsg").text("약관에 동의해 주십시오");
 			$("#plzcheckMsg").attr("style", "color:red");

@@ -14,7 +14,7 @@ conn planit/admin1234;
 
 -- 테이블 생성(sqlplus)
 DROP TABLE MEMBERS CASCADE CONSTRAINTS;
-CREATE TABLE members(
+CREATE TABLE MEMBERS(
 	mem_id varchar2(40) PRIMARY KEY,
 	mem_pwd varchar2(100) NOT NULL,
 	mem_nickname varchar2(25) UNIQUE,
@@ -25,6 +25,54 @@ CREATE TABLE members(
 	-- 어떤 값이 들어갈지 몰라 하나 만들어 둡니다
 	mem_api varchar2(10)
 );
+
+DROP TABLE USERAUTH;
+CREATE TABLE USERAUTH (
+    mem_email varchar2(50) PRIMARY KEY,
+    authKey varchar2(100) NOT NULL,
+    mem_id varchar2(40) NOT NULL,
+    CONSTRAINT userAuth_mem_id_fk FOREIGN KEY(mem_id)
+    REFERENCES MEMBERS(mem_id)
+);
+
+DROP TABLE PROFILE;
+DROP SEQUENCE PROFILE_SEQ;
+CREATE TABLE PROFILE(
+	profile_no number(7) PRIMARY KEY,
+	mem_id varchar2(40) NOT NULL,
+	profile_open number(2,0),
+	profile_comm varchar2(1000),
+	CONSTRAINT profile_mem_id_fk FOREIGN KEY (mem_id)
+	REFERENCES MEMBERS (mem_id)
+);
+
+CREATE SEQUENCE PROFILE_SEQ;
+
+DROP TABLE FOLLOW_LIST;
+DROP SEQUENCE FOLLOW_SEQ;
+CREATE TABLE FOLLOW_LIST(
+	followno number(5) PRIMARY KEY,
+	mem_id varchar2(40) NOT NULL,
+	profile_no number(7,0) NOT NULL,
+	follow_grade number(2,0),
+	CONSTRAINT follow_profile_no_fk FOREIGN KEY (profile_no)
+	REFERENCES PROFILE (profile_no),
+	CONSTRAINT follow_mem_id_fk FOREIGN KEY (mem_id)
+	REFERENCES MEMBERS (mem_id)
+);
+CREATE SEQUENCE FOLLOW_SEQ;
+
+DROP TABLE MEMIMAGE;
+DROP SEQUENCE MEMIMAGE_SEQ;
+CREATE TABLE MEMIMAGE(
+	img_num number(7,0) PRIMARY KEY,
+	mem_id varchar2(40) NOT NULL,
+	img_orgImg varchar2(50),
+	img_saveImg varchar2(50),
+	CONSTRAINT memimage_profile_no_fk FOREIGN KEY (mem_id)
+	REFERENCES MEMBERS (mem_id)
+);
+CREATE SEQUENCE MEMIMAGE_SEQ;
 
 DROP TABLE ACCOM CASCADE CONSTRAINTS;
 drop sequence accom_num_seq;
@@ -118,6 +166,8 @@ create table plan(
     plan_num number(7) primary key,
     mem_id varchar2(40) references members(mem_id),
     plan_title varchar2(50),
+    plan_startDate date,
+    plan_stays number(3),
     plan_img clob,
     plan_public number(2)   -- 0: 공개, 1: 비공개
 );
@@ -129,8 +179,11 @@ create table planDetail(
     planDetail_order number(3),
     planDetail_country varchar2(30),
     planDetail_city varchar2(40),
+    planDetail_lat number,
+    planDetail_lng number,
     planDetail_inDate date,
     planDetail_outDate date,
+    planDetail_stay number(3),
     planDetail_detail clob
 );
 
