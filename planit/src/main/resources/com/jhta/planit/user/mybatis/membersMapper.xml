@@ -34,4 +34,14 @@
 	<delete id="delAuth" parameterType="String">
 		delete from userAuth where mem_email=#{mem_email}
 	</delete>
+	<select id="userInfo" parameterType="string" resultType="com.jhta.planit.user.vo.MembersVo">
+		select * from members where mem_id=#{mem_id}
+	</select>
+	<update id="pwdChange" parameterType="hashmap">
+		update members set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
+	</update>
+	<update id="nickupdate" parameterType="hashmap">
+		update members set mem_nickname=#{mem_nickname}
+		where mem_id=#{mem_id}
+	</update>
 </mapper>

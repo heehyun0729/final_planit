@@ -26,13 +26,13 @@ public class MembersService {
 	
 	@Transactional
 	public int membersJoin(MembersVo vo) throws Exception {
-		String encodingPwd=bCryptPasswordEncoder.encode(vo.getMem_pwd());
+		String encodingPwd = bCryptPasswordEncoder.encode(vo.getMem_pwd());
 		vo.setMem_pwd(encodingPwd);
-		int n=dao.membersJoin(vo);
-		
+		int n = dao.membersJoin(vo);
+
 		mdao.joinProfileImg(vo.getMem_id());
 		mdao.joinProfileInfo(vo);
-		
+
 		String key = new AuthenticationKeyGeneration().getKey(50, false); // 인증키 생성
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -43,8 +43,10 @@ public class MembersService {
 
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[Planit 서비스 이메일 인증]");
-		sendMail.setText(
-				new StringBuffer().append("<h1>Planit 회원 가입 인증</h1>").append("<a href='http://localhost:9090/planit/member/emailConfirm?mem_email=").append(vo.getMem_email()).append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>").toString());
+		sendMail.setText(new StringBuffer().append("<h1>Planit 회원 가입 인증</h1>")
+				.append("<a href='http://localhost:9090/planit/member/emailConfirm?mem_email=")
+				.append(vo.getMem_email()).append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>")
+				.toString());
 		sendMail.setFrom("limsr95@gmail.com", "Planit");
 		sendMail.setTo(vo.getMem_email());
 		sendMail.send();
@@ -55,7 +57,7 @@ public class MembersService {
 		MembersVo vo = dao.login(map.get("mem_id"));
 		if (vo != null) {
 			return bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd());
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -71,11 +73,11 @@ public class MembersService {
 	public MembersVo nickCheck(String mem_nickname) {
 		return dao.nickcheck(mem_nickname);
 	}
-	
+
 	public String getId(String mem_email) {
 		return dao.getId(mem_email);
 	}
-	
+
 	@Transactional
 	public int userAuth(HashMap<String, String> map) throws Exception {
 		Integer mem_stat = dao.userAuthChk(map.get("mem_email"));
@@ -85,5 +87,34 @@ public class MembersService {
 		} else {
 			return 0;
 		}
+	}
+
+	public MembersVo userInfo(HashMap<String, Object> map) {
+		MembersVo vo = dao.userInfo((String) map.get("mem_id"));
+		if (bCryptPasswordEncoder.matches((String) map.get("mem_pwd"), vo.getMem_pwd())) {
+			vo.setMem_pwd("");
+			return vo;
+		} else {
+			return null;
+		}
+	}
+
+	public int pwdChange(HashMap<String, Object> map) {
+		int n = -1;
+		MembersVo vo = dao.userInfo((String) map.get("mem_id"));
+		if ((Boolean) map.get("forgot")) {
+			String encodingPwd = bCryptPasswordEncoder.encode((String) map.get("mem_pwd"));
+			map.put("mem_pwd", encodingPwd);
+			n = dao.pwdChange(map);
+		} else {
+			if (bCryptPasswordEncoder.matches((String) map.get("before_mem_pwd"), vo.getMem_pwd())) {
+				String encodingPwd = bCryptPasswordEncoder.encode((String) map.get("mem_pwd"));
+				map.put("mem_pwd", encodingPwd);
+				n = dao.pwdChange(map);
+			} else {
+				n = -10;
+			}
+		}
+		return n;
 	}
 }

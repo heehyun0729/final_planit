@@ -52,4 +52,12 @@ public class MembersDao {
 	public String getId(String mem_email) {
 		return sqlSession.selectOne(NAMESPACE + ".getid", mem_email);
 	}
+
+	public MembersVo userInfo(String mem_id) {
+		return sqlSession.selectOne(NAMESPACE+".userInfo", mem_id);
+	}
+
+	public int pwdChange(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE + ".pwdChange", map);
+	}
 }

@@ -15,37 +15,6 @@ $(document).ready(function() {
 	var RegxNickname1 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]{3,10}$/;
 	var RegxNickname2 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/;
 	
-	//id 유효성 체크
-	$("#mem_id").on("propertychange change keyup paste input", function() {
-		chkid=false;
-		chkpwd=false;
-		$("#idcheckresult").text("");
-		let ckid=$.trim($("#mem_id").val());
-		
-		if(RegexId.test(ckid) && (/[0-9]+/.test(ckid) && /[a-z]+/.test(ckid))){
-			$("#idcheck").prop("disabled", false);
-		}else{
-			$("#idcheck").prop("disabled", true);
-		}
-	});
-	$("#idcheck").click(function() {
-		$.ajax({
-			url : $(location).attr('href')+"/idcheck",
-			type : "post",
-			data : {'mem_id': $("#mem_id").val()},
-			success : function(data) {
-				if (data >0) {
-					$("#idcheckresult").text("이미 사용중인 아이디입니다.");
-					$("#idcheckresult").attr("style", "color:red");
-				} else {
-					$("#idcheckresult").text("사용 가능한 아이디입니다.");
-					$("#idcheckresult").attr("style", "color:blue");
-					chkid=true;
-				}
-			}
-		});
-	});
-	
 	//비밀번호 유효성 체크
 	$("#mem_pwd").on("propertychange change keyup paste input", function() {
 		chkpwd=false;
@@ -153,97 +122,6 @@ $(document).ready(function() {
 		});
 	});
 	
-	//이메일 유효성 체크
-	$("#mem_email1").on("propertychange change keyup paste input", function() {
-		chkemail=false;
-		if (RegexEmail.test($("#mem_email1").val())) {
-			$("#emailcheck").prop("disabled", false);
-		}else{
-			$("#emailcheck").prop("disabled", true);
-		}
-	});
-	$("#mem_email2").on("propertychange change keyup paste input", function() {
-		chkemail=false;
-	});
-	$('#mem_email_select').change(function(){
-		chkemail=false;
-		$("#mem_email_select option:selected").each(function () {
-			if($(this).val()== '1'){
-				$("#mem_email2").val(''); 
-				$("#mem_email2").attr("disabled",false);
-			}else{
-				$("#mem_email2").val($(this).text());
-				$("#mem_email2").attr("disabled",true); 
-			}
-
-		});
-	});
-	$("#emailcheck").click(function() {
-		if(RegexEmailDomain.test($("#mem_email2").val())){
-			let mem_email=$("#mem_email1").val()+"@"+$("#mem_email2").val();
-			$.ajax({
-				url : $(location).attr('href')+"/emailcheck",
-				type : "post",
-				data :{'mem_email': mem_email},
-				success : function(data) {
-					if (data >0) {
-						$("#emailcheckresult").text("등록되어 있는 이메일 입니다.");
-						$("#emailcheckresult").attr("style", "color:red");
-					} else {
-						$("#emailcheckresult").text("등록이 안되어 있는 이메일 입니다.");
-						$("#emailcheckresult").attr("style", "color:blue");
-						$("#mem_email").val(mem_email);
-						chkemail=true;
-					}
-				}
-			});
-		} else{
-			$("#emailcheckresult").text("이메일을 올바르게 입력하세요.");
-			$("#emailcheckresult").attr("style", "color:red");
-			$("#emailcheckresult").focus();
-		}
-	});
-	
-	//최종 입력 확인
-	$("#joinForm").submit(function(event) {
-		let formresult=true;
-		if (!chkid) {
-			$("#submitError").text("아이디 중복검사 해주시기 바랍니다.");
-			formresult=false;
-			$("#mem_id").focus();
-		} else if(!chkpwd) {
-			$("#submitError").text("비밀번호를 올바르게 입력해 주시기 바랍니다.");
-			formresult=false;
-			$("#mem_pwd").focus();
-		}else if(!chkpwdck) {
-			$("#submitError").text("비밀번호 중복체크가 올바르지 않습니다.");
-			formresult=false;
-			$("#mem_pwdck").focus();
-		}else if(!chknick) {
-			$("#submitError").text("닉네임 중복검사 해주시기 바랍니다");
-			formresult=false;
-			$("#mem_nickname").focus();
-		}else if(!chkemail) {
-			$("#submitError").text("이메일 중복검사 해주시기 바랍니다");
-			formresult=false;
-			$("#mem_email1").focus();
-		}
-		$("#submitError").attr("style", "color:red");
-		if (!formresult) {
-			event.preventDefault();
-		}
-	});
-	
-	$(".joinhref").click(function(event){
-		let picheck=$("#personal_information_terms_agree").prop("checked");
-		let termscheck=$("#terms_agree").prop("checked");
-		if (!picheck||!termscheck) {
-			$("#plzcheckMsg").text("약관에 동의해 주십시오");
-			$("#plzcheckMsg").attr("style", "color:red");
-			event.preventDefault();
-		}
-	});
-	
 	$("#changePwd").submit(function(event) {
 		let formresult=true;
 		$("#submitError").text("");
@@ -255,6 +133,10 @@ $(document).ready(function() {
 			$("#submitError").text("비밀번호 중복체크가 올바르지 않습니다.");
 			formresult=false;
 			$("#mem_pwdck").focus();
+		}else if($("#mem_pwd").val()==$("#before_mem_pwd").val()){
+			$("#submitError").text("기존 비밀번호와 새 비밀번호가 같습니다");
+			formresult=false;
+			$("#mem_pwd").focus();
 		}
 		$("#submitError").attr("style", "color:red");
 		if (!formresult) {

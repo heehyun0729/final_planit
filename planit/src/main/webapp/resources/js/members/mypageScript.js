@@ -28,9 +28,8 @@ $(document).ready(function() {
 					}
 				}
 			});
-		}else{
-			//alert($(location).attr('origin'));
-			$(location).attr("href", $(location).attr('origin')+"/planit/login");
+		} else {
+			$(location).attr("href", $(location).attr('href') + "/login");
 		}
 	});
 });
