@@ -6,20 +6,44 @@
 	<insert id="insert" parameterType="com.jhta.planit.plan.vo.PlanVo">
 		insert into plan values(#{plan_num}, #{mem_id}, #{plan_title}, #{plan_startDate}, #{plan_stays}, #{plan_img}, #{plan_public})
 	</insert>
-	<select id="count" resultType="int">
+	<select id="count" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from plan
+		where plan_num in 
+		    (
+		        select plan_num from
+		        (
+		            select p.plan_num plan_num, p.mem_id mem_id, p.plan_title plan_title, p.plan_startDate plan_startDate,
+		                p.plan_stays plan_stays, p.plan_img plan_img, p.plan_public plan_public, d.planDetail_country country, d.planDetail_city city
+		            from plan p, planDetail d
+		            where p.plan_num = d.plan_num and p.plan_public = 0
+		        )
+		        <if test = "keyword != null and keyword != ''">
+	               	 where ${field} like '%'||#{keyword}||'%'
+                </if>
+		    )
 	</select>
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.plan.vo.PlanVo">
-		select * from 
+		select * from
 		(
-		    select AA.*, rownum rnum from
+		    select aa.*, rownum rnum from
 		    (
-		        select * from plan 
-		        where plan_public = 0 
+		        select * from plan
+		        where plan_num in 
+		            (
+		                select plan_num from
+		                (
+		                    select p.plan_num plan_num, p.mem_id mem_id, p.plan_title plan_title, p.plan_startDate plan_startDate,
+		                        p.plan_stays plan_stays, p.plan_img plan_img, p.plan_public plan_public, d.planDetail_country country, d.planDetail_city city
+		                    from plan p, planDetail d
+		                    where p.plan_num = d.plan_num and p.plan_public = 0
+		                )
+		                <if test = "keyword != null and keyword != ''">
+		               	 where ${field} like '%'||#{keyword}||'%'
+		                </if>
+		            )
 		        order by plan_num desc
-		    )AA
-		)
-		<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
+		    )aa
+		)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
 	</select>
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanVo">
 		select * from plan where plan_num = #{plan_num}

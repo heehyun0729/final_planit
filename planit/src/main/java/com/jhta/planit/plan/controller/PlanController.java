@@ -205,7 +205,7 @@ public class PlanController {
 	public String insert(HttpSession session, String routelist, String startDate, String stays, String img) {
 		JSONObject json = new JSONObject();
 		try {
-			int plan_num = planService.count();
+			int plan_num = planService.count(new HashMap<String, Object>());
 			String mem_id = (String)session.getAttribute("mem_id");
 			int n = planService.insert(new PlanVo(plan_num, mem_id, stays + "일간 여행", startDate, Integer.parseInt(stays), img, 0));
 			if(n > 0) {
@@ -269,21 +269,26 @@ public class PlanController {
 	}
 	
 	@RequestMapping("/plan/list")
-	public String list(String pageNum, Model model) {
+	public String list(String pageNum, String field, String keyword, Model model) {
 		int pnum = 1;
 		if(pageNum != null && pageNum != "") {
 			pnum = Integer.parseInt(pageNum);
 		}
-		int cnt = planService.count();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		int cnt = planService.count(map);
+		
 		PageUtil pu = new PageUtil(pnum, cnt, 8, 5);
 		int startRow = pu.getStartRow();
 		int endRow = pu.getEndRow();
 		int pageCnt = pu.getTotalPageCount();
 		int startPage = pu.getStartPageNum();
 		int endPage = pu.getEndPageNum();
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
+		
 		List<PlanVo> list = planService.list(map);
 		model.addAttribute("list", list);
 		model.addAttribute("pageNum", pnum);
@@ -292,6 +297,8 @@ public class PlanController {
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("field", field);
+		model.addAttribute("keyword", keyword);
 		return ".plan.planList";
 	}
 	

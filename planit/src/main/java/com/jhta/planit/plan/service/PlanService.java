@@ -15,8 +15,8 @@ public class PlanService {
 	public int insert(PlanVo vo) {
 		return planDao.insert(vo);
 	}
-	public int count() {
-		return planDao.count();
+	public int count(HashMap<String, Object> map) {
+		return planDao.count(map);
 	}
 	public List<PlanVo> list(HashMap<String, Object> map) {
 		return planDao.list(map);

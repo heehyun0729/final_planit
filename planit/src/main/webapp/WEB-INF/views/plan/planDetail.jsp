@@ -14,7 +14,7 @@
 		<div id="planMenu">
 			<ul>
 				<li><a href="javascript:openStartDateDialog('${vo.plan_startDate }')">출발일변경</a></li>
-				<li><a href="javascript:openInfoDialog()">정보수정(제목, 공개여부)</a></li>
+				<li><a href="javascript:openInfoDialog()">정보수정</a></li>
 				<li><a href="<c:url value='/plan/planner?plan_num=${vo.plan_num }'/>">루트수정</a></li>
 				<li><a href="javascript:deletePlan()">일정삭제</a></li>
 			</ul>
@@ -57,6 +57,7 @@
 			</div>
 		</div>
 	</c:if>
+	<div id = "goList"><a href = "<c:url value='/plan/list?pageNum=${param.pageNum }&field=${param.field }&keyword=${param.keyword }'/>">목록</a></div>
 	<!-- 지도 -->
 	<div id="detailMap"></div>
 	<div id="planStays">
