@@ -1,5 +1,6 @@
 package com.jhta.planit.buddy.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,8 +30,9 @@ public class BuddyDao {
 		return sqlSession.insert(NAMESPACE + ".buddyCity_insert",data);
 	}
 
-	public List<BuddyListVo> showAll(){
-		return sqlSession.selectList(NAMESPACE + ".buddy_showAll");
+	public List<BuddyListVo> showAll(HashMap<String, Object> find_map){
+		System.out.println("map:" +find_map);
+		return sqlSession.selectList(NAMESPACE + ".buddy_showAll",find_map);
 	}
 	
 	public List<String> showCoutry(){

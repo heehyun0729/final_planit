@@ -20,12 +20,26 @@ import com.jhta.planit.buddy.vo.BuddyVo;
 public class BuddyController {
 	@Autowired private BuddyService service;
 	
-	@RequestMapping(value="/buddyList", method=RequestMethod.GET)
-	public ModelAndView goBuddyList() {
+	@RequestMapping("/buddyList")
+	public ModelAndView goBuddyList(String kw_indate,String kw_outdate,
+			String[] kw_city,String kw_gender,String kw_birthYear) {
+		System.out.println("kw_indate"+kw_indate);
+		System.out.println("kw_outdate"+kw_outdate);
+		System.out.println("kw_city"+kw_city);
+		System.out.println("kw_gender"+kw_gender);
+		System.out.println("kw_birthYear"+kw_birthYear);
+		//검색
+		HashMap<String, Object> find_map=new HashMap<String, Object>();
+		
+		find_map.put("kw_city",kw_city);
+		find_map.put("kw_indate",kw_indate);
+		find_map.put("kw_outdate",kw_outdate);
+		find_map.put("kw_gender",kw_gender);
+		find_map.put("kw_birthYear",kw_birthYear);
 		
 		//체크 박스 동적 생성
 		List<String> countryList=service.showCountry();
-		HashMap<String, Object>map=new HashMap<String, Object>();
+		HashMap<String, Object>ck_map=new HashMap<String, Object>();
 		for(int i=0;i<countryList.size();i++) {
 			ArrayList<String> cities=new ArrayList<String>();
 			String country=countryList.get(i);
@@ -35,17 +49,17 @@ public class BuddyController {
 					cities.add(cityList.get(j).getBuddy_city());
 				}
 			}
-			map.put(country, cities);
+			ck_map.put(country, cities);
 		}
 		
 		//리스트 뽑기
-		List<BuddyListVo> buddyList=service.showAll();
+		List<BuddyListVo> buddyList=service.showAll(find_map);
 		
 		//뷰 페이지로 이동
 		ModelAndView mv=new ModelAndView(".buddy.buddyList");
 		mv.addObject("buddyList",buddyList);
 		mv.addObject("countryList",countryList);
-		mv.addObject("cityList",map);
+		mv.addObject("cityList",ck_map);
 		//mv.addObject("find_countryList",c_map);
 		return mv;
 	}

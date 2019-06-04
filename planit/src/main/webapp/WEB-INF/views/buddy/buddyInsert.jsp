@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
 <div id="insert_buddy">
 	<form method="post" action="<c:url value='/buddyInsert' />" onsubmit="return check()">
 		<div id="choice_date">

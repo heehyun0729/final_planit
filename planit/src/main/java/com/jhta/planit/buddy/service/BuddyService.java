@@ -1,5 +1,7 @@
 package com.jhta.planit.buddy.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +41,8 @@ public class BuddyService {
 		return n1;
 	}
 	
-	public List<BuddyListVo> showAll(){
-		return dao.showAll();
+	public List<BuddyListVo> showAll(HashMap<String, Object> find_map){
+		return dao.showAll(find_map);
 	}
 	
 	public List<String> showCountry(){

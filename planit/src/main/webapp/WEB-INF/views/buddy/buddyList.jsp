@@ -2,12 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
 <div id="find_buddy">
-	<form>
+	<form method="post" action="<c:url value='/buddyList'/>">
 		<div id="choice_date">
-			여행 시작 날짜 : <input type="text" id="buddy_indate"> 
-			여행 종료 날짜 : <input type="text" id="buddy_outdate">
+			여행 시작 날짜 : <input type="text" id="buddy_indate" name="kw_indate"> 
+			여행 종료 날짜 : <input type="text" id="buddy_outdate" name="kw_outdate">
 		</div>
 		
 		<div id="choice_city">
@@ -22,7 +21,7 @@
 						<c:forEach var="city" items="${cityList}">
 							<c:if test="${city.key==country }">
 								<c:forEach var="cityVal" items="${city.value}">
-									<td><input type="checkbox" id="${cityVal }" value="${cityVal }" name="${cityVal }">${cityVal }</td>
+									<td><input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city">${cityVal }</td>
 								</c:forEach>
 							</c:if>
 						</c:forEach>
@@ -33,15 +32,15 @@
 		
 		<div>
 			성별 :
-			<input type="radio" name="buddy_gender" value="X" checked="checked"> 상관없음
-			<input type="radio" name="buddy_gender" value="M"> 남 
-			<input type="radio" name="buddy_gender" value="W"> 여
+			<input type="radio" name="kw_gender" value="X" checked="checked"> 상관없음
+			<input type="radio" name="kw_gender" value="M"> 남 
+			<input type="radio" name="kw_gender" value="W"> 여
 			
 		</div>
 		
 		<div>
-			나이대 : <select name="buddy_birthYear">
-				<option value="any">상관없음</option>
+			나이대 : <select name="kw_birthYear">
+				<option value="0">상관없음</option>
 				<option value="20">20대</option>
 				<option value="30">30대</option>
 				<option value="40">40대</option>
