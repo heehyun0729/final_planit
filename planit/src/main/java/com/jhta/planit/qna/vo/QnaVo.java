@@ -9,7 +9,7 @@ public class QnaVo {
 	private String qna_title;
 	private String qna_content;
 	private Date qna_date;
-	public QnaVo() {}
+	public QnaVo(){}
 	public QnaVo(int qna_num, String mem_id, String qna_cate, String qna_title, String qna_content, Date qna_date) {
 		this.qna_num = qna_num;
 		this.mem_id = mem_id;
