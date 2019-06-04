@@ -31,6 +31,7 @@ import com.jhta.planit.plan.service.PlanDetailService;
 import com.jhta.planit.plan.service.PlanService;
 import com.jhta.planit.plan.vo.PlanDetailVo;
 import com.jhta.planit.plan.vo.PlanVo;
+import com.jhta.util.PageUtil;
 
 @Controller
 public class PlanController {
@@ -268,9 +269,29 @@ public class PlanController {
 	}
 	
 	@RequestMapping("/plan/list")
-	public String list(Model model) {
-		List<PlanVo> list = planService.list();
+	public String list(String pageNum, Model model) {
+		int pnum = 1;
+		if(pageNum != null && pageNum != "") {
+			pnum = Integer.parseInt(pageNum);
+		}
+		int cnt = planService.count();
+		PageUtil pu = new PageUtil(pnum, cnt, 8, 5);
+		int startRow = pu.getStartRow();
+		int endRow = pu.getEndRow();
+		int pageCnt = pu.getTotalPageCount();
+		int startPage = pu.getStartPageNum();
+		int endPage = pu.getEndPageNum();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		List<PlanVo> list = planService.list(map);
 		model.addAttribute("list", list);
+		model.addAttribute("pageNum", pnum);
+		model.addAttribute("startRow", startRow);
+		model.addAttribute("endRow", endRow);
+		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		return ".plan.planList";
 	}
 	

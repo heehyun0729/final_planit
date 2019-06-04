@@ -221,7 +221,6 @@ function initMap() {
     		data: {plan_num: plan_num},
     		success: function(data) {
     			routelist = data;
-    			console.log(routelist);
     			$("#startDate").datepicker("setDate", routelist[0].date_in);	// datepicker 설정
     			// 날짜정보 포맷 수정
     			for(var i = 0 ; i < routelist.length ; i++){

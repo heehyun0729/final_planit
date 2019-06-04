@@ -20,8 +20,8 @@ public class PlanDao {
 	public int count() {
 		return sqlSession.selectOne(NAMESPACE + ".count");
 	}
-	public List<PlanVo> list(){
-		return sqlSession.selectList(NAMESPACE + ".list");
+	public List<PlanVo> list(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE + ".list", map);
 	}
 	public PlanVo detail(int plan_num) {
 		return sqlSession.selectOne(NAMESPACE + ".detail", plan_num);
