@@ -39,4 +39,7 @@ public class QnaDao {
 	public int delete(int qna_num) {
 		return sqlSession.delete(NAMESPACE + ".delete",qna_num);
 	}
+	/*public int getinfo(int qna_num) {
+		return sqlSession.getinfo()
+	}*/
 }

@@ -61,4 +61,7 @@
 	<delete id="delete" parameterType="int">
 		delete from qna where qna_num=#{qna_num}
 	</delete>
+	<select id="getinfo" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
+		select * from qna where qna_num=#{qna_num}
+	</select>
 </mapper>

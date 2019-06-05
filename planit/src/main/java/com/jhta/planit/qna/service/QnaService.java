@@ -38,4 +38,7 @@ public class QnaService {
 	public int delete(int qna_num) {
 		return dao.delete(qna_num);
 	}
+	/*public int getinfo(int qna_num) {
+		return dao.
+	}*/
 }

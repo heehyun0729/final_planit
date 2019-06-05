@@ -9,9 +9,17 @@
 		<option value="관광지">관광지</option>
 	</select><br>
 	제목<input type="text" name="qna_title"><br>
-	내용<br>
-	<textarea rows="10" cols="50" name="qna_content"></textarea><br>
-	파일첨부<input type="file" name="file"><br>
+	내용<textarea id="summernote" name="qna_content"></textarea>
+	<!--<textarea rows="10" cols="50" name="qna_content"></textarea><br>  -->
 	<input type="submit" value="등록">
 </form>
+<script>
+$('#summernote').summernote({
+	  height: 300,
+	  minHeight: null,
+	  maxHeight: null,
+	  focus: true
+	});
+</script>
+
 </div>

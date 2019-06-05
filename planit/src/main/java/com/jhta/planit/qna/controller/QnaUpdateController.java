@@ -2,6 +2,7 @@ package com.jhta.planit.qna.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,8 @@ public class QnaUpdateController {
 	@Autowired QnaService service;
 	
 	@RequestMapping(value="/qna/updateQna",method=RequestMethod.GET)
-	public String update() {
+	public String update(int qna_num,Model model) {
+		
 		return ".qna.updateQna";
 	}
 	@RequestMapping(value="/qna/updateQna",method = RequestMethod.POST)

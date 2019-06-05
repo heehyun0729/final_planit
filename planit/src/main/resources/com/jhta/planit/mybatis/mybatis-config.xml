@@ -18,7 +18,6 @@
   	<mapper resource="com/jhta/planit/user/mybatis/mypageMapper.xml"/>
   	<mapper resource="com/jhta/planit/msgtable/mybatis/MsgTableMapper.xml"/>
   	<mapper resource="com/jhta/planit/buddy/mybatis/buddyMapper.xml"/>
-  	<mapper resource="com/jhta/planit/qna/mybatis/AcommQnaMapper.xml"/>
   	<mapper resource="com/jhta/planit/qna/mybatis/QnaMapper.xml"/>
   	<mapper resource="com/jhta/planit/plan/mybatis/PlanMapper.xml"/>
   	<mapper resource="com/jhta/planit/plan/mybatis/PlanDetailMapper.xml"/>
