@@ -4,59 +4,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
 <style type="text/css">
-	*{
-		padding: 0px;
-		margin: 0px;
-	}
-	.tableContentWrapper{
-		width: 100%;
-		height: 600px;
-		margin: auto;
-	}
-	.tableContentDiv{
-		width: 80%;
-		height: 80%;
-		margin: 80px auto;
-		text-align: center;
-	}
-	.table{
-		border-bottom: 1px solid gray;
-		width: 80%;
-		margin: 20px auto;
-		text-align: center;
-	}
-	.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor, .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
-		cursor: default;
-	}
-	#searchBtn{/* 겹치는거 있음 찾아서 확인하기 */
-		cursor: pointer;
-	}
-	a:link{
-		text-decoration: none;
-	}
+	
 </style>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.0.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#searchBtn").on("click",function(){
-			$("#form").submit();
-		});
 		$(".table a").on("click", function(event){
 			event.preventDefault();
 			const src=$(event.target).parent().prop("href");
-			console.log(src);
-			var box = $('<div></div>').html('<iframe style="border: 0px; " src="' + src + '" width="100%" height="99%"></iframe>')
-            .dialog({
-                autoOpen: true,
-                closeOnEscape: true,
-                resizable: false,
-                draggable: false,
-                modal: true,
-                height: 860,
-                width: 860,
-                title: "상세정보"
-            });
+			$("#modalSrc").html('<iframe style="border: 0px; " src="' + src + '" width="100%" height="820px"></iframe>');
+			$("#clickMe").click();
+		});
+		$('#exampleModal').on('hidden.bs.modal', function () {
+			  window.location.reload();
 		});
 	});
 </script>
@@ -65,18 +24,21 @@
 </header>
 <section>
 	<article>
-		<div class="tableContentWrapper">
-			<div class="tableContentDiv">
-				<div class="ui-tabs ui-corner-all ui-widget ui-widget-content">
-					<ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
-						<li class="ui-tabs-tab ui-corner-top ui-state-default ui-tab"><a href="<c:url value='/admin/adminAdManagement/approvedAdList'/>" class="ui-tabs-anchor">게재신청</a></li>
-						<li class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"><a href="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>" class="ui-tabs-anchor">환불신청</a></li>
-						<li class="ui-tabs-tab ui-corner-top ui-state-default ui-tab"><a href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="ui-tabs-anchor">ALL</a></li>
+		<div class="container">
+			<div class="row ">
+				<div class="col mt-5 text-center">
+					<ul class="nav nav-pills">
+						<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/adminAdManagement/approvedAdList'/>" class="ui-tabs-anchor">게재신청</a></li>
+						<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>" class="ui-tabs-anchor">환불신청</a></li>
+						<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="ui-tabs-anchor">ALL</a></li>
 					</ul>
-					<table class="table">
+					<table class="table table-hover ">
+						<thead>
 						<tr>
-							<th>번호</th><th>신청자</th><th>회사명</th><th>신청일</th><th>결재일</th><th>결제금액</th><th>결제수단</th><th>상세정보</th>
+							<th scope="col">번호</th><th scope="col">신청자</th><th scope="col">회사명</th><th scope="col">신청일</th><th scope="col">결재일</th><th scope="col">결제금액</th><th scope="col">결제수단</th><th scope="col">상세정보</th>
 						</tr>
+						</thead>
+						<tbody>
 						<c:choose>
 							<c:when test="${getAdList[0]!=null }">
 								<c:forEach var="vo" items="${getAdList }">
@@ -94,41 +56,64 @@
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="8">&nbsp;</td>
+									<td scope="row" colspan="8">해당 요청이 없습니다.</td>
 								</tr>
-								<tr>
-									<td colspan="8">해당 요청이 없습니다.</td>
-								</tr>
-								<tr>
-									<td colspan="8">&nbsp;</td>
-								</tr>
-							</c:otherwise>
-						</c:choose>						
-					</table>
-					<c:forEach var="i" begin="${map.startPageNum }" end="${map.endPageNum }">
-						<c:choose>
-							<c:when test="${map.pageNum==i }">
-								<a href="${pageContext.request.contextPath }/admin/adminAdManagement/requestRefundAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}"><span style="color:black">[${i }]</span></a>
-							</c:when>
-							<c:otherwise>
-								<a href="${pageContext.request.contextPath }/admin/adminAdManagement/requestRefundAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}"><span style="color:gray">[${i }]</span></a>
 							</c:otherwise>
 						</c:choose>
-					</c:forEach>
-					<form id="form" method="post" action="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>">
-						<select name="field">
+						</tbody>
+					</table>
+					<div class="d-flex justify-content-center">
+						<ul class="pagination">
+							<c:if test="${map.startPageNum!=1 }">
+								<li class="page-item"><a class="page-link" href='${pageContext.request.contextPath }/?pageNum=${pu.startPageNum-1}'>◀</a></li>
+							</c:if>
+							<c:forEach var="i" begin="${map.startPageNum }" end="${map.endPageNum }">
+								<c:choose>
+									<c:when test="${map.pageNum==i }">
+										<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestRefundAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">${i }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestRefundAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">${i }</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${map.totalPageCount!=pu.endPageNum }">
+								<li class="page-item"><a class="page-link" href='${pageContext.request.contextPath }/?pageNum=${pu.endPageNum+1}'>▶</a></li>
+							</c:if>
+						</ul>
+					</div>
+					<form id="form" class="form-inline d-flex justify-content-center" method="post" action="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>">
+						<select name="field" class="custom-select">
 							<option value="ad_num" <c:if test="${param.field=='ad_num' }">selected="selected"</c:if>>번호</option>
 							<option value="mem_id" <c:if test="${param.field=='mem_id' }">selected="selected"</c:if>>신청자</option>
 							<option value="ad_company" <c:if test="${param.field=='ad_company' }">selected="selected"</c:if>>회사명</option>
 							<option value="ad_requestDate" <c:if test="${param.field=='ad_requestDate' }">selected="selected"</c:if>>신청일</option>
 							<option value="ad_price" <c:if test="${param.field=='ad_price' }">selected="selected"</c:if>>결제금액</option>
 						</select>
-						<input type="text" name="keyword" value="${param.keyword }"> <img id="searchBtn" alt='검색' src='<c:url value='/resources/adminImages/search.png'/>'>
+							<input class="form-control mr-sm-2" value="${param.keyword }" name="keyword" type="search" placeholder="검색" aria-label="Search">
+							<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">검색</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</article>
+	<!-- 모달 -->
+	<input id="clickMe" type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">상세정보</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modalSrc">
+					
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <footer>
 </footer>
