@@ -93,6 +93,19 @@ public class MembersService {
 		}
 	}
 
+	public boolean userCheck(HashMap<String, String> map) {
+		MembersVo vo = dao.userCheck(map.get("mem_id"));
+		if (vo != null) {
+			if (bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd())) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 	public int pwdChange(HashMap<String, Object> map) {
 		int n = -1;
 		MembersVo vo = dao.userCheck((String) map.get("mem_id"));

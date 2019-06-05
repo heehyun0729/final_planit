@@ -57,7 +57,7 @@
 			<li><a href="<c:url value='/acommQna'/>">숙소문의</a></li>
 			<li><a href="<c:url value='/reservationForm'/>">숙소예약</a></li>
 			<li><a href="<c:url value='/accommInsert'/>">숙소추가</a></li>
-			<li><a href="<c:url value='/roomInsert'/>">방추가</a></li>
+			<li><a href="<c:url value='/accommList'/>">방추가</a></li>
 			<li><a href="<c:url value='/roomImageInsert'/>">방이미지추가</a></li>
 		</ul>
 	</header>

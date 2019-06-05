@@ -6,7 +6,11 @@
 	namespace="com.jhta.planit.roomImage.mybatis.RoomImageMapper">
 	<insert id="insert"
 		parameterType="com.jhta.planit.roomImage.vo.RoomImageVo">
-		insert into MSGTABLE
-		values(MsgTable_SEQ.nextval,#{msgContent},#{sendMemId},#{receiveMemId},sysdate,0,1,1)
+		insert into roomImage
+		values(roomImage_seq.nextval,#{room_num},#{roomImg_orgImg},#{roomImg_saveImg})
 	</insert>
+	
+	<select id="detail" parameterType="int" resultType="com.jhta.planit.roomImage.vo.RoomImageVo">
+  		select * from roomImage where room_num=#{room_num}
+  	</select>
 </mapper>

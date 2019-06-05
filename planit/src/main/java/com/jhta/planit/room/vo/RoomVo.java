@@ -1,6 +1,5 @@
 package com.jhta.planit.room.vo;
 
-import java.sql.Date;
 
 public class RoomVo {
 	private int room_num;
@@ -59,5 +58,12 @@ public class RoomVo {
 	public void setRoom_comm(String room_comm) {
 		this.room_comm = room_comm;
 	}
+
+	@Override
+	public String toString() {
+		return "RoomVo [room_num=" + room_num + ", accom_num=" + accom_num + ", room_type=" + room_type
+				+ ", room_price=" + room_price + ", room_comm=" + room_comm + "]";
+	}
+	
 }
 

@@ -1,8 +1,5 @@
 package com.jhta.planit.accom.service;
 
-import java.util.HashMap;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +21,5 @@ public class AccomService {
 	}
 	public SellerVo find(String mem_id){
 		return sellerDao.find(mem_id);
-	}
-	public int count(HashMap<String,Object> map) {
-		return dao.count(map);
-	}
-	public List<AccomVo> list(HashMap<String,Object> map){
-		return dao.list(map);
-	}
-	public AccomVo next(int accom_num) {
-		return dao.next(accom_num);
-	}
-	public AccomVo prev(int accom_num) {
-		return dao.prev(accom_num);
 	}
 }

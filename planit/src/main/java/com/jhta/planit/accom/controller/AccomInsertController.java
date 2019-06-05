@@ -59,7 +59,6 @@ public class AccomInsertController {
 			is.close();
 			fos.close();
 			System.out.println(uploadPath +" 경로에 파일업로드 완료!");
-			//long filesize=file1.getSize();
 			AccomVo vo=new AccomVo(0, sell_num, accom_name, accom_addr, accom_comm, accom_country, accom_city, accommImg_orgImg, accommImg_saveImg);
 			service.insert(vo);
 			return "/accom/success";			

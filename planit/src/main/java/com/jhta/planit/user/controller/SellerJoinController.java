@@ -1,5 +1,7 @@
 package com.jhta.planit.user.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.jhta.planit.user.service.MembersService;
+import com.jhta.planit.user.service.SellerService;
+import com.jhta.planit.user.vo.SellerVo;
 
 @Controller
 public class SellerJoinController {
-	@Autowired MembersService service;
+	@Autowired private SellerService service;
+	@Autowired private MembersService mservice;
 	
 	@RequestMapping(value = "/user/sellerapply", method = RequestMethod.GET)
 	public String sellJoinForm(HttpSession session, RedirectAttributes attributes) {
@@ -26,15 +30,26 @@ public class SellerJoinController {
 	}
 	
 	@RequestMapping(value = "/user/sellerapply",method = RequestMethod.POST)
-	public String sellJoin(Model model,RedirectAttributes attributes) {
-		/*int n = service.sellJoin(vo);
-		if (n>0) {
-			attributes.addFlashAttribute("authMsg", "가입이 완료되었습니다. 메일 인증해 주시기 바랍니다.");
-			return "redirect:/member/result";
+	public String sellJoin(SellerVo vo, String mem_pwd, HttpSession session, Model model, RedirectAttributes attributes) {
+		HashMap<String, String> map=new HashMap<String, String>();
+		map.put("mem_id", (String)session.getAttribute("mem_id"));
+		map.put("mem_pwd", mem_pwd);
+		if(mservice.userCheck(map)) {
+			vo.setMem_id(map.get("mem_id"));
+			System.out.println(vo.toString());
+			if (service.sellJoin(vo) > 0) {
+				attributes.addFlashAttribute("authMsg", "신청이 완료되었습니다. 승인 시간까지 하루 걸립니다");
+				return "redirect:/member/result";
+			} else {
+				model.addAttribute("vo", vo);
+				model.addAttribute("submitError", "작업중 오류로 인해 취소되었습니다.");
+				return "/user/sellerapply";
+			}
 		}else {
 			model.addAttribute("vo", vo);
-			return "user/join";
-		}*/
-		return null;
+			model.addAttribute("errMsg", "비밀번호가 올바르지 않습니다.");
+			return "/user/sellerapply";
+		}
+		
 	}
 }

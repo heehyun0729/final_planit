@@ -9,4 +9,45 @@
 		insert into accom
 		values(accom_SEQ.nextval,#{accom_name},#{accom_addr},#{accom_comm},#{accom_country},#{accom_city},#{accommImg_orgImg},#{accommImg_saveImg},#{sell_num})
 	</insert>
+	<sql id="search">
+		<if test="field!=null and field!=''">
+		    where ${field} like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	<!-- 전체글의갯수 -->
+	<select id="count" resultType="int" parameterType="hashmap"> 
+		select NVL(count(*),0) cnt from accom
+		<include refid="search"/>
+	</select>
+	<!-- 페이지에 해당하는 글목록 -->
+	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.accom.vo.AccomVo">
+		select * from(
+		    select aa.*,rownum rnum from(
+		    	select * from accom 
+		    	<include refid="search"/>
+		    	order by accom_num desc
+		    )aa 
+		)
+		<![CDATA[ where rnum >=#{startRow} and rnum <= #{endRow} ]]>
+	</select>
+	<!-- 다음글 -->
+	<select id="next" parameterType="int" resultType="com.jhta.planit.accom.vo.AccomVo">
+		select * from
+		(
+			select * from accom
+			where accom_num>#{accom_num}
+			order by accom_num asc
+		)
+		where rownum=1
+	</select>
+	<!-- 이전글 -->
+	<select id="prev" parameterType="int" resultType="com.jhta.planit.accom.vo.AccomVo">
+		select * from
+		(
+			select * from accom
+			<![CDATA[ where accom_num<#{accom_num} ]]>
+			order by accom_num desc
+		)
+		where rownum=1
+	</select>
 </mapper>
