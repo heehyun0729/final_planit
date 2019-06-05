@@ -20,18 +20,18 @@ public class BuddyService {
 	public void setDao(BuddyDao dao) {
 		this.dao = dao;
 	}
-	
+	//글등록
 	public int buddyInsert(BuddyVo vo,BuddyCountryVo countryVo,BuddyCityVo cityVo) {
 		String country=countryVo.getBuddy_country();
 		String[] countries=country.split(",");
 		String city=cityVo.getBuddy_city();
 		String[] cities=city.split(",");
 		
-		//동행DB등록
+		//동행 테이블에 추가
 		int n1=dao.buddyInsert(vo);
 		System.out.println("동행등록결과 : "+n1);
 		
-		//국가도시DB등록
+		//국가도시테이블에 추가
 		for(int i=0;i<countries.length;i++) {
 			String cr=countries[i];
 			String ct=cities[i];
@@ -40,16 +40,28 @@ public class BuddyService {
 		}
 		return n1;
 	}
-	
+	//전체 글 갯수
+	public int count(HashMap<String, Object> find_map) {
+		return dao.count(find_map);
+	}
+	//전체 리스트
 	public List<BuddyListVo> showAll(HashMap<String, Object> find_map){
 		return dao.showAll(find_map);
 	}
-	
+	//국가 체크박스 동적생성
 	public List<String> showCountry(){
 		return dao.showCoutry();
 	}
-	
+	//도시 체크박스 동적생성
 	public List<BuddyCityVo> showCity(String country){
 		return dao.showCity(country);
+	}
+	//날짜 지난 게시물 자동 업뎃
+	public int updateState() {
+		return dao.updateState();
+	}
+	//동행추천
+	public List<String> sameDateCity(String id) {
+		return dao.sameDateCity(id);
 	}
 }

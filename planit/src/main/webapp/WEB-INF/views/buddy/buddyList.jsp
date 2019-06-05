@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div id="find_buddy">
-	<form method="post" action="<c:url value='/buddyList'/>">
+	<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
 		<div id="choice_date">
 			여행 시작 날짜 : <input type="text" id="buddy_indate" name="kw_indate"> 
 			여행 종료 날짜 : <input type="text" id="buddy_outdate" name="kw_outdate">
@@ -50,6 +50,8 @@
 		</div>
 		
 		<input type="submit" value="검색">
+		<input id="list_all" type="button" value="전체 글 보기">
+		<input id="sg_buddy" type="button" value="동행추천받기">
 	</form>
 </div>
 <div id="buddy_list">
@@ -74,6 +76,20 @@
 				</tr>
 			</c:forEach>
 		</table>
+	</div>
+	<div>
+		<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+			<c:choose>
+				<c:when test="${pu.pageNum==i }"><%--현재 페이지 --%>
+					<a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>">
+					<span style='color:blue'>[${i }]</span></a>
+				</c:when>
+				<c:otherwise>
+					<a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>">
+					<span style='color:gray'>[${i }]</span></a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
 	</div>
 	<div id="button_div">
 		<input id="insert_buddy" type="button" value="동행찾는 글 등록하기">
@@ -114,4 +130,40 @@
 			window.location.href="<c:url value='/buddyInsert' />";
 		});
 	});
+	
+	//리스트 전체보기
+	$("#list_all").click(function(){
+		window.location.href="<c:url value='/buddyList' />";
+	});
+	
+	//자동추천
+	$("#sg_buddy").click(function(){
+		if('${sgId}' != ''){
+			var result = confirm('같은 일정에 같은 도시를 여행하는 사람이 있습니다. 추천받으시겠습니까?');
+			if(result) { 
+				alert('추천페이지로 넘어갑니다.');
+				alert('${sgId}');
+				popupOpen('${sgId}');
+			}else{}
+			
+		}else{
+			alert('같은 일정에 같은 도시를 여행하는 사람이 없습니다.ㅠㅠ');
+		}
+	});
+	
+	//유효성체크
+	function check(){
+		if($('input:checkbox[name="kw_city"]').is(":checked")){
+			return true;
+		}else{
+			alert("여행하려는 도시를 선택해주세요.");
+			return false;
+		}
+	}
+	//팝업
+	function popupOpen(mem_buddy){
+		var popUrl = "<c:url value='/buddySg?mem_buddy="+mem_buddy+"' />";
+		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
+			window.open(popUrl,"동행추천",popOption);
+	}
 </script>

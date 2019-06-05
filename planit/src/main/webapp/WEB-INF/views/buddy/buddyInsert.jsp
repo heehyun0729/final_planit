@@ -59,7 +59,7 @@
 		        dayNamesShort: ['일','월','화','수','목','금','토'],
 		        dayNamesMin: ['일','월','화','수','목','금','토'],
 		        dateFormat: 'yy-mm-dd',
-		        minDate: 0,
+		        minDate: +1,
 		        showMonthAfterYear: true,
 		        yearSuffix: '년',
 		        changeMonth: true,
