@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.jhta.planit.room.mybatis.RoomMapper">
-	<insert id="insert"
-		parameterType="com.jhta.planit.room.vo.RoomVo">
-		insert into MSGTABLE
-		values(MsgTable_SEQ.nextval,#{msgContent},#{sendMemId},#{receiveMemId},sysdate,0,1,1)
+<mapper namespace="com.jhta.planit.room.mybatis.RoomMapper">
+	<insert id="insert" parameterType="com.jhta.planit.room.vo.RoomVo">
+		insert into room values(room_SEQ.nextval,#{accom_num},#{room_type},#{room_price},#{room_comm})
 	</insert>
+	<select id="getRoomNum" resultType="int" >
+  		select  max(room_num) from room
+  	</select>
 </mapper>

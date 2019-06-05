@@ -60,13 +60,16 @@ create table accom(
     accom_addr varchar2(200),
     accom_comm varchar2(300),
     accom_country varchar2(50),
-    accom_city varchar2(50)
+    accom_city varchar2(50),
 );
+ALTER TABLE accom ADD(accommImg_orgImg varchar(500) );
+ALTER TABLE accom ADD(accommImg_saveImg varchar(500) );
+ALTER TABLE accom RENAME COLUMN acomm_contry TO accom_country;
+ALTER TABLE accom ADD(sell_num number(5) references seller(sell_num) );
+ALTER TABLE accom DROP COLUMN accomm_room;
 drop SEQUENCE accom_seq;
 CREATE SEQUENCE accom_seq;
-ALTER TABLE accom ADD(sell_num number(5) references seller(sell_num) );
 select * from accom;
-
 //방정보 테이블
 drop table room;
 create table room(
