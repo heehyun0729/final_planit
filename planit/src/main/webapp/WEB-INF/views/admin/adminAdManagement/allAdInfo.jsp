@@ -3,7 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<link rel="stylesheet" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <style type="text/css">
 	*{
 		padding: 0px;
@@ -16,23 +20,17 @@
 		margin-bottom: 0px;
 	}
 	.form-box{/* 겹치니 나중에 삭제 */
-		background: #fff;
 		margin: 5px;
 		width: 280px;
-		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 	}
 	.form-box2{/* 겹치니 나중에 삭제 */
-		background: #fff;
 		margin: 5px;
 		width: 120px;
-		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 		text-align: center;
 	}
 	.form-box4{/* 겹치니 나중에 삭제 */
-		background: #fff;
 		margin: 5px;
 		width: 480px;
-		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 	}
 	.tableDiv{
 		display: table;
@@ -89,8 +87,6 @@
 		background:linear-gradient(#454545, #787878);
 	}
 </style>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.0.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
@@ -101,7 +97,7 @@
 </header>
 <section>
 	<article>
-		<div class="flex-father">
+		<div class="container">
 			<div class="form-box">
 				<br>
 				<div class="leftAlign">번호</div>
@@ -168,6 +164,11 @@
 				<br>광고 이미지<br><br>
 				<img id="adImage" alt="광고 이미지" src="<c:url value='/resources/adImage/${getAdInfoImage.adImg_saveImg }'/>"><br><br>
 				${getAdInfoImage.adImg_orgImg }<br><br>
+			</div>
+		</div>
+		<div class="tableDiv">
+			<div class="form-box3">
+				<a class="btn" href="<c:url value='/adAnalytics?ad_num=${getAdInfo.ad_num }'/>">통계 보기</a>
 			</div>
 		</div>
 	</article>

@@ -16,16 +16,12 @@
 		margin-bottom: 0px;
 	}
 	.form-box{/* 겹치니 나중에 삭제 */
-		background: #fff;
 		margin: 5px;
 		width: 280px;
-		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 	}
 	.form-box2{/* 겹치니 나중에 삭제 */
-		background: #fff;
 		margin: 5px;
 		width: 120px;
-		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 		text-align: center;
 	}
 	.form-box3{/* 겹치니 나중에 삭제 */
@@ -37,10 +33,8 @@
 		vertical-align: middle;
 	}
 	.form-box4{/* 겹치니 나중에 삭제 */
-		background: #fff;
 		margin: 5px;
 		width: 480px;
-		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 	}
 	.tableDiv{
 		display: table;

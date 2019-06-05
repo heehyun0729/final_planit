@@ -54,6 +54,14 @@ public class AdController {
 	public String adminAdRequestFormGet() {
 		return ".admin.adminAdRequestForm";
 	}
+	@RequestMapping(value="/adAnalytics", method=RequestMethod.GET)//광고 통계 페이지
+	public String adAnalytics(int ad_num, Model model) {
+		AdVo getAdInfo=service.getAdInfo(ad_num);
+		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
+		model.addAttribute("getAdInfo", getAdInfo);
+		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
+		return "/admin/adminAdManagement/adAnalytics";
+	}
 	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)//광고 신청 폼 진행
 	public String adminAdRequestFormPost(AdVo vo, String[] order, Date[] orderDate, int[] orderPrice, MultipartFile file, HttpSession session) {
 		String path=session.getServletContext().getRealPath("/resources/adImage");//파일 업로드
