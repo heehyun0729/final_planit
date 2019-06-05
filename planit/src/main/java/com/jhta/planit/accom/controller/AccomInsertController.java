@@ -62,7 +62,7 @@ public class AccomInsertController {
 			//long filesize=file1.getSize();
 			AccomVo vo=new AccomVo(0, sell_num, accom_name, accom_addr, accom_comm, accom_country, accom_city, accommImg_orgImg, accommImg_saveImg);
 			service.insert(vo);
-			return "success";			
+			return "/accom/success";			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 			return "error";

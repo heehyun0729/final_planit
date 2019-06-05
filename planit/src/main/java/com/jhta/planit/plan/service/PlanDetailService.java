@@ -15,6 +15,9 @@ public class PlanDetailService {
 	public int insert(PlanDetailVo vo) {
 		return planDetailDao.insert(vo);
 	}
+	public int max() {
+		return planDetailDao.max();
+	}
 	public int count() {
 		return planDetailDao.count();
 	}

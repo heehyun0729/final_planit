@@ -17,6 +17,9 @@ public class PlanDetailDao {
 	public int insert(PlanDetailVo vo) {
 		return sqlSession.insert(NAMESPACE + ".insert", vo);
 	}
+	public int max() {
+		return sqlSession.selectOne(NAMESPACE + ".max");
+	}
 	public int count() {
 		return sqlSession.selectOne(NAMESPACE + ".count");
 	}

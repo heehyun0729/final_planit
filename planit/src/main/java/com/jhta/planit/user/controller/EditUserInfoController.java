@@ -94,6 +94,7 @@ public class EditUserInfoController {
 		map.put("mem_pwd", mem_pwd);
 		int n = membersService.withdrawal(map);
 		if (n > 0) {
+			session.invalidate();
 			attributes.addFlashAttribute("authMsg", "회원탈퇴가 완료 되었습니다.");
 			return "redirect:/member/result";
 		} else if (n < -9) {

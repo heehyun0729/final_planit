@@ -7,6 +7,6 @@
 	<insert id="insert"
 		parameterType="com.jhta.planit.accom.vo.AccomVo">
 		insert into accom
-		values(accom_SEQ.nextval,seller_seq.currval,#{accom_name},#{accom_addr},#{accom_comm},#{accom_country},#{accom_city},#{accommImg_orgImg},#{accommImg_saveImg})
+		values(accom_SEQ.nextval,#{accom_name},#{accom_addr},#{accom_comm},#{accom_country},#{accom_city},#{accommImg_orgImg},#{accommImg_saveImg},#{sell_num})
 	</insert>
 </mapper>

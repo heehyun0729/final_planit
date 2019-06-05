@@ -64,6 +64,7 @@ create table accom(
 );
 drop SEQUENCE accom_seq;
 CREATE SEQUENCE accom_seq;
+ALTER TABLE accom ADD(sell_num number(5) references seller(sell_num) );
 select * from accom;
 
 //방정보 테이블

@@ -17,6 +17,9 @@ public class PlanDao {
 	public int insert(PlanVo vo) {
 		return sqlSession.insert(NAMESPACE + ".insert", vo);
 	}
+	public int max() {
+		return sqlSession.selectOne(NAMESPACE + ".max");
+	}
 	public int count(HashMap<String, Object> map) {
 		return sqlSession.selectOne(NAMESPACE + ".count", map);
 	}
