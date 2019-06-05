@@ -101,9 +101,6 @@
 		line-height: 50px;
 	}
 </style>
-<link rel="stylesheet" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.0.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".go").on("click", function(){
@@ -111,67 +108,61 @@
 		});
 	});
 </script>
-</head>
 <body>
-<div>
-<header>
-	<div id="headerWrapper">
-		<div class="back">
+<div class="container-fluid border">
+	<div id="row">
+		<div class="col">
+			<img src="<c:url value='/resources/adminImages/graphs.jpg'/>" class="img-fu mw-100; mh-1" alt="광고 신청 이미지">
 			<div id="requestAd" class="requestBox go"><span>광고신청하기</span></div>
 		</div>
 	</div>
-</header>
-<section>	
-	<article>
-		<div id="contentWrapper">
-			<div class="displayFlex">
-				<div class="box">
-					<div class="title-box">
-						<span>광고 신청</span>
-					</div>
-					<div class="content-box">
-						<ul>
-							<li>7일 이후의 광고를 신청합니다.</li>
-							<li>확률은 10%단위로 신청합니다.</li>
-							<li>이미지 크기는 100*500입니다.</li>
-						</ul>
-					</div>
+	<div id="row">
+		<div class="displayFlex">
+			<div class="box">
+				<div class="title-box">
+					<span>광고 신청</span>
 				</div>
-				<div>
-					<img alt='다음 단계' class='cursor' src='<c:url value='/resources/adminImages/right-arrow.png'/>'>
+				<div class="content-box">
+					<ul>
+						<li>7일 이후의 광고를 신청합니다.</li>
+						<li>확률은 10%단위로 신청합니다.</li>
+						<li>이미지 크기는 100*500입니다.</li>
+					</ul>
 				</div>
-				<div class="box">
-					<div class="title-box">
-						<span>광고 심의</span>
-					</div>
-					<div class="content-box">
-						<ul>
-							<li>불건전 내용 여부를 확인합니다.</li>
-							<li>심의에는 하루가 소요됩니다.</li>
-						</ul>
-					</div>
+			</div>
+			<div>
+				<img alt='다음 단계' class='cursor' src='<c:url value='/resources/adminImages/right-arrow.png'/>'>
+			</div>
+			<div class="box">
+				<div class="title-box">
+					<span>광고 심의</span>
 				</div>
-				<div>
-					<img alt='다음 단계' class='cursor' src='<c:url value='/resources/adminImages/right-arrow.png'/>'>
+				<div class="content-box">
+					<ul>
+						<li>불건전 내용 여부를 확인합니다.</li>
+						<li>심의에는 하루가 소요됩니다.</li>
+					</ul>
 				</div>
-				<div class="box">
-					<div class="title-box">
-						<span>광고 게재</span>
-					</div>
-					<div class="content-box">
-						<ul>
-							<li>신청하신 날짜에 게재됩니다.</li>
-							<li>광고를 관리할 수 있습니다.</li>
-						</ul>
-					</div>
+			</div>
+			<div>
+				<img alt='다음 단계' class='cursor' src='<c:url value='/resources/adminImages/right-arrow.png'/>'>
+			</div>
+			<div class="box">
+				<div class="title-box">
+					<span>광고 게재</span>
+				</div>
+				<div class="content-box">
+					<ul>
+						<li>신청하신 날짜에 게재됩니다.</li>
+						<li>광고를 관리할 수 있습니다.</li>
+					</ul>
 				</div>
 			</div>
 		</div>
-	</article>
-</section>
-<footer>
-	<div id="footerWrapper">
 	</div>
-</footer>
+	<footer>
+		<div id="footerWrapper">
+		</div>
+	</footer>
 </div>
 </body>

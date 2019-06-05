@@ -44,7 +44,7 @@ public class AdController {
 	}
 	@RequestMapping(value="/adminHome", method=RequestMethod.GET)//관리자 홈
 	public String adminHome() {
-		return ".admin.adminHome";
+		return "/admin/adminHome";
 	}
 	@RequestMapping(value="/adminAdRequestInfo", method=RequestMethod.GET)//광고 신청페이지
 	public String adminAdRequestInfo() {

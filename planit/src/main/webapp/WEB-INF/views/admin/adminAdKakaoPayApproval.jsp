@@ -11,7 +11,7 @@
 		const pg_token=$("#pg_token").val();
 		$.getJSON("<c:url value='/adminAdKakaoPayApprovalOk'/>",{cid:cid, tid:tid, partner_order_id:partner_order_id, partner_user_id:partner_user_id, pg_token:pg_token} ,
 			function(data) {
-				window.parent.$(".ui-dialog-content:visible").dialog("close");
+				$('#myModal').modal('hide');
 				window.parent.$("input[name='ad_payment']").val("카카오 페이");
 				window.parent.$("form").submit();
 		});
