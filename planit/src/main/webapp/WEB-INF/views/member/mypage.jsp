@@ -23,6 +23,7 @@
 				<li class="Y8-fY "><a class="-nal3 " href="<c:url value='/member/mypage/${mem_id }/followlist'/>">팔로우<span id="followcnt">${profilemap.FOLLOW }</span></a></li>
 				<c:if test="${mem_tf }">
 					<li><a href="<c:url value="/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>">쪽지함</a></li>
+					<li><a href="<c:url value='/user/edit/sellerapply'/>">판매자 신청</a></li>
 					<li><a href="<c:url value='/user/edit/editprofile'/>">프로필 수정</a></li>
 					<li><a href="<c:url value='/user/edit/pwdChange'/>">비밀번호 수정</a></li>
 					<li><a href="<c:url value='/user/edit/withdrawal'/>">회원탈퇴</a></li>

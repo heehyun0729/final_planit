@@ -23,13 +23,16 @@ public class EditUserInfoController {
 	@Autowired private MypageService mypageService;
 	
 	@RequestMapping(value = "/user/edit/{editInfo}", method = RequestMethod.GET)
-	public String editUsercheckForm(@PathVariable String editInfo, HttpSession session, RedirectAttributes attributes,Model model) {
+	public String editUsercheckForm(@PathVariable String editInfo, HttpSession session, RedirectAttributes attributes,
+			Model model) {
 		String mem_id = (String) session.getAttribute("mem_id");
 		if (mem_id == null) {
 			attributes.addFlashAttribute("errMsg", "로그인이 되어야 사용할 수 있는 기능입니다.");
 			return "redirect:/login";
 		} else {
-			if (editInfo.equals("editprofile")) {
+			if (editInfo.equals("sellerapply")) {
+				return "/user/sellerapply";
+			} else if (editInfo.equals("editprofile")) {
 				return "/user/editUserChk";
 			} else if (editInfo.equals("pwdChange")) {
 				model.addAttribute("forgot", false);
