@@ -54,14 +54,14 @@ public class MembersService {
 	}
 
 	public int login(HashMap<String, String> map) {
-		int n = 0;
+		int n = -5;
 		MembersVo vo = dao.login(map.get("mem_id"));
+		System.out.println("test01");
 		if (vo != null) {
+			System.out.println("test02");
 			if (bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd())) {
 				n = vo.getMem_stat();
 			}
-		} else {
-			n = -1;
 		}
 		return n;
 	}
@@ -85,7 +85,7 @@ public class MembersService {
 	@Transactional
 	public int userAuth(HashMap<String, String> map) throws Exception {
 		Integer mem_stat = dao.userAuthChk(map.get("mem_email"));
-		if (mem_stat == 5) {
+		if (mem_stat == -1) {
 			int n = (dao.userAuth(map) == dao.delAuth(map.get("mem_email"))) ? 1 : -1;
 			return n;
 		} else {
@@ -119,7 +119,7 @@ public class MembersService {
 
 		if (bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd())) {
 			n = dao.withdrawal(map.get("mem_id"));
-			n = n + mdao.withdrawal(map.get("mem_id"));
+			//n = n + mdao.withdrawal(map.get("mem_id"));
 		} else {
 			n = -10;
 		}

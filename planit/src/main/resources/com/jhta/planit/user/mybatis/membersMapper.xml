@@ -41,8 +41,8 @@
 		update members set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
 	</update>
 	<update id="withdrawal" parameterType="string">
-		update members set mem_stat=-3 and mem_pwd='0' and mem_nickname=#{mem_id} and mem_email=#{mem_id}
-		where mem_num=mem_num; 
+		update members set mem_stat=-3, mem_pwd='0', mem_nickname=#{mem_id}, mem_email=#{mem_id}
+		where mem_id=#{mem_id}
 	</update>
 	<update id="nickupdate" parameterType="hashmap">
 		update members set mem_nickname=#{mem_nickname}
