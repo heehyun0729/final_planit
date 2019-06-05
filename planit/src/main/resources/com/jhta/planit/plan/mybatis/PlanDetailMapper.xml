@@ -8,6 +8,9 @@
 			#{planDetail_num}, #{plan_num}, #{planDetail_order}, #{planDetail_country}, #{planDetail_city}, #{planDetail_lat}, #{planDetail_lng},
 			#{planDetail_inDate}, #{planDetail_outDate}, #{planDetail_stay}, #{planDetail_detail})
 	</insert>
+	<select id="max" resultType="int">
+		select NVL(max(planDetail_num), 0) from planDetail
+	</select>
 	<select id="count" resultType="int">
 		select NVL(count(*), 0) from planDetail
 	</select>

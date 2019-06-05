@@ -21,7 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,7 +58,7 @@ public class PlanController {
 				JSONArray array = new JSONArray(routelist);
 				for(int i = 0 ; i < array.length() ; i++) {
 					JSONObject route = (JSONObject)array.get(i);
-					int planDetail_num = planDetailService.count();
+					int planDetail_num = planDetailService.max() + 1;
 					String country = route.get("country").toString();
 					String city = route.get("city").toString();
 					String lat = route.get("lat").toString();
@@ -205,14 +204,14 @@ public class PlanController {
 	public String insert(HttpSession session, String routelist, String startDate, String stays, String img) {
 		JSONObject json = new JSONObject();
 		try {
-			int plan_num = planService.count(new HashMap<String, Object>());
+			int plan_num = planService.max() + 1;
 			String mem_id = (String)session.getAttribute("mem_id");
 			int n = planService.insert(new PlanVo(plan_num, mem_id, stays + "일간 여행", startDate, Integer.parseInt(stays), img, 0));
 			if(n > 0) {
 				JSONArray array = new JSONArray(routelist);
 				for(int i = 0 ; i < array.length() ; i++) {
 					JSONObject route = (JSONObject)array.get(i);
-					int planDetail_num = planDetailService.count();
+					int planDetail_num = planDetailService.max() + 1;
 					String country = route.get("country").toString();
 					String city = route.get("city").toString();
 					String lat = route.get("lat").toString();

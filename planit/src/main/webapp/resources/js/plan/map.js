@@ -29,6 +29,7 @@ $(function() {
 	// 도시 경로를 드래그해서 순서 바꿀 수 있도록 sortable 설정
 	$("#route").sortable({
 		items: ".routelist",
+		cursor: "pointer",
 		start: function(event, ui) {
 			var orgIdx = ui.item.index();
 			ui.item.data('orgIdx', orgIdx);
@@ -434,7 +435,7 @@ function addCity(city, country, lat, lng) {
 function setRouteDiv() {
 	var str = "";
 	for(var i = 0 ; i < routelist.length ; i++){
-		str += "<div class = 'routelist' style = 'padding-left: 5px;'>" +
+		str += "<div class = 'routelist' style = 'padding-left: 5px;cursor:pointer;'>" +
 				"<div style='width:28px;height:7pt;border-right:3px solid skyblue'></div>" +
 					"<div style = 'width:50px;height:50px;display:inline-block;float:left;margin-right:15px;border:3px solid skyblue;border-radius:28px;'>" +
 						"<select id = 'stay" + i + "' style = 'margin-top:15px;margin-left:2px;' onchange = 'javascript:changeStay(" + i + ")'>";
@@ -447,7 +448,7 @@ function setRouteDiv() {
 							}
 				str += "</select>" +
 					"</div>" +
-					"<div style = 'width:180px;float:left;'>" +
+					"<div style = 'width:200px;float:left;'>" +
 						"<div>" +
 							"<span style = 'font-size:20px;font-weight:bold;'>" + routelist[i].city + "</span>" +
 							"<span> " + routelist[i].country + " </span>" +

@@ -6,6 +6,9 @@
 	<insert id="insert" parameterType="com.jhta.planit.plan.vo.PlanVo">
 		insert into plan values(#{plan_num}, #{mem_id}, #{plan_title}, #{plan_startDate}, #{plan_stays}, #{plan_img}, #{plan_public})
 	</insert>
+	<select id="max" resultType="int">
+		select NVL(max(plan_num), 0) from plan
+	</select>
 	<select id="count" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from plan
 		where plan_num in 
