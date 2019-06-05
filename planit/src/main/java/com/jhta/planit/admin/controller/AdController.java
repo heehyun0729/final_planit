@@ -42,19 +42,27 @@ public class AdController {
 	public String adminAdRequestFormGetOk() {
 		return ".admin.adminAdRequestFormOk";
 	}
-	@RequestMapping(value="/adminHome", method=RequestMethod.GET)
+	@RequestMapping(value="/adminHome", method=RequestMethod.GET)//관리자 홈
 	public String adminHome() {
 		return ".admin.adminHome";
 	}
-	@RequestMapping(value="/adminAdRequestInfo", method=RequestMethod.GET)
+	@RequestMapping(value="/adminAdRequestInfo", method=RequestMethod.GET)//광고 신청페이지
 	public String adminAdRequestInfo() {
 		return ".admin.adminAdRequestInfo";
 	}
-	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.GET)
+	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.GET)//광고 신청 폼
 	public String adminAdRequestFormGet() {
 		return ".admin.adminAdRequestForm";
 	}
-	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)
+	@RequestMapping(value="/adAnalytics", method=RequestMethod.GET)//광고 통계 페이지
+	public String adAnalytics(int ad_num, Model model) {
+		AdVo getAdInfo=service.getAdInfo(ad_num);
+		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
+		model.addAttribute("getAdInfo", getAdInfo);
+		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
+		return "/admin/adminAdManagement/adAnalytics";
+	}
+	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)//광고 신청 폼 진행
 	public String adminAdRequestFormPost(AdVo vo, String[] order, Date[] orderDate, int[] orderPrice, MultipartFile file, HttpSession session) {
 		String path=session.getServletContext().getRealPath("/resources/adImage");//파일 업로드
 		System.out.println(path);//업로드 경로
@@ -90,7 +98,7 @@ public class AdController {
 	}
 	@RequestMapping(value="/adminAdGetChance", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public HashMap<String, Object> adminAdGetChance(String todayYear, String todayMonth, int lastDate) {
+	public HashMap<String, Object> adminAdGetChance(String todayYear, String todayMonth, int lastDate) {//확률 받아오기
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		String startDate=todayYear+"-"+todayMonth+"-1";
 		String endDate=todayYear+"-"+todayMonth+"-"+lastDate;
@@ -111,7 +119,7 @@ public class AdController {
 		return map;
 	}
 	@RequestMapping(value="/adminAdKakaoPay", produces="application/json;charset=utf-8")
-	@ResponseBody
+	@ResponseBody//카카오페이 결제 Rest API
 	public Object adminAdKakaoPay(String cid, String partner_order_id, String partner_user_id, String item_name, String quantity, String total_amount, String vat_amount, String tax_free_amount, String approval_url, String fail_url, String cancel_url) {
 		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 		String url="https://kapi.kakao.com/v1/payment/ready";
@@ -120,7 +128,7 @@ public class AdController {
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		
-		org.springframework.util.MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
 		map.add("cid", cid);
 		map.add("partner_order_id", partner_order_id);
 		map.add("partner_user_id", partner_user_id);
@@ -136,20 +144,39 @@ public class AdController {
 	    Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
 		return obj;
 	}
-	@RequestMapping(value="/adminAdKakaoPayApproval")
-	public String adminAdKakaoPayOk(String tid, Model model) {
-		model.addAttribute("ad_tid", tid);
+	@RequestMapping(value="/adminAdKakaoPayApproval")//카카오페이 결제 요청 성공
+	public String adminAdKakaoPayApproval() {
 		return ".admin.adminAdKakaoPayApproval";
 	}
-	@RequestMapping(value="/adminAdKakaoPayFail")
+	@RequestMapping(value="/adminAdKakaoPayApprovalOk", produces="application/json;charset=utf-8")//카카오페이 결제 성공
+	@ResponseBody
+	public Object adminAdKakaoPayApprovalOk(String cid, String partner_order_id, String partner_user_id, String tid, String pg_token) {
+		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+		String url="https://kapi.kakao.com/v1/payment/approve";
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK 41e45222d802939978052d57dd29bdad");
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+		map.add("cid", cid);
+		map.add("partner_order_id", partner_order_id);
+		map.add("partner_user_id", partner_user_id);
+		map.add("tid", tid);
+		map.add("pg_token", pg_token);
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(map,headers);
+	    Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
+		return obj;
+	}
+	@RequestMapping(value="/adminAdKakaoPayFail")//카카오페이 결제 실패
 	public String adminAdKakaoPayFail() {
 		return ".admin.adminAdKakaoPayFail";
 	}
-	@RequestMapping(value="/adminAdKakaoPayCancel")
+	@RequestMapping(value="/adminAdKakaoPayCancel")//카카오페이 결제 취소
 	public String adminAdKakaoPayCancel() {
 		return ".admin.adminAdKakaoPayCancel";
 	}
-	@RequestMapping(value="/admin/adminAdManagement/approvedAdList")
+	@RequestMapping(value="/admin/adminAdManagement/approvedAdList")// 승인 대기 광고 리스트
 	public String adminAdManagementApprovedAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("field", field);
@@ -167,7 +194,7 @@ public class AdController {
 		model.addAttribute("map", map);
 		return ".admin.adminAdManagement.approvedAdList";
 	}
-	@RequestMapping(value="/admin/adminAdManagement/requestRefundAdList")
+	@RequestMapping(value="/admin/adminAdManagement/requestRefundAdList")//환불 요청 광고 리스트
 	public String adminAdManagementRequestRefundAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("field", field);
@@ -185,7 +212,7 @@ public class AdController {
 		model.addAttribute("map", map);
 		return ".admin.adminAdManagement.requestRefundAdList";
 	}
-	@RequestMapping(value="/admin/adminAdManagement/allAdList")
+	@RequestMapping(value="/admin/adminAdManagement/allAdList")//모든 광고 리스트
 	public String adminAdManagementAllAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("field", field);
@@ -203,8 +230,8 @@ public class AdController {
 		model.addAttribute("map", map);
 		return ".admin.adminAdManagement.allAdList";
 	}
-	@RequestMapping(value="/admin/adminAdManagement/adInfo")
-	public String adminAdManagementAdInfo(int ad_num, Model model) {
+	@RequestMapping(value="/admin/adminAdManagement/approvedAdInfo")//승인 요청된 광고 상세정보
+	public String adminAdManagementApprovedAdInfo(int ad_num, Model model) {
 		AdVo getAdInfo=service.getAdInfo(ad_num);
 		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
 		int adInfo_Num=getAdInfoInfo.get(0).getAdInfo_num();
@@ -212,6 +239,104 @@ public class AdController {
 		model.addAttribute("getAdInfo", getAdInfo);
 		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
 		model.addAttribute("getAdInfoImage", getAdInfoImage);
-		return ".admin.adminAdManagement.adInfo";
+		return "/admin/adminAdManagement/approvedAdInfo";
 	}
+	@RequestMapping(value="/admin/adminAdManagement/approvedAdInfoApprove")//광고 승인
+	public String adminAdManagementAdInfoApprove(int ad_num) {
+		service.approveAd(ad_num);
+		return "/admin/adminAdManagement/closeModal";	
+	}
+	@RequestMapping(value="/admin/adminAdManagement/approvedAdInfoDecline", produces="application/json;charset=utf-8")//광고 거절 + 환불
+	@ResponseBody
+	public Object adminAdManagementAdInfoDecline(int ad_num, String ad_tid, String cid, String cancel_amount, String cancel_tax_free_amount) {
+		service.declineAd(ad_num);
+		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+		String url="https://kapi.kakao.com/v1/payment/cancel";
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK 41e45222d802939978052d57dd29bdad");
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+		map.add("cid", cid);
+		map.add("tid", ad_tid);
+		map.add("cancel_amount", cancel_amount);
+		map.add("cancel_tax_free_amount", cancel_tax_free_amount);
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(map,headers);
+		Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
+		return obj;
+	}
+	@RequestMapping(value="/admin/adminAdManagement/requestRefundAllAdInfo", produces="application/json;charset=utf-8")//광고 모두 환불
+	@ResponseBody
+	public Object adminAdManagementRequestRefundAllAdInfo(int ad_num, String ad_tid, String cid, String cancel_amount, String cancel_tax_free_amount) {
+		service.refundAllAd(ad_num);
+		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+		String url="https://kapi.kakao.com/v1/payment/cancel";
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK 41e45222d802939978052d57dd29bdad");
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+		map.add("cid", cid);
+		map.add("tid", ad_tid);
+		map.add("cancel_amount", cancel_amount);
+		map.add("cancel_tax_free_amount", cancel_tax_free_amount);
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(map,headers);
+		Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
+		return obj;
+	}
+	@RequestMapping(value="/admin/adminAdManagement/adminAdKakaoPayRefund", produces="application/json;charset=utf-8")//카카오페이 환불
+	@ResponseBody
+	public Object adminAdKakaoPayRefund(int adInfo_num, String ad_tid, String cid, String cancel_amount, String cancel_tax_free_amount) {
+		service.refundedAd(adInfo_num);
+		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+		String url="https://kapi.kakao.com/v1/payment/cancel";
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK 41e45222d802939978052d57dd29bdad");
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+		map.add("cid", cid);
+		map.add("tid", ad_tid);
+		map.add("cancel_amount", cancel_amount);
+		map.add("cancel_tax_free_amount", cancel_tax_free_amount);
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(map,headers);
+		Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
+		return obj;
+	}
+	@RequestMapping(value="/admin/adminAdManagement/requestRefundAdInfo")//환불 요청된 광고 상세정보
+	public String adminAdManagementRequestRefundAdInfo(int ad_num, Model model) {
+		AdVo getAdInfo=service.getAdInfo(ad_num);
+		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
+		int adInfo_Num=getAdInfoInfo.get(0).getAdInfo_num();
+		AdImageVo getAdInfoImage=service.getAdInfoImage(adInfo_Num);
+		model.addAttribute("getAdInfo", getAdInfo);
+		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
+		model.addAttribute("getAdInfoImage", getAdInfoImage);
+		return "/admin/adminAdManagement/requestRefundAdInfo";
+	}
+	@RequestMapping(value="/admin/adminAdManagement/partRefundedAd", produces="application/json;charset=utf-8")//일부 환불 ad 테이블 표시
+	@ResponseBody
+	public int partRefundedAd(int ad_num) {
+		return service.partRefundedAd(ad_num);
+	}
+	@RequestMapping(value="/admin/adminAdManagement/allRefundedAd", produces="application/json;charset=utf-8")//일부 환불 ad 테이블 표시
+	@ResponseBody
+	public int allRefundedAd(int ad_num) {
+		return service.allRefundedAd(ad_num);
+	}
+	@RequestMapping(value="/admin/adminAdManagement/allAdInfo")//All 광고 상세정보
+	public String adminAdManagementAllAdInfo(int ad_num, Model model) {
+		AdVo getAdInfo=service.getAdInfo(ad_num);
+		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
+		int adInfo_Num=getAdInfoInfo.get(0).getAdInfo_num();
+		AdImageVo getAdInfoImage=service.getAdInfoImage(adInfo_Num);
+		model.addAttribute("getAdInfo", getAdInfo);
+		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
+		model.addAttribute("getAdInfoImage", getAdInfoImage);
+		return "/admin/adminAdManagement/allAdInfo";
+	}
+	
 }

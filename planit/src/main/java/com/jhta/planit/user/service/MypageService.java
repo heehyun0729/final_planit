@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.planit.user.dao.MypageDao;
+import com.jhta.planit.user.vo.MembersVo;
 
 @Service
 public class MypageService {
@@ -42,11 +43,18 @@ public class MypageService {
 
 	public int follow(HashMap<String, Object> map) {
 		String follow_grade = (String) map.get("follow_grade");
-		System.out.println("follow_grade: "+follow_grade);
-		if (follow_grade!=null && !follow_grade.equals("")) {
+		if (follow_grade.equals("0")) {
 			return dao.follow(map);
 		}else {
 			return dao.unfollow(map);
 		}
+	}
+
+	public int followedcnt(String mem_id) {
+		return dao.followedcnt(mem_id);
+	}
+
+	public MembersVo userInfo(HashMap<String, Object> map) {
+		return null;
 	}
 }

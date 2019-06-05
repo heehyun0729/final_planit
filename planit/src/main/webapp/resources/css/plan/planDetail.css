@@ -5,15 +5,17 @@
 	height: 100%;
 }
 
-#planTitle{
+#planTitle {
 	display: inline-block;
 	float: left;
 }
-#planMenu{
+
+#planMenu {
 	display: inline-block;
 	float: left;
 }
-#planMenu ul li{
+
+#planMenu ul li {
 	text-decoration: none;
 	display: inline-block;
 	float: left;
@@ -57,6 +59,7 @@
 	display: inline-block;
 	float: left;
 }
-#planSchedule{
+
+#planSchedule {
 	clear: both;
 }

@@ -26,6 +26,35 @@ $(function() {
 			setRouteDate(date);
 		}
 	});
+	// 도시 경로를 드래그해서 순서 바꿀 수 있도록 sortable 설정
+	$("#route").sortable({
+		items: ".routelist",
+		cursor: "pointer",
+		start: function(event, ui) {
+			var orgIdx = ui.item.index();
+			ui.item.data('orgIdx', orgIdx);
+		},
+		update: function(event, ui) {
+			var orgIdx = ui.item.data('orgIdx');
+			var idx = ui.item.index();
+			// 처음과 옮긴 자리가 같지 않은 경우(routelist 수정)
+			if(idx != orgIdx){
+				var tempRoute = routelist[orgIdx];	// temp에 위치바꾼 도시 정보 넣어두기
+				if(orgIdx < idx){	// 옮긴 자리가 처음보다 뒤인 경우
+					for(var i = orgIdx ; i < idx ; i++){	// 나머지 하나씩 앞으로 당기기
+						routelist[i] = routelist[i + 1];
+					}
+				}else{	// 옮긴 자리가 처음보다 앞인 경우
+					for(var i = orgIdx ; i > idx ; i--){
+						routelist[i] = routelist[i - 1];
+					}
+				}
+				routelist[idx] = tempRoute;	// temp 값을 마지막 자리(옮긴 위치)에 넣기
+				setMapRoute();	// 지도에 경로 다시 표시
+				setRouteDate();	// 날짜 재설정
+			}
+		}
+	});
 	$('#startDate').val($.datepicker.formatDate('yy-mm-dd', new Date()));
 	// 저장버튼
 	$("#btnSave").on('click', function() {
@@ -210,11 +239,10 @@ function initMap() {
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(addrBox);
     // 저장버튼
     var btnSave = document.getElementById("saveBox");
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(saveBox); 
     // 수정 작업 시 routelist 불러오기
     plan_num = $("#plan_num").val();
-    console.log(plan_num);
-    if(plan_num != null && plan_num != ""){
+    if(plan_num != null && plan_num != ""){ 
         $.ajax({
     		url: "/planit/plan/detail",
     		method: "post",
@@ -398,6 +426,7 @@ function addCity(city, country, lat, lng) {
 	route.stay = 1;
 	route.date_in = formatDate(date_in);
 	route.date_out = formatDate(date_out);
+	route.detail = "-";
 	routelist.push(route);
 	setRouteDiv();
 	setMapRoute();
@@ -406,7 +435,7 @@ function addCity(city, country, lat, lng) {
 function setRouteDiv() {
 	var str = "";
 	for(var i = 0 ; i < routelist.length ; i++){
-		str += "<div style = 'padding-left: 5px;'>" +
+		str += "<div class = 'routelist' style = 'padding-left: 5px;cursor:pointer;'>" +
 				"<div style='width:28px;height:7pt;border-right:3px solid skyblue'></div>" +
 					"<div style = 'width:50px;height:50px;display:inline-block;float:left;margin-right:15px;border:3px solid skyblue;border-radius:28px;'>" +
 						"<select id = 'stay" + i + "' style = 'margin-top:15px;margin-left:2px;' onchange = 'javascript:changeStay(" + i + ")'>";
@@ -419,7 +448,7 @@ function setRouteDiv() {
 							}
 				str += "</select>" +
 					"</div>" +
-					"<div style = 'width:180px;float:left;'>" +
+					"<div style = 'width:200px;float:left;'>" +
 						"<div>" +
 							"<span style = 'font-size:20px;font-weight:bold;'>" + routelist[i].city + "</span>" +
 							"<span> " + routelist[i].country + " </span>" +
@@ -429,9 +458,6 @@ function setRouteDiv() {
 					"</div>" +
 					"<div style='width:28px;height:7pt;border-right:3px solid skyblue;clear:both;'></div>" +
 				"</div>";
-		if(i < routelist.length - 1){
-			str += "<div style='width:28px;height:15pt;padding-left: 5px;border-right:3px solid skyblue;'></div>";
-		}
 		$('#route').html(str);
 	}
 }

@@ -30,4 +30,16 @@ public class AdDao {
 	public AdVo getAdInfo(int ad_num) {
 		return sqlSession.selectOne(NAMESPACE + "getAdInfo", ad_num);
 	}
+	public int approveAd(int ad_num) {
+		return sqlSession.update(NAMESPACE + "approveAd", ad_num);
+	}
+	public int declineAd(int ad_num) {
+		return sqlSession.update(NAMESPACE + "declineAd", ad_num);
+	}
+	public int partRefundedAd(int ad_num) {
+		return sqlSession.update(NAMESPACE + "partRefundedAd", ad_num);
+	}
+	public int allRefundedAd(int ad_num) {
+		return sqlSession.update(NAMESPACE + "allRefundedAd", ad_num);
+	}
 }

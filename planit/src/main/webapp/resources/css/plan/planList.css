@@ -7,7 +7,6 @@
 
 #planTop {
 	width: 100%;
-	height: 150px;
 	text-align: center;
 }
 
@@ -25,4 +24,12 @@
 
 .userPlan .planId {
 	font-size: 10px;
+}
+
+#planPage {
+	clear: both;
+}
+
+#planPage a{
+	text-decoration: none;
 }

@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>success.jsp</title>
 </head>
 <body>
-
+<h1>요청작업 완료!</h1>
+<a href="${pageContext.request.contextPath }/reservationHome">예약페이지</a><br>
 </body>
 </html>

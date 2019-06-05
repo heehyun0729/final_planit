@@ -52,4 +52,16 @@ public class MembersDao {
 	public String getId(String mem_email) {
 		return sqlSession.selectOne(NAMESPACE + ".getid", mem_email);
 	}
+
+	public MembersVo userCheck(String mem_id) {
+		return sqlSession.selectOne(NAMESPACE+".usercheck", mem_id);
+	}
+
+	public int pwdChange(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE + ".pwdChange", map);
+	}
+
+	public int withdrawal(String mem_id) {
+		return sqlSession.update(NAMESPACE + ".withdrawal", mem_id);
+	}
 }

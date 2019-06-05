@@ -136,6 +136,7 @@ create table qnaImage(
    mem_id varchar2(15) references members(mem_id),
    qnaImg_orgImg varchar2(50),
    qnaImg_saveImg varchar(50),
+   qnaImg_filesize 
    PRIMARY KEY (qnaImg_num)
 );
 create sequence qnaImg_num_seq;
@@ -177,8 +178,8 @@ create table planDetail(
     planDetail_num number(7) primary key,
     plan_num number(7) references plan(plan_num),
     planDetail_order number(3),
-    planDetail_country varchar2(30),
-    planDetail_city varchar2(40),
+    planDetail_country varchar2(50),
+    planDetail_city varchar2(50),
     planDetail_lat number,
     planDetail_lng number,
     planDetail_inDate date,

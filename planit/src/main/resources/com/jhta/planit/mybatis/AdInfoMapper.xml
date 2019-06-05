@@ -10,9 +10,18 @@
 		select aa.adInfo_num from(select adInfo_num, rownum rnum from adInfo order by adInfo_num desc)aa where rnum=1
 	</select>
 	<select id="getChance" parameterType="hashmap" resultType="com.jhta.planit.admin.vo.AdInfoVo">
-		select * from adInfo where ADINFO_DATE between to_date(#{startDate}) and to_date(#{endDate})
+		select aa.* from(select * from adInfo where ADINFO_DATE between to_date(#{startDate}) and to_date(#{endDate}))aa where adinfo_status=0 or adinfo_status=1 or adinfo_status=3
 	</select>
 	<select id="getAdInfoInfo" parameterType="int" resultType="com.jhta.planit.admin.vo.AdInfoVo">
 		select * from adInfo where ad_num=#{ad_num}
 	</select>
+	<update id="adInfoApproved" parameterType="int">
+		update adInfo set adInfo_status=1 where adInfo_num=#{adInfo_num}
+	</update>
+	<update id="adInfoDeclined" parameterType="int">
+		update adInfo set adInfo_status=2 where adInfo_num=#{adInfo_num}
+	</update>
+	<update id="adInfoRefunded" parameterType="int">
+		update adInfo set adInfo_status=4 where adInfo_num=#{adInfo_num}
+	</update>
 </mapper>

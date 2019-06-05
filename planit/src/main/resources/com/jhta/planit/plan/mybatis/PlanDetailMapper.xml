@@ -8,11 +8,14 @@
 			#{planDetail_num}, #{plan_num}, #{planDetail_order}, #{planDetail_country}, #{planDetail_city}, #{planDetail_lat}, #{planDetail_lng},
 			#{planDetail_inDate}, #{planDetail_outDate}, #{planDetail_stay}, #{planDetail_detail})
 	</insert>
+	<select id="max" resultType="int">
+		select NVL(max(planDetail_num), 0) from planDetail
+	</select>
 	<select id="count" resultType="int">
 		select NVL(count(*), 0) from planDetail
 	</select>
 	<select id="list" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanDetailVo">
-		select * from planDetail where plan_num = #{plan_num}
+		select * from planDetail where plan_num = #{plan_num} order by planDetail_num asc
 	</select>
 	<update id="updateDetail" parameterType="hashmap">
 		update planDetail set planDetail_detail = #{detail} where planDetail_num = #{num}

@@ -132,7 +132,7 @@ function initDetailMap() {
 					color: bgcolors[i % 8],
 					city:  routelist[i].city,
 					country: routelist[i].country,
-					description: 'asdasd'
+					description: routelist[i].detail
 				});
 			}
 			events.push({
@@ -317,7 +317,10 @@ function updateInfo() {
 // 세부 일정 DB 수정하는 함수
 function updateSchedule() {
 	var detail = $("#scheduleDetail").val();
-	console.log(planDetail_num + " / " + detail);
+	if(detail.length < 1){
+		alert("세부일정을 입력해주세요.");
+		return;
+	}
 	$.ajax({
 		url: '/planit/plan/updateDetail',
 		dataType: 'json',
@@ -336,7 +339,7 @@ function updateSchedule() {
 		}
 	});
 }
-// 세부 일정 null로 DB 수정하는 함수
+// 세부 일정 -로 DB 수정하는 함수
 function deleteSchedule(num) {
 	if(confirm("정말 삭제하시겠습니까?")){
 		planDetail_num = num;
@@ -346,7 +349,7 @@ function deleteSchedule(num) {
 			method: 'post',
 			data: {
 				num: planDetail_num,
-				detail: ""
+				detail: "-"
 				},
 			success: function(data) {
 				var result = data.result;

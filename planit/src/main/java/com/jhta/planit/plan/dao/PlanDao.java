@@ -17,11 +17,14 @@ public class PlanDao {
 	public int insert(PlanVo vo) {
 		return sqlSession.insert(NAMESPACE + ".insert", vo);
 	}
-	public int count() {
-		return sqlSession.selectOne(NAMESPACE + ".count");
+	public int max() {
+		return sqlSession.selectOne(NAMESPACE + ".max");
 	}
-	public List<PlanVo> list(){
-		return sqlSession.selectList(NAMESPACE + ".list");
+	public int count(HashMap<String, Object> map) {
+		return sqlSession.selectOne(NAMESPACE + ".count", map);
+	}
+	public List<PlanVo> list(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE + ".list", map);
 	}
 	public PlanVo detail(int plan_num) {
 		return sqlSession.selectOne(NAMESPACE + ".detail", plan_num);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jhta.planit.user.service.MypageService;
 
@@ -77,7 +78,18 @@ public class MypageController {
 		map.put("session_mem_id", session_mem_id);
 		map.put("follow_grade", follow_grade);
 		int n = service.follow(map);
+		if (n > 0) {
+			n = service.followedcnt(mem_id);
+		} else {
+			n = -1;
+		}
 		return n;
+	}
+	
+	@RequestMapping("/member/mypage/{mem_id}/login")
+	public String loginForm(@PathVariable String mem_id, RedirectAttributes attributes) {
+		attributes.addFlashAttribute("errMsg", "로그인이 되어야 사용할 수 있는 기능입니다.");
+		return "redirect:/login";
 	}
 	
 	public boolean acc_member(String mem_id, String mypagemem_id) {
