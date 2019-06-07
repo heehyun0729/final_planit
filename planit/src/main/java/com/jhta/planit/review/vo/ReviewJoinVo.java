@@ -2,7 +2,7 @@ package com.jhta.planit.review.vo;
 
 import java.sql.Date;
 
-public class ReviewVo {
+public class ReviewJoinVo {
 	private int review_num;
 	private String mem_id;
 	private String review_country;
@@ -13,11 +13,15 @@ public class ReviewVo {
 	private int review_hit;
 	private int review_star;
 	private int review_like;
+	private int reviewImage_num;
+	private String reviewImge_orgImg;
+	private String reviewImge_saveImg;
 	
-	public ReviewVo() {}
+	public ReviewJoinVo() {}
 
-	public ReviewVo(int review_num, String mem_id, String review_country, String review_city, String review_title,
-			String review_content, Date review_date, int review_hit, int review_star, int review_like) {
+	public ReviewJoinVo(int review_num, String mem_id, String review_country, String review_city, String review_title,
+			String review_content, Date review_date, int review_hit, int review_star, int review_like,
+			int reviewImage_num, String reviewImge_orgImg, String reviewImge_saveImg) {
 		super();
 		this.review_num = review_num;
 		this.mem_id = mem_id;
@@ -29,6 +33,9 @@ public class ReviewVo {
 		this.review_hit = review_hit;
 		this.review_star = review_star;
 		this.review_like = review_like;
+		this.reviewImage_num = reviewImage_num;
+		this.reviewImge_orgImg = reviewImge_orgImg;
+		this.reviewImge_saveImg = reviewImge_saveImg;
 	}
 
 	public int getReview_num() {
@@ -111,14 +118,29 @@ public class ReviewVo {
 		this.review_like = review_like;
 	}
 
-	@Override
-	public String toString() {
-		return "ReviewVo [review_num=" + review_num + ", mem_id=" + mem_id + ", review_country=" + review_country
-				+ ", review_city=" + review_city + ", review_title=" + review_title + ", review_content="
-				+ review_content + ", review_date=" + review_date + ", review_hit=" + review_hit + ", review_star="
-				+ review_star + ", review_like=" + review_like + "]";
+	public int getReviewImage_num() {
+		return reviewImage_num;
 	}
-	
-}
+
+	public void setReviewImage_num(int reviewImage_num) {
+		this.reviewImage_num = reviewImage_num;
+	}
+
+	public String getReviewImge_orgImg() {
+		return reviewImge_orgImg;
+	}
+
+	public void setReviewImge_orgImg(String reviewImge_orgImg) {
+		this.reviewImge_orgImg = reviewImge_orgImg;
+	}
+
+	public String getReviewImge_saveImg() {
+		return reviewImge_saveImg;
+	}
+
+	public void setReviewImge_saveImg(String reviewImge_saveImg) {
+		this.reviewImge_saveImg = reviewImge_saveImg;
+	}
 
 	
+}

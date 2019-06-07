@@ -8,6 +8,7 @@
 		<li><a href = "<c:url value='/'/>">홈</a></li>
 		<li><a href = "<c:url value='/plan/list'/>">플래너</a></li>
 		<li><a href = "<c:url value='/buddyList'/>">동행찾기</a></li>
+		<li><a href = "<c:url value='/review/reviewList'/>">여행후기</a></li>
 		<li><a onclick="window.open('<c:url value='/adminHome'/>')" href = "#">관리자페이지</a></li>
 		<li><a href = "<c:url value='/reservationHome'/>">예약페이지</a></li>
 		<li><a href = "<c:url value='/qnaList'/>">여행문의</a></li>

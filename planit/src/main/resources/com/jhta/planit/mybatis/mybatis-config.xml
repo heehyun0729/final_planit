@@ -27,5 +27,8 @@
   	<mapper resource="com/jhta/planit/room/mybatis/RoomMapper.xml"/>
   	<mapper resource="com/jhta/planit/roomImage/mybatis/RoomImageMapper.xml"/>
   	<mapper resource="com/jhta/planit/seller/mybatis/SellerMapper.xml"/>
+  	<mapper resource="com/jhta/planit/review/mybatis/ReviewMapper.xml"/>
+  	<mapper resource="com/jhta/planit/review/mybatis/ReviewImageMapper.xml"/>
+  	<mapper resource="com/jhta/planit/review/mybatis/ReviewCommMapper.xml"/>
   </mappers>
 </configuration>

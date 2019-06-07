@@ -4,6 +4,8 @@ import java.sql.Date;
 
 public class ReviewCommVo {
 	private int rcomm_num;
+	private int review_num;
+	private String mem_id;
 	private String rcomm_content;
 	private Date rcomm_date;
 	private int rcomm_step;
@@ -12,10 +14,12 @@ public class ReviewCommVo {
 	
 	public ReviewCommVo() {}
 
-	public ReviewCommVo(int rcomm_num, String rcomm_content, Date rcomm_date, int rcomm_step, int rcomm_ref,
-			int rcomm_lev) {
+	public ReviewCommVo(int rcomm_num, int review_num, String mem_id, String rcomm_content, Date rcomm_date,
+			int rcomm_step, int rcomm_ref, int rcomm_lev) {
 		super();
 		this.rcomm_num = rcomm_num;
+		this.review_num = review_num;
+		this.mem_id = mem_id;
 		this.rcomm_content = rcomm_content;
 		this.rcomm_date = rcomm_date;
 		this.rcomm_step = rcomm_step;
@@ -29,6 +33,22 @@ public class ReviewCommVo {
 
 	public void setRcomm_num(int rcomm_num) {
 		this.rcomm_num = rcomm_num;
+	}
+
+	public int getReview_num() {
+		return review_num;
+	}
+
+	public void setReview_num(int review_num) {
+		this.review_num = review_num;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
 	}
 
 	public String getRcomm_content() {
@@ -70,6 +90,8 @@ public class ReviewCommVo {
 	public void setRcomm_lev(int rcomm_lev) {
 		this.rcomm_lev = rcomm_lev;
 	}
+
+	
 	
 	
 }
