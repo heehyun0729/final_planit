@@ -63,6 +63,26 @@ public class EditUserInfoController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/user/idsearch", method = RequestMethod.GET)
+	public String idsearchForm() {
+		return "/user/idsearch";
+	}
+
+	@RequestMapping(value = "/user/idsearch", method = RequestMethod.POST)
+	public String idsearch(String mem_email) {
+		return "/user/idsearch";
+	}
+
+	@RequestMapping(value = "/user/pwdsearch", method = RequestMethod.GET)
+	public String pwdsearchForm() {
+		return "/user/pwdsearch";
+	}
+
+	@RequestMapping(value = "/user/pwdsearch", method = RequestMethod.POST)
+	public String pwdsearch(String mem_id, String mem_email) {
+		return "/user/pwdsearch";
+	}
+	
 	@RequestMapping(value = "/user/pwdchange", method = RequestMethod.POST)
 	public String pwdChange(String mem_id, boolean forgot, String before_mem_pwd, String mem_pwd,
 			RedirectAttributes attributes, Model model) throws Exception {

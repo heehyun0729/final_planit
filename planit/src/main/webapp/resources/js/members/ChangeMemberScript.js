@@ -104,6 +104,21 @@ $(document).ready(function() {
 			}
 		}
 	});
+	
+	$("#idsearch").submit(function(event) {
+		if($("#mem_email").val("")==""){
+			$("#errMsg").html("이메일을 입력해 주세요");
+		}
+	});
+
+	$("#pwdsearch").submit(function(event) {
+		if($("#mem_id").val("")==""){
+			$
+		}else if($("#mem_email").val("")==""){
+			$("#errMsg").html("이메일을 입력해 주세요");
+		}
+	});
+	
 	$("#nickcheck").click(function() {
 		$.ajax({
 			url : $(location).attr('href')+"/nickcheck",
@@ -158,4 +173,5 @@ $(document).ready(function() {
 			}
 		}
 	});
+	
 });
