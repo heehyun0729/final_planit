@@ -237,3 +237,22 @@ CREATE SEQUENCE buddy_seq;
 CREATE SEQUENCE buddyCountry_seq;
 CREATE SEQUENCE buddyCity_seq;
 CREATE SEQUENCE buddyApply_seq;
+
+create table rsvn
+(
+    rsvn_num number(7) primary key,
+    mem_id varchar2(40) references members(mem_id),
+    room_num number(7) references room(room_num),
+    rsvn_checkin date,
+    rsvn_checkout date,
+    rsvn_cnt number(3) -- ÀÎ¿ø¼ö
+);
+
+create table rsvnPay
+(
+    rsvnPay_id varchar2(500) primary key,
+    rsvn_num number(7) references rsvn(rsvn_num),
+    rsvnPay_price number(10), 
+    rsvnPay_method varchar2(20),
+    rsvnPay_stat number(2)
+);
