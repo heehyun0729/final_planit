@@ -188,21 +188,46 @@ drop sequence ad_num_seq;
 CREATE TABLE ad
 (
 	ad_num number(7,0) NOT NULL,
-	mem_id varchar2(15) NOT NULL,
+	mem_id varchar2(40) NOT NULL,
 	ad_company varchar2(50),
-	ad_url varchar2(100),
-	ad_startDate date,
-	ad_endDate date,
-	ad_chance number(4,0),
-	ad_hit number(7,0),
-	ad_click number(7,0),
-	ad_status number(2,0),
-	ad_price number(7,0),
+	ad_url varchar2(500),
 	ad_requestDate date,
 	ad_approveDate date,
+	ad_price number(10,0),
+	ad_payment varchar2(20),
+	ad_tid varchar2(500),
+	ad_progress number(2,0),
 	PRIMARY KEY (ad_num)
 );
 create sequence ad_num_seq;
+
+DROP TABLE adInfo CASCADE CONSTRAINTS;
+drop sequence adInfo_num_seq;
+CREATE TABLE adInfo
+(
+	adInfo_num number(7,0) NOT NULL,
+	ad_num number(7,0) NOT NULL,
+	adInfo_date date,
+	adInfo_chance number(4,0),
+	adInfo_hit number(7,0),
+	adInfo_click number(7,0),
+	adInfo_status number(2,0),
+	adInfo_price number(7,0),
+	PRIMARY KEY (adInfo_num)
+);
+create sequence adInfo_num_seq;
+
+DROP TABLE adImage CASCADE CONSTRAINTS;
+drop sequence adImg_num_seq;
+CREATE TABLE adImage
+(
+	adImg_num number(7,0) NOT NULL,
+	adInfo_num number(7,0) NOT NULL,
+	adImg_orgImg varchar2(500),
+	adImg_saveImg varchar2(500),
+	PRIMARY KEY (adImg_num)
+);
+create sequence adImage_num_seq;
 
 drop table plan cascade constraints;
 create table plan(
