@@ -10,7 +10,7 @@
 		<li><a href = "<c:url value='/buddyList'/>">동행찾기</a></li>
 		<li><a onclick="window.open('<c:url value='/adminLogin'/>')" href = "#">관리자페이지</a></li>
 		<li><a href="<c:url value='/adminAdRequestInfo'/>">광고신청</a></li>
-		<li><a href = "<c:url value='/reservationHome'/>">예약페이지</a></li>
+		<li><a href = "<c:url value='/reservation/list'/>">예약페이지</a></li>
 		<li><a href = "<c:url value='/qnaList'/>">여행문의</a></li>
 		<li><a href = "<c:url value='/acommQna'/>">숙소문의</a></li>
 		
