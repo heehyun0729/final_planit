@@ -11,29 +11,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jhta.planit.accom.service.AccomService;
-import com.jhta.planit.accom.vo.AccomVo;
+import com.jhta.planit.reservation.service.RsvnAccomService;
+import com.jhta.planit.reservation.vo.RsvnAccomVo;
 import com.jhta.util.PageUtil;
 
 @Controller
 public class ReservationController {
-	@Autowired private AccomService accomService;
+	@Autowired private RsvnAccomService accomService; 
 	
 	@RequestMapping(value="/reservation/list", method=RequestMethod.GET)
 	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
 		HashMap<String,Object> map=new HashMap<String, Object>();
 		
-		int rowCnt = accomService.count(map);
+		int rowCnt = accomService.count();
 		PageUtil pu = new PageUtil(pageNum, rowCnt, 8, 5);
-		map.put("startRow", pu.getStartRow());
-		map.put("endRow", pu.getEndRow());
-		List<AccomVo> list=accomService.list(map);
+		int startRow = pu.getStartRow();
+		int endRow = pu.getEndRow();
+		int pageCnt = pu.getTotalPageCount();
+		int startPage = pu.getStartPageNum();
+		int endPage = pu.getEndPageNum();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 		
+		List<RsvnAccomVo> list = accomService.list(map);
 		model.addAttribute("list", list);
-		model.addAttribute("rowCnt", rowCnt);
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("startRow", pu.getStartRow());
-		model.addAttribute("endRow", pu.getEndRow());
+		model.addAttribute("startRow", startRow);
+		model.addAttribute("endRow", endRow);
+		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		System.out.println(pu.getStartRow() + ", " + pu.getEndRow());
 		return ".reservation.rsvnList";
 	}
 }

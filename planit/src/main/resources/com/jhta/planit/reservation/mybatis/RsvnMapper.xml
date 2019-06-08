@@ -3,5 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.reservation.mybatis.RsvnMapper">
- 
+	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
+		select * from
+		(
+		select a.accom_num accom_num, a.sell_num sell_num, a.accom_addr accom_addr, 
+		    a.accom_comm accom_comm, a.accom_country accom_country, a.accom_city accom_city, 
+		    a.accommImg_orgImg accommImg_orgImg, a.accommImg_saveImg accommImg_saveImg, a.accomchk accomchk,
+		    r.room_price, rownum rnum
+		from accom a, (select accom_num, NVL(min(room_price), 0) room_price
+		                from room
+		                where roomchk = 0
+		                group by accom_num) r
+		where a.accom_num = r.accom_num
+			 and a.accomchk = 0
+		)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
+	</select>
+	<select id="count" resultType="int">
+		select NVL(count(*), 0) from accom
+	</select>
 </mapper>

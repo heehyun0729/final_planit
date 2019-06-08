@@ -4,10 +4,10 @@
 	text-decoration: none;
 	display: inline-block;
 	float: left;
-	margin-left: 10px;
+	margin-left: 20px;
 }
 
-#rsvnSearch{
+#accomSearch{
 	clear: both;
 }
 
@@ -19,4 +19,21 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.accomDiv{
+	width: 200px;
+	height: 300px;
+	display: inline-block;
+	float: left;
+	border: 1px solid gray;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+.accomDiv img{
+	width: 200px;
+	height: 150px;
+}
+#accomPage{
+	clear: both;
 }
