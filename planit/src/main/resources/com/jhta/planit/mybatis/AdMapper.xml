@@ -34,6 +34,12 @@
 	</select>
 	<select id="getAdInfo" parameterType="int" resultType="com.jhta.planit.admin.vo.AdVo">
 		select * from ad where ad_num=#{ad_num}
+	</select>	
+	<select id="getApproveAdBadge" resultType="int">
+		select NVL(count(*),0) cnt from ad where ad_progress=0
+	</select>
+	<select id="getRequestRefundAdBadge" resultType="int">
+		select NVL(count(*),0) cnt from ad where ad_progress=3
 	</select>
 	<update id="approveAd" parameterType="int">
 		update ad set ad_progress=1, ad_approvedate=sysdate where ad_num=#{ad_num}

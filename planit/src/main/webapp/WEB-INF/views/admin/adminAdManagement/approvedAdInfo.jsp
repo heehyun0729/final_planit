@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<html>
+<head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -31,6 +33,8 @@
 		});
 	});
 </script>
+</head>
+<body>
 <div>
 <header>
 </header>
@@ -40,6 +44,8 @@
 			<div class="row">
 				<div class="col-sm-auto text-center">
 					<br>
+					<div class="alert alert-secondary"><span class="">번호</span></div>
+					<div>${getAdInfo.ad_num }</div><br>
 					<div class="alert alert-secondary"><span class="">회사명</span></div>
 					<div>${getAdInfo.ad_company }</div><br>
 					<div class="alert alert-secondary"><span class="">신청일</span></div>
@@ -48,6 +54,9 @@
 					<div><fmt:formatNumber value="${getAdInfo.ad_price }" pattern="#,###" />&#8361;</div><br>
 					<div class="alert alert-secondary"><span class="">결제 번호</span></div>
 					<div>${getAdInfo.ad_tid }</div><br>
+				</div>
+				<div class="col-sm-auto text-center">
+					<br>
 					<div class="alert alert-secondary"><span class="">신청자 ID</span></div>
 					<div>${getAdInfo.mem_id }</div><br>
 					<div class="alert alert-secondary"><span class="">URL</span></div>
@@ -61,7 +70,7 @@
 							<div>X</div><br>
 						</c:otherwise>
 					</c:choose>
-				<div class="alert alert-secondary"><span class="">결제 수단</span></div>
+					<div class="alert alert-secondary"><span class="">결제 수단</span></div>
 					<div>${getAdInfo.ad_payment }</div><br>
 					<div class="alert alert-secondary"><span class="">진행 상황</span></div>
 					<c:choose>
@@ -100,10 +109,14 @@
 					</c:forEach>
 					<br>
 				</div>
-				<div class="col-sm-auto text-center">
-					<br><div class="alert alert-secondary"><span>광고 이미지</span></div><br>
-					<img style="width:100px; height: 500px;" id="adImage" alt="광고 이미지" src="<c:url value='/resources/adImage/${getAdInfoImage.adImg_saveImg }'/>"><br><br>
-					${getAdInfoImage.adImg_orgImg }<br><br>
+			</div>
+			<div class="row">
+				<div class="col text-center">
+					<div class="col-sm-auto text-center">
+						<br><div class="alert alert-secondary"><span>광고 이미지</span></div><br>
+						<img style="width:1000px; height: 400px;" id="adImage" alt="광고 이미지" src="<c:url value='/resources/adImage/${getAdInfoImage.adImg_saveImg }'/>"><br><br>
+						${getAdInfoImage.adImg_orgImg }<br><br>
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -122,3 +135,5 @@
 <footer>
 </footer>
 </div>
+</body>
+</html>

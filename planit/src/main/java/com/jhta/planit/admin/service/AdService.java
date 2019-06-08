@@ -109,4 +109,12 @@ public class AdService {
 	public int allRefundedAd(int ad_num) {//ad테이블 완전환불 표시
 		return adDao.allRefundedAd(ad_num);
 	}
+	public HashMap<String, Integer> getAdBadges(){//뱃지 얻기
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		int approveAdBadge=adDao.getApproveAdBadge();
+		int requestRefundAdBadge=adDao.getRequestRefundAdBadge();
+		map.put("approveAdBadge", approveAdBadge);
+		map.put("requestRefundAdBadge", requestRefundAdBadge);
+		return map;
+	}
 }

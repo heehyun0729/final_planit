@@ -11,7 +11,7 @@
 			value="/WEB-INF/views/main.jsp" />
 		<put-attribute name="footer"
 			value="/WEB-INF/views/footer.jsp" />
-	</definition>
+	</definition>	
 	<definition name=".*.*.*" extends=".main">
 		<put-attribute name="content"
 			value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
@@ -23,6 +23,31 @@
 	<definition name=".*" extends=".main">
 		<put-attribute name="content"
 			value="/WEB-INF/views/{1}.jsp" />
+	</definition>	
+	
+	<definition name="admin"
+		template="/WEB-INF/views/admin/adminLayout.jsp">
+		<put-attribute name="adminNav"
+			value="/WEB-INF/views/admin/adminNav.jsp" />
+		<put-attribute name="adminSideBar"
+			value="/WEB-INF/views/admin/adminSideBar.jsp" />
+		<put-attribute name="adminBody"
+			value="/WEB-INF/views/admin/adminBody.jsp" />
+	</definition>
+	<definition name="-*-*-*" extends="admin">
+		<put-attribute name="adminBody"
+			value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+		<put-attribute name="current" value="{3}" cascade="true"/>
+	</definition>
+	<definition name="-*-*" extends="admin">
+		<put-attribute name="adminBody"
+			value="/WEB-INF/views/{1}/{2}.jsp" />
+		<put-attribute name="current" value="{2}" cascade="true"/>
+	</definition>
+	<definition name="-*" extends="admin">
+		<put-attribute name="adminBody"
+			value="/WEB-INF/views/{1}.jsp" />
+		<put-attribute name="current" value="{1}" cascade="true"/>
 	</definition>
 </tiles-definitions>
 

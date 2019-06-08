@@ -38,13 +38,52 @@ import com.jhta.util.PageUtil;
 public class AdController {
 	@Autowired
 	private AdService service;
-	@RequestMapping(value="/adminAdRequestFormOk", method=RequestMethod.GET)//완료페이지 실험용
+	@RequestMapping(value="/adminAdRequestFormOk", method=RequestMethod.GET)///완료페이지 실험용
 	public String adminAdRequestFormGetOk() {
 		return ".admin.adminAdRequestFormOk";
 	}
+	@RequestMapping(value="/adminLogin", method=RequestMethod.GET)//관리자 로그인
+	public String adminLogin() {
+		return "/admin/adminLogin";
+	}
+	@RequestMapping(value="/adminLogout", method=RequestMethod.GET)//관리자 로그아웃
+	public String adminLogout(HttpSession session) {
+		session.invalidate();
+		return "/admin/adminLogin";
+	}
 	@RequestMapping(value="/adminHome", method=RequestMethod.GET)//관리자 홈
-	public String adminHome() {
-		return "/admin/adminHome";
+	public String adminHome(Model model) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		Date getDate=new Date(System.currentTimeMillis());//금일 광고율, 수익 구하기
+		String date=getDate.toString();
+		map.put("startDate", date);
+		map.put("endDate", date);
+		List<AdInfoVo> list=service.getChance(map);
+		int chance=0;
+		int adProfit=0;
+		for(int a=0;a<list.size();a++) {
+			chance+=list.get(a).getAdInfo_chance();
+			adProfit+=list.get(a).getAdInfo_price();
+		}
+		map.put("chance", chance);//금일 광고율 담기
+		map.put("adProfit", adProfit);//광고 수익 담기
+		model.addAttribute("map", map);
+		return "-admin-adminBody-adminHome";
+	}
+	@RequestMapping(value="/adminAdBadges", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public HashMap<String, Integer> adminAdBadges() {//광고 뱃지 받기
+		HashMap<String, Integer> map=service.getAdBadges();
+		return map;
+	}
+	@RequestMapping(value="/adminAdCalendar", method=RequestMethod.GET)//광고 달력
+	public String adminAdCalendar() {
+		return "-admin-adminAdManagement-adCalendar";
+	}
+	@RequestMapping(value="/adminLogin", method=RequestMethod.POST)//관리자 로그인 -> 홈///기능추가하기
+	public String adminLoginOk() {
+		
+		return "redirect:/adminHome";
 	}
 	@RequestMapping(value="/adminAdRequestInfo", method=RequestMethod.GET)//광고 신청페이지
 	public String adminAdRequestInfo() {
@@ -192,7 +231,7 @@ public class AdController {
 		List<AdVo> getAdList=service.getAdList(map);
 		model.addAttribute("getAdList", getAdList);
 		model.addAttribute("map", map);
-		return ".admin.adminAdManagement.approvedAdList";
+		return "-admin-adminAdManagement-approvedAdList";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/requestRefundAdList")//환불 요청 광고 리스트
 	public String adminAdManagementRequestRefundAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
@@ -210,7 +249,7 @@ public class AdController {
 		List<AdVo> getAdList=service.getAdList(map);
 		model.addAttribute("getAdList", getAdList);
 		model.addAttribute("map", map);
-		return ".admin.adminAdManagement.requestRefundAdList";
+		return "-admin-adminAdManagement-requestRefundAdList";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/allAdList")//모든 광고 리스트
 	public String adminAdManagementAllAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
@@ -228,7 +267,7 @@ public class AdController {
 		List<AdVo> getAdList=service.getAdList(map);
 		model.addAttribute("getAdList", getAdList);
 		model.addAttribute("map", map);
-		return ".admin.adminAdManagement.allAdList";
+		return "-admin-adminAdManagement-allAdList";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/approvedAdInfo")//승인 요청된 광고 상세정보
 	public String adminAdManagementApprovedAdInfo(int ad_num, Model model) {

@@ -3,21 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style type="text/css">
 	.wrapper{
+		width: 100%;
 		padding: 0px;
 		margin: 0px;
 		cursor: default;
 	}
 	.topLeftRadius{
-		border-top-left-radius: 25px;
+		border-top-left-radius: 0px;
 	}
 	.topRightRadius{
-		border-top-right-radius: 25px;
+		border-top-right-radius: 0px;
 	}
 	.bottomLeftRadius{
-		border-bottom-left-radius: 25px;
+		border-bottom-left-radius: 0px;
 	}
 	.bottomRightRadius{
-		border-bottom-right-radius: 25px;
+		border-bottom-right-radius: 0px;
 	}
 	.errMsg{
 		color: white;
@@ -26,18 +27,20 @@
 		margin-right: 10px; 
 	}
 	.formWrapper{
-		width: 90%;
+		width: 100%;
 		margin: auto;
 		margin-top: 15px;
 	}
 	.calendarWrapper{
 		overflow:hidden;
 		text-align: center;
-		float: left;
-		margin: 15px;
+		width: 100%;
+		margin: auto;
+		margin-top: 40px;
 		background: #fff;
 		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
-		border-radius: 25px;
+		border-radius: 5px;
+		border: 1px solid #f8f9fa;
 	}
 	.prevMonth{
 		font-size: 2em; float:left; width:10%;
@@ -61,43 +64,40 @@
 		color: blue;
 	}
 	.dayName{
-		width: 150px; height: 20px; background-color: #DAD9FF; cursor:default;
+		width: 158px; height: 20px; background-color: #f8f9fa; cursor:default;
 	}
 	.dateNum{
-		width: 150px; height: 20px; text-align: left; text-indent: 10px; cursor:default;
+		width: 158px; height: 20px; text-align: left; text-indent: 10px; cursor:default;
 	}
 	.dateNumColor{
-		background-color: #D4F4FA;
+		background-color: #f8f9fa;
 	}
 	.dayDo{
-		width: 150px; height: 70px; 
+		width: 158px; height: 70px; display: table-cell; vertical-align: middle;
 	}
 	.hover{
-		background-color: white; transition: 0.5s
+		
 	}
 	.hover:hover{
-		background: linear-gradient(#B2EBF4, #FFFFFF); cursor:pointer;
-	}
-	.hover:active{
-		background: linear-gradient(#FFFFFF, #B2EBF4);
+		background: #f8f9fa; cursor:pointer;
 	}
 	.empty{
 		
 	}
 	.cant{
-		background: linear-gradient(#FFC6C6, #FFFFFF);
+		background: #f8f9fa;
 	}
 	.soldOut{
 		background: url("<c:url value='/resources/adminImages/soldOut.png'/>") no-repeat center center;
 	}
 	.chanceDiv{
-		display: none; position: absolute; background-color: #FCFCFC; width: 50px; border: 1px solid gray; cursor:pointer;
+		display: none; position: absolute; background-color: #FCFCFC; width: 70px; border: 1px solid #f8f9fa; cursor:pointer;
 	}
 	.chances{
 		background-color: #EAEAEA; text-align: center;
 	}
 	.chances:hover{
-		background-color: #DAD9FF;
+		background-color: #f8f9fa;
 	}
 	.ordered{
 		cursor:pointer; background: url("<c:url value='/resources/adminImages/checked.png'/>") no-repeat center center;
@@ -121,30 +121,30 @@
 		float: left;
 		background: #fff;
 		margin: 15px auto;
-		width: 285px;
+		width: 100%;
 		box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23);
 		text-align: center;
-		border-radius: 25px;
+		border-radius: 5px;
 	}
 	.cursor{
 		cursor: pointer;
 	}
 	.arrowBox{
 		margin-top: 20px;
+		margin-bottom: 20px;
 		text-align: center;
-	}
-	.speechBubble{
-		position: absolute;
-		background-color: #FF0000;
-		border-radius: 25px;
 	}
 	.form-control{
 		cursor: auto;
+		width: 50%;
+		margin: auto;
+	}
+	#infoWrapper{
+		width: 100%;
+		margin: auto;
+		margin-top: 15px;
 	}
 </style>
-<link rel="stylesheet" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.0.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		calendar();
@@ -215,12 +215,15 @@
 				$("#infoWrapper .form-box").eq(1).hide();
 				$("#infoWrapper .form-box").eq(2).hide();
 				nowNum=1;
-				$("#speechBubble").empty();
-				$("#speechBubble").append("<span class='errMsg'>주문을 먼저 해주십시오.</span>");
-				$("#speechBubble").css("left", 1550);//좌표 입력
-				$("#speechBubble").css("top", 320);
-				$("#speechBubble").hide();
-				$("#speechBubble").fadeIn(300).delay(1000).fadeOut(300);
+				const x1=$("#infoWrapper").offset().left;
+				const y1=$("#infoWrapper").offset().top;				
+				const x2=$("#infoWrapper").width()/2;
+				const y2=$("#infoWrapper").height()/2;
+				const x3=x1+x2;
+				const y3=y1+y2;
+				$("#speechBubble1").offset({top: x3});
+				$("#speechBubble1").offset({left: y3});
+				$('#speechBubble1').tooltip('show');
 				return;
 			};
 			if($("#preview").attr("src")==""){
@@ -228,12 +231,15 @@
 				$("#infoWrapper .form-box").eq(1).show();
 				$("#infoWrapper .form-box").eq(2).hide();
 				nowNum=2;
-				$("#speechBubble").empty();
-				$("#speechBubble").append("<span class='errMsg'>광고 이미지를 추가해 주십시오.</span>");
-				$("#speechBubble").css("left", 1525);//좌표 입력
-				$("#speechBubble").css("top", 455);
-				$("#speechBubble").hide();
-				$("#speechBubble").fadeIn(300).delay(1000).fadeOut(300);
+				const x1=$("#infoWrapper").offset().left;
+				const y1=$("#infoWrapper").offset().top;				
+				const x2=$("#infoWrapper").width()/2;
+				const y2=$("#infoWrapper").height()/2;
+				const x3=x1+x2;
+				const y3=y1+y2;
+				$("#speechBubble2").offset({top: x3});
+				$("#speechBubble2").offset({left: y3});
+				$('#speechBubble2').tooltip('show');
 				return;
 			}	
 			if($("#company").val()=="" || $("#url").val()==""){//에러메시지 출력
@@ -241,12 +247,15 @@
 				$("#infoWrapper .form-box").eq(1).hide();
 				$("#infoWrapper .form-box").eq(2).show();
 				nowNum=3;
-				$("#speechBubble").empty();
-				$("#speechBubble").append("<span class='errMsg'>주문 정보를 입력해 주십시오.</span>");
-				$("#speechBubble").css("left", 1585);//좌표 입력
-				$("#speechBubble").css("top", 390);
-				$("#speechBubble").hide();
-				$("#speechBubble").fadeIn(300).delay(1000).fadeOut(300);
+				const x1=$("#infoWrapper").offset().left;
+				const y1=$("#infoWrapper").offset().top;				
+				const x2=$("#infoWrapper").width()/2;
+				const y2=$("#infoWrapper").height()/2;
+				const x3=x1+x2;
+				const y3=y1+y2;
+				$("#speechBubble3").offset({top: x3});
+				$("#speechBubble3").offset({left: y3});
+				$('#speechBubble3').tooltip('show');
 				return;
 			}		
 			//카카오페이결제
@@ -265,20 +274,17 @@
 				function(data) {
 					if(data!=null){
 						$("input[name='ad_tid']").val(data.tid);
-						var box = $('<div></div>').html('<iframe style="border: 0px; " src="' + data.next_redirect_pc_url + '" width="100%" height="99%"></iframe>')
-						               .dialog({
-						                   autoOpen: false,
-						                   closeOnEscape: false,
-						                   resizable: false,
-						                   modal: true,
-						                   height: 600,
-						                   width: 500,
-						               });						
-						box.dialog().parents(".ui-dialog").find(".ui-dialog-titlebar").remove();
-						box.dialog('open');
+						$("#modalSrc").html('<iframe style="border: 0px; " src="' + data.next_redirect_pc_url + '" width="100%" height="500px"></iframe>');
+						$("#clickMe").click();
 					}
 			});
 			return;
+		});
+		
+		$('.speechBubble').on('shown.bs.tooltip', function () {//툴팁 지연시간 설정
+			setTimeout(function() { 
+				$('.speechBubble').tooltip('hide');
+			}, 1500);
 		});
 	});	
 	function moveFile(name){//이미지 파일 미리보기
@@ -293,7 +299,7 @@
 			tempImage.onload=function(){
 				const canvas=document.createElement('canvas');//리사이즈를 위해 캔버스 객체 생성
 				const canvasContext=canvas.getContext("2d");
-				const width=canvas.width=100;//캔버스 크기 설정
+				const width=canvas.width=1000;//캔버스 크기 설정
 				const height=canvas.height=400;
 				canvasContext.drawImage(this, 0, 0, width, height);//캔버스에 이미지 그리기
 				const dataURL=canvas.toDataURL("image/jpeg");//이미지를 url로 변환
@@ -382,6 +388,9 @@
 	    price += '';
 	    while (reg.test(price))
 	    price = price.replace(reg, '$1' + ',' + '$2');
+	    if(orderedId.length!=0){
+			$("#price").show();
+		};
 	    $("#price").html("<br><span class=''>결제 금액 : " + price + "&#8361;</span><br><br>");
 	}	
 	//달력에 필요한 변수
@@ -601,20 +610,16 @@
 <div class="wrapper">
 <header>
 </header>
-<section>
+<section class="container">
 	<article class="formWrapper">		
 		<div id="calendar" class="calendarWrapper" ></div>
 		<input type="hidden" id="tempId">
 		<div id="infoWrapper" class="stick">
-			<div class="arrowBox">
-				<img id="leftBtn" class="cursor" alt="이전 정보" src="<c:url value='/resources/adminImages/left-arrow.png'/>">
-				<img id="rightBtn" class="cursor" alt="다음 정보" src="<c:url value='/resources/adminImages/right-arrow.png'/>">
-			</div>
 			<div id="cartInfo" class="form-box">
-				<br><div id="cart"><div>주문 현황</div>
-				<p id="cartMsg"><br>광고할 날짜를 클릭해 주문해주세요.</p><br></div>
+				<br><div id="cart">주문 현황</div>
+				<p id="cartMsg"><br>광고할 날짜를 클릭해 주문해주세요.</p><br>
 				<div id="price"></div>
-			</div>			
+			</div>
 			<form id="form" method="post" action="<c:url value="/adminAdRequestForm"/>" enctype="multipart/form-data">
 				<input type="hidden" name="mem_id" value="${mem_id }">
 				<input type="hidden" name="ad_price" value="">
@@ -624,7 +629,7 @@
 				<div id="formInfo2" class="form-box">
 					<br><p>광고 이미지</p><br>
 					<img id="preview" src="" alt=""><br><br>
-					<span id="imageInfo">이미지를 추가해주세요.<br>(100 * 400)</span><br><br>
+					<span id="imageInfo">이미지를 추가해주세요.<br>(1000 * 400)</span><br><br>
 					<img id="addFile" class="cursor" alt="이미지추가" src="<c:url value='/resources/adminImages/paper-clip.png'/>"><br><br>					
 				</div>
 				<div id="formInfo" class="form-box">
@@ -634,12 +639,31 @@
 					<input class="form-control" type="url" name="ad_url" id="url" placeholder="연결 주소"><br><br>
 					<img id="kakaoPay" alt="카카오페이" src="<c:url value='/resources/adminImages/payment_icon_yellow_medium.png'/>"><br><br>
 				</div>				
-			</form>			
+			</form>
+			<div class="arrowBox">
+				<img id="leftBtn" class="cursor" alt="이전 정보" src="<c:url value='/resources/adminImages/left-arrow.png'/>">
+				<img id="rightBtn" class="cursor" alt="다음 정보" src="<c:url value='/resources/adminImages/right-arrow.png'/>">
+			</div>			
 		</div>
 		<div id="chanceDiv" class="chanceDiv"></div>
-		<div id="speechBubble" class="speechBubble"></div>
 		<div id="none" style="display: none;"></div>
 	</article>
+	<!-- 모달 -->
+	<input id="clickMe" type="hidden" class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#exampleModal">
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+				<div class="modal-body" id="modalSrc">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="speechBubble1" class="speechBubble" style="position: absolute;"data-toggle="tooltip" data-html="true" title="주문할 날짜를 클릭해 주세요"></div>
+	<div id="speechBubble2" class="speechBubble" style="position: absolute;"data-toggle="tooltip" data-html="true" title="이미지를 첨부해 주세요"></div>
+	<div id="speechBubble3" class="speechBubble" style="position: absolute;"data-toggle="tooltip" data-html="true" title="주문정보를 입력해 주세요"></div>
 </section>
 <footer>
 </footer>

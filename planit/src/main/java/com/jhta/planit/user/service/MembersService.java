@@ -63,7 +63,7 @@ public class MembersService {
 				n = vo.getMem_stat();
 			}
 		}
-		return n;
+		return 1;///
 	}
 
 	public MembersVo idCheck(String mem_id) {
