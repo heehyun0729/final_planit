@@ -37,4 +37,7 @@ public class AccomService {
 	public AccomVo prev(int accom_num) {
 		return dao.prev(accom_num);
 	}
+	public int updateAccomCheck(int accom_num){
+		return dao.updateAccomCheck(accom_num);
+	}
 }

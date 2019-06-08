@@ -23,6 +23,9 @@ ALTER TABLE MsgTable
 ;
 CREATE SEQUENCE MsgTable_SEQ;
 ALTER TABLE MsgTable ADD(msgDelete varchar(50) );
+//추가사항
+ALTER TABLE MsgTable ADD(msgDeletee varchar(50) );
+
 
 create table members(
     mem_id VARCHAR2(15) primary key,
@@ -36,8 +39,7 @@ create table members(
 );
 select * from members;
 select * from msgTable;
-//추가사항
-ALTER TABLE MsgTable ADD(msgDeletee varchar(50) );
+
 
 
 //판매자 테이블

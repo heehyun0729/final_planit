@@ -73,20 +73,62 @@ CREATE TABLE MEMIMAGE(
 	REFERENCES MEMBERS (mem_id)
 );
 CREATE SEQUENCE MEMIMAGE_SEQ;
-
-DROP TABLE ACCOM CASCADE CONSTRAINTS;
-drop sequence accom_num_seq;
-create table accom(
-	accom_num number(7) NOT NULL,
-	accom_name varchar2(50),
-	accom_addr varchar2(100),
-	accom_comm varchar2(1000),
-	acomm_contry varchar2(50),
-	acomm_city varchar2(50),
-	PRIMARY KEY (accom_num)
+-------------------------2019/06/08 추가분 -----------------------------------------------------------
+//판매자 테이블
+drop table seller;
+create table seller(
+    sell_num number(5) primary key,
+    mem_id varchar2(40) references members(mem_id),
+    sell_company varchar2(100),
+    sell_addr varchar2(200)
 );
-create sequence accom_num_seq;
-
+drop SEQUENCE seller_seq;
+CREATE SEQUENCE seller_seq;
+//숙소테이블
+drop table accom;
+create table accom(
+    accom_num number(7,0) primary key,
+    sell_num number(5) references seller(sell_num),
+    accom_name varchar2(100),
+    accom_addr varchar2(200),
+    accom_comm varchar2(300),
+    accom_country varchar2(50),
+    accom_city varchar2(50),
+);
+ALTER TABLE accom ADD(accommImg_orgImg varchar(500) );
+ALTER TABLE accom ADD(accommImg_saveImg varchar(500) );
+ALTER TABLE accom RENAME COLUMN acomm_contry TO accom_country;
+ALTER TABLE accom RENAME COLUMN acomm_city TO accom_city;
+ALTER TABLE accom ADD(sell_num number(5) references seller(sell_num) );
+ALTER TABLE accom DROP COLUMN accomm_room;
+ALTER TABLE accom ADD(accomChk number(1) );
+drop SEQUENCE accom_seq;
+CREATE SEQUENCE accom_seq;
+//방정보 테이블
+drop table room;
+create table room(
+    room_num number(7,0) primary key,
+    accom_num number(7,0) references accom(accom_num),
+    room_type varchar2(100),
+    room_price number(10,0),
+    room_comm varchar2(1000)
+);
+ALTER TABLE room ADD(roomChk number(1) );
+ALTER TABLE room ADD(room_capa number(2) );
+drop SEQUENCE room_seq;
+CREATE SEQUENCE room_seq;
+//방이미지 테이블
+drop table roomImage;
+create table roomImage(
+    roomImg_num number(7,0) primary key,
+    room_num number(7,0) references room(room_num),
+    roomImg_orgImg varchar2(500),
+    roomImg_saveImg varchar2(500)
+);
+ALTER TABLE roomImage ADD(roomImageChk number(1) );
+drop SEQUENCE roomImage_seq;
+CREATE SEQUENCE roomImage_seq;
+ ----------------------------------------------------------------------------------------------------------------------
 DROP TABLE acommQna CASCADE CONSTRAINTS;
 drop sequence acommQna_num_seq;
 create table acommQna(

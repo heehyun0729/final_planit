@@ -36,6 +36,10 @@ public class AccomInsertController {
 	public String join() {
 		return "/accom/accomInsert";
 	}
+	@RequestMapping(value="/sellerInsertListForm",method = RequestMethod.GET)
+	public String goHome() {
+		return "/seller/sellerInsertListForm";
+	}
 	@RequestMapping(value="/accommInsert",method=RequestMethod.POST)
 	public String fileupload(String mem_id, String accom_name,String accom_addr,String accom_comm,String accom_country,String accom_city,MultipartFile file1,
 			HttpSession session) {
@@ -59,7 +63,7 @@ public class AccomInsertController {
 			is.close();
 			fos.close();
 			System.out.println(uploadPath +" 경로에 파일업로드 완료!");
-			AccomVo vo=new AccomVo(0, sell_num, accom_name, accom_addr, accom_comm, accom_country, accom_city, accommImg_orgImg, accommImg_saveImg);
+			AccomVo vo=new AccomVo(0, sell_num, accom_name, accom_addr, accom_comm, accom_country, accom_city, accommImg_orgImg, accommImg_saveImg,0);
 			service.insert(vo);
 			return "/accom/success";			
 		}catch(Exception e) {
