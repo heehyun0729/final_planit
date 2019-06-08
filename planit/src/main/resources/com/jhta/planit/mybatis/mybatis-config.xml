@@ -30,5 +30,6 @@
   	<mapper resource="com/jhta/planit/review/mybatis/ReviewMapper.xml"/>
   	<mapper resource="com/jhta/planit/review/mybatis/ReviewImageMapper.xml"/>
   	<mapper resource="com/jhta/planit/review/mybatis/ReviewCommMapper.xml"/>
+  	<mapper resource="com/jhta/planit/reservation/mybatis/RsvnMapper.xml"/>
   </mappers>
 </configuration>

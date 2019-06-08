@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ReservationController {
 	@RequestMapping(value="/reservation/list", method=RequestMethod.GET)
 	public String list() {
+		
 		return ".reservation.rsvnList";
 	}
 }
