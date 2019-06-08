@@ -1,8 +1,12 @@
 @charset "UTF-8";
 
-#re ul li {
+#rsvnMenu ul li {
 	text-decoration: none;
 	display: inline-block;
-	float: right;
+	float: left;
 	margin-left: 10px;
+}
+
+#rsvnSearch{
+	clear: both;
 }
