@@ -1,6 +1,5 @@
 
 $(function() {
-	var dateFormat = "yyyy-mm-dd";
     var from = $( "#checkin" ).datepicker({
     	dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
 		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
@@ -25,3 +24,18 @@ $(function() {
 		numberOfMonths: 2
     });
 });
+
+function increaseCnt() {
+	var cnt = Number($("#rsvnCnt").val());
+	cnt = isNaN(cnt) ? 1 : cnt;
+	cnt++;
+	$("#rsvnCnt").val(cnt);
+}
+
+function decreaseCnt() {
+	var cnt = Number($("#rsvnCnt").val());
+	cnt = isNaN(cnt) ? 1 : cnt;
+	cnt < 2 ? cnt = 2 : cnt;
+	cnt--;
+	$("#rsvnCnt").val(cnt);
+}
