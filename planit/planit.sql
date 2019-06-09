@@ -94,16 +94,13 @@ create table accom(
     accom_comm varchar2(300),
     accom_country varchar2(50),
     accom_city varchar2(50),
+    accommImg_orgImg varchar(500),
+    accommImg_saveImg varchar(500),
+    accomChk number(1)
 );
-ALTER TABLE accom ADD(accommImg_orgImg varchar(500) );
-ALTER TABLE accom ADD(accommImg_saveImg varchar(500) );
-ALTER TABLE accom RENAME COLUMN acomm_contry TO accom_country;
-ALTER TABLE accom RENAME COLUMN acomm_city TO accom_city;
-ALTER TABLE accom ADD(sell_num number(5) references seller(sell_num) );
-ALTER TABLE accom DROP COLUMN accomm_room;
-ALTER TABLE accom ADD(accomChk number(1) );
 drop SEQUENCE accom_seq;
 CREATE SEQUENCE accom_seq;
+
 //방정보 테이블
 drop table room;
 create table room(
@@ -111,23 +108,38 @@ create table room(
     accom_num number(7,0) references accom(accom_num),
     room_type varchar2(100),
     room_price number(10,0),
-    room_comm varchar2(1000)
+    room_comm varchar2(1000),
+    roomChk number(1),
+    room_capa number(2)
 );
-ALTER TABLE room ADD(roomChk number(1) );
-ALTER TABLE room ADD(room_capa number(2) );
 drop SEQUENCE room_seq;
 CREATE SEQUENCE room_seq;
+
 //방이미지 테이블
 drop table roomImage;
 create table roomImage(
     roomImg_num number(7,0) primary key,
     room_num number(7,0) references room(room_num),
     roomImg_orgImg varchar2(500),
-    roomImg_saveImg varchar2(500)
+    roomImg_saveImg varchar2(500),
+    roomImageChk number(1)
 );
-ALTER TABLE roomImage ADD(roomImageChk number(1) );
 drop SEQUENCE roomImage_seq;
 CREATE SEQUENCE roomImage_seq;
+
+//쪽지 테이블
+CREATE TABLE MsgTable
+(
+	msgNum number(4) primary key,
+	msgContent varchar2(1000) NOT NULL,
+	receiveMemId varchar2(20) REFERENCES Members (mem_id),
+	sendMemId varchar2(20) REFERENCES Members (mem_id),
+	msgWdate date NOT NULL,
+	msgCheck number(1) NOT NULL,
+            msgDelete varchar(50),
+            msgDeletee varchar(50)
+
+);
  ----------------------------------------------------------------------------------------------------------------------
 DROP TABLE acommQna CASCADE CONSTRAINTS;
 drop sequence acommQna_num_seq;
