@@ -47,6 +47,9 @@
 	<update id="declineAd" parameterType="int">
 		update ad set ad_progress=2, ad_approvedate=sysdate where ad_num=#{ad_num}
 	</update>
+	<update id="requestRefundAd" parameterType="int">
+		update ad set ad_progress=3 where ad_num=#{ad_num}
+	</update>
 	<update id="partRefundedAd" parameterType="int">
 		update ad set ad_progress=4, ad_approvedate=sysdate where ad_num=#{ad_num}
 	</update>

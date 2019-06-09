@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +39,37 @@ import com.jhta.util.PageUtil;
 public class AdController {
 	@Autowired
 	private AdService service;
+	public int goWithData(int ad_num, Model model) {//데이터 추출
+		AdVo getAdInfo=service.getAdInfo(ad_num);
+		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
+		ArrayList<AdImageVo> getAdInfoImage=new ArrayList<AdImageVo>();
+		for(int i=0;i<getAdInfoInfo.size();i++) {
+			int adInfo_Num=getAdInfoInfo.get(i).getAdInfo_num();
+			AdImageVo image=service.getAdInfoImage(adInfo_Num);
+			getAdInfoImage.add(image);
+		}
+		model.addAttribute("getAdInfo", getAdInfo);
+		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
+		model.addAttribute("getAdInfoImage", getAdInfoImage);
+		return 1;
+	}
+	public int search(int pageNum, String field, String keyword, String ad_progress, Model model) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("ad_progress", ad_progress);
+		int totalRowCount=service.getTotalRowCount(map);
+		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
+		map.put("pageNum", pageNum);
+		map.put("startPageNum", pu.getStartPageNum());
+		map.put("endPageNum", pu.getEndPageNum()); 
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<AdVo> getAdList=service.getAdList(map);
+		model.addAttribute("getAdList", getAdList);
+		model.addAttribute("map", map);
+		return 1;
+	}
 	@RequestMapping(value="/adminAdRequestFormOk", method=RequestMethod.GET)///완료페이지 실험용
 	public String adminAdRequestFormGetOk() {
 		return ".admin.adminAdRequestFormOk";
@@ -95,16 +127,13 @@ public class AdController {
 	}
 	@RequestMapping(value="/adAnalytics", method=RequestMethod.GET)//광고 통계 페이지
 	public String adAnalytics(int ad_num, Model model) {
-		AdVo getAdInfo=service.getAdInfo(ad_num);
-		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
-		model.addAttribute("getAdInfo", getAdInfo);
-		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
+		goWithData(ad_num, model);
 		return "/admin/adminAdManagement/adAnalytics";
 	}
 	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)//광고 신청 폼 진행
 	public String adminAdRequestFormPost(AdVo vo, String[] order, Date[] orderDate, int[] orderPrice, MultipartFile file, HttpSession session) {
 		String path=session.getServletContext().getRealPath("/resources/adImage");//파일 업로드
-		System.out.println(path);//업로드 경로
+		//System.out.println("@@@@@@@"+path);//업로드 경로
 		String adImg_orgImg=file.getOriginalFilename();
 		String adImg_savImg=UUID.randomUUID() + "_" + adImg_orgImg;
 		try {
@@ -217,67 +246,25 @@ public class AdController {
 	}
 	@RequestMapping(value="/admin/adminAdManagement/approvedAdList")// 승인 대기 광고 리스트
 	public String adminAdManagementApprovedAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("field", field);
-		map.put("keyword", keyword);
-		map.put("ad_progress", "0");
-		int totalRowCount=service.getTotalRowCount(map);
-		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
-		map.put("pageNum", pageNum);
-		map.put("startPageNum", pu.getStartPageNum());
-		map.put("endPageNum", pu.getEndPageNum()); 
-		map.put("startRow", pu.getStartRow());
-		map.put("endRow", pu.getEndRow());
-		List<AdVo> getAdList=service.getAdList(map);
-		model.addAttribute("getAdList", getAdList);
-		model.addAttribute("map", map);
+		String ad_progress="0";
+		search(pageNum, field, keyword, ad_progress, model);
 		return "-admin-adminAdManagement-approvedAdList";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/requestRefundAdList")//환불 요청 광고 리스트
 	public String adminAdManagementRequestRefundAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("field", field);
-		map.put("keyword", keyword);
-		map.put("ad_progress", "3");
-		int totalRowCount=service.getTotalRowCount(map);
-		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
-		map.put("pageNum", pageNum);
-		map.put("startPageNum", pu.getStartPageNum());
-		map.put("endPageNum", pu.getEndPageNum()); 
-		map.put("startRow", pu.getStartRow());
-		map.put("endRow", pu.getEndRow());
-		List<AdVo> getAdList=service.getAdList(map);
-		model.addAttribute("getAdList", getAdList);
-		model.addAttribute("map", map);
+		String ad_progress="3";
+		search(pageNum, field, keyword, ad_progress, model);
 		return "-admin-adminAdManagement-requestRefundAdList";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/allAdList")//모든 광고 리스트
 	public String adminAdManagementAllAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("field", field);
-		map.put("keyword", keyword);
-		map.put("ad_progress", "-1");
-		int totalRowCount=service.getTotalRowCount(map);
-		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
-		map.put("pageNum", pageNum);
-		map.put("startPageNum", pu.getStartPageNum());
-		map.put("endPageNum", pu.getEndPageNum()); 
-		map.put("startRow", pu.getStartRow());
-		map.put("endRow", pu.getEndRow());
-		List<AdVo> getAdList=service.getAdList(map);
-		model.addAttribute("getAdList", getAdList);
-		model.addAttribute("map", map);
+		String ad_progress="-1";
+		search(pageNum, field, keyword, ad_progress, model);
 		return "-admin-adminAdManagement-allAdList";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/approvedAdInfo")//승인 요청된 광고 상세정보
 	public String adminAdManagementApprovedAdInfo(int ad_num, Model model) {
-		AdVo getAdInfo=service.getAdInfo(ad_num);
-		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
-		int adInfo_Num=getAdInfoInfo.get(0).getAdInfo_num();
-		AdImageVo getAdInfoImage=service.getAdInfoImage(adInfo_Num);
-		model.addAttribute("getAdInfo", getAdInfo);
-		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
-		model.addAttribute("getAdInfoImage", getAdInfoImage);
+		goWithData(ad_num, model);
 		return "/admin/adminAdManagement/approvedAdInfo";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/approvedAdInfoApprove")//광고 승인
@@ -345,15 +332,21 @@ public class AdController {
 		Object obj =  restTemplate.postForObject(url, request, java.util.Map.class);
 		return obj;
 	}
+	@RequestMapping(value="/requestRefundAllAd")//일괄 환불 요청
+	public String requestRefundAllAd(int ad_num, Model model) {
+		service.requestRefundAllAd(ad_num);
+		goWithData(ad_num, model);
+		return "/admin/adminAdManagement/adAnalytics";
+	}
+	@RequestMapping(value="/requestRefundPartAd")//부분 환불 요청
+	public String requestRefundAllAd(int ad_num, int adInfo_num, Model model) {
+		service.requestRefundPartAd(ad_num, adInfo_num);
+		goWithData(ad_num, model);
+		return "/admin/adminAdManagement/adAnalytics";
+	}
 	@RequestMapping(value="/admin/adminAdManagement/requestRefundAdInfo")//환불 요청된 광고 상세정보
 	public String adminAdManagementRequestRefundAdInfo(int ad_num, Model model) {
-		AdVo getAdInfo=service.getAdInfo(ad_num);
-		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
-		int adInfo_Num=getAdInfoInfo.get(0).getAdInfo_num();
-		AdImageVo getAdInfoImage=service.getAdInfoImage(adInfo_Num);
-		model.addAttribute("getAdInfo", getAdInfo);
-		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
-		model.addAttribute("getAdInfoImage", getAdInfoImage);
+		goWithData(ad_num, model);
 		return "/admin/adminAdManagement/requestRefundAdInfo";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/partRefundedAd", produces="application/json;charset=utf-8")//일부 환불 ad 테이블 표시
@@ -361,20 +354,14 @@ public class AdController {
 	public int partRefundedAd(int ad_num) {
 		return service.partRefundedAd(ad_num);
 	}
-	@RequestMapping(value="/admin/adminAdManagement/allRefundedAd", produces="application/json;charset=utf-8")//일부 환불 ad 테이블 표시
+	@RequestMapping(value="/admin/adminAdManagement/allRefundedAd", produces="application/json;charset=utf-8")//일괄 환불 ad 테이블 표시
 	@ResponseBody
 	public int allRefundedAd(int ad_num) {
 		return service.allRefundedAd(ad_num);
 	}
 	@RequestMapping(value="/admin/adminAdManagement/allAdInfo")//All 광고 상세정보
 	public String adminAdManagementAllAdInfo(int ad_num, Model model) {
-		AdVo getAdInfo=service.getAdInfo(ad_num);
-		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
-		int adInfo_Num=getAdInfoInfo.get(0).getAdInfo_num();
-		AdImageVo getAdInfoImage=service.getAdInfoImage(adInfo_Num);
-		model.addAttribute("getAdInfo", getAdInfo);
-		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
-		model.addAttribute("getAdInfoImage", getAdInfoImage);
+		goWithData(ad_num, model);
 		return "/admin/adminAdManagement/allAdInfo";
 	}
 	

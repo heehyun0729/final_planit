@@ -21,6 +21,12 @@
 	<update id="adInfoDeclined" parameterType="int">
 		update adInfo set adInfo_status=2 where adInfo_num=#{adInfo_num}
 	</update>
+	<update id="requestRefundAdInfo" parameterType="int">
+		update adInfo set adInfo_status=3 where adInfo_num=#{adInfo_num}
+	</update>
+	<update id="requestRefundAllAdInfo" parameterType="int">
+		update adInfo set adInfo_status=3 where ad_num=#{ad_num}
+	</update>
 	<update id="adInfoRefunded" parameterType="int">
 		update adInfo set adInfo_status=4 where adInfo_num=#{adInfo_num}
 	</update>

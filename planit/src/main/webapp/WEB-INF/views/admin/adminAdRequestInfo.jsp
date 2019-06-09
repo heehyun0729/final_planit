@@ -36,7 +36,7 @@
 				<div class="card-body align-self-center">
 					<p class="card-text">7일 이후의 광고를 신청합니다.</p>
 					<p class="card-text">확률은 10%단위로 신청합니다.</p>
-					<p class="card-text">이미지 크기는 100*500입니다.</p>
+					<p class="card-text">이미지 크기는 1000*400입니다.</p>
 				</div>
 			</div>
 		</div>

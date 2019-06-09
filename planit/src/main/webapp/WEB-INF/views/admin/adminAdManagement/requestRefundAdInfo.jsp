@@ -41,7 +41,7 @@
 		if(refunded>1){
 			$("#allRefundBtn").remove();
 		}
-		$(".form-box4 a").on("click", function(event){//부분환불
+		$(".refund-box a").on("click", function(event){//부분환불
 			event.preventDefault();
 			const ad_num=$("#refundAd_num").val();
 			const cid="TC0ONETIME";
@@ -72,7 +72,6 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-auto text-center">
-					<br>
 					<div class="alert alert-secondary"><span class="">번호</span></div>
 					<div>${getAdInfo.ad_num }</div><br>
 					<div class="alert alert-secondary"><span class="">회사명</span></div>
@@ -85,7 +84,6 @@
 					<div>${getAdInfo.ad_tid }</div><br>
 				</div>
 				<div class="col-sm-auto text-center">
-					<br>
 					<div class="alert alert-secondary"><span class="">신청자 ID</span></div>
 					<div>${getAdInfo.mem_id }</div><br>
 					<div class="alert alert-secondary"><span class="">URL</span></div>
@@ -126,17 +124,19 @@
 						</c:otherwise>
 					</c:choose>	
 				</div>
-				<div class="col text-center">
-					<br>
+				<div class="col text-center refund-box">
 					<div class="alert alert-secondary"><span>세부정보</span></div><br>
 					<c:forEach var="vo" items="${getAdInfoInfo}">
 						<div>${vo.adInfo_date } - ${vo.adInfo_chance }% - <fmt:formatNumber value="${vo.adInfo_price }" pattern="#,###" />&#8361;
 							<c:choose>
 							 	<c:when test="${vo.adInfo_status=='4' }">
-							 		<img alt='환불됨' src='<c:url value='/resources/adminImages/refunded.png'/>'>
+							 		<span class="badge badge-secondary">환불 완료</span>
+							 	</c:when>
+							 	<c:when test="${vo.adInfo_status=='3' }">
+							 			<a href="#"><input type="hidden" value="${vo.adInfo_num }"><span class="badge badge-warning">환불</span><input type="hidden" value="${vo.adInfo_price }"></a>
 							 	</c:when>
 							 	<c:otherwise>
-							 		<a href="#"><input type="hidden" value="${vo.adInfo_num }"><img name="refund" alt='부분환불' src='<c:url value='/resources/adminImages/refund.png'/>'><input type="hidden" value="${vo.adInfo_price }"></a>
+							 		
 							 	</c:otherwise>
 							 </c:choose>
 						</div><br>
@@ -147,14 +147,62 @@
 			<div class="row">
 				<div class="col text-center">
 					<div class="col-sm-auto text-center">
-						<br><div class="alert alert-secondary"><span>광고 이미지</span></div><br>
-						<img style="width:1000px; height: 400px;" id="adImage" alt="광고 이미지" src="<c:url value='/resources/adImage/${getAdInfoImage.adImg_saveImg }'/>"><br><br>
-						${getAdInfoImage.adImg_orgImg }<br><br>
+						<div class="alert alert-secondary"><span>광고 이미지</span></div>
+						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						  <ol class="carousel-indicators">
+						  	<c:forEach var="i" items="${getAdInfoImage }" varStatus="status">
+							    <c:choose>
+								    <c:when test="${status.first }">
+								    	<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+								    </c:when>
+								    <c:otherwise>
+								    	<li data-target="#carouselExampleIndicators" data-slide-to="${status.index }"></li>
+								    </c:otherwise>
+							    </c:choose>
+						    </c:forEach>
+						  </ol>
+						  <div class="carousel-inner">
+						  	<c:forEach var="vo" items="${getAdInfoImage }" varStatus="status">
+							    <c:choose>
+								    <c:when test="${status.first }">
+								    	<div class="carousel-item active">
+								     		<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
+								    		<div class="carousel-caption d-none d-md-block">
+									        	<c:forEach var="getInfo" items="${getAdInfoInfo }" begin="${status.index }" end="${status.index }">
+									        		<h5>${getInfo.adInfo_date}</h5>
+									        	</c:forEach>
+									        </div>
+								    	</div>
+								    </c:when>
+								    <c:otherwise>
+									    <div class="carousel-item">
+									    	<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
+									    	<div class="carousel-caption d-none d-md-block">
+									        	<c:forEach var="getInfo" items="${getAdInfoInfo }" begin="${status.index }" end="${status.index }">
+									        		<h5>${getInfo.adInfo_date}</h5>
+									        	</c:forEach>
+									        </div>
+									    </div>
+								    </c:otherwise>
+							    </c:choose>
+						    </c:forEach>
+						  </div>
+						  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Previous</span>
+						  </a>
+						  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Next</span>
+						  </a>
+						</div>
+						<br>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col text-center">
+				<div class="col d-flex justify-content-center">
+					<br>
 					<a id="allRefundBtn" class="btn btn-info" href="#">일괄 환불</a>
 				</div>
 			</div>

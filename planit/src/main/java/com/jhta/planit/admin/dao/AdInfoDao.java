@@ -35,4 +35,10 @@ public class AdInfoDao {
 	public int adInfoRefunded(int adInfo_num) {
 		return sqlSession.update(NAMESPACE + "adInfoRefunded", adInfo_num);
 	}
+	public int requestRefundAdInfo(int adInfo_num) {
+		return sqlSession.update(NAMESPACE + "requestRefundAdInfo", adInfo_num);
+	}
+	public int requestRefundAllAdInfo(int ad_num) {
+		return sqlSession.update(NAMESPACE + "requestRefundAllAdInfo", ad_num);
+	}
 }

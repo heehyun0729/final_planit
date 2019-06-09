@@ -48,4 +48,7 @@ public class AdDao {
 	public int allRefundedAd(int ad_num) {
 		return sqlSession.update(NAMESPACE + "allRefundedAd", ad_num);
 	}
+	public int requestRefundAd(int ad_num) {
+		return sqlSession.update(NAMESPACE + "requestRefundAd", ad_num);
+	}
 }

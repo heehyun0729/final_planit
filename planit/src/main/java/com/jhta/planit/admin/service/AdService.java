@@ -91,6 +91,18 @@ public class AdService {
 		}
 		return 1;
 	}
+	@Transactional
+	public int requestRefundAllAd(int ad_num) {//일괄 환불 요청
+		adDao.requestRefundAd(ad_num);
+		adInfoDao.requestRefundAllAdInfo(ad_num);
+		return 1;
+	}
+	@Transactional
+	public int requestRefundPartAd(int ad_num, int adInfo_num) {//부분 환불 요청
+		adDao.requestRefundAd(ad_num);
+		adInfoDao.requestRefundAdInfo(adInfo_num);
+		return 1;
+	}
 	public int refundedAd(int adInfo_num) {//부분 광고 환불
 		return adInfoDao.adInfoRefunded(adInfo_num);
 	}
