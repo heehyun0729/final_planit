@@ -55,4 +55,7 @@
 		update accom set
 		accomChk=1 where accom_num=#{accom_num}
 	</update>
+	<select id="detail" parameterType="int" resultType="com.jhta.planit.accom.vo.AccomVo">
+		select * from accom where accom_num = #{accom_num} and accomChk = 0
+	</select>
 </mapper>

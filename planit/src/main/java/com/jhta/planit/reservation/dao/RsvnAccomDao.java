@@ -15,7 +15,7 @@ public class RsvnAccomDao {
 	private final String NAMESPACE = "com.jhta.planit.reservation.mybatis.RsvnMapper";
 	
 	public List<RsvnAccomVo> list(HashMap<String, Object> map){
-		return sqlSession.selectList(NAMESPACE + ".list", map);
+		return sqlSession.selectList(NAMESPACE + ".accomList", map);
 	}
 	public int count() {
 		return sqlSession.selectOne(NAMESPACE + ".count");

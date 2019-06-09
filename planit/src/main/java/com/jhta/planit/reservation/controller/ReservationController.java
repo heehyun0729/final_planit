@@ -19,7 +19,13 @@ import com.jhta.util.PageUtil;
 public class ReservationController {
 	@Autowired private RsvnAccomService accomService; 
 	
-	@RequestMapping(value="/reservation/list", method=RequestMethod.GET)
+	@RequestMapping("/reservation/detail")
+	public String detail(int accom_num) {
+		
+		return ".ReservationController.rsvnDetail";
+	}
+	
+	@RequestMapping("/reservation/list")
 	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
 		HashMap<String,Object> map=new HashMap<String, Object>();
 		
