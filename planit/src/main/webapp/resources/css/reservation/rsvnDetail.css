@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+#accomImage img {
+	width: 80%;
+}
+
+#accomIntro {
+	width: 80%;
+	height: 400px;
+	border: 1px solid #aaa;
+}
+
+#roomList {
+	width: 80%;
+}
+
+#roomList .roomDiv {
+	width: 90%;
+	height: 150px;
+	border: 1px solid #aaa;
+	margin-bottom: 10px;
+	padding: 5px;
+}
+
+#roomList .roomDiv .roomComp {
+	display: inline-block;
+	float: left;
+}
+
+#roomList .roomDiv .roomImg img {
+	width: 150px;
+	height: 100px;
+}
+
+#roomList .roomDiv .roomComm {
+	width: 450px;
+	height: 150px;
+}
