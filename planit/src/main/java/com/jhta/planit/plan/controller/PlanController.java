@@ -357,21 +357,21 @@ public class PlanController {
 	}
 	
 	public String getApi() throws IOException {
-	FileReader fr = null;
-	String key = "";
-	try {
-		fr = new FileReader(new File("C:\\spring\\workspace\\maven.1559389729634\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
-		while(true) {
-			int n = fr.read();
-			if(n == -1) break;
-			key += (char)n;
+		FileReader fr = null;
+		String key = "";
+		try {
+			fr = new FileReader(new File("C:\\spring\\workspace\\maven.1559389729634\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
+			while(true) {
+				int n = fr.read();
+				if(n == -1) break;
+				key += (char)n;
+			}
+		}catch(FileNotFoundException fe){
+			fe.printStackTrace();
+		}finally {
+			fr.close();
 		}
-	}catch(FileNotFoundException fe){
-		fe.printStackTrace();
-	}finally {
-		fr.close();
-	}
-	return key;
+		return key;
 	}
 	
 	@RequestMapping(value = "/googleMap", produces = "application/json;charset=utf-8")

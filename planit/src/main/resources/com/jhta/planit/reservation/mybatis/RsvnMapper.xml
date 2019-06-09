@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.reservation.mybatis.RsvnMapper">
-	<select id="accomList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
+	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
 		select * from
 		(
 		select a.accom_num accom_num, a.sell_num sell_num, a.accom_name accom_name, a.accom_addr accom_addr, 
@@ -20,11 +20,5 @@
 	</select>
 	<select id="count" resultType="int">
 		select NVL(count(*), 0) from accom where accomChk = 0
-	</select>
-	<select id="accomDetail" parameterType="int" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
-		select * from accom where accom_num = #{accom_num} and accomChk = 0
-	</select>
-	<select id="roomList">
-	
 	</select>
 </mapper>

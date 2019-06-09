@@ -1,6 +1,10 @@
 package com.jhta.planit.accom.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.UUID;
@@ -8,21 +12,17 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.seller.vo.SellerVo;
-import com.jhta.planit.user.service.MembersService;
 
 
 
@@ -34,11 +34,11 @@ public class AccomInsertController {
 	}
 	@RequestMapping(value="/accommInsert",method = RequestMethod.GET)
 	public String join() {
-		return "/accom/accomInsert";
+		return ".accom.accomInsert";
 	}
 	@RequestMapping(value="/sellerInsertListForm",method = RequestMethod.GET)
 	public String goHome() {
-		return "/seller/sellerInsertListForm";
+		return ".seller.sellerInsertListForm";
 	}
 	@RequestMapping(value="/accommInsert",method=RequestMethod.POST)
 	public String fileupload(String mem_id, String accom_name,String accom_addr,String accom_comm,String accom_country,String accom_city,MultipartFile file1,
@@ -70,6 +70,31 @@ public class AccomInsertController {
 			System.out.println(e.getMessage());
 			return "error";
 		}
+	}
+	public String getApi() throws IOException {
+		FileReader fr = null;
+		String key = "";
+		try {
+			fr = new FileReader(new File("C:\\spring\\workspace\\maven.1559389729634\\planit\\src\\main\\webapp\\resources\\apiKey2.txt"));
+			while(true) {
+				int n = fr.read();
+				if(n == -1) break;
+				key += (char)n;
+			}
+		}catch(FileNotFoundException fe){
+			fe.printStackTrace();
+		}finally {
+			fr.close();
+		}
+		return key;
+	}
+	@RequestMapping(value = "/accom/apiKey", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String getApiJson() throws Exception{
+		String apiKey = getApi();
+		JSONObject json = new JSONObject();
+		json.put("apiKey", apiKey);
+		return json.toString();
 	}
 }
 
