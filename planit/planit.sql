@@ -237,6 +237,9 @@ CREATE TABLE adImage
 	adInfo_num number(7,0) NOT NULL,
 	adImg_orgImg varchar2(500),
 	adImg_saveImg varchar2(500),
+	adImg_status number(1),
+	adimg_changeOrgImg varchar2(500),
+	adimg_changeSaveImg varchar2(500),
 	PRIMARY KEY (adImg_num)
 );
 create sequence adImage_num_seq;

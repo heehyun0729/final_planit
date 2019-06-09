@@ -47,7 +47,7 @@ public class AdService {
 			AdInfoVo adInfoVo=new AdInfoVo(0, ad_num, adInfo_date, adInfo_chance, 0, 0, 0, adInfo_price);
 			adInfoDao.insert(adInfoVo); //adInfo테이블 DB정보 저장
 			int adInfo_num=adInfoDao.getRecentAdInfoNum();
-			AdImageVo adImageVo=new AdImageVo(0, adInfo_num, adImg_orgImg, adImg_savImg);
+			AdImageVo adImageVo=new AdImageVo(0, adInfo_num, adImg_orgImg, adImg_savImg, 0, null, null);
 			adImageDao.insert(adImageVo);//adImage테이블 DB정보 저장
 		}
 		return true;
@@ -61,8 +61,14 @@ public class AdService {
 	public int getTotalRowCount(HashMap<String, Object> map) {
 		return adDao.getTotalRowCount(map);
 	}
+	public int getAdImageTotalRowCount(HashMap<String, Object> map) {
+		return adImageDao.getTotalRowCount(map);
+	}
 	public List<AdVo> getAdList(HashMap<String, Object> map) {
 		return adDao.getAdList(map);
+	}
+	public List<AdImageVo> getAdImageList(HashMap<String, Object> map) {
+		return adImageDao.getAdImageList(map);
 	}
 	public List<AdInfoVo> getAdInfoInfo(int ad_num){
 		return adInfoDao.getAdInfoInfo(ad_num);
@@ -106,6 +112,9 @@ public class AdService {
 	public int refundedAd(int adInfo_num) {//부분 광고 환불
 		return adInfoDao.adInfoRefunded(adInfo_num);
 	}
+	public int adInfoDeclined(int adInfo_num) {//부분 광고 개제 중단
+		return adInfoDao.adInfoDeclined(adInfo_num);
+	}
 	public int partRefundedAd(int ad_num) {//ad테이블 부분환불 표시
 		return adDao.partRefundedAd(ad_num);
 	}
@@ -125,8 +134,22 @@ public class AdService {
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
 		int approveAdBadge=adDao.getApproveAdBadge();
 		int requestRefundAdBadge=adDao.getRequestRefundAdBadge();
+		int requestChangeAdImageBadge=adImageDao.getRequestChangeAdImageBadge();
 		map.put("approveAdBadge", approveAdBadge);
 		map.put("requestRefundAdBadge", requestRefundAdBadge);
+		map.put("requestChangeAdImageBadge", requestChangeAdImageBadge);
 		return map;
+	}
+	public AdImageVo getRequestChangeAdInfoImage(int adImg_num) {//이미지번호로 정보 얻기
+		return adImageDao.getRequestChangeAdInfoImage(adImg_num);
+	}
+	public int requestChangeAdImage(HashMap<String, String> map) {//광고 이미지 변경 신청
+		return adImageDao.requestChangeAdImage(map);
+	}
+	public int requestChangeAdImageApprove(HashMap<String, String> map) {//광고 이미지 변경 승인
+		return adImageDao.requestChangeAdImageApprove(map);
+	}
+	public int requestChangeAdImageDecline(int adImg_num) {//광고 이미지 변경 거절
+		return adImageDao.requestChangeAdImageDecline(adImg_num);
 	}
 }

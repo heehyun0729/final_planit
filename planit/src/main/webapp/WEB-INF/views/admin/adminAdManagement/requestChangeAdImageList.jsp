@@ -1,17 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx" %>
 <tilesx:useAttribute name="current" />
-<link rel="stylesheet" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
-<style type="text/css">
-	
-</style>
-<script type="text/javascript">
-	
-</script>
-<div>
 <header>
 </header>
 <section>
@@ -28,32 +21,29 @@
 					<table class="table table-hover ">
 						<thead>
 						<tr>
-							<th scope="col">번호</th><th scope="col">신청자</th><th scope="col">회사명</th><th scope="col">신청일</th><th scope="col">결재일</th><th scope="col">결제금액</th><th scope="col">결제수단</th><th scope="col">상세정보</th>
+							<th scope="col">이미지 번호</th><th scope="col">광고상세 번호</th><th scope="col">기존 이미지 이름</th><th scope="col">수정 이미지 이름</th><th scope="col">상세정보</th>
 						</tr>
 						</thead>
 						<tbody>
 						<c:choose>
-							<c:when test="${getAdList[0]!=null }">
-								<c:forEach var="vo" items="${getAdList }">
+							<c:when test="${getAdImageList[0]!=null }">
+								<c:forEach var="vo" items="${getAdImageList }">
 									<tr>
-										<td>${vo.ad_num }</td>
-										<td>${vo.mem_id }</td>
-										<td>${vo.ad_company }</td>
-										<td>${vo.ad_requestDate }</td>
-										<td>${vo.ad_approveDate }</td>
-										<td><fmt:formatNumber value="${vo.ad_price}" pattern="#,###" /></td>
-										<td>${vo.ad_payment }</td>
-										<td><a href="<c:url value='/admin/adminAdManagement/requestRefundAdInfo?ad_num=${vo.ad_num }'/>"><img name="getInfo" alt='상세보기' src='<c:url value='/resources/adminImages/chat.png'/>'></a></td>
+										<td scope="row">${vo.adImg_num }</td>
+										<td>${vo.adInfo_num }</td>
+										<td>${vo.adImg_orgImg }</td>
+										<td>${vo.adImg_changeOrgImg }</td>
+										<td><a href="<c:url value='/admin/adminAdManagement/requestChangeAdImageInfo?adImg_num=${vo.adImg_num }'/>"><img name="getInfo" alt='상세보기' src='<c:url value='/resources/adminImages/chat.png'/>'></a></td>
 									</tr>
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td scope="row" colspan="8">해당 요청이 없습니다.</td>
+									<td scope="row" colspan="5">해당 요청이 없습니다.</td>
 								</tr>
 							</c:otherwise>
-						</c:choose>
-						</tbody>
+						</c:choose>		
+						</tbody>				
 					</table>
 					<div class="d-flex justify-content-center">
 						<ul class="pagination">
@@ -63,10 +53,10 @@
 							<c:forEach var="i" begin="${map.startPageNum }" end="${map.endPageNum }">
 								<c:choose>
 									<c:when test="${map.pageNum==i }">
-										<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestRefundAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">${i }</a></li>
+										<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">${i }</a></li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestRefundAdList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">${i }</a></li>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">${i }</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -75,13 +65,12 @@
 							</c:if>
 						</ul>
 					</div>
-					<form id="form" class="form-inline d-flex justify-content-center" method="post" action="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>">
+					<form id="form" class="form-inline d-flex justify-content-center" method="post" action="<c:url value='/admin/adminAdManagement/requestChangeAdImageList'/>">
 						<select name="field" class="custom-select">
-							<option value="ad_num" <c:if test="${param.field=='ad_num' }">selected="selected"</c:if>>번호</option>
-							<option value="mem_id" <c:if test="${param.field=='mem_id' }">selected="selected"</c:if>>신청자</option>
-							<option value="ad_company" <c:if test="${param.field=='ad_company' }">selected="selected"</c:if>>회사명</option>
-							<option value="ad_requestDate" <c:if test="${param.field=='ad_requestDate' }">selected="selected"</c:if>>신청일</option>
-							<option value="ad_price" <c:if test="${param.field=='ad_price' }">selected="selected"</c:if>>결제금액</option>
+							<option value="adImg_num" <c:if test="${param.field=='adImg_num' }">selected="selected"</c:if>>번호</option>
+							<option value="adInfo_num" <c:if test="${param.field=='adInfo_num' }">selected="selected"</c:if>>상세 번호</option>
+							<option value="adImg_orgImg" <c:if test="${param.field=='adImg_orgImg' }">selected="selected"</c:if>>기존 이미지 이름</option>
+							<option value="adImg_changeOrgImg" <c:if test="${param.field=='adImg_changeOrgImg' }">selected="selected"</c:if>>수정 이미지 이름</option>
 						</select>
 							<input class="form-control mr-sm-2" value="${param.keyword }" name="keyword" type="search" placeholder="검색" aria-label="Search">
 							<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">검색</button>
@@ -110,4 +99,3 @@
 </section>
 <footer>
 </footer>
-</div>

@@ -15,6 +15,7 @@
 					<ul class="nav nav-pills">
 						<li class="nav-item"><a class="nav-link ${current =='approvedAdList' ? 'active': ''}" href="<c:url value='/admin/adminAdManagement/approvedAdList'/>" class="ui-tabs-anchor">승인요청</a></li>
 						<li class="nav-item"><a class="nav-link ${current =='requestRefundAdList' ? 'active': ''}" href="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>" class="ui-tabs-anchor">환불요청</a></li>
+						<li class="nav-item"><a class="nav-link ${current =='requestChangeAdImageList' ? 'active': ''}" href="<c:url value='/admin/adminAdManagement/requestChangeAdImageList'/>" class="ui-tabs-anchor">이미지 수정요청</a></li>
 						<li class="nav-item"><a class="nav-link ${current =='allAdList' ? 'active': ''}" href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="ui-tabs-anchor">모든광고</a></li>
 					</ul>
 					<table class="table table-hover ">

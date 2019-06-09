@@ -30,6 +30,11 @@
 					<span id="requestRefundAdBadge" class="badge badge-pill badge-primary ml-2"></span>
 				</span>
 			</a>
+			<a href="<c:url value='/admin/adminAdManagement/requestChangeAdImageList'/>" class="list-group-item list-group-item-action bg-dark text-white">
+				<span class="menu-collapsed">이미지 수정요청
+					<span id="requestChangeAdImageBadge" class="badge badge-pill badge-primary ml-2"></span>
+				</span>
+			</a>
 			<a href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="list-group-item list-group-item-action bg-dark text-white">
 				<span class="menu-collapsed">모든 광고</span>
 			</a>

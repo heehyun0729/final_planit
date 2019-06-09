@@ -70,6 +70,43 @@ public class AdController {
 		model.addAttribute("map", map);
 		return 1;
 	}
+	public int adImageSearch(int pageNum, String field, String keyword, String adImg_status, Model model) {//광고 이미지 수정 게시판 검색
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("adImg_status", adImg_status);
+		int totalRowCount=service.getAdImageTotalRowCount(map);
+		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
+		map.put("pageNum", pageNum);
+		map.put("startPageNum", pu.getStartPageNum());
+		map.put("endPageNum", pu.getEndPageNum()); 
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<AdImageVo> getAdImageList=service.getAdImageList(map);
+		model.addAttribute("getAdImageList", getAdImageList);
+		model.addAttribute("map", map);
+		return 1;
+	}
+	public HashMap<String, String> imageUpload(MultipartFile file, HttpSession session) {
+		String path=session.getServletContext().getRealPath("/resources/adImage");//파일 업로드
+		//System.out.println("@@@@@@@"+path);//업로드 경로
+		String adImg_orgImg=file.getOriginalFilename();
+		String adImg_savImg=UUID.randomUUID() + "_" + adImg_orgImg;
+		HashMap<String, String> map=new HashMap<String, String>();
+		try {
+			InputStream in=file.getInputStream();
+			FileOutputStream out=new FileOutputStream(path + "/" + adImg_savImg);
+			FileCopyUtils.copy(in, out);
+			map.put("adImg_orgImg", adImg_orgImg);
+			map.put("adImg_savImg", adImg_savImg);
+			map.put("path", path);
+			in.close();
+			out.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 	@RequestMapping(value="/adminAdRequestFormOk", method=RequestMethod.GET)///완료페이지 실험용
 	public String adminAdRequestFormGetOk() {
 		return ".admin.adminAdRequestFormOk";
@@ -132,20 +169,11 @@ public class AdController {
 	}
 	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)//광고 신청 폼 진행
 	public String adminAdRequestFormPost(AdVo vo, String[] order, Date[] orderDate, int[] orderPrice, MultipartFile file, HttpSession session) {
-		String path=session.getServletContext().getRealPath("/resources/adImage");//파일 업로드
-		//System.out.println("@@@@@@@"+path);//업로드 경로
-		String adImg_orgImg=file.getOriginalFilename();
-		String adImg_savImg=UUID.randomUUID() + "_" + adImg_orgImg;
-		try {
-			InputStream in=file.getInputStream();
-			FileOutputStream out=new FileOutputStream(path + "/" + adImg_savImg);
-			FileCopyUtils.copy(in, out);
-			in.close();
-			out.close();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}		
+		HashMap<String,String> imageMap=imageUpload(file, session);
 		HashMap<String, Object> map=new HashMap<String, Object>();//service에서 쓰일 정보들 map에 담기
+		String adImg_orgImg=imageMap.get("adImg_orgImg");
+		String adImg_savImg=imageMap.get("adImg_savImg");
+		String path=imageMap.get("path");
 		map.put("adVo", vo);
 		map.put("order", order);
 		map.put("orderDate", orderDate);
@@ -161,8 +189,57 @@ public class AdController {
 			f.delete();
 			System.out.println("파일 삭제 완료");
 			return ".error";
-		}		
+		}
 		return ".admin.adminAdRequestFormOk";
+	}
+	@RequestMapping(value="/requestChangeAdImage", method=RequestMethod.GET)//광고 이미지 변경 요청
+	public String adminAdRequestFormPost(int ad_num, int adImg_num, Model model) {
+		AdImageVo vo=service.getRequestChangeAdInfoImage(adImg_num);
+		model.addAttribute("vo", vo);
+		model.addAttribute("ad_num", ad_num);
+		model.addAttribute("adImg_num", adImg_num);
+		return "/admin/adminAdManagement/requestChangeAdImage";
+	}
+	@RequestMapping(value="/requestChangeAdImage", method=RequestMethod.POST)//광고 이미지 변경 요청
+	public String adminAdRequestFormPostOk(int ad_num, String adImg_num, MultipartFile file, HttpSession session, Model model) {
+		HashMap<String,String> imageMap=imageUpload(file, session);
+		HashMap<String,String> map=new HashMap<String, String>();
+		map.put("adImg_changeOrgImg", imageMap.get("adImg_orgImg"));
+		map.put("adImg_changeSaveImg", imageMap.get("adImg_savImg"));
+		map.put("adImg_num", adImg_num);
+		try {
+			service.requestChangeAdImage(map);
+		}catch(Exception e) {//오류가 발생할경우 업로드 되었던 파일 삭제
+			System.out.println(e.getMessage());
+			File f=new File(imageMap.get("path") + "/" + imageMap.get("adImg_savImg"));
+			f.delete();
+			System.out.println("파일 삭제 완료");
+		}		
+		goWithData(ad_num, model);
+		return "/admin/adminAdManagement/adAnalytics";
+	}
+	@RequestMapping(value="/admin/adminAdManagement/requestChangeAdImageInfo")//광고 이미지 변경 상세정보
+	public String requestChangeAdImageInfo(int adImg_num, Model model) {
+		AdImageVo vo=service.getRequestChangeAdInfoImage(adImg_num);
+		model.addAttribute("vo", vo);
+		return "/admin/adminAdManagement/requestChangeAdImageInfo";
+	}
+	@RequestMapping(value="/admin/adminAdManagement/requestChangeAdImageApprove")//이미지 수정 승인
+	public String adminAdManagementRequestChangeAdImageApprove(String adImg_num) {
+		AdImageVo vo=service.getRequestChangeAdInfoImage(Integer.parseInt(adImg_num));
+		String adImg_changeOrgImg=vo.getAdImg_changeOrgImg();
+		String adImg_changeSaveImg=vo.getAdImg_changeSaveImg();
+		HashMap<String, String> map=new HashMap<String, String>();
+		map.put("adImg_num", adImg_num);
+		map.put("adImg_changeOrgImg", adImg_changeOrgImg);
+		map.put("adImg_changeSaveImg", adImg_changeSaveImg);
+		service.requestChangeAdImageApprove(map);		
+		return "/admin/adminAdManagement/closeModal";	
+	}
+	@RequestMapping(value="/admin/adminAdManagement/requestChangeAdImageDecline")//이미지 수정 거절
+	public String adminAdManagementRequestChangeAdImageDecline(int adImg_num) {
+		service.requestChangeAdImageDecline(adImg_num);
+		return "/admin/adminAdManagement/closeModal";
 	}
 	@RequestMapping(value="/adminAdGetChance", produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -256,6 +333,12 @@ public class AdController {
 		search(pageNum, field, keyword, ad_progress, model);
 		return "-admin-adminAdManagement-requestRefundAdList";
 	}
+	@RequestMapping(value="/admin/adminAdManagement/requestChangeAdImageList")// 이미지 수정 요청 광고 리스트
+	public String adminAdManagementRequestChangeAdImageList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
+		String adImg_status="1";
+		adImageSearch(pageNum, field, keyword, adImg_status, model);
+		return "-admin-adminAdManagement-requestChangeAdImageList";
+	}
 	@RequestMapping(value="/admin/adminAdManagement/allAdList")//모든 광고 리스트
 	public String adminAdManagementAllAdList(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
 		String ad_progress="-1";
@@ -341,6 +424,12 @@ public class AdController {
 	@RequestMapping(value="/requestRefundPartAd")//부분 환불 요청
 	public String requestRefundAllAd(int ad_num, int adInfo_num, Model model) {
 		service.requestRefundPartAd(ad_num, adInfo_num);
+		goWithData(ad_num, model);
+		return "/admin/adminAdManagement/adAnalytics";
+	}
+	@RequestMapping(value="/requestDeclineAd")//개제 중단
+	public String requestDeclineAd(int ad_num, int adInfo_num, Model model) {
+		service.adInfoDeclined(adInfo_num);
 		goWithData(ad_num, model);
 		return "/admin/adminAdManagement/adAnalytics";
 	}

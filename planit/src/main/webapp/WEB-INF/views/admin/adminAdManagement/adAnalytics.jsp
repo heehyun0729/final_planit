@@ -145,7 +145,7 @@
 					</c:otherwise>
 				</c:choose>	
 			</div>
-			<div class="col text-center refundRequest-box">
+			<div class="col text-center">
 				<div class="alert alert-secondary"><span>세부정보</span></div><br>
 				<c:forEach var="vo" items="${getAdInfoInfo}">
 					<div>${vo.adInfo_date } - ${vo.adInfo_chance }% - <fmt:formatNumber value="${vo.adInfo_price }" pattern="#,###" />&#8361;
@@ -156,8 +156,14 @@
 						 	<c:when test="${vo.adInfo_status=='3' }">
 						 		<span class="badge badge-info">환불 요청됨</span>
 						 	</c:when>
+						 	<c:when test="${vo.adInfo_status=='2' }">
+						 		<span class="badge badge-secondary">개제 중단</span>
+						 	</c:when>
 						 	<c:otherwise>
-						 		<a href="<c:url value='/requestRefundPartAd?ad_num=${vo.ad_num }&adInfo_num=${vo.adInfo_num }'/>"><input type="hidden" value="${vo.adInfo_num }"><span class="badge badge-warning">환불 요청</span><input type="hidden" value="${vo.adInfo_price }"></a>
+						 		<div class="d-inline-block refundRequest-box">
+							 		<a href="<c:url value='/requestRefundPartAd?ad_num=${vo.ad_num }&adInfo_num=${vo.adInfo_num }'/>"><input type="hidden" value="${vo.adInfo_num }"><span class="badge badge-warning">환불 요청</span><input type="hidden" value="${vo.adInfo_price }"></a>
+							 	</div>
+							 	<a href="<c:url value='requestDeclineAd?ad_num=${vo.ad_num }&adInfo_num=${vo.adInfo_num }'/>"><span class="badge badge-danger">게재 중단 요청</span></a>
 						 	</c:otherwise>
 						 </c:choose>
 					</div><br>
@@ -183,30 +189,52 @@
 					    </c:forEach>
 					  </ol>
 					  <div class="carousel-inner">
-						<c:forEach var="vo" items="${getAdInfoImage }" varStatus="status">
-							<c:choose>
-						 		<c:when test="${status.first }">
+					  	<c:forEach var="vo" items="${getAdInfoImage }" varStatus="status">
+						    <c:choose>
+							    <c:when test="${status.first }">
 							    	<div class="carousel-item active">
 							     		<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
 							    		<div class="carousel-caption d-none d-md-block">
 								        	<c:forEach var="getInfo" items="${getAdInfoInfo }" begin="${status.index }" end="${status.index }">
 								        		<h5>${getInfo.adInfo_date}</h5>
+								        		<c:choose>
+								        			<c:when test="${vo.adImg_status=='1' }">
+								        				<a href="<c:url value='/requestChangeAdImage?ad_num=${getInfo.ad_num }&adImg_num=${vo.adImg_num }'/>">이미지 수정하기(진행중)</a>
+								        			</c:when>
+								        			<c:when test="${vo.adImg_status=='2' }">
+									        				<a href="<c:url value='/requestChangeAdImage?ad_num=${getInfo.ad_num }&adImg_num=${vo.adImg_num }'/>">이미지 수정하기(거절됨)</a>
+									        		</c:when>
+								        			<c:otherwise>
+								        				<a href="<c:url value='/requestChangeAdImage?ad_num=${getInfo.ad_num }&adImg_num=${vo.adImg_num }'/>">이미지 수정하기</a>
+								        			</c:otherwise>
+								        		</c:choose>
 								        	</c:forEach>
 								        </div>
 							    	</div>
-						 		</c:when>
-							 	<c:otherwise>
+							    </c:when>
+							    <c:otherwise>
 								    <div class="carousel-item">
 								    	<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
 								    	<div class="carousel-caption d-none d-md-block">
 								        	<c:forEach var="getInfo" items="${getAdInfoInfo }" begin="${status.index }" end="${status.index }">
 								        		<h5>${getInfo.adInfo_date}</h5>
+								        		<c:choose>
+								        			<c:when test="${vo.adImg_status=='1' }">
+								        				<a href="<c:url value='/requestChangeAdImage?ad_num=${getInfo.ad_num }&adImg_num=${vo.adImg_num }'/>">이미지 수정하기(진행중)</a>
+								        			</c:when>
+								        			<c:when test="${vo.adImg_status=='2' }">
+									        				<a href="<c:url value='/requestChangeAdImage?ad_num=${getInfo.ad_num }&adImg_num=${vo.adImg_num }'/>">이미지 수정하기(거절됨)</a>
+									        		</c:when>
+								        			<c:otherwise>
+								        				<a href="<c:url value='/requestChangeAdImage?ad_num=${getInfo.ad_num }&adImg_num=${vo.adImg_num }'/>">이미지 수정하기</a>
+								        			</c:otherwise>
+								        		</c:choose>
 								        	</c:forEach>
 								        </div>
 								    </div>
-							 	</c:otherwise>
-							</c:choose>
-						</c:forEach>
+							    </c:otherwise>
+						    </c:choose>
+					    </c:forEach>
 					  </div>
 					  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>

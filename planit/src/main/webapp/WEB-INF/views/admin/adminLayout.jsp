@@ -34,7 +34,7 @@
 				  window.location.reload();
 			});
 			var nowPage="";//사이드바 자동 열기
-			if(${current=='approvedAdList' || current=='requestRefundAdList' || current=='allAdList' || current=='adCalendar'}){
+			if(${current=='approvedAdList' || current=='requestRefundAdList' || current=='allAdList' || current=='requestChangeAdImageList' || current=='adCalendar'}){
 				nowPage="ad";
 			}
 			if(nowPage=="ad"){
@@ -47,9 +47,11 @@
 				if(data!=null){
 					approveAdBadge=data["approveAdBadge"];
 					requestRefundAdBadge=data["requestRefundAdBadge"];
-					adBadge=approveAdBadge+requestRefundAdBadge;
+					requestChangeAdImageBadge=data["requestChangeAdImageBadge"];
+					adBadge=approveAdBadge+requestRefundAdBadge+requestChangeAdImageBadge;
 					if(approveAdBadge!=0) $("#approveAdBadge").text(approveAdBadge);
 					if(requestRefundAdBadge!=0) $("#requestRefundAdBadge").text(requestRefundAdBadge);
+					if(requestChangeAdImageBadge!=0) $("#requestChangeAdImageBadge").text(requestChangeAdImageBadge);
 					if(adBadge!=0) $("#adBadge").text(adBadge);
 				}
 			});
