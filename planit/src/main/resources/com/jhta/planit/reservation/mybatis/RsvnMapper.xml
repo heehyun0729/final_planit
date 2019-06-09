@@ -6,16 +6,38 @@
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
 		select * from
 		(
-		select a.accom_num accom_num, a.sell_num sell_num, a.accom_name accom_name, a.accom_addr accom_addr, 
-		    a.accom_comm accom_comm, a.accom_country accom_country, a.accom_city accom_city, 
-		    a.accommImg_orgImg accommImg_orgImg, a.accommImg_saveImg accommImg_saveImg, a.accomchk accomchk,
-		    r.room_price, rownum rnum
-		from accom a, (select accom_num, NVL(min(room_price), 0) room_price
-		                from room
-		                where roomchk = 0
-		                group by accom_num) r
-		where a.accom_num = r.accom_num
-			 and a.accomchk = 0
+		    select bb.*, rownum rnum from
+		    (
+		        select distinct a.*
+		        from accom a, room r
+		        where a.accomchk = 0
+		        	and a.accom_num = r.accom_num
+		        	<if test="keyword != null and keyword != ''">
+		           	 and a.accom_name like '%'||#{keyword}||'%' or a.accom_city like '%'||#{keyword}||'%'
+		            </if>
+		            and r.room_num in
+		            (
+		                select r.room_num
+		                from room r
+		                <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
+		                , ( select NVL(z.room_num, -1) room_num from
+		                                (
+		                                select rs.room_num room_num
+		                                from rsvn rs, rsvnPay rp
+		                                where rs.rsvn_num = rp.rsvn_num
+		                                    and rp.rsvnPay_stat = 0
+		                                    and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+		                                    or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+		                                )z right outer join dual on 1 = 1
+		                            )aa 
+		                </if>
+		                where r.roomChk = 0
+		                <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
+                    		and r.room_num not in aa.room_num
+                    	 </if>
+		            )
+		        order by a.accom_num desc
+		    )bb
 		)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
 	</select>
 	<select id="count" resultType="int">

@@ -16,26 +16,35 @@
 		<h3>숙소설명</h3>
 		<div>${avo.accom_comm }</div>
 	</div>
+	<div id = "roomSearch">
+		<form>
+			<input type="text" id="checkin"> ~ <input type="text" id="checkout">
+			인원 : <input type="button" id="decrease" value = "-" onclick="decreaseCnt()">
+				  <input type="number" id="rsvnCnt" value="1">
+				  <input type="button" id="increase" value="+" onclick="increaseCnt()">
+			<input type="submit" value="검색">
+		</form>
+	</div>
 	<div id = "roomList">
 		<c:forEach var = "rvo" items = "${rlist }">
 			<div class = "roomDiv">
 				<div>
 					<h4><a href = "#">${rvo.room_type }</a></h4>
 				</div>
-				<div class = "roomImg roomComp">
+				<div class = "roomImg">
 					<!-- <img src = "<c:url value='/resources/uploadRoom/${rvo.room_images[0].roomImg_saveImg}'/>">
 					 -->
 					<img src = "<c:url value='/resources/uploadRoom/room1.jpg'/>">
 				</div>
-				<div class = "roomComm roomComp">
+				<div class = "roomComm">
 					<p>${rvo.room_comm }</p>
 				</div>
-				<div class = "roomPrice roomComp">
-					<p>1인 1박 가격</p>
-					<h4>${rvo.room_price }원</h4>
-				</div>
-				<div class = "roomBtn roomComp">
+				<div class = "roomBtn">
 					<input type = "button" value = "예약하기">
+				</div>
+				<div class = "roomPrice">
+					<p>1박 가격</p>
+					<h4>${rvo.room_price }원</h4>
 				</div>
 			</div>
 			<div style = "clear:both;"></div>

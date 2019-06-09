@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.reservation.service.RsvnAccomService;
@@ -42,9 +39,14 @@ public class ReservationController {
 	}
 	
 	@RequestMapping("/reservation/list")
-	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
+	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 
+			String keyword, String checkin, String checkout, @RequestParam(value = "cnt", defaultValue = "1") int cnt, Model model) {
 		HashMap<String,Object> map=new HashMap<String, Object>();
-		
+		map.put("keyword", keyword);
+		map.put("checkin", checkin);
+		map.put("checkout", checkout);
+		map.put("cnt", cnt);
+				
 		int rowCnt = rsvnAccomService.count();
 		PageUtil pu = new PageUtil(pageNum, rowCnt, 8, 5);
 		int startRow = pu.getStartRow();
@@ -63,6 +65,10 @@ public class ReservationController {
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("checkin", checkin);
+		model.addAttribute("checkout", checkout);
+		model.addAttribute("cnt", cnt);
 		System.out.println(pu.getStartRow() + ", " + pu.getEndRow());
 		return ".reservation.rsvnList";
 	}

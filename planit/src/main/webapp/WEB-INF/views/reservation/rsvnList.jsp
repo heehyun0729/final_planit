@@ -12,11 +12,11 @@
 		</ul>
 	</div>
 	<div id = "accomSearch">
-		<form>
-			도시 혹은 숙소: <input type="text" id="rsvnKeyword">
-			날짜: <input type="text" id="checkin"> ~ <input type="text" id="checkout">
+		<form method="post" action="<c:url value = '/reservation/list'/>">
+			도시 혹은 숙소: <input type="text" id="rsvnKeyword" name = "keyword" value = "${keyword }">
+			날짜: <input type="text" id="checkin" name = "checkin" value = "${checkin }"> ~ <input type="text" id="checkout" name = "checkout" value = "${checkout }">
 			인원 : <input type="button" id="decrease" value = "-" onclick="decreaseCnt()">
-				  <input type="number" id="rsvnCnt" value="1">
+				  <input type="number" id="rsvnCnt" value="1" name = "cnt" value = "${cnt }">
 				  <input type="button" id="increase" value="+" onclick="increaseCnt()">
 			<input type="submit" value="검색">
 		</form>
@@ -39,20 +39,20 @@
 	</div>
 	<div id = "accomPage">
 		<c:if test="${startPage > 1 }">
-			<a href = "<c:url value = '/reservation/list?pageNum=${startPage - 1 }'/>"><span style = "color:skyblue;">[이전]</span></a>
+			<a href = "<c:url value = '/reservation/list?pageNum=${startPage - 1 }&keyword=${keyword }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>"><span style = "color:skyblue;">[이전]</span></a>
 		</c:if>
 		<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
 			<c:choose>
 				<c:when test="${i == pageNum }">
-					<a href = "<c:url value = '/reservation/list?pageNum=${i }'/>"><span style = "color:skyblue;">[${i }]</span></a>
+					<a href = "<c:url value = '/reservation/list?pageNum=${i }&keyword=${keyword }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>"><span style = "color:skyblue;">[${i }]</span></a>
 				</c:when>
 				<c:otherwise>
-					<a href = "<c:url value = '/reservation/list?pageNum=${i }'/>"><span style = "color:gray;">[${i }]</span></a>
+					<a href = "<c:url value = '/reservation/list?pageNum=${i }&keyword=${keyword }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>"><span style = "color:gray;">[${i }]</span></a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${endPage < pageCnt }">
-			<a href = "<c:url value = '/reservation/list?pageNum=${endPage + 1 }'/>"><span style = "color:skyblue;">[다음]</span></a>
+			<a href = "<c:url value = '/reservation/list?pageNum=${endPage + 1 }&keyword=${keyword }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>"><span style = "color:skyblue;">[다음]</span></a>
 		</c:if>
 	</div>
 </div>
