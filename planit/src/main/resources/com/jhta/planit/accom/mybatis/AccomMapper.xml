@@ -58,4 +58,13 @@
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.accom.vo.AccomVo">
 		select * from accom where accom_num = #{accom_num} and accomChk = 0
 	</select>
+	<update id="update" parameterType="com.jhta.planit.accom.vo.AccomVo">
+		update accom set
+		accom_name=#{accom_name},accom_comm=#{accom_comm}
+		<if test="accommImg_orgImg!=null">
+			,accommImg_orgImg=#{accommImg_orgImg},
+			accommImg_saveImg=#{accommImg_saveImg}
+		</if>
+		where accom_num=#{accom_num}
+	</update>
 </mapper>

@@ -43,4 +43,7 @@ public class AccomService {
 	public AccomVo detail(int accom_num) {
 		return dao.detail(accom_num);
 	}
+	public int update(AccomVo vo) {
+		return dao.update(vo);
+	}
 }
