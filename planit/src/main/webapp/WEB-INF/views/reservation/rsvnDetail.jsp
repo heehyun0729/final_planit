@@ -8,9 +8,7 @@
 		<p>${avo.accom_addr} <a href = "#">지도 보기</a></p>
 	</div>
 	<div id = "accomImage">
-		<!-- <img src = "<c:url value='/resources/uploadAccom/${avo.accommImg_saveImg }'/>">
-		-->
-		<img src = "<c:url value='/resources/uploadAccom/hotel.jpg'/>">
+		 <img src = "<c:url value='/resources/uploadAccom/${avo.accommImg_saveImg }'/>">
 	</div>
 	<div id = "accomIntro">
 		<h3>숙소설명</h3>
@@ -32,9 +30,7 @@
 					<h4><a href = "#">${rvo.room_type }</a></h4>
 				</div>
 				<div class = "roomImg">
-					<!-- <img src = "<c:url value='/resources/uploadRoom/${rvo.room_images[0].roomImg_saveImg}'/>">
-					 -->
-					<img src = "<c:url value='/resources/uploadRoom/room1.jpg'/>">
+					<img src = "<c:url value='/resources/uploadRoom/${rvo.room_images[0].roomImg_saveImg}'/>">
 				</div>
 				<div class = "roomComm">
 					<p>${rvo.room_comm }</p>

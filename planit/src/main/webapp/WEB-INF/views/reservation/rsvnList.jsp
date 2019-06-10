@@ -25,9 +25,7 @@
 		<c:forEach var="vo" items="${list }">
 			<div class = "accomDiv">
 				<div>
-					<!-- <a href="#"><img src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>"></a>
-					 -->
-					 <a href="<c:url value='/reservation/detail?accom_num=${vo.accom_num }'/>"><img src="<c:url value='/resources/uploadAccom/hotel.jpg'/>"></a>
+					<a href="<c:url value='/reservation/detail?accom_num=${vo.accom_num }'/>"><img src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>"></a>
 				</div>
 				<div>
 					<p><a href="<c:url value='/reservation/detail?accom_num=${vo.accom_num }'/>">${vo.accom_name }</a></p>
