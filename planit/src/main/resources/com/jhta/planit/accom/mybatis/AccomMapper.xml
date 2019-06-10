@@ -7,7 +7,7 @@
 	<insert id="insert"
 		parameterType="com.jhta.planit.accom.vo.AccomVo">
 		insert into accom
-		values(accom_SEQ.nextval,#{accom_name},#{accom_addr},#{accom_comm},#{accom_country},#{accom_city},#{accommImg_orgImg},#{accommImg_saveImg},#{sell_num},0)
+		values(accom_SEQ.nextval,#{sell_num},#{accom_name},#{accom_addr},#{accom_comm},#{accom_country},#{accom_city},#{accommImg_orgImg},#{accommImg_saveImg},0)
 	</insert>
 	<sql id="search">
 		where accomChk=0

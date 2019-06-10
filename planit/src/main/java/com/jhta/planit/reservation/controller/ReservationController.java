@@ -32,7 +32,7 @@ public class ReservationController {
 		for(RoomVo vo : rlist) {
 			List<RoomImageVo> ilist = roomImageService.list(vo.getRoom_num());
 			vo.setRoom_images(ilist);
-		}
+		} 
 		model.addAttribute("avo", avo);
 		model.addAttribute("rlist", rlist);
 		return ".reservation.rsvnDetail";
