@@ -20,7 +20,7 @@
 			<th>도시</th>
 			<th>이미지</th>
 			<th>숙소수정</th>
-			<th>삭제</th>
+			<th>숙소삭제</th>
 		</tr>
 		<c:forEach var="vo" items="${list }">
 			<tr>
@@ -71,7 +71,7 @@
 				<option value="accom_country"
 					<c:if test="${field=='accom_country'}">selected="selected"</c:if>>국가</option>
 				<option value="accom_city"
-					<c:if test="${field=='accom_city'}">selected="selected"</c:if>>주소</option>
+					<c:if test="${field=='accom_city'}">selected="selected"</c:if>>도시</option>
 			</select> <input type="text" name="keyword" value="${keyword }"> <input
 				type="submit" value="검색">
 		</form>

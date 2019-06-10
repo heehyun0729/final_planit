@@ -13,7 +13,7 @@
 <form method="post" action="<c:url value='/roomInsert'/>" enctype="multipart/form-data">
     <input type="hidden" name="accom_num"value="${param.accom_num}"><br/>
 	방타입 <input type="text" name="room_type"><br/>
-	가격 <input type="text" name="room_price"><br/>
+	가격 <input type="text" name="room_price">원<br/>
 	방설명 <textarea rows="5" cols="50" name="room_comm"></textarea><br/>
 	방인원 <input type="text" name="room_capa">명<br/>
 	방이미지 <input type="file" name="file1"><br/>
