@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.planit.plan.service.PlanDetailService;
@@ -268,18 +269,14 @@ public class PlanController {
 	}
 	
 	@RequestMapping("/plan/list")
-	public String list(String pageNum, String field, String keyword, Model model) {
-		int pnum = 1;
-		if(pageNum != null && pageNum != "") {
-			pnum = Integer.parseInt(pageNum);
-		}
-		
+	public String list(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
+			String field, String keyword, Model model) {		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field", field);
 		map.put("keyword", keyword);
 		int cnt = planService.count(map);
 		
-		PageUtil pu = new PageUtil(pnum, cnt, 8, 5);
+		PageUtil pu = new PageUtil(pageNum, cnt, 8, 5);
 		int startRow = pu.getStartRow();
 		int endRow = pu.getEndRow();
 		int pageCnt = pu.getTotalPageCount();
@@ -290,7 +287,7 @@ public class PlanController {
 		
 		List<PlanVo> list = planService.list(map);
 		model.addAttribute("list", list);
-		model.addAttribute("pageNum", pnum);
+		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("startRow", startRow);
 		model.addAttribute("endRow", endRow);
 		model.addAttribute("pageCnt", pageCnt);
@@ -360,21 +357,21 @@ public class PlanController {
 	}
 	
 	public String getApi() throws IOException {
-	FileReader fr = null;
-	String key = "";
-	try {
-		fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
-		while(true) {
-			int n = fr.read();
-			if(n == -1) break;
-			key += (char)n;
+		FileReader fr = null;
+		String key = "";
+		try {
+			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
+			while(true) {
+				int n = fr.read();
+				if(n == -1) break;
+				key += (char)n;
+			}
+		}catch(FileNotFoundException fe){
+			fe.printStackTrace();
+		}finally {
+			fr.close();
 		}
-	}catch(FileNotFoundException fe){
-		fe.printStackTrace();
-	}finally {
-		fr.close();
-	}
-	return key;
+		return key;
 	}
 	
 	@RequestMapping(value = "/googleMap", produces = "application/json;charset=utf-8")

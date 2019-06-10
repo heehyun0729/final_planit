@@ -31,4 +31,13 @@ public class AccomDao {
 	public AccomVo prev(int accom_num) {
 		return sqlSession.selectOne(NAMESPACE +".prev",accom_num);
 	}
+	public int updateAccomCheck(int accom_num) {
+		return sqlSession.update(NAMESPACE+".updateAccomCheck",accom_num);
+	}
+	public AccomVo detail(int accom_num) {
+		return sqlSession.selectOne(NAMESPACE + ".detail", accom_num);
+	}
+	public int update(AccomVo vo) {
+		return sqlSession.update(NAMESPACE +".update",vo);
+	}
 }

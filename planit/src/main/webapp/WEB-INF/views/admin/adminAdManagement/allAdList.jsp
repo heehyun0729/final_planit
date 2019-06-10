@@ -1,20 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<style type="text/css">
-</style>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$(".table a").on("click", function(event){
-			event.preventDefault();
-			const src=$(event.target).parent().prop("href");
-			$("#modalSrc").html('<iframe style="border: 0px; " src="' + src + '" width="100%" height="820px"></iframe>');
-			$("#clickMe").click();
-		});
-	});
-</script>
-<div>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx" %>
+<tilesx:useAttribute name="current" />
 <header>
 </header>
 <section>
@@ -23,9 +13,10 @@
 			<div class="row ">
 				<div class="col mt-5 text-center">
 					<ul class="nav nav-pills">
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/adminAdManagement/approvedAdList'/>" class="ui-tabs-anchor">게재신청</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>" class="ui-tabs-anchor">환불신청</a></li>
-						<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="ui-tabs-anchor">ALL</a></li>
+						<li class="nav-item"><a class="nav-link ${current =='approvedAdList' ? 'active': ''}" href="<c:url value='/admin/adminAdManagement/approvedAdList'/>" class="ui-tabs-anchor">승인요청</a></li>
+						<li class="nav-item"><a class="nav-link ${current =='requestRefundAdList' ? 'active': ''}" href="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>" class="ui-tabs-anchor">환불요청</a></li>
+						<li class="nav-item"><a class="nav-link ${current =='requestChangeAdImageList' ? 'active': ''}" href="<c:url value='/admin/adminAdManagement/requestChangeAdImageList'/>" class="ui-tabs-anchor">이미지 수정요청</a></li>
+						<li class="nav-item"><a class="nav-link ${current =='allAdList' ? 'active': ''}" href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="ui-tabs-anchor">모든광고</a></li>
 					</ul>
 					<table class="table table-hover ">
 						<thead>
@@ -118,4 +109,3 @@
 </section>
 <footer>
 </footer>
-</div>

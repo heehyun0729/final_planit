@@ -7,10 +7,28 @@
 	<insert id="insert"
 		parameterType="com.jhta.planit.roomImage.vo.RoomImageVo">
 		insert into roomImage
-		values(roomImage_seq.nextval,#{room_num},#{roomImg_orgImg},#{roomImg_saveImg})
+		values(roomImage_seq.nextval,#{room_num},#{roomImg_orgImg},#{roomImg_saveImg},0)
 	</insert>
 	
-	<select id="detail" parameterType="int" resultType="com.jhta.planit.roomImage.vo.RoomImageVo">
-  		select * from roomImage where room_num=#{room_num}
+	<select id="list" parameterType="int" resultType="com.jhta.planit.roomImage.vo.RoomImageVo">
+  		select * from roomImage where room_num=#{room_num} and  roomImageChk=0
   	</select>
+  	<select id="detail" parameterType="int" resultType="com.jhta.planit.roomImage.vo.RoomImageVo">
+		select * from roomImage where room_num = #{room_num} and roomImageChk = 0
+	</select>
+	<update id="updateImgCheck" parameterType="int">
+		update roomImage set
+		roomImageChk=1 where roomImg_num=#{roomImg_num}
+	</update>
+	<update id="update" parameterType="com.jhta.planit.roomImage.vo.RoomImageVo">
+		update roomImage set
+		<if test="roomImg_orgImg!=null">
+			roomImg_orgImg=#{roomImg_orgImg},
+			roomImg_saveImg=#{roomImg_saveImg}
+		</if>
+		where roomImg_num=#{roomImg_num}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from roomImage where room_num=#{room_num}
+	</delete>
 </mapper>

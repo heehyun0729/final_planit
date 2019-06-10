@@ -169,6 +169,16 @@ function detailClose() {
 								href="${pageContext.request.contextPath }/msgReceiveList?pageNum=${pu.endPageNum + 1}&field=${field}&keyword=${keyword}&memId=${mem_id}&msgType=RECEIVE">[다음]</a>
 						</c:when>
 					</c:choose>
+					<br/>
+					<div>
+		<form method="post" action="<c:url value='/msgReceiveList?memId=${mem_id }&msgType=RECEIVE'/>">
+			<select name="field">
+				<option value="sendMemId"
+					<c:if test="${field=='sendMemId'}">selected="selected"</c:if>>보낸아이디</option>
+			</select> <input type="text" name="keyword" value="${keyword }"> <input
+				type="submit" value="검색">
+		</form>
+	</div>
 				</c:if>
 			</div>
 			<div>
@@ -200,10 +210,20 @@ function detailClose() {
 								href="${pageContext.request.contextPath }/msgSendList?pageNum=${pu.endPageNum + 1}&field=${field}&keyword=${keyword}&memId=${mem_id}&msgType=SEND">[다음]</a>
 						</c:when>
 					</c:choose>
+					<br/>
+					<div>
+		<form method="post" action="<c:url value='/msgSendList?memId=${mem_id }&msgType=SEND'/>">
+			<select name="field">
+				<option value="receiveMemId"
+					<c:if test="${field=='receiveMemId'}">selected="selected"</c:if>>받은아이디</option>
+			</select> <input type="text" name="keyword" value="${keyword }"> <input
+				type="submit" value="검색">
+		</form>
+	</div>
 				</c:if>
 			</div>
 		</div>
-		<br>
+		<br/>
 		<div id="msg_detail"></div>
 		<div>
 			<br/> <input id="msgSendBtn" class="userMypageUpdateBtn"

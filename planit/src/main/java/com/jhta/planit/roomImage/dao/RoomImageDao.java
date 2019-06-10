@@ -1,8 +1,13 @@
 package com.jhta.planit.roomImage.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.jhta.planit.accom.vo.AccomVo;
+import com.jhta.planit.room.vo.RoomVo;
 import com.jhta.planit.roomImage.vo.RoomImageVo;
 
 @Repository
@@ -19,5 +24,20 @@ public class RoomImageDao {
 	}
 	public int getRoomImgeNum() {
 		return sqlSession.selectOne(NAMESPACE + ".getRoomImgeNum");
+	}
+	public List<RoomImageVo> list(int room_num) {
+		return sqlSession.selectList(NAMESPACE + ".list",room_num);
+	}
+	public int updateImgCheck(int roomImg_num) {
+		return sqlSession.update(NAMESPACE+".updateImgCheck",roomImg_num);
+	}
+	public int update(RoomImageVo vo) {
+		return sqlSession.update(NAMESPACE +".update",vo);
+	}
+	public List<RoomImageVo> detail(int room_num) {
+		return sqlSession.selectList(NAMESPACE + ".detail", room_num);
+	}
+	public int delete(int room_num) {
+		return sqlSession.delete(NAMESPACE +".delete",room_num);
 	}
 }

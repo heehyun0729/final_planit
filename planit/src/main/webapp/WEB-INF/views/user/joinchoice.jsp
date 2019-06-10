@@ -282,7 +282,6 @@
 		<li><a class="joinhref" href="">카카오 아이디로 가입(미구현)</a></li>
 		<li><a class="joinhref" href="">구글 아이디로 가입(미구현)</a></li>
 		<li><a class="joinhref" href="<c:url value='/nomaljoin'/>">이메일로 회원가입(개인)</a></li>
-		<li><a class="joinhref" href="">이메일로 회원가입(판매자)(미구현)</a></li>
 	</ul>
 </body>
 </html>

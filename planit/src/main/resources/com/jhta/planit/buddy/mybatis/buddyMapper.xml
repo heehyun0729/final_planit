@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.buddy.mybatis.buddyMapper">
+	<!-- 도시보기 컬렉션 -->
 	<resultMap type="com.jhta.planit.buddy.vo.BuddyListVo" id="buddylistvo">
 		<result property="mem_id" column="mem_id"/>
 		<result property="buddy_indate" column="buddy_indate"/>
@@ -13,30 +14,197 @@
 		<collection property="buddy_city" ofType="String">
 			<result property="buddy_city" column="buddy_city"/>
 		</collection>
-	</resultMap>
-	<select id="buddy_showAll" resultMap="buddylistvo">
-		select  b.mem_id,TO_CHAR(b.buddy_indate, 'YYYY-MM-DD') buddy_indate,TO_CHAR(b.buddy_outdate, 'YYYY-MM-DD') buddy_outdate,b.buddy_gender,b.buddy_birthyear,b.buddy_msg,t.buddy_city
-		from buddy b, buddy_country c, buddy_city t where b.buddy_num=c.buddy_num and c.country_num=t.country_num
+	</resultMap>	
+	
+	<!-- 검색 -->
+	<sql id="inc_city">
+		<choose>
+			<when test="kw_city!=null and kw_city!=''">
+	            select b.buddy_num from buddy b, buddy_country c, buddy_city t 
+				where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0 and
+				<foreach collection="kw_city" item="list"  open="(" close=")" separator="or">
+					t.buddy_city=#{list}
+	 			</foreach>
+			</when>
+			<otherwise>
+				select * from buddy where buddy_state=0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="inc_indate">
+		<if test="kw_indate!=null and kw_indate!=''">
+			and b.buddy_indate=#{kw_indate}
+		</if>
+	</sql>
+	<sql id="inc_outdate">
+		<if test="kw_outdate!=null and kw_outdate!=''">
+			and b.buddy_outdate=#{kw_outdate}
+		</if>
+	</sql>
+	
+	<sql id="inc_gender">
+		<choose>
+			<when test='kw_gender=="X"'>
+				and (b.buddy_gender='M' OR b.buddy_gender='W' OR b.buddy_gender='X')
+			</when>
+			<when test='kw_gender=="M"'>
+				and b.buddy_gender='M'
+			</when>
+			<when test='kw_gender=="W"'>
+				and b.buddy_gender='W'
+			</when>
+		</choose>
+	</sql>
+	
+	<sql id="inc_birthYear">
+		<if test='kw_birthYear=="0"'>
+			
+		</if>
+		<if test='kw_birthYear=="20"'>
+			and b.buddy_birthyear='20'
+		</if>
+		<if test='kw_birthYear=="30"'>
+			and b.buddy_birthyear='30'
+		</if>
+		<if test='kw_birthYear=="40"'>
+			and b.buddy_birthyear='40'
+		</if>
+		<if test='kw_birthYear=="50"'>
+			and b.buddy_birthyear='50'
+		</if>
+		<if test='kw_birthYear=="60"'>
+			and b.buddy_birthyear='60'
+		</if>
+	</sql>
+	
+	<!-- 전체글의갯수 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select NVL(count(*),0) cnt from buddy
+		<include refid="inc_getCnt"></include>
+		<include refid="inc_indate"></include>
+		<include refid="inc_outdate"></include>
+		<include refid="inc_gender"></include>
+		<include refid="inc_birthYear"></include>
 	</select>
 	
+	<!-- 검색 후 전체 글 갯수 -->
+	<sql id="inc_getCnt">
+		<choose>
+			<when test="kw_city!=null and kw_city!=''">
+				b, buddy_country c, buddy_city t 
+				where b.buddy_num=c.buddy_num and c.country_num=t.country_num and 
+				<foreach collection="kw_city" item="list"  open="(" close=")" separator="or">
+					t.buddy_city=#{list}
+	 			</foreach>
+			</when>
+			<otherwise>
+				where buddy_state=0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!-- 리스트 -->
+	<select id="buddy_showAll" resultMap="buddylistvo" parameterType="hashmap">
+		select * from
+		(
+			select aa.* from
+		    (
+				select b.buddy_num,b.mem_id,TO_CHAR(b.buddy_indate, 'YYYY-MM-DD') buddy_indate,TO_CHAR(b.buddy_outdate, 'YYYY-MM-DD') buddy_outdate,b.buddy_gender,b.buddy_birthyear,b.buddy_msg,t.buddy_city
+				from buddy b, buddy_country c, buddy_city t 
+				where b.buddy_num=c.buddy_num and c.country_num=t.country_num 
+				and b.buddy_num in 
+		        (
+		            select buddy_num from
+		            (
+		                select bb.*,rownum rnum from
+		                (
+		                    <include refid="inc_city"></include>
+		                    <include refid="inc_indate"></include>
+							<include refid="inc_outdate"></include>
+							<include refid="inc_gender"></include>
+							<include refid="inc_birthYear"></include>
+                  			order by buddy_num desc
+		                )bb 
+		            )<![CDATA[ where rnum >=#{startRow} and rnum <= #{endRow} ]]>
+		        )
+		        order by b.buddy_num desc 
+		    )aa
+		)
+	</select>
+	
+	<!-- 동행찾기 글추가 -->
 	<insert id="buddy_insert" parameterType="com.jhta.planit.buddy.vo.BuddyVo">
 		insert into buddy
-		values(buddy_seq.nextval,'test',#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
+		values(buddy_seq.nextval,'test4',#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
 	</insert>
+	<!-- 국가추가 -->
 	<insert id="buddyCountry_insert" parameterType="String">
 		insert into buddy_country
 		values(buddycountry_seq.nextval,buddy_seq.currval,#{buddy_country})
 	</insert>
+	<!-- 도시추가 -->
 	<insert id="buddyCity_insert" parameterType="String">
 		insert into buddy_city
 		values(buddycity_seq.nextval,buddycountry_seq.currval,#{buddy_city})
 	</insert>
-	
 
+	<!-- 국가 체크박스 생성 -->
 	<select id="buddy_showCountry" resultType="String">
-		select distinct buddy_country from buddy_country c, buddy b where b.buddy_state=0
+		select distinct buddy_country from buddy_country where buddy_num in (select buddy_num from buddy where buddy_state=0)
 	</select>
+	<!-- 도시 체크박스 생성 -->
 	<select id="buddy_showCity" parameterType="String" resultType="com.jhta.planit.buddy.vo.BuddyCityVo">
-		select distinct buddy_city from buddy b, buddy_city t, buddy_country c where c.country_num=t.country_num and b.buddy_state=0 and c.buddy_country=#{country}
+		select distinct buddy_city from buddy_city where country_num in 
+		(
+		select country_num from buddy_country where buddy_num in (select buddy_num from buddy where buddy_state=0) and buddy_country=#{country}
+		)	
+	</select>
+	
+	<!-- 날짜 지난 게시물 자동 업뎃 -->
+	<update id="buddy_stateUpt">
+		update buddy set buddy_state=1 
+		where buddy_num in 
+		(
+		select  buddy_num
+		from buddy where buddy_indate<![CDATA[ < sysdate and buddy_state=0 ]]>
+		)
+	</update>
+	
+	<!-- 동행추천 -->
+	<select id="buddy_sameDateCity" parameterType="String" resultType="String">
+		select b.buddy_num
+		from buddy b, buddy_country c, buddy_city t
+		where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0 and t.buddy_city in
+		(
+		    select t.buddy_city from buddy b, buddy_country c, buddy_city t
+		    where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0
+		    and b.mem_id=#{id}
+		) 
+		and b.buddy_indate in 
+		(
+		    select distinct buddy_indate from buddy where mem_id=#{id}
+		)
+		and not b.mem_id in(#{id})
+	</select>
+	
+	<!-- 추천동행정보 -->
+	<select id="buddy_detail" resultMap="buddylistvo" parameterType="String">
+		select b.BUDDY_NUM BUDDY_NUM,
+		b.MEM_ID MEM_ID,
+		b.BUDDY_GENDER BUDDY_GENDER,
+		b.BUDDY_BIRTHYEAR BUDDY_BIRTHYEAR,
+		TO_CHAR(b.buddy_indate, 'YYYY-MM-DD') buddy_indate,
+		TO_CHAR(b.buddy_outdate, 'YYYY-MM-DD') buddy_outdate,
+		b.BUDDY_MSG BUDDY_MSG,
+		b.BUDDY_STATE BUDDY_STATE,
+		c.COUNTRY_NUM COUNTRY_NUM,
+		c.BUDDY_NUM BUDDY_NUM_0,
+		c.BUDDY_COUNTRY BUDDY_COUNTRY,
+		t.CITY_NUM CITY_NUM,
+		t.COUNTRY_NUM COUNTRY_NUM_1,
+		t.BUDDY_CITY BUDDY_CITY
+		from buddy b,buddy_country c,buddy_city t 
+		where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_num=#{mem_id} and b.buddy_state=0
 	</select>
 </mapper>

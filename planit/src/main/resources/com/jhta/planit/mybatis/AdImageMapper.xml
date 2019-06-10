@@ -3,10 +3,48 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.mybatis.AdImageMapper">
+	<sql id="search">
+		<choose>
+			<when test="(field==null or field=='') and adImg_status=='-1'">
+				
+			</when>
+			<when test="field!=null and field!='' and adImg_status=='-1'">
+				where ${field} Like '%'||#{keyword}||'%'
+			</when>
+			<when test="field!=null and field!=''">
+				where ${field} Like '%'||#{keyword}||'%' and adImg_status=#{adImg_status}
+			</when>
+			<otherwise>
+				where adImg_status=#{adImg_status}
+			</otherwise>
+		</choose>
+	</sql>
 	<insert id="insert" parameterType="com.jhta.planit.admin.vo.AdImageVo">
-		insert into adImage values(adImage_num_seq.nextval,#{adInfo_num},#{adImg_orgImg},#{adImg_saveImg})
+		insert into adImage(adImg_num, adInfo_num, adImg_orgImg, adImg_saveImg, adImg_status) values(adImage_num_seq.nextval,#{adInfo_num},#{adImg_orgImg},#{adImg_saveImg},0)
 	</insert>
+	<select id="getTotalRowCount" parameterType="hashmap" resultType="int">
+		select NVL(count(*),0) cnt from adImage <include refid="search"/>
+	</select>
+	<select id="getAdImageList" parameterType="hashmap" resultType="com.jhta.planit.admin.vo.AdImageVo">
+		select * from(select aa.*, rownum rnum from(select * from adImage <include refid="search"/>
+		 order by adImg_num desc)aa) where rnum>=#{startRow} and <![CDATA[rnum<=#{endRow}]]>
+	</select>
 	<select id="getAdInfoImage" parameterType="int" resultType="com.jhta.planit.admin.vo.AdImageVo">
 		select * from adImage where adInfo_num=#{adInfo_num}
 	</select>
+	<select id="getRequestChangeAdInfoImage" parameterType="int" resultType="com.jhta.planit.admin.vo.AdImageVo">
+		select * from adImage where adImg_num=#{adImg_num}
+	</select>	
+	<select id="getRequestChangeAdImageBadge" resultType="int">
+		select NVL(count(*),0) cnt from adImage where adImg_status=1
+	</select>
+	<update id="requestChangeAdImage" parameterType="hashmap">
+		update adImage set adImg_status=1, adImg_changeOrgImg=#{adImg_changeOrgImg}, adImg_changeSaveImg=#{adImg_changeSaveImg} where adImg_num=#{adImg_num}
+	</update>
+	<update id="requestChangeAdImageApprove" parameterType="hashmap">
+		update adImage set adImg_status=0, adImg_orgImg=#{adImg_changeOrgImg}, adImg_saveImg=#{adImg_changeSaveImg} where adImg_num=#{adImg_num}
+	</update>
+	<update id="requestChangeAdImageDecline" parameterType="int">
+		update adImage set adImg_status=2 where adImg_num=#{adImg_num}
+	</update>
 </mapper>

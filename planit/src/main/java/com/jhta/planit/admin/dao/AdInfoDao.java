@@ -23,6 +23,9 @@ public class AdInfoDao {
 	public List<AdInfoVo> getChance(HashMap<String, Object> map) {
 		return sqlSession.selectList(NAMESPACE + "getChance", map);
 	}
+	public List<AdInfoVo> getTodayAd(String adInfo_date){
+		return sqlSession.selectList(NAMESPACE + "getTodayAd", adInfo_date);
+	}
 	public List<AdInfoVo> getAdInfoInfo(int ad_num){
 		return sqlSession.selectList(NAMESPACE + "getAdInfoInfo", ad_num);
 	}
@@ -35,4 +38,10 @@ public class AdInfoDao {
 	public int adInfoRefunded(int adInfo_num) {
 		return sqlSession.update(NAMESPACE + "adInfoRefunded", adInfo_num);
 	}
+	public int requestRefundAdInfo(int adInfo_num) {
+		return sqlSession.update(NAMESPACE + "requestRefundAdInfo", adInfo_num);
+	}
+	public int requestRefundAllAdInfo(int ad_num) {
+		return sqlSession.update(NAMESPACE + "requestRefundAllAdInfo", ad_num);
+	}	
 }

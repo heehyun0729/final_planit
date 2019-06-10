@@ -1,9 +1,14 @@
 package com.jhta.planit.roomImage.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.review.vo.ReviewImageVo;
 import com.jhta.planit.room.dao.RoomDao;
+import com.jhta.planit.room.vo.RoomVo;
 import com.jhta.planit.roomImage.dao.RoomImageDao;
 import com.jhta.planit.roomImage.vo.RoomImageVo;
 
@@ -27,4 +32,19 @@ public class RoomImageService {
 		return imdao.insert(vo);
 	}
 
+	public List<RoomImageVo> list(int room_num) {
+		return imdao.list(room_num);
+	}
+	public int updateImgCheck(int roomImg_num){
+		return imdao.updateImgCheck(roomImg_num);
+	}
+	public int update(RoomImageVo vo) {
+		return imdao.update(vo);
+	}
+	public List<RoomImageVo> detail(int room_num) {
+		return imdao.detail(room_num);
+	}
+	public int delete(int room_num) {
+		return imdao.delete(room_num);
+	}
 }

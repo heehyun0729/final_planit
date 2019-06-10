@@ -7,11 +7,12 @@
 	<insert id="insert"
 		parameterType="com.jhta.planit.accom.vo.AccomVo">
 		insert into accom
-		values(accom_SEQ.nextval,#{accom_name},#{accom_addr},#{accom_comm},#{accom_country},#{accom_city},#{accommImg_orgImg},#{accommImg_saveImg},#{sell_num})
+		values(accom_SEQ.nextval,#{sell_num},#{accom_name},#{accom_addr},#{accom_comm},#{accom_country},#{accom_city},#{accommImg_orgImg},#{accommImg_saveImg},0)
 	</insert>
 	<sql id="search">
+		where accomChk=0
 		<if test="field!=null and field!=''">
-		    where ${field} like '%'||#{keyword}||'%'
+		    and ${field} like '%'||#{keyword}||'%'
 		</if>
 	</sql>
 	<!-- 전체글의갯수 -->
@@ -35,7 +36,7 @@
 		select * from
 		(
 			select * from accom
-			where accom_num>#{accom_num}
+			where accom_num>#{accom_num} and accomChk=0
 			order by accom_num asc
 		)
 		where rownum=1
@@ -45,9 +46,25 @@
 		select * from
 		(
 			select * from accom
-			<![CDATA[ where accom_num<#{accom_num} ]]>
+			<![CDATA[ where accom_num<#{accom_num} and accomChk=0]]>
 			order by accom_num desc
 		)
 		where rownum=1
 	</select>
+	<update id="updateAccomCheck" parameterType="int">
+		update accom set
+		accomChk=1 where accom_num=#{accom_num}
+	</update>
+	<select id="detail" parameterType="int" resultType="com.jhta.planit.accom.vo.AccomVo">
+		select * from accom where accom_num = #{accom_num} and accomChk = 0
+	</select>
+	<update id="update" parameterType="com.jhta.planit.accom.vo.AccomVo">
+		update accom set
+		accom_name=#{accom_name},accom_comm=#{accom_comm}
+		<if test="accommImg_orgImg!=null">
+			,accommImg_orgImg=#{accommImg_orgImg},
+			accommImg_saveImg=#{accommImg_saveImg}
+		</if>
+		where accom_num=#{accom_num}
+	</update>
 </mapper>

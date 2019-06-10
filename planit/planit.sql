@@ -14,7 +14,7 @@ conn planit/admin1234;
 
 -- 테이블 생성(sqlplus)
 DROP TABLE MEMBERS CASCADE CONSTRAINTS;
-CREATE TABLE MEMBERS(
+CREATE TABLE members(
 	mem_id varchar2(40) PRIMARY KEY,
 	mem_pwd varchar2(100) NOT NULL,
 	mem_nickname varchar2(25) UNIQUE,
@@ -26,7 +26,7 @@ CREATE TABLE MEMBERS(
 	mem_api varchar2(10)
 );
 
-DROP TABLE USERAUTH;
+DROP TABLE USERAUTH CASCADE CONSTRAINTS;
 CREATE TABLE USERAUTH (
     mem_email varchar2(50) PRIMARY KEY,
     authKey varchar2(100) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE USERAUTH (
     REFERENCES MEMBERS(mem_id)
 );
 
-DROP TABLE PROFILE;
+DROP TABLE PROFILE CASCADE CONSTRAINTS;
 DROP SEQUENCE PROFILE_SEQ;
 CREATE TABLE PROFILE(
 	profile_no number(7) PRIMARY KEY,
@@ -48,7 +48,7 @@ CREATE TABLE PROFILE(
 
 CREATE SEQUENCE PROFILE_SEQ;
 
-DROP TABLE FOLLOW_LIST;
+DROP TABLE FOLLOW_LIST CASCADE CONSTRAINTS;
 DROP SEQUENCE FOLLOW_SEQ;
 CREATE TABLE FOLLOW_LIST(
 	followno number(5) PRIMARY KEY,
@@ -62,7 +62,7 @@ CREATE TABLE FOLLOW_LIST(
 );
 CREATE SEQUENCE FOLLOW_SEQ;
 
-DROP TABLE MEMIMAGE;
+DROP TABLE MEMIMAGE CASCADE CONSTRAINTS;
 DROP SEQUENCE MEMIMAGE_SEQ;
 CREATE TABLE MEMIMAGE(
 	img_num number(7,0) PRIMARY KEY,
@@ -74,18 +74,74 @@ CREATE TABLE MEMIMAGE(
 );
 CREATE SEQUENCE MEMIMAGE_SEQ;
 
-DROP TABLE ACCOM CASCADE CONSTRAINTS;
-drop sequence accom_num_seq;
-create table accom(
-	accom_num number(7) NOT NULL,
-	accom_name varchar2(50),
-	accom_addr varchar2(100),
-	accom_comm varchar2(1000),
-	acomm_contry varchar2(50),
-	acomm_city varchar2(50),
-	PRIMARY KEY (accom_num)
+--판매자 테이블
+drop table seller CASCADE CONSTRAINTS;
+create table seller(
+    sell_num number(5) primary key,
+    mem_id varchar2(40) references members(mem_id),
+    sell_company varchar2(100),
+    sell_addr varchar2(200)
 );
-create sequence accom_num_seq;
+drop SEQUENCE seller_seq;
+CREATE SEQUENCE seller_seq;
+
+--숙소테이블
+drop table accom CASCADE CONSTRAINTS;
+create table accom(
+    accom_num number(7,0) primary key,
+    sell_num number(5) references seller(sell_num),
+    accom_name varchar2(100),
+    accom_addr varchar2(200),
+    accom_comm varchar2(300),
+    accom_country varchar2(50),
+    accom_city varchar2(50),
+    accommImg_orgImg varchar(500),
+    accommImg_saveImg varchar(500),
+    accomChk number(1)
+);
+drop SEQUENCE accom_seq;
+CREATE SEQUENCE accom_seq;
+
+--방정보 테이블
+drop table room CASCADE CONSTRAINTS;
+create table room(
+    room_num number(7,0) primary key,
+    accom_num number(7,0) references accom(accom_num),
+    room_type varchar2(100),
+    room_price number(10,0),
+    room_comm varchar2(1000),
+    roomChk number(1),
+    room_capa number(2)
+);
+drop SEQUENCE room_seq;
+CREATE SEQUENCE room_seq;
+
+--방이미지 테이블
+drop table roomImage CASCADE CONSTRAINTS;
+create table roomImage(
+    roomImg_num number(7,0) primary key,
+    room_num number(7,0) references room(room_num),
+    roomImg_orgImg varchar2(500),
+    roomImg_saveImg varchar2(500),
+    roomImageChk number(1)
+);
+drop SEQUENCE roomImage_seq;
+CREATE SEQUENCE roomImage_seq;
+
+--쪽지 테이블
+drop table MsgTable CASCADE CONSTRAINTS;
+CREATE TABLE MsgTable
+(
+	msgNum number(4) primary key,
+	msgContent varchar2(1000) NOT NULL,
+	receiveMemId varchar2(20) REFERENCES Members (mem_id),
+	sendMemId varchar2(20) REFERENCES Members (mem_id),
+	msgWdate date NOT NULL,
+	msgCheck number(1) NOT NULL,
+            msgDelete varchar(50),
+            msgDeletee varchar(50)
+
+);
 
 DROP TABLE acommQna CASCADE CONSTRAINTS;
 drop sequence acommQna_num_seq;
@@ -131,13 +187,11 @@ create sequence qcomm_num_seq;
 DROP TABLE qnaImage CASCADE CONSTRAINTS;
 drop sequence qnaImg_num_seq;
 create table qnaImage(
-   qnaImg_num number(7) NOT NULL,
+   qnaImg_num number(7) primary key,
    qna_num number(7) references qna(qna_num),
    mem_id varchar2(15) references members(mem_id),
    qnaImg_orgImg varchar2(50),
-   qnaImg_saveImg varchar(50),
-   qnaImg_filesize 
-   PRIMARY KEY (qnaImg_num)
+   qnaImg_saveImg varchar(50)
 );
 create sequence qnaImg_num_seq;
 
@@ -146,21 +200,49 @@ drop sequence ad_num_seq;
 CREATE TABLE ad
 (
 	ad_num number(7,0) NOT NULL,
-	mem_id varchar2(15) NOT NULL,
+	mem_id varchar2(40) NOT NULL,
 	ad_company varchar2(50),
-	ad_url varchar2(100),
-	ad_startDate date,
-	ad_endDate date,
-	ad_chance number(4,0),
-	ad_hit number(7,0),
-	ad_click number(7,0),
-	ad_status number(2,0),
-	ad_price number(7,0),
+	ad_url varchar2(500),
 	ad_requestDate date,
 	ad_approveDate date,
+	ad_price number(10,0),
+	ad_payment varchar2(20),
+	ad_tid varchar2(500),
+	ad_progress number(2,0),
 	PRIMARY KEY (ad_num)
 );
 create sequence ad_num_seq;
+
+DROP TABLE adInfo CASCADE CONSTRAINTS;
+drop sequence adInfo_num_seq;
+CREATE TABLE adInfo
+(
+	adInfo_num number(7,0) NOT NULL,
+	ad_num number(7,0) NOT NULL,
+	adInfo_date date,
+	adInfo_chance number(4,0),
+	adInfo_hit number(7,0),
+	adInfo_click number(7,0),
+	adInfo_status number(2,0),
+	adInfo_price number(7,0),
+	PRIMARY KEY (adInfo_num)
+);
+create sequence adInfo_num_seq;
+
+DROP TABLE adImage CASCADE CONSTRAINTS;
+CREATE TABLE adImage
+(
+	adImg_num number(7,0) NOT NULL,
+	adInfo_num number(7,0) NOT NULL,
+	adImg_orgImg varchar2(500),
+	adImg_saveImg varchar2(500),
+	adImg_status number(1),
+	adimg_changeOrgImg varchar2(500),
+	adimg_changeSaveImg varchar2(500),
+	PRIMARY KEY (adImg_num)
+);
+drop SEQUENCE adImage_num_seq;
+create sequence adImage_num_seq;
 
 drop table plan cascade constraints;
 create table plan(
@@ -188,6 +270,7 @@ create table planDetail(
     planDetail_detail clob
 );
 
+--동행게시판 테이블
 DROP TABLE buddy_city CASCADE CONSTRAINTS;
 DROP TABLE buddy_country CASCADE CONSTRAINTS;
 DROP TABLE buddy_apply CASCADE CONSTRAINTS;
@@ -237,3 +320,24 @@ CREATE SEQUENCE buddy_seq;
 CREATE SEQUENCE buddyCountry_seq;
 CREATE SEQUENCE buddyCity_seq;
 CREATE SEQUENCE buddyApply_seq;
+
+drop table rsvn CASCADE CONSTRAINTS;
+create table rsvn
+(
+    rsvn_num number(7) primary key,
+    mem_id varchar2(40) references members(mem_id),
+    room_num number(7) references room(room_num),
+    rsvn_checkin date,
+    rsvn_checkout date,
+    rsvn_cnt number(3) -- 인원수
+);
+
+drop table rsvnPay CASCADE CONSTRAINTS;
+create table rsvnPay
+(
+    rsvnPay_id varchar2(500) primary key,
+    rsvn_num number(7) references rsvn(rsvn_num),
+    rsvnPay_price number(10), 
+    rsvnPay_method varchar2(20),
+    rsvnPay_stat number(2)
+);
