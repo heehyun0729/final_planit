@@ -1,5 +1,6 @@
 package com.jhta.planit.reservation.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import com.jhta.planit.room.vo.RoomVo;
 public class RsvnRoomService {
 	@Autowired private RsvnRoomDao rsvnRoomDao;
 	
-	public List<RoomVo> list(int accom_num){
-		return rsvnRoomDao.list(accom_num);
+	public List<RoomVo> list(HashMap<String, Object> map){
+		return rsvnRoomDao.list(map);
+	}
+	public RoomVo check(HashMap<String, Object> map) {
+		return rsvnRoomDao.check(map);
 	}
 }

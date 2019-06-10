@@ -145,7 +145,20 @@ function initDetailMap() {
 			map.setCenter({lat:Number(routelist[0].lat), lng:Number(routelist[0].lng)});
 			setMapRoute();	// 마커, 경로 표시
 			showCalendar();	// 달력 설정
-			setDialog();	// dialog창 설정
+			
+			startDateDialog = $( "#startDateDialog" ).on('shown.bs.modal');
+			infoDialog = $( "#infoDialog" ).on('shown.bs.modal');
+			scheduleDialog = $( "#scheduleDialog" ).on('shown.bs.modal');
+			
+			$( "#startDatepicker" ).datepicker({
+				dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+				monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
+		                        "8월", "9월", "10월", "11월", "12월"],	
+				yearSuffix: "년",	
+				showMonthAfterYear: true,	
+				dateFormat: "yy-mm-dd",
+				defaultDate: routelist[0].date_in
+			});  
 		}
 	});
 }
@@ -186,63 +199,6 @@ function showCalendar() {
 		}
 	});
 }
-// dialog창 설정하는 함수
-function setDialog() {
-	startDateDialog = $( "#startDateDialog" ).dialog({
-      autoOpen: false,
-      height: 380,
-      width: 320,
-      modal: true,
-      buttons: {
-        "저장": updateStartDate,
-        "취소": function() {
-        	startDateDialog.dialog("close");
-		} 
-      } 
-    });
-	infoDialog = $( "#infoDialog" ).dialog({
-      autoOpen: false,
-      height: 250,
-      width: 250,
-      modal: true,
-      buttons: {
-        "저장": updateInfo,
-        "취소": function() {
-        	infoDialog.dialog("close");
-		} 
-      } 
-    });
-	scheduleDialog = $( "#scheduleDialog" ).dialog({
-      autoOpen: false,
-      height: 450,
-      width: 400,
-      modal: true,
-      buttons: {
-        "저장": updateSchedule,
-        "취소": function() {
-			scheduleDialog.dialog("close");
-		}
-      }
-    });
-}
-// 출발일 변경 dialog 열기
-function openInfoDialog() {
-	
-	infoDialog.dialog( "open" ); 
-}
-// 플래너 정보 수정 dialog 열기
-function openStartDateDialog() {
-	$( "#startDatepicker" ).datepicker({
-		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
-		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
-                        "8월", "9월", "10월", "11월", "12월"],	
-		yearSuffix: "년",	
-		showMonthAfterYear: true,	
-		dateFormat: "yy-mm-dd",
-		defaultDate: routelist[0].date_in
-	});
-	startDateDialog.dialog( "open" ); 
-}
 // 세부일정 수정 dialog 열기
 function openScheduleDialog(num) {
 	planDetail_num = num;
@@ -254,7 +210,9 @@ function openScheduleDialog(num) {
 	}
 	$("#scheduleCity").html(route.city + ", " + route.country);
 	$("#scheduleDate").html(formatDate(new Date(route.date_in)) + "~" + formatDate(new Date(route.date_out)));
-	scheduleDialog.dialog( "open" ); 
+	var detail = route.detail.replace(/<br>/g, '\n');
+	$("#scheduleDetail").val(detail);
+	scheduleDialog.modal( "show" ); 
 }
 // 출발일  DB 수정하는 함수
 function updateStartDate() {

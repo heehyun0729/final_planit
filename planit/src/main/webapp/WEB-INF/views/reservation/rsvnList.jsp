@@ -28,10 +28,10 @@
 		<c:forEach var="vo" items="${list }">
 			<div class = "accomDiv">
 				<div>
-					<a href="<c:url value='/reservation/detail?accom_num=${vo.accom_num }'/>"><img src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>"></a>
+					<a href="<c:url value='/reservation/detail?accom_num=${vo.accom_num }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>"><img src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>"></a>
 				</div>
 				<div>
-					<p><a href="<c:url value='/reservation/detail?accom_num=${vo.accom_num }'/>">${vo.accom_name }</a></p>
+					<p><a href="<c:url value='/reservation/detail?accom_num=${vo.accom_num }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>">${vo.accom_name }</a></p>
 					<p>${vo.accom_city }, ${vo.accom_country }</p>
 					<p>${vo.room_price }원 ~</p>
 				</div>
