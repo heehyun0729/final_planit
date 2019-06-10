@@ -320,6 +320,7 @@ CREATE SEQUENCE buddyCountry_seq;
 CREATE SEQUENCE buddyCity_seq;
 CREATE SEQUENCE buddyApply_seq;
 
+drop table rsvn CASCADE CONSTRAINTS;
 create table rsvn
 (
     rsvn_num number(7) primary key,
@@ -330,6 +331,7 @@ create table rsvn
     rsvn_cnt number(3) -- ÀÎ¿ø¼ö
 );
 
+drop table rsvnPay CASCADE CONSTRAINTS;
 create table rsvnPay
 (
     rsvnPay_id varchar2(500) primary key,
