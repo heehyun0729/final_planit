@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.room.vo.RoomVo;
+import com.jhta.planit.roomImage.vo.RoomImageVo;
 
 @Repository
 public class RoomDao {
@@ -36,5 +38,11 @@ public class RoomDao {
 	}
 	public int updateRoomCheck(int room_num) {
 		return sqlSession.update(NAMESPACE+".updateRoomCheck",room_num);
+	}
+	public int update(RoomVo vo) {
+		return sqlSession.update(NAMESPACE +".update",vo);
+	}
+	public RoomVo detail(int room_num) {
+		return sqlSession.selectOne(NAMESPACE + ".detail", room_num);
 	}
 }

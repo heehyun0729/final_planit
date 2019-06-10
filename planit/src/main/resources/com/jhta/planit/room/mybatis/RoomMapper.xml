@@ -55,4 +55,12 @@
 		update room set
 		roomChk=1 where room_num=#{room_num}
 	</update>
+	<update id="update" parameterType="com.jhta.planit.room.vo.RoomVo">
+		update room set
+		room_price=#{room_price},room_comm=#{room_comm},room_capa=#{room_capa}
+		where room_num=#{room_num}
+	</update>
+	<select id="detail" parameterType="int" resultType="com.jhta.planit.room.vo.RoomVo">
+		select * from room where room_num = #{room_num} and roomChk = 0
+	</select>
 </mapper>

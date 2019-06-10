@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.review.vo.ReviewImageVo;
 import com.jhta.planit.room.dao.RoomDao;
 import com.jhta.planit.roomImage.dao.RoomImageDao;
@@ -34,5 +36,8 @@ public class RoomImageService {
 	}
 	public int updateImgCheck(int roomImg_num){
 		return imdao.updateImgCheck(roomImg_num);
+	}
+	public int update(RoomImageVo vo) {
+		return imdao.update(vo);
 	}
 }

@@ -16,13 +16,15 @@
 		<td>가격</td>
 		<td>설명</td>
 		<td>이미지</td>
+		<td>방인원</td>
+		<td>방수정</td>
 		<td>방삭제</td>
 	</tr>
 	<c:forEach var="vo" items="${list}" varStatus="status">	
 	<tr>
 		<td>${status.index+1}</td>
 		<td>${vo.room_type}</td>
-		<td>${vo.room_price}</td>
+		<td>${vo.room_price}원</td>
 		<td>${vo.room_comm}</td>
 		<td>
 		<c:forEach var="img" items="${vo.room_images}">	
@@ -38,7 +40,9 @@
 			<input type="submit" value="등록">
 		</form>
 		</td>
-			<td><a href="${pageContext.request.contextPath }/roomDelete?accom_num=${accom_num}&room_num=${vo.room_num }">삭제</a></td>
+			<td>${vo.room_capa}명</td>
+		    <td><a href="${pageContext.request.contextPath }/roomUpdate?accom_num=${accom_num}&room_num=${vo.room_num }">방수정</a></td>
+			<td><a href="${pageContext.request.contextPath }/roomDelete?accom_num=${accom_num}&room_num=${vo.room_num }">방삭제</a></td>
 	</tr>
 	</c:forEach>
 </table>
