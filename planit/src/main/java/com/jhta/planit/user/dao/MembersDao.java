@@ -64,4 +64,16 @@ public class MembersDao {
 	public int withdrawal(String mem_id) {
 		return sqlSession.update(NAMESPACE + ".withdrawal", mem_id);
 	}
+
+	public String idsearch(String mem_email) {
+		return sqlSession.selectOne(NAMESPACE + ".idsearch", mem_email);
+	}
+
+	public MembersVo pwdsearch(HashMap<String, Object> map) {
+		return sqlSession.selectOne(NAMESPACE + ".pwdsearch", map);
+	}
+
+	public MembersVo selectuserAuth(HashMap<String, String> map) {
+		return sqlSession.selectOne(NAMESPACE + ".selectuserAuth", map);
+	}
 }

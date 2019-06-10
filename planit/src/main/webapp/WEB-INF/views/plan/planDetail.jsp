@@ -81,7 +81,7 @@
 				<c:forEach var="dvo" items="${dlist }">
 					<tr>
 						<td>${dvo.planDetail_order + 1}</td>
-						<td>${dvo.planDetail_city },${dvo.planDetail_country }</td>
+						<td>${dvo.planDetail_city }, ${dvo.planDetail_country }</td>
 						<td>${dvo.planDetail_inDate }~${dvo.planDetail_outDate }</td>
 						<td>
 							${dvo.planDetail_detail }

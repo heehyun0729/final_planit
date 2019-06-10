@@ -430,14 +430,14 @@ function addCity(city, country, lat, lng) {
 	routelist.push(route);
 	setRouteDiv();
 	setMapRoute();
-}
+} 
 // 왼쪽 div에 정보 추가
 function setRouteDiv() {
 	var str = "";
 	for(var i = 0 ; i < routelist.length ; i++){
 		str += "<div class = 'routelist' style = 'padding-left: 5px;cursor:pointer;'>" +
-				"<div style='width:28px;height:7pt;border-right:3px solid skyblue'></div>" +
-					"<div style = 'width:50px;height:50px;display:inline-block;float:left;margin-right:15px;border:3px solid skyblue;border-radius:28px;'>" +
+				"<div style='width:33px;height:7pt;border-right:3px solid skyblue'></div>" +
+					"<div style = 'width:60px;height:60px;display:inline-block;float:left;margin-right:15px;border:3px solid skyblue;border-radius:33px;'>" +
 						"<select id = 'stay" + i + "' style = 'margin-top:15px;margin-left:2px;' onchange = 'javascript:changeStay(" + i + ")'>";
 							for(var j = 0 ; j < 10 ; j++){
 								str += "<option value = '" + j + "' ";
@@ -456,7 +456,7 @@ function setRouteDiv() {
 						"</div>" +
 						"<div><span style = 'font-size:12px;color:gray;margin-top: 5px;'>" + routelist[i].date_in + "~" + routelist[i].date_out + "</span></div>" +
 					"</div>" +
-					"<div style='width:28px;height:7pt;border-right:3px solid skyblue;clear:both;'></div>" +
+					"<div style='width:33px;height:7pt;border-right:3px solid skyblue;clear:both;'></div>" +
 				"</div>";
 		$('#route').html(str);
 	}

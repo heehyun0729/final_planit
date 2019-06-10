@@ -15,11 +15,20 @@
 	<select id="getAdInfoInfo" parameterType="int" resultType="com.jhta.planit.admin.vo.AdInfoVo">
 		select * from adInfo where ad_num=#{ad_num}
 	</select>
+	<select id="getTodayAd" parameterType="String" resultType="com.jhta.planit.admin.vo.AdInfoVo">
+		select * from adInfo where adInfo_date=#{adInfo_date} and adInfo_status=1
+	</select> 
 	<update id="adInfoApproved" parameterType="int">
 		update adInfo set adInfo_status=1 where adInfo_num=#{adInfo_num}
 	</update>
 	<update id="adInfoDeclined" parameterType="int">
 		update adInfo set adInfo_status=2 where adInfo_num=#{adInfo_num}
+	</update>
+	<update id="requestRefundAdInfo" parameterType="int">
+		update adInfo set adInfo_status=3 where adInfo_num=#{adInfo_num}
+	</update>
+	<update id="requestRefundAllAdInfo" parameterType="int">
+		update adInfo set adInfo_status=3 where ad_num=#{ad_num}
 	</update>
 	<update id="adInfoRefunded" parameterType="int">
 		update adInfo set adInfo_status=4 where adInfo_num=#{adInfo_num}

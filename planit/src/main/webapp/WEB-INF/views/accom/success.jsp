@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>요청작업 완료!</h1>
-<a href="${pageContext.request.contextPath }/reservationHome">예약페이지</a><br>
+<a href="${pageContext.request.contextPath }/accommList">방정보등록</a><br>
 </body>
 </html>

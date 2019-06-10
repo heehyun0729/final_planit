@@ -4,7 +4,6 @@
 
 $(document).ready(function() {
 	$("#mypage_followbtn").click(function() {
-		console.log($("#hidden_fg").val());
 		let hidden_id = $("#hidden_id").val();
 		if (hidden_id != "") {
 			$.ajax({

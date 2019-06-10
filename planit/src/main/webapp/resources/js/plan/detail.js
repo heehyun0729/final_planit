@@ -130,6 +130,7 @@ function initDetailMap() {
 					start: routelist[i].date_in.substr(0, 10),
 					end: formattedDate.substr(0, 10),
 					color: bgcolors[i % 8],
+					eventTextColor: 'white',
 					city:  routelist[i].city,
 					country: routelist[i].country,
 					description: routelist[i].detail
@@ -160,7 +161,10 @@ function showCalendar() {
 		buttonIcons: true, 
 		editable: false,
 		locale:'ko',
-		events:events,
+		events:{
+			events,
+			textColor: 'white'
+		},
 		height: 460,
 		contentHeight:440,
 		// 이벤트에 마우스 올리면 tooltip 표시
@@ -182,7 +186,7 @@ function showCalendar() {
 		}
 	});
 }
-// dialog창 설정하느 함수
+// dialog창 설정하는 함수
 function setDialog() {
 	startDateDialog = $( "#startDateDialog" ).dialog({
       autoOpen: false,

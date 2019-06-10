@@ -3,5 +3,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	alert("결제에 실패했습니다.");
-	window.parent.$(".ui-dialog-content:visible").dialog("close");
+	window.parent.$('#exampleModal').modal('hide');
 </script>

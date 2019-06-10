@@ -24,8 +24,17 @@ public class AdDao {
 	public int getTotalRowCount(HashMap<String, Object> map) {
 		return sqlSession.selectOne(NAMESPACE + "getTotalRowCount", map);
 	}
+	public int getApproveAdBadge() {
+		return sqlSession.selectOne(NAMESPACE + "getApproveAdBadge");
+	}
+	public int getRequestRefundAdBadge() {
+		return sqlSession.selectOne(NAMESPACE + "getRequestRefundAdBadge");
+	}
 	public List<AdVo> getAdList(HashMap<String, Object> map) {
 		return sqlSession.selectList(NAMESPACE + "getAdList", map);
+	}
+	public List<AdVo> getMyAdList(HashMap<String, Object> map) {
+		return sqlSession.selectList(NAMESPACE + "getMyAdList", map);
 	}
 	public AdVo getAdInfo(int ad_num) {
 		return sqlSession.selectOne(NAMESPACE + "getAdInfo", ad_num);
@@ -41,5 +50,8 @@ public class AdDao {
 	}
 	public int allRefundedAd(int ad_num) {
 		return sqlSession.update(NAMESPACE + "allRefundedAd", ad_num);
+	}
+	public int requestRefundAd(int ad_num) {
+		return sqlSession.update(NAMESPACE + "requestRefundAd", ad_num);
 	}
 }

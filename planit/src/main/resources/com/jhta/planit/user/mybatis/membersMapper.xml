@@ -48,4 +48,13 @@
 		update members set mem_nickname=#{mem_nickname}
 		where mem_id=#{mem_id}
 	</update>
+	<select id="idsearch" resultType="string" parameterType="string">
+		select mem_id from members where mem_email=#{mem_email}
+	</select>
+	<select id="pwdsearch" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="map">
+		select * from members where mem_id=#{mem_id} and mem_email=#{mem_email}
+	</select>
+	<select id="selectuserAuth" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="map">
+		select * from userAuth where mem_email = #{mem_email} and authKey = #{authKey}
+	</select>
 </mapper>

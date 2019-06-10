@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class ReviewVo {
 	private int review_num;
+	private String mem_id;
 	private String review_country;
 	private String review_city;
 	private String review_title;
@@ -15,10 +16,11 @@ public class ReviewVo {
 	
 	public ReviewVo() {}
 
-	public ReviewVo(int review_num, String review_country, String review_city, String review_title,
+	public ReviewVo(int review_num, String mem_id, String review_country, String review_city, String review_title,
 			String review_content, Date review_date, int review_hit, int review_star, int review_like) {
 		super();
 		this.review_num = review_num;
+		this.mem_id = mem_id;
 		this.review_country = review_country;
 		this.review_city = review_city;
 		this.review_title = review_title;
@@ -35,6 +37,14 @@ public class ReviewVo {
 
 	public void setReview_num(int review_num) {
 		this.review_num = review_num;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
 	}
 
 	public String getReview_country() {
@@ -100,6 +110,15 @@ public class ReviewVo {
 	public void setReview_like(int review_like) {
 		this.review_like = review_like;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ReviewVo [review_num=" + review_num + ", mem_id=" + mem_id + ", review_country=" + review_country
+				+ ", review_city=" + review_city + ", review_title=" + review_title + ", review_content="
+				+ review_content + ", review_date=" + review_date + ", review_hit=" + review_hit + ", review_star="
+				+ review_star + ", review_like=" + review_like + "]";
+	}
 	
 }
+
+	

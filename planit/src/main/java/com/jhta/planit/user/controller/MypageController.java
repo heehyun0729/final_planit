@@ -1,5 +1,6 @@
 package com.jhta.planit.user.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,19 +8,63 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jhta.planit.admin.service.AdService;
+import com.jhta.planit.admin.vo.AdImageVo;
+import com.jhta.planit.admin.vo.AdInfoVo;
+import com.jhta.planit.admin.vo.AdVo;
 import com.jhta.planit.user.service.MypageService;
+import com.jhta.util.PageUtil;
 
 @Controller
 public class MypageController {
 	@Autowired private MypageService service;
+	@Autowired private AdService adService;
 
+	@RequestMapping(value = "/member/mypage/ad/{mem_id}/myAdList")//내 광고 리스트
+	public String myAdList(@PathVariable String mem_id, @RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
+		String ad_progress="-1";
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("ad_progress", ad_progress);
+		map.put("mem_id", mem_id);
+		int totalRowCount=adService.getTotalRowCount(map);
+		PageUtil pu=new PageUtil(pageNum, totalRowCount, 10, 10);
+		map.put("pageNum", pageNum);
+		map.put("startPageNum", pu.getStartPageNum());
+		map.put("endPageNum", pu.getEndPageNum()); 
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());		
+		List<AdVo> getMyAdList=adService.getMyAdList(map);
+		model.addAttribute("map", map);
+		model.addAttribute("getMyAdList", getMyAdList);
+		return ".member.ad.myAdList";
+	}
+	@RequestMapping(value="/adAnalytics", method=RequestMethod.GET)//광고 통계 페이지
+	public String adAnalytics(int ad_num, Model model) {
+		AdVo getAdInfo=adService.getAdInfo(ad_num);
+		List<AdInfoVo> getAdInfoInfo=adService.getAdInfoInfo(ad_num);
+		ArrayList<AdImageVo> getAdInfoImage=new ArrayList<AdImageVo>();
+		for(int i=0;i<getAdInfoInfo.size();i++) {
+			int adInfo_Num=getAdInfoInfo.get(i).getAdInfo_num();
+			AdImageVo image=adService.getAdInfoImage(adInfo_Num);
+			getAdInfoImage.add(image);
+		}
+		model.addAttribute("getAdInfo", getAdInfo);
+		model.addAttribute("getAdInfoInfo", getAdInfoInfo);
+		model.addAttribute("getAdInfoImage", getAdInfoImage);
+		return "/member/ad/adAnalytics";
+	}
+	
 	@RequestMapping(value = "/member/mypage/{mem_id}", method = RequestMethod.GET)
 	public ModelAndView mypageMain(@PathVariable String mem_id, HttpSession session) {
 		HashMap<String, String> parammap=new HashMap<String, String>();

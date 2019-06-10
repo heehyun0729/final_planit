@@ -389,8 +389,6 @@ $(document).ready(function() {
 		$("#sell_tel").val($("#sell_tel1").val()+$("#sell_tel2").val()+$("#sell_tel3").val());
 		$("#sell_addr").val($("#sell_addr1").val()+$("#sell_addr2").val()+$("#sell_addr3").val());
 		if (!formresult) {
-			console.log("전번: "+$("#sell_tel").val());
-			console.log("주소: "+$("#sell_addr").val());
 			event.preventDefault();
 		}
 	});
