@@ -136,7 +136,7 @@
 	<!-- 동행찾기 글추가 -->
 	<insert id="buddy_insert" parameterType="com.jhta.planit.buddy.vo.BuddyVo">
 		insert into buddy
-		values(buddy_seq.nextval,'test3',#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
+		values(buddy_seq.nextval,'test4',#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
 	</insert>
 	<!-- 국가추가 -->
 	<insert id="buddyCountry_insert" parameterType="String">
@@ -171,7 +171,7 @@
 		)
 	</update>
 	
-	<!-- 동행찾기 -->
+	<!-- 동행추천 -->
 	<select id="buddy_sameDateCity" parameterType="String" resultType="String">
 		select b.buddy_num
 		from buddy b, buddy_country c, buddy_city t
@@ -186,5 +186,25 @@
 		    select distinct buddy_indate from buddy where mem_id=#{id}
 		)
 		and not b.mem_id in(#{id})
+	</select>
+	
+	<!-- 추천동행정보 -->
+	<select id="buddy_detail" resultMap="buddylistvo" parameterType="String">
+		select b.BUDDY_NUM BUDDY_NUM,
+		b.MEM_ID MEM_ID,
+		b.BUDDY_GENDER BUDDY_GENDER,
+		b.BUDDY_BIRTHYEAR BUDDY_BIRTHYEAR,
+		TO_CHAR(b.buddy_indate, 'YYYY-MM-DD') buddy_indate,
+		TO_CHAR(b.buddy_outdate, 'YYYY-MM-DD') buddy_outdate,
+		b.BUDDY_MSG BUDDY_MSG,
+		b.BUDDY_STATE BUDDY_STATE,
+		c.COUNTRY_NUM COUNTRY_NUM,
+		c.BUDDY_NUM BUDDY_NUM_0,
+		c.BUDDY_COUNTRY BUDDY_COUNTRY,
+		t.CITY_NUM CITY_NUM,
+		t.COUNTRY_NUM COUNTRY_NUM_1,
+		t.BUDDY_CITY BUDDY_CITY
+		from buddy b,buddy_country c,buddy_city t 
+		where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_num=#{mem_id} and b.buddy_state=0
 	</select>
 </mapper>

@@ -57,4 +57,8 @@ public class BuddyDao {
 	public List<String> sameDateCity(String id) {
 		return sqlSession.selectList(NAMESPACE + ".buddy_sameDateCity",id);
 	}
+	//동행상세
+	public BuddyListVo detail(String id) {
+		return sqlSession.selectOne(NAMESPACE + ".buddy_detail",id);
+	}
 }

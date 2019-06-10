@@ -3,6 +3,7 @@ package com.jhta.planit.buddy.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Spliterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -113,8 +114,16 @@ public class BuddyController {
 	}
 	//ÆË¾÷
 	@RequestMapping(value="/buddySg", method=RequestMethod.GET)
-	public String popBuddySg(List<String> mem_buddy) {
-		System.out.println("///////////////////mem_id : "+mem_buddy);
-		return "/buddy/buddySg";
+	public ModelAndView popBuddySg(String mem_buddy) {
+		String idList[]=mem_buddy.split(",");
+		ModelAndView mv=new ModelAndView("/buddy/buddySg");
+		List<BuddyListVo> list = new ArrayList<BuddyListVo>();
+		for(int i=0;i<idList.length;i++) {
+			BuddyListVo vv=service.detail(idList[i]);
+			list.add(vv);
+		}
+		System.out.println(list);
+		mv.addObject("list",list);
+		return mv;
 	}
 }

@@ -64,4 +64,8 @@ public class BuddyService {
 	public List<String> sameDateCity(String id) {
 		return dao.sameDateCity(id);
 	}
+	//동행상세
+	public BuddyListVo detail(String id){
+		return dao.detail(id);
+	}
 }

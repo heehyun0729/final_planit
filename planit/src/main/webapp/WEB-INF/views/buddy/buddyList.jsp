@@ -60,8 +60,8 @@
 			<tr>
 				<th>여행자</th>
 				<th>여행날짜</th>
-				<th>성별</th>
-				<th>나이</th>
+				<th>희망성별</th>
+				<th>희망나이</th>
 				<th>여행 소개</th>
 				<th>여행할 도시</th>
 			</tr>
@@ -69,8 +69,25 @@
 				<tr>
 					<th>${buddy.mem_id }</th>
 					<th>${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</th>
-					<th>${buddy.buddy_gender }</th>
-					<th>${buddy.buddy_birthyear }</th>
+					<c:choose>
+						<c:when test="${buddy.buddy_gender =='X'}">
+							<th>상관없음</th>
+						</c:when>
+						<c:when test="${buddy.buddy_gender =='M'}">
+							<th>남자</th>
+						</c:when>
+						<c:when test="${buddy.buddy_gender =='W'}">
+							<th>여자</th>
+						</c:when>
+					</c:choose>
+					<c:choose>
+						<c:when test="${buddy.buddy_birthyear==0 }">
+							<th>상관없음</th>
+						</c:when>
+						<c:otherwise>
+							<th>${buddy.buddy_birthyear }대</th>
+						</c:otherwise>
+					</c:choose>
 					<th>${buddy.buddy_msg }</th>
 					<th>${buddy.buddy_city }</th>
 				</tr>
@@ -141,16 +158,22 @@
 		if('${sgId}' != ''){
 			var result = confirm('같은 일정에 같은 도시를 여행하는 사람이 있습니다. 추천받으시겠습니까?');
 			if(result) { 
+				var list=${sgId};
 				alert('추천페이지로 넘어갑니다.');
-				alert('${sgId}');
-				popupOpen('${sgId}');
+				alert(list);
+				popupOpen(list);
 			}else{}
 			
 		}else{
 			alert('같은 일정에 같은 도시를 여행하는 사람이 없습니다.ㅠㅠ');
 		}
 	});
-	
+	//팝업
+	function popupOpen(param){
+		var popUrl = "<c:url value='/buddySg?mem_buddy="+param+"' />";
+		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+			window.open(popUrl,"동행추천",popOption);
+	}
 	//유효성체크
 	function check(){
 		if($('input:checkbox[name="kw_city"]').is(":checked")){
@@ -159,11 +182,5 @@
 			alert("여행하려는 도시를 선택해주세요.");
 			return false;
 		}
-	}
-	//팝업
-	function popupOpen(mem_buddy){
-		var popUrl = "<c:url value='/buddySg?mem_buddy="+mem_buddy+"' />";
-		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
-			window.open(popUrl,"동행추천",popOption);
 	}
 </script>
