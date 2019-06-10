@@ -63,7 +63,7 @@ public class MembersService {
 				n = vo.getMem_stat();
 			}
 		}
-		return 1;///
+		return 1;
 	}
 
 	public MembersVo idCheck(String mem_id) {
@@ -137,5 +137,40 @@ public class MembersService {
 			n = -10;
 		}
 		return n;
+	}
+
+	public String idsearch(String mem_email) {
+		return dao.idsearch(mem_email);
+	}
+
+	public boolean pwdsearch(HashMap<String, Object> map) throws Exception {
+		boolean b = true;
+		if (dao.pwdsearch(map) != null) {
+			String key = new AuthenticationKeyGeneration().getKey(50, false);
+
+			map.put("authKey", key);
+			dao.createAuthKey(map);
+
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("[Planit 서비스 이메일 인증]");
+			sendMail.setText(new StringBuffer().append("<h1>Planit 회원 비밀번호 찾기</h1>")
+					.append("<a href='http://localhost:9090/planit/member/pwdChangeemailConfirm?mem_email=")
+					.append(map.get("mem_email")).append("&key=").append(key).append("' target='_blenk'>비밀번호 찾기</a>")
+					.toString());
+			sendMail.setFrom("limsr95@gmail.com", "Planit");
+			sendMail.setTo((String) map.get("mem_email"));
+			sendMail.send();
+		} else {
+			b = false;
+		}
+		return b;
+	}
+
+	public boolean pwdemail(HashMap<String, String> map) {
+		if (dao.selectuserAuth(map) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

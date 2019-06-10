@@ -69,8 +69,15 @@ public class EditUserInfoController {
 	}
 
 	@RequestMapping(value = "/user/idsearch", method = RequestMethod.POST)
-	public String idsearch(String mem_email) {
-		return "/user/idsearch";
+	public String idsearch(String mem_email, RedirectAttributes attributes, Model model) {
+		String mem_id = membersService.idsearch(mem_email);
+		if (mem_id != null) {
+			attributes.addFlashAttribute("authMsg", "당신의 아이디는 " + mem_id + "입니다.<br> 비밀번호를 찾으실려면 <a href='http://localhost:9090/planit/user/pwdsearch'>비밀번호 찾기</a>를 눌러 주세요");
+			return "redirect:/member/result";
+		} else {
+			model.addAttribute("errMsg", "입력하신 정보가 올바르지 않습니다.");
+			return "/user/idsearch";
+		}
 	}
 
 	@RequestMapping(value = "/user/pwdsearch", method = RequestMethod.GET)
@@ -79,10 +86,36 @@ public class EditUserInfoController {
 	}
 
 	@RequestMapping(value = "/user/pwdsearch", method = RequestMethod.POST)
-	public String pwdsearch(String mem_id, String mem_email) {
-		return "/user/pwdsearch";
+	public String pwdsearch(String mem_id, String mem_email, RedirectAttributes attributes, Model model)
+			throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mem_id", mem_id);
+		map.put("mem_email", mem_email);
+		if (membersService.pwdsearch(map)) {
+			attributes.addFlashAttribute("authMsg", "이메일이 전송되었습니다. 이메일을 확인하여 비밀번호를 수정해 주세요");
+			return "redirect:/member/result";
+		} else {
+			model.addAttribute("errMsg", "입력하신 정보가 올바르지 않습니다.");
+			return "/user/pwdsearch";
+		}
 	}
-	
+
+	@RequestMapping(value = "/member/pwdChangeemailConfirm", method = RequestMethod.GET)
+	public String pwdemailConfirm(String mem_email, String key, RedirectAttributes attributes, Model model)
+			throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mem_email", mem_email);
+		map.put("authKey", key);
+		if (membersService.pwdemail(map)) {
+			model.addAttribute("forgot", true);
+			model.addAttribute("mem_id", membersService.getId(mem_email));
+			return "/user/pwdChange";
+		} else {
+			attributes.addFlashAttribute("authMsg", "인증 정보가 올바르지 않습니다.");
+		}
+		return "redirect:/member/result";
+	}
+
 	@RequestMapping(value = "/user/pwdchange", method = RequestMethod.POST)
 	public String pwdChange(String mem_id, boolean forgot, String before_mem_pwd, String mem_pwd,
 			RedirectAttributes attributes, Model model) throws Exception {

@@ -106,16 +106,19 @@ $(document).ready(function() {
 	});
 	
 	$("#idsearch").submit(function(event) {
-		if($("#mem_email").val("")==""){
+		if($("#mem_email").val()==""){
 			$("#errMsg").html("이메일을 입력해 주세요");
+			event.preventDefault();
 		}
 	});
 
 	$("#pwdsearch").submit(function(event) {
-		if($("#mem_id").val("")==""){
-			$
-		}else if($("#mem_email").val("")==""){
+		if($("#mem_id").val()==""){
+			$("#errMsg").html("아이디를 입력해 주세요");
+			event.preventDefault();
+		}else if($("#mem_email").val()==""){
 			$("#errMsg").html("이메일을 입력해 주세요");
+			event.preventDefault();
 		}
 	});
 	
