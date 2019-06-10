@@ -73,8 +73,8 @@ CREATE TABLE MEMIMAGE(
 	REFERENCES MEMBERS (mem_id)
 );
 CREATE SEQUENCE MEMIMAGE_SEQ;
--------------------------2019/06/08 추가분 -----------------------------------------------------------
-//판매자 테이블
+
+--판매자 테이블
 drop table seller;
 create table seller(
     sell_num number(5) primary key,
@@ -84,7 +84,8 @@ create table seller(
 );
 drop SEQUENCE seller_seq;
 CREATE SEQUENCE seller_seq;
-//숙소테이블
+
+--숙소테이블
 drop table accom;
 create table accom(
     accom_num number(7,0) primary key,
@@ -101,7 +102,7 @@ create table accom(
 drop SEQUENCE accom_seq;
 CREATE SEQUENCE accom_seq;
 
-//방정보 테이블
+--방정보 테이블
 drop table room;
 create table room(
     room_num number(7,0) primary key,
@@ -115,7 +116,7 @@ create table room(
 drop SEQUENCE room_seq;
 CREATE SEQUENCE room_seq;
 
-//방이미지 테이블
+--방이미지 테이블
 drop table roomImage;
 create table roomImage(
     roomImg_num number(7,0) primary key,
@@ -127,7 +128,7 @@ create table roomImage(
 drop SEQUENCE roomImage_seq;
 CREATE SEQUENCE roomImage_seq;
 
-//쪽지 테이블
+--쪽지 테이블
 CREATE TABLE MsgTable
 (
 	msgNum number(4) primary key,
@@ -140,7 +141,7 @@ CREATE TABLE MsgTable
             msgDeletee varchar(50)
 
 );
- ----------------------------------------------------------------------------------------------------------------------
+
 DROP TABLE acommQna CASCADE CONSTRAINTS;
 drop sequence acommQna_num_seq;
 create table acommQna(
