@@ -42,6 +42,43 @@
 	</tr>
 	</c:forEach>
 </table>
+<div>
+		<c:choose>
+			<c:when test="${pu.startPageNum  > 5 }">
+				<a
+					href="${pageContext.request.contextPath }/roomList?pageNum=${pu.startPageNum - 1}&field=${field}&keyword=${keyword}&accom_num=${accom_num}">[이전]</a>
+			</c:when>
+		</c:choose>
+		<c:forEach var="i" begin="${pu.startPageNum}" end="${pu.endPageNum }">
+			<c:choose>
+				<c:when test="${pu.pageNum==i }">
+					<a
+						href="${pageContext.request.contextPath }/roomList?pageNum=${i}&accom_num=${accom_num}"><span
+						class="thisPage">[${i }]</span></a>
+				</c:when>
+				<c:otherwise>
+					<a
+						href="${pageContext.request.contextPath }/roomList?pageNum=${i}&accom_num=${accom_num}"><span
+						class="thisPage">[${i }]</span></a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${pu.endPageNum < pu.totalPageCount}">
+				<a
+					href="${pageContext.request.contextPath }/roomList?pageNum=${pu.endPageNum + 1}&field=${field}&keyword=${keyword}&accom_num=${accom_num}">[다음]</a>
+			</c:when>
+		</c:choose>
+	</div>
+	<div>
+		<form method="post" action="<c:url value='/roomList?accom_num=${param.accom_num}'/>">
+			<select name="field">
+				<option value="room_type"
+					<c:if test="${field=='room_type'}">selected="selected"</c:if>>방타입</option>
+			</select> <input type="text" name="keyword" value="${keyword }"> <input
+				type="submit" value="검색">
+		</form>
+	</div>
 <a href="<c:url value='/roomInsert?accom_num=${param.accom_num }'/>">방추가</a>
 <a href="<c:url value='/accommList'/>">숙소리스트</a>
 </body>

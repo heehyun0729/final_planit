@@ -19,22 +19,35 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.planit.room.service.RoomService;
 import com.jhta.planit.room.vo.RoomVo;
+import com.jhta.util.PageUtil;
 
 @Controller
 public class RoomListController {
-	@Autowired private RoomService service;
+	@Autowired
+	private RoomService service;
+
 	public void setService(RoomService service) {
 		this.service = service;
 	}
-	@RequestMapping(value="/roomList")
-	public ModelAndView roomList(@RequestParam(value="accom_num", required=true) int accom_num) {
-		
-		List<RoomVo> list = service.list(accom_num);
 
-		ModelAndView mv=new ModelAndView("/room/roomList");
-		mv.addObject("accom_num",accom_num);
-		mv.addObject("list",list);
-		
+	@RequestMapping(value = "/roomList")
+	public ModelAndView roomList(@RequestParam(value = "accom_num", required = true) int accom_num,
+			@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, String field, String keyword) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		// 전체 글의갯수
+		int totalRowCount = service.count(map);
+		PageUtil pu = new PageUtil(pageNum, totalRowCount, 10, 10);
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<RoomVo> list = service.list(map);
+		ModelAndView mv = new ModelAndView("/room/roomList");
+		mv.addObject("accom_num", accom_num);
+		mv.addObject("list", list);
+		mv.addObject("pu",pu);
+		mv.addObject("field",field);
+		mv.addObject("keyword",keyword);
 		return mv;
 	}
 }
