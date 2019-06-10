@@ -30,7 +30,7 @@ public class RoomInsertController {
 	}
 	
 	@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
-	 public String roomInsert(RoomVo vo, MultipartFile file1, HttpSession session  ) {
+	 public String roomInsert(@RequestParam(value="accom_num", required=true) int accom_num,RoomVo vo, MultipartFile file1, HttpSession session  ) {
 		String path=session.getServletContext().getRealPath("/resources/uploadRoom");
 		String roomImg_orgImg=file1.getOriginalFilename();		
 		String roomImg_saveImg=UUID.randomUUID() + "_" + roomImg_orgImg;
@@ -49,7 +49,7 @@ public class RoomInsertController {
 		map.put("roomImg_orgImg",roomImg_orgImg );
 		map.put("roomImg_saveImg",roomImg_saveImg );
 		service.insert(map);
-		return "redirect:/accommList";
+		return "redirect:/roomList?accom_num="+accom_num;
 	}
 
 	@RequestMapping(value="/roomImageInsert",method=RequestMethod.POST)

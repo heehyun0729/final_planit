@@ -43,6 +43,7 @@
 	</c:forEach>
 </table>
 <a href="<c:url value='/roomInsert?accom_num=${param.accom_num }'/>">방추가</a>
+<a href="<c:url value='/accommList'/>">숙소리스트</a>
 </body>
 </html>
 
