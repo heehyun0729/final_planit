@@ -66,4 +66,7 @@
 		   <include refid="rsvnSearch"/>
 		)
 	</select>
+	<select id="roomList" parameterType="int" resultType="com.jhta.planit.room.vo.RoomVo">
+		select * from room where accom_num = #{accom_num} and roomchk = 0
+	</select>
 </mapper>

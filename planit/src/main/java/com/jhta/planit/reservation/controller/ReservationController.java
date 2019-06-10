@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.reservation.service.RsvnAccomService;
+import com.jhta.planit.reservation.service.RsvnRoomService;
 import com.jhta.planit.reservation.vo.RsvnAccomVo;
-import com.jhta.planit.room.service.RoomService;
 import com.jhta.planit.room.vo.RoomVo;
 import com.jhta.planit.roomImage.service.RoomImageService;
 import com.jhta.planit.roomImage.vo.RoomImageVo;
@@ -22,7 +22,7 @@ import com.jhta.util.PageUtil;
 public class ReservationController {
 	@Autowired private RsvnAccomService rsvnAccomService;
 	@Autowired private AccomService accomService;
-	@Autowired private RoomService roomService;
+	@Autowired private RsvnRoomService rsvnRoomService;
 	@Autowired private RoomImageService roomImageService;
 	
 	@RequestMapping("/reservation/detail")
@@ -31,7 +31,7 @@ public class ReservationController {
 		String str = avo.getAccom_comm().replaceAll("\n", "<br>");
 		avo.setAccom_comm(str);
 		
-		List<RoomVo> rlist = roomService.list(accom_num);
+		List<RoomVo> rlist = rsvnRoomService.list(accom_num);
 		for(RoomVo vo : rlist) {
 			String str1 = vo.getRoom_comm().replaceAll("\n", "<br>");
 			vo.setRoom_comm(str1);
