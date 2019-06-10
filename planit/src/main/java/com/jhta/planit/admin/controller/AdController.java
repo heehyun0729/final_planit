@@ -451,5 +451,19 @@ public class AdController {
 		goWithData(ad_num, model);
 		return "/admin/adminAdManagement/allAdInfo";
 	}
-	
+	@RequestMapping(value="/admin/test")//광고 출력 정보
+	public String adminTest(Model model) {
+		Date date=new Date(System.currentTimeMillis());
+		String adInfo_date=date.toString();
+		List<AdInfoVo> getTodayAd=service.getTodayAd(adInfo_date);
+		ArrayList<AdImageVo> imageList=new ArrayList<AdImageVo>();
+		for(int i=0;i<getTodayAd.size();i++) {
+			int adInfo_num=getTodayAd.get(i).getAdInfo_num();
+			AdImageVo vo=service.getAdInfoImage(adInfo_num);
+			imageList.add(vo);
+		}
+		model.addAttribute("imageList", imageList);
+		model.addAttribute("getTodayAd", getTodayAd);
+		return "-admin-adminBody-adminTest";
+	}
 }

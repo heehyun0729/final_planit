@@ -155,4 +155,7 @@ public class AdService {
 	public int requestChangeAdImageDecline(int adImg_num) {//광고 이미지 변경 거절
 		return adImageDao.requestChangeAdImageDecline(adImg_num);
 	}
+	public List<AdInfoVo> getTodayAd(String adInfo_date){//오늘 광고 리스트
+		return adInfoDao.getTodayAd(adInfo_date);
+	}
 }

@@ -141,5 +141,11 @@
 				<span class="menu-collapsed">정보</span>
 			</div>
 		</a>
+		<a href="<c:url value='/admin/test'/>" class="bg-dark list-group-item list-group-item-action">
+			<div class="d-flex w-100 justify-content-start align-items-center">
+				<span class="fas fa-vial fa-fw mr-3"></span>
+				<span class="menu-collapsed">테스트</span>
+			</div>
+		</a>
 	</ul>
 </div>
