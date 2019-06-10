@@ -73,21 +73,8 @@ public class RoomService {
 	public int updateRoomCheck(int room_num){
 		return dao.updateRoomCheck(room_num);
 	}
-	public int update(HashMap<String, Object> map) {
-		RoomVo vo = (RoomVo) map.get("vo");
-		dao.update(vo);
-		String roomImg_orgImg = (String) map.get("roomImg_orgImg");
-		String roomImg_saveImg = (String) map.get("roomImg_saveImg");
-		int room_num = 0;
-		try {
-			room_num = dao.getRoomNum();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			room_num = 1;
-		}
-		RoomImageVo iVo = new RoomImageVo(0, room_num, roomImg_orgImg, roomImg_saveImg,0);
-		imdao.update(iVo);
-		return room_num;
+	public int update(RoomVo vo) {
+		return dao.update(vo);
 	}
 	public RoomVo detail(int room_num) {
 		return dao.detail(room_num);

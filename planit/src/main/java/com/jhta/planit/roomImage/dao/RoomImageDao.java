@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jhta.planit.accom.vo.AccomVo;
+import com.jhta.planit.room.vo.RoomVo;
 import com.jhta.planit.roomImage.vo.RoomImageVo;
 
 @Repository
@@ -32,5 +33,11 @@ public class RoomImageDao {
 	}
 	public int update(RoomImageVo vo) {
 		return sqlSession.update(NAMESPACE +".update",vo);
+	}
+	public List<RoomImageVo> detail(int room_num) {
+		return sqlSession.selectList(NAMESPACE + ".detail", room_num);
+	}
+	public int delete(int room_num) {
+		return sqlSession.delete(NAMESPACE +".delete",room_num);
 	}
 }
