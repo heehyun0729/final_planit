@@ -8,7 +8,7 @@ public class RoomVo {
 	private int room_num;
 	private int accom_num;
 	private String room_type;
-	private String room_price; 
+	private int room_price; 
 	private String room_comm;
 	private int roomChk;
 	private int room_capa;
@@ -16,7 +16,7 @@ public class RoomVo {
 	
 	public RoomVo() {}
 
-	public RoomVo(int room_num, int accom_num, String room_type, String room_price, String room_comm, int roomChk,
+	public RoomVo(int room_num, int accom_num, String room_type, int room_price, String room_comm, int roomChk,
 			int room_capa, List<RoomImageVo> room_images) {
 		super();
 		this.room_num = room_num;
@@ -53,11 +53,11 @@ public class RoomVo {
 		this.room_type = room_type;
 	}
 
-	public String getRoom_price() {
+	public int getRoom_price() {
 		return room_price;
 	}
 
-	public void setRoom_price(String room_price) {
+	public void setRoom_price(int room_price) {
 		this.room_price = room_price;
 	}
 
@@ -93,5 +93,6 @@ public class RoomVo {
 		this.room_images = room_images;
 	}
 
+	
 }
 

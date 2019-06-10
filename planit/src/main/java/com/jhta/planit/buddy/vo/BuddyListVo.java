@@ -82,6 +82,4 @@ public class BuddyListVo {
 	public void setBuddy_city(List<String> buddy_city) {
 		this.buddy_city = buddy_city;
 	}
-	
-	
 }

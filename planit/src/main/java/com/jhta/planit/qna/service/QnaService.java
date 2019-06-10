@@ -32,10 +32,13 @@ public class QnaService {
 	public QnaVo prev(int qna_num) {
 		return dao.prev(qna_num);
 	}
-	public int update(QnaVo vo) {
-		return dao.update(vo);
+	public int update(HashMap<String, Object>map) {
+		return dao.update(map);
 	}
 	public int delete(int qna_num) {
 		return dao.delete(qna_num);
+	}
+	public QnaVo getinfo(int qna_num) {
+		return dao.getinfo(qna_num);
 	}
 }

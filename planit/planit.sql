@@ -270,6 +270,7 @@ create table planDetail(
     planDetail_detail clob
 );
 
+--동행게시판 테이블
 DROP TABLE buddy_city CASCADE CONSTRAINTS;
 DROP TABLE buddy_country CASCADE CONSTRAINTS;
 DROP TABLE buddy_apply CASCADE CONSTRAINTS;

@@ -2,12 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
 <div id="find_buddy">
-	<form>
+	<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
 		<div id="choice_date">
-			여행 시작 날짜 : <input type="text" id="buddy_indate"> 
-			여행 종료 날짜 : <input type="text" id="buddy_outdate">
+			여행 시작 날짜 : <input type="text" id="buddy_indate" name="kw_indate"> 
+			여행 종료 날짜 : <input type="text" id="buddy_outdate" name="kw_outdate">
 		</div>
 		
 		<div id="choice_city">
@@ -22,7 +21,7 @@
 						<c:forEach var="city" items="${cityList}">
 							<c:if test="${city.key==country }">
 								<c:forEach var="cityVal" items="${city.value}">
-									<td><input type="checkbox" id="${cityVal }" value="${cityVal }" name="${cityVal }">${cityVal }</td>
+									<td><input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city">${cityVal }</td>
 								</c:forEach>
 							</c:if>
 						</c:forEach>
@@ -33,15 +32,15 @@
 		
 		<div>
 			성별 :
-			<input type="radio" name="buddy_gender" value="X" checked="checked"> 상관없음
-			<input type="radio" name="buddy_gender" value="M"> 남 
-			<input type="radio" name="buddy_gender" value="W"> 여
+			<input type="radio" name="kw_gender" value="X" checked="checked"> 상관없음
+			<input type="radio" name="kw_gender" value="M"> 남 
+			<input type="radio" name="kw_gender" value="W"> 여
 			
 		</div>
 		
 		<div>
-			나이대 : <select name="buddy_birthYear">
-				<option value="any">상관없음</option>
+			나이대 : <select name="kw_birthYear">
+				<option value="0">상관없음</option>
 				<option value="20">20대</option>
 				<option value="30">30대</option>
 				<option value="40">40대</option>
@@ -51,6 +50,8 @@
 		</div>
 		
 		<input type="submit" value="검색">
+		<input id="list_all" type="button" value="전체 글 보기">
+		<input id="sg_buddy" type="button" value="동행추천받기">
 	</form>
 </div>
 <div id="buddy_list">
@@ -59,8 +60,8 @@
 			<tr>
 				<th>여행자</th>
 				<th>여행날짜</th>
-				<th>성별</th>
-				<th>나이</th>
+				<th>희망성별</th>
+				<th>희망나이</th>
 				<th>여행 소개</th>
 				<th>여행할 도시</th>
 			</tr>
@@ -68,13 +69,44 @@
 				<tr>
 					<th>${buddy.mem_id }</th>
 					<th>${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</th>
-					<th>${buddy.buddy_gender }</th>
-					<th>${buddy.buddy_birthyear }</th>
+					<c:choose>
+						<c:when test="${buddy.buddy_gender =='X'}">
+							<th>상관없음</th>
+						</c:when>
+						<c:when test="${buddy.buddy_gender =='M'}">
+							<th>남자</th>
+						</c:when>
+						<c:when test="${buddy.buddy_gender =='W'}">
+							<th>여자</th>
+						</c:when>
+					</c:choose>
+					<c:choose>
+						<c:when test="${buddy.buddy_birthyear==0 }">
+							<th>상관없음</th>
+						</c:when>
+						<c:otherwise>
+							<th>${buddy.buddy_birthyear }대</th>
+						</c:otherwise>
+					</c:choose>
 					<th>${buddy.buddy_msg }</th>
 					<th>${buddy.buddy_city }</th>
 				</tr>
 			</c:forEach>
 		</table>
+	</div>
+	<div>
+		<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+			<c:choose>
+				<c:when test="${pu.pageNum==i }"><%--현재 페이지 --%>
+					<a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>">
+					<span style='color:blue'>[${i }]</span></a>
+				</c:when>
+				<c:otherwise>
+					<a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>">
+					<span style='color:gray'>[${i }]</span></a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
 	</div>
 	<div id="button_div">
 		<input id="insert_buddy" type="button" value="동행찾는 글 등록하기">
@@ -115,4 +147,40 @@
 			window.location.href="<c:url value='/buddyInsert' />";
 		});
 	});
+	
+	//리스트 전체보기
+	$("#list_all").click(function(){
+		window.location.href="<c:url value='/buddyList' />";
+	});
+	
+	//자동추천
+	$("#sg_buddy").click(function(){
+		if('${sgId}' != ''){
+			var result = confirm('같은 일정에 같은 도시를 여행하는 사람이 있습니다. 추천받으시겠습니까?');
+			if(result) { 
+				var list=${sgId};
+				alert('추천페이지로 넘어갑니다.');
+				alert(list);
+				popupOpen(list);
+			}else{}
+			
+		}else{
+			alert('같은 일정에 같은 도시를 여행하는 사람이 없습니다.ㅠㅠ');
+		}
+	});
+	//팝업
+	function popupOpen(param){
+		var popUrl = "<c:url value='/buddySg?mem_buddy="+param+"' />";
+		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+			window.open(popUrl,"동행추천",popOption);
+	}
+	//유효성체크
+	function check(){
+		if($('input:checkbox[name="kw_city"]').is(":checked")){
+			return true;
+		}else{
+			alert("여행하려는 도시를 선택해주세요.");
+			return false;
+		}
+	}
 </script>
