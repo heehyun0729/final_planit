@@ -34,7 +34,7 @@
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
 		select * from
 		(
-		    select bb.accom_num accom_num, bb.sell_num sell_num, bb.accom_addr accom_addr, 
+		    select bb.accom_num accom_num, bb.sell_num sell_num, bb.accom_name accom_name, bb.accom_addr accom_addr, 
 		        bb.accom_comm accom_comm, bb.accom_country accom_country, bb.accom_city accom_city, 
 		        bb.accommImg_orgImg accommImg_orgImg, bb.accommImg_saveImg accommImg_saveImg, bb.accomchk accomchk,
 		        rr.room_price room_price, rownum rnum 

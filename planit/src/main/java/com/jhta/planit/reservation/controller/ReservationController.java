@@ -28,8 +28,13 @@ public class ReservationController {
 	@RequestMapping("/reservation/detail")
 	public String detail(int accom_num, Model model) {
 		AccomVo avo = accomService.detail(accom_num);
+		String str = avo.getAccom_comm().replaceAll("\n", "<br>");
+		avo.setAccom_comm(str);
+		
 		List<RoomVo> rlist = roomService.list(accom_num);
 		for(RoomVo vo : rlist) {
+			String str1 = vo.getRoom_comm().replaceAll("\n", "<br>");
+			vo.setRoom_comm(str1);
 			List<RoomImageVo> ilist = roomImageService.list(vo.getRoom_num());
 			vo.setRoom_images(ilist);
 		} 
