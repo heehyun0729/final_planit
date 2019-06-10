@@ -33,13 +33,13 @@ public class QnaDao {
 	public QnaVo prev(int qna_num) {
 		return sqlSession.selectOne(NAMESPACE + ".prev",qna_num);
 	}
-	public int update(QnaVo vo) {
-		return sqlSession.update(NAMESPACE + ".update",vo);
-	}
 	public int delete(int qna_num) {
 		return sqlSession.delete(NAMESPACE + ".delete",qna_num);
 	}
-	/*public int getinfo(int qna_num) {
-		return sqlSession.getinfo()
-	}*/
+	public QnaVo getinfo(int qna_num) {
+		return sqlSession.selectOne(NAMESPACE + ".getinfo",qna_num);
+	}
+	public int update(HashMap<String, Object>map) {
+		return sqlSession.update(NAMESPACE + ".update",map);
+	}
 }

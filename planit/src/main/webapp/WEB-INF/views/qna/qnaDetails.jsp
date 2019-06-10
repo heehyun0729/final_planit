@@ -1,6 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.4.0.min.js"></script>
+	<!-- $(function(){
+		$("#addBtn").click(function(){
+			//var mem_id=$("#mem_id").val();
+			var comments=$("#comments").val();
+			$.ajax({
+				url:"<c:url value='/comments/insert'/>",
+				type:"post",
+				data:{mem_id:${mem_id},comments:comments,qna_num:${qna_num}},
+				dataType:"xml",
+				success:function(data){
+					var result=$(data).find("result").text();
+					if(result=='success'){
+						$("#comments").val("");
+					}else{
+						alert("댓글등록실패");
+					}
+				}
+			});
+		});
+	})-->
 <div id="update">
 	<table border="1">
 		<tr>
@@ -30,3 +51,17 @@
 		</c:when>	
 	</c:choose>
 </div>
+<!-- 시티 설치 코드 끝 -->
+                            
+
+<!--  <div id="comments">
+	<div id="commList">
+	</div>
+	<div id="commAdd">
+		<input type="hidden" id="mem_id" value="mem_id"><br>
+		내용<textarea rows="3" cols="40" id="comments"></textarea><br>
+		<input type="button" value="등록" id="addBtn">
+	</div>
+</div>
+	-->
+

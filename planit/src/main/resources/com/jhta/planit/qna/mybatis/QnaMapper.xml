@@ -31,9 +31,6 @@
 		<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>
 	 
-	<select id="details" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
-		select * from qna where qna_num=#{qna_num}
-	</select>
 	<!-- next -->
 	<select id="next" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
 		select * from
@@ -54,13 +51,16 @@
 		)
 		where rownum=1
 	</select>
-	<update id="update" parameterType="com.jhta.planit.qna.vo.QnaVo">
+	<update id="update" parameterType="hashmap">
 		update qna
-		set qna_title=#{qna_title},qna_content=#{qna_content} where mem_id=#{mem_id}
+		set qna_title=#{qna_title},qna_content=#{qna_content} where qna_num=#{qna_num}
 	</update>
 	<delete id="delete" parameterType="int">
 		delete from qna where qna_num=#{qna_num}
 	</delete>
+	<select id="details" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
+		select * from qna where qna_num=#{qna_num}
+	</select>
 	<select id="getinfo" parameterType="int" resultType="com.jhta.planit.qna.vo.QnaVo">
 		select * from qna where qna_num=#{qna_num}
 	</select>
