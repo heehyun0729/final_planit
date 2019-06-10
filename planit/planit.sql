@@ -14,7 +14,7 @@ conn planit/admin1234;
 
 -- 테이블 생성(sqlplus)
 DROP TABLE MEMBERS CASCADE CONSTRAINTS;
-CREATE TABLE MEMBERS(
+CREATE TABLE members(
 	mem_id varchar2(40) PRIMARY KEY,
 	mem_pwd varchar2(100) NOT NULL,
 	mem_nickname varchar2(25) UNIQUE,
@@ -26,7 +26,7 @@ CREATE TABLE MEMBERS(
 	mem_api varchar2(10)
 );
 
-DROP TABLE USERAUTH;
+DROP TABLE USERAUTH CASCADE CONSTRAINTS;
 CREATE TABLE USERAUTH (
     mem_email varchar2(50) PRIMARY KEY,
     authKey varchar2(100) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE USERAUTH (
     REFERENCES MEMBERS(mem_id)
 );
 
-DROP TABLE PROFILE;
+DROP TABLE PROFILE CASCADE CONSTRAINTS;
 DROP SEQUENCE PROFILE_SEQ;
 CREATE TABLE PROFILE(
 	profile_no number(7) PRIMARY KEY,
@@ -48,7 +48,7 @@ CREATE TABLE PROFILE(
 
 CREATE SEQUENCE PROFILE_SEQ;
 
-DROP TABLE FOLLOW_LIST;
+DROP TABLE FOLLOW_LIST CASCADE CONSTRAINTS;
 DROP SEQUENCE FOLLOW_SEQ;
 CREATE TABLE FOLLOW_LIST(
 	followno number(5) PRIMARY KEY,
@@ -62,7 +62,7 @@ CREATE TABLE FOLLOW_LIST(
 );
 CREATE SEQUENCE FOLLOW_SEQ;
 
-DROP TABLE MEMIMAGE;
+DROP TABLE MEMIMAGE CASCADE CONSTRAINTS;
 DROP SEQUENCE MEMIMAGE_SEQ;
 CREATE TABLE MEMIMAGE(
 	img_num number(7,0) PRIMARY KEY,
@@ -75,7 +75,7 @@ CREATE TABLE MEMIMAGE(
 CREATE SEQUENCE MEMIMAGE_SEQ;
 
 --판매자 테이블
-drop table seller;
+drop table seller CASCADE CONSTRAINTS;
 create table seller(
     sell_num number(5) primary key,
     mem_id varchar2(40) references members(mem_id),
@@ -86,7 +86,7 @@ drop SEQUENCE seller_seq;
 CREATE SEQUENCE seller_seq;
 
 --숙소테이블
-drop table accom;
+drop table accom CASCADE CONSTRAINTS;
 create table accom(
     accom_num number(7,0) primary key,
     sell_num number(5) references seller(sell_num),
@@ -103,7 +103,7 @@ drop SEQUENCE accom_seq;
 CREATE SEQUENCE accom_seq;
 
 --방정보 테이블
-drop table room;
+drop table room CASCADE CONSTRAINTS;
 create table room(
     room_num number(7,0) primary key,
     accom_num number(7,0) references accom(accom_num),
@@ -117,7 +117,7 @@ drop SEQUENCE room_seq;
 CREATE SEQUENCE room_seq;
 
 --방이미지 테이블
-drop table roomImage;
+drop table roomImage CASCADE CONSTRAINTS;
 create table roomImage(
     roomImg_num number(7,0) primary key,
     room_num number(7,0) references room(room_num),
@@ -129,6 +129,7 @@ drop SEQUENCE roomImage_seq;
 CREATE SEQUENCE roomImage_seq;
 
 --쪽지 테이블
+drop table MsgTable CASCADE CONSTRAINTS;
 CREATE TABLE MsgTable
 (
 	msgNum number(4) primary key,
@@ -186,13 +187,11 @@ create sequence qcomm_num_seq;
 DROP TABLE qnaImage CASCADE CONSTRAINTS;
 drop sequence qnaImg_num_seq;
 create table qnaImage(
-   qnaImg_num number(7) NOT NULL,
+   qnaImg_num number(7) primary key,
    qna_num number(7) references qna(qna_num),
    mem_id varchar2(15) references members(mem_id),
    qnaImg_orgImg varchar2(50),
-   qnaImg_saveImg varchar(50),
-   qnaImg_filesize 
-   PRIMARY KEY (qnaImg_num)
+   qnaImg_saveImg varchar(50)
 );
 create sequence qnaImg_num_seq;
 
@@ -243,6 +242,7 @@ CREATE TABLE adImage
 	adimg_changeSaveImg varchar2(500),
 	PRIMARY KEY (adImg_num)
 );
+drop SEQUENCE adImage_num_seq;
 create sequence adImage_num_seq;
 
 drop table plan cascade constraints;
