@@ -51,7 +51,6 @@
 		</c:when>	
 	</c:choose>
 </div>
-<!-- 시티 설치 코드 끝 -->
                             
 
 <!--  <div id="comments">

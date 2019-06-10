@@ -11,14 +11,4 @@
 	</div>
 	<input type="submit" value="저장">
 </form>
-<script>
-	$("#summernote").summernote({
-		  height: 300,
-		  minHeight: null,
-		  maxHeight: null,
-		  focus: true
-	});
-	
-
-</script>
 </div>
