@@ -47,7 +47,7 @@ public class ReservationController {
 		map.put("checkout", checkout);
 		map.put("cnt", cnt);
 				
-		int rowCnt = rsvnAccomService.count();
+		int rowCnt = rsvnAccomService.count(map);
 		PageUtil pu = new PageUtil(pageNum, rowCnt, 8, 5);
 		int startRow = pu.getStartRow();
 		int endRow = pu.getEndRow();

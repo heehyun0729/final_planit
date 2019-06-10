@@ -17,7 +17,7 @@ public class RsvnAccomDao {
 	public List<RsvnAccomVo> list(HashMap<String, Object> map){
 		return sqlSession.selectList(NAMESPACE + ".list", map);
 	}
-	public int count() {
-		return sqlSession.selectOne(NAMESPACE + ".count");
+	public int count(HashMap<String, Object> map) {
+		return sqlSession.selectOne(NAMESPACE + ".count", map);
 	}
 }

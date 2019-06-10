@@ -16,7 +16,7 @@ public class RsvnAccomService {
 	public List<RsvnAccomVo> list(HashMap<String, Object> map){
 		return rsvnAccommDao.list(map);
 	}
-	public int count() {
-		return rsvnAccommDao.count();
+	public int count(HashMap<String, Object> map) {
+		return rsvnAccommDao.count(map);
 	}
 }
