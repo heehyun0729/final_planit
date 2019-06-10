@@ -17,7 +17,10 @@
 	</select>
 	<select id="getTodayAd" parameterType="String" resultType="com.jhta.planit.admin.vo.AdInfoVo">
 		select * from adInfo where adInfo_date=#{adInfo_date} and adInfo_status=1
-	</select> 
+	</select>
+	<select id="getAdInfo2" parameterType="int" resultType="com.jhta.planit.admin.vo.AdInfoVo">
+		select * from adInfo where adInfo_num=#{adInfo_num}
+	</select>
 	<update id="adInfoApproved" parameterType="int">
 		update adInfo set adInfo_status=1 where adInfo_num=#{adInfo_num}
 	</update>
@@ -32,5 +35,11 @@
 	</update>
 	<update id="adInfoRefunded" parameterType="int">
 		update adInfo set adInfo_status=4 where adInfo_num=#{adInfo_num}
+	</update>
+	<update id="hitAdInfo" parameterType="hashmap">
+		update adInfo set adInfo_hit=#{adInfo_hit} where adInfo_num=#{adInfo_num}
+	</update>
+	<update id="clickAdInfo" parameterType="hashmap">
+		update adInfo set adInfo_click=#{adInfo_click} where adInfo_num=#{adInfo_num}
 	</update>
 </mapper>
