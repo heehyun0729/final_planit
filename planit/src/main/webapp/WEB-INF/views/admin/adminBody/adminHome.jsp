@@ -40,11 +40,6 @@
 					<div class="container">
 						<div class="row ">
 							<div class="col mt-5 text-center">
-								<ul class="nav nav-pills">
-									<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/adminAdManagement/approvedAdList'/>" class="ui-tabs-anchor">게재신청</a></li>
-									<li class="nav-item"><a class="nav-link" href="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>" class="ui-tabs-anchor">환불신청</a></li>
-									<li class="nav-item"><a class="nav-link active" href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="ui-tabs-anchor">ALL</a></li>
-								</ul>
 								<table class="table table-hover ">
 									<thead>
 									<tr>

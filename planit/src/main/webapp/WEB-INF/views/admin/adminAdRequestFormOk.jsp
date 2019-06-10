@@ -18,7 +18,7 @@
                 <p class="lead">광고 신청 진행사항 및 광고 통계 등 상세사항은 마이페이지 -> 광고 를 참고하세요.</p>
                 <p class="lead">기타 문의사항은 관리자에게 쪽지로 문의주시기 바랍니다.</p>
                 <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">마이페이지</a>
+                    <a class="btn btn-primary btn-lg" href="<c:url value='/member/mypage/ad/${mem_id }/myAdList'/>" role="button">마이페이지</a>
                 </p>
             </div>
         </div>

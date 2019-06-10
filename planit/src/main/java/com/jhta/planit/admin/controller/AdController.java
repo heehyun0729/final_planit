@@ -136,6 +136,9 @@ public class AdController {
 		}
 		map.put("chance", chance);//금일 광고율 담기
 		map.put("adProfit", adProfit);//광고 수익 담기
+		
+		
+		
 		model.addAttribute("map", map);
 		return "-admin-adminBody-adminHome";
 	}
@@ -161,11 +164,6 @@ public class AdController {
 	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.GET)//광고 신청 폼
 	public String adminAdRequestFormGet() {
 		return ".admin.adminAdRequestForm";
-	}
-	@RequestMapping(value="/adAnalytics", method=RequestMethod.GET)//광고 통계 페이지
-	public String adAnalytics(int ad_num, Model model) {
-		goWithData(ad_num, model);
-		return "/admin/adminAdManagement/adAnalytics";
 	}
 	@RequestMapping(value="/adminAdRequestForm", method=RequestMethod.POST)//광고 신청 폼 진행
 	public String adminAdRequestFormPost(AdVo vo, String[] order, Date[] orderDate, int[] orderPrice, MultipartFile file, HttpSession session) {

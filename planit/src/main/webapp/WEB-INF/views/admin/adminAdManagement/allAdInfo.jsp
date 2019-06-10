@@ -291,7 +291,6 @@
 				<div class="col d-flex justify-content-center">
 					<br>
 					<a id="allRefundBtn" class="btn btn-info" href="#">일괄 환불</a>
-					<a class="btn btn-info ml-3" href="<c:url value='/adAnalytics?ad_num=${getAdInfo.ad_num }'/>">통계</a>
 				</div>
 			</div>
 		</div>

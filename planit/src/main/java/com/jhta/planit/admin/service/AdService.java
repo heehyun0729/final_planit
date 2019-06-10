@@ -67,6 +67,9 @@ public class AdService {
 	public List<AdVo> getAdList(HashMap<String, Object> map) {
 		return adDao.getAdList(map);
 	}
+	public List<AdVo> getMyAdList(HashMap<String, Object> map) {
+		return adDao.getMyAdList(map);
+	}
 	public List<AdImageVo> getAdImageList(HashMap<String, Object> map) {
 		return adImageDao.getAdImageList(map);
 	}

@@ -32,6 +32,10 @@
 		select * from(select aa.*, rownum rnum from(select * from ad <include refid="search"/>
 		 order by ad_num desc)aa) where rnum>=#{startRow} and <![CDATA[rnum<=#{endRow}]]>
 	</select>
+	<select id="getMyAdList" parameterType="hashmap" resultType="com.jhta.planit.admin.vo.AdVo">
+		select * from(select aa.*, rownum rnum from(select * from ad <include refid="search"/>
+		 order by ad_num desc)aa) where rnum>=#{startRow} and <![CDATA[rnum<=#{endRow}]]> and mem_id=#{mem_id}
+	</select>
 	<select id="getAdInfo" parameterType="int" resultType="com.jhta.planit.admin.vo.AdVo">
 		select * from ad where ad_num=#{ad_num}
 	</select>	

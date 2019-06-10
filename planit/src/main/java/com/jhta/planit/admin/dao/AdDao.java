@@ -33,6 +33,9 @@ public class AdDao {
 	public List<AdVo> getAdList(HashMap<String, Object> map) {
 		return sqlSession.selectList(NAMESPACE + "getAdList", map);
 	}
+	public List<AdVo> getMyAdList(HashMap<String, Object> map) {
+		return sqlSession.selectList(NAMESPACE + "getMyAdList", map);
+	}
 	public AdVo getAdInfo(int ad_num) {
 		return sqlSession.selectOne(NAMESPACE + "getAdInfo", ad_num);
 	}

@@ -230,7 +230,6 @@ CREATE TABLE adInfo
 create sequence adInfo_num_seq;
 
 DROP TABLE adImage CASCADE CONSTRAINTS;
-drop sequence adImg_num_seq;
 CREATE TABLE adImage
 (
 	adImg_num number(7,0) NOT NULL,
