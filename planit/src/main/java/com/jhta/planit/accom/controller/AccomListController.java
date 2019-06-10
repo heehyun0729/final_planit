@@ -31,7 +31,7 @@ public class AccomListController {
 		map.put("startRow",pu.getStartRow());
 		map.put("endRow",pu.getEndRow());
 		List<AccomVo> list=service.list(map);
-		ModelAndView mv=new ModelAndView("/accom/accomList");
+		ModelAndView mv=new ModelAndView(".accom.accomList");
 		mv.addObject("list",list);
 		mv.addObject("pu",pu);
 		mv.addObject("field",field);

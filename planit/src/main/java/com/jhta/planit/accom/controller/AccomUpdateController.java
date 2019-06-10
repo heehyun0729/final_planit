@@ -31,7 +31,7 @@ public class AccomUpdateController {
 		return "/accom/accomUpdate";
 	}
 	@RequestMapping(value="/accomUpdate",method=RequestMethod.POST)
-	public String update(@RequestParam(value="sell_num", required=true) int sell_num,int accom_num,String accom_name,String accom_addr,String accom_comm,
+	public String update(int accom_num,String accom_name,String accom_addr,String accom_comm,
 			String accom_country,String accom_city,MultipartFile file1,HttpSession session) {
 
 		try {
@@ -39,7 +39,7 @@ public class AccomUpdateController {
 				//1. 기존파일 삭제
 				String path=session.getServletContext().getRealPath("/resources/uploadAccom");
 				AccomVo vo=service.detail(accom_num);
-				System.out.println("@@sdasdasfasd@@"+sell_num);
+				
 				String accommImg_saveImg=vo.getAccommImg_saveImg();
 				File f=new File(path +"\\" + accommImg_saveImg);
 				if(!f.delete()) {
@@ -54,11 +54,11 @@ public class AccomUpdateController {
 				is.close();
 				fos.close();
 				//3. db수정
-				AccomVo vo2=new AccomVo(accom_num, sell_num, accom_name, accom_addr, accom_comm, accom_country, accom_city, accommImg_orgImg, accommImg_saveImg, 0);
+				AccomVo vo2=new AccomVo(accom_num, 0, accom_name, accom_addr, accom_comm, accom_country, accom_city, accommImg_orgImg, accommImg_saveImg, 0);
 				service.update(vo2);
 			}else {//첨부된 파일이 없는 경우
 				//db수정하기
-				AccomVo vo2=new AccomVo(accom_num, sell_num, accom_name, accom_addr, accom_comm, accom_country, accom_city, null, null, 0);
+				AccomVo vo2=new AccomVo(accom_num, 0, accom_name, accom_addr, accom_comm, accom_country, accom_city, null, null, 0);
 				service.update(vo2);
 			}
 			return "success";
