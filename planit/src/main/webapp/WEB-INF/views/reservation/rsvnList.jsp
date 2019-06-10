@@ -16,12 +16,15 @@
 			도시 혹은 숙소: <input type="text" id="rsvnKeyword" name = "keyword" value = "${keyword }">
 			날짜: <input type="text" id="checkin" name = "checkin" value = "${checkin }"> ~ <input type="text" id="checkout" name = "checkout" value = "${checkout }">
 			인원 : <input type="button" id="decrease" value = "-" onclick="decreaseCnt()">
-				  <input type="number" id="rsvnCnt" value="1" name = "cnt" value = "${cnt }">
+				  <input type="number" id="rsvnCnt" min="1" name = "cnt" value = "${cnt }">
 				  <input type="button" id="increase" value="+" onclick="increaseCnt()">
 			<input type="submit" value="검색">
 		</form>
 	</div>
 	<div id = "accomList">
+		<c:if test="${empty list }">
+			<div>조회된 결과가 없습니다.</div>
+		</c:if>
 		<c:forEach var="vo" items="${list }">
 			<div class = "accomDiv">
 				<div>
