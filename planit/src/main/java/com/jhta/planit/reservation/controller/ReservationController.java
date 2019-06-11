@@ -57,6 +57,7 @@ public class ReservationController {
 	@ResponseBody
 	public RoomVo roomDetail(int room_num) {
 		RoomVo vo = roomService.detail(room_num);
+		vo.setRoom_images(roomImageService.list(room_num));
 		return vo;
 	}
 	
