@@ -44,31 +44,29 @@
 			</tr>
 		</table>
 	</div>
-	<form method="post" action="<c:url value='/reservation/pay'/>">
-		<div>
-			<h4>투숙객 정보</h4>
-			<table border = "1">
-				<tr>
-					<th>투숙자명</th>
-					<td><input type = "text" name = "name"></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td><input type = "email" name = "email"></td>
-				</tr>
-				<tr>
-					<th>연락처</th>
-					<td><input type = "text" name = "phone" placeholder="- 없이 입력"></td>
-				</tr>
-			</table>
-		</div>
-		<div>
-			<span>결제 예정 금액</span>
-			<h5>${rvo.room_price * stay}원</h5>
-		</div>
-		<div>
-			<input type = "button" value = "취소하기" onclick="javascript:history.go(-1)">
-			<input type = "submit" value = "결제하기">
-		</div>
-	</form>
+	<div>
+		<h4>투숙객 정보</h4>
+		<table border = "1">
+			<tr>
+				<th>투숙자명</th>
+				<td><input type = "text" id = "rsvnName"></td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td><input type = "email" id = "rsvnEmail"></td>
+			</tr>
+			<tr>
+				<th>연락처</th>
+				<td><input type = "text" id = "rsvnPhone" placeholder="- 없이 입력"></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<span>결제 예정 금액</span>
+		<h5>${rvo.room_price * stay}원</h5>
+	</div>
+	<div>
+		<input type = "button" value = "취소하기" onclick="javascript:history.go(-1)">
+		<input type = "button" value = "결제하기" onclick="javascript:rsvnPay()">
+	</div>
 </div>

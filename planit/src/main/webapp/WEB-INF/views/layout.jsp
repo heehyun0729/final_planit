@@ -33,6 +33,7 @@
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/locale-all.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/list.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/detail.js'/>"></script>
+<script type="text/javascript" src = "<c:url value = '/resources/js/reservation/pay.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/accom/PlacePicker.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/accom/insert.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/ad/ad.js'/>"></script>
