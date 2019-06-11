@@ -6,15 +6,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
@@ -35,8 +42,43 @@ public class ReservationController {
 	@Autowired private RsvnRoomService rsvnRoomService;
 	@Autowired private RoomImageService roomImageService;
 	
-	@RequestMapping(value = "/reservation/book")
-	public String goBook(int room_num, String checkin, String checkout, int cnt, int stay, Model model) {
+	@RequestMapping(value = "/reservation/pay", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object pay(String item_name, String total_amount) {
+		RestTemplate restTemplate = new RestTemplate();
+		String host = "https://kapi.kakao.com";
+        // 서버로 요청할 Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK 701d2fb4d9d20c3624d31b24e8e0caab");
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+        
+        // 서버로 요청할 Body
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", "TC0ONETIME");
+        params.add("partner_order_id", "partner_order_id");
+        params.add("partner_user_id", "partner_user_id");
+        params.add("item_name", item_name);
+        params.add("quantity", "1");
+        params.add("total_amount", total_amount);
+        params.add("tax_free_amount", "0");
+        params.add("approval_url", "");
+        params.add("cancel_url", "");
+        params.add("fail_url", "");
+ 
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        Object object = restTemplate.postForObject(host, body, Map.class);        
+        return object;
+	}
+	
+	@RequestMapping("/reservation/book")
+	public String goBook(int accom_num, int room_num, String checkin, String checkout, int cnt, int stay, Model model) {
+		AccomVo avo = accomService.detail(accom_num);
+		RoomVo rvo = roomService.detail(room_num);
+		rvo.setRoom_images(roomImageService.list(room_num));
+		
+		model.addAttribute("avo", avo);
+		model.addAttribute("rvo", rvo);
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);

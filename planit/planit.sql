@@ -343,7 +343,7 @@ CREATE SEQUENCE rsvn_seq;
 drop table rsvnPay CASCADE CONSTRAINTS;
 create table rsvnPay
 (
-    rsvnPay_id varchar2(500) primary key,
+    rsvnPay_id varchar2(30) primary key,
     rsvn_num number(7) references rsvn(rsvn_num),
     rsvnPay_price number(10), 
     rsvnPay_method varchar2(20),

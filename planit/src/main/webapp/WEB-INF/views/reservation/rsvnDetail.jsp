@@ -104,6 +104,7 @@
 					<div>
 						<p>날짜 및 인원 선택</p>
 						<input type = "hidden" id = "hiddenCnt" value = "${cnt }">
+						<input type = "hidden" name = "accom_num" value = "${avo.accom_num }">
 						<input type = "hidden" id = "room_num" name = "room_num">
 						<input type = "hidden" id = "stay" name = "stay">
 						<input type="text" style = "width:100px;" id="rsvnCheckinDatepicker" name = "checkin" value = "${checkin }" onchange="javascript:roomCheck()">
