@@ -25,7 +25,7 @@
 				
 				<script>
 				var xhr = null;
-				//var cnum=setInterval(countList);
+			    //var cnum=setInterval(countList);
 				function countList() {
 					xhrList = new XMLHttpRequest();
 					xhrList.onreadystatechange = countListOk;
@@ -39,6 +39,7 @@
 						var result=data.getElementsByTagName("result")[0];
 						var comm = result.getElementsByTagName("comm")[0];
 						var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
+						console.log(c);
 					    mul.innerHTML=  c;
 					}
 				}
