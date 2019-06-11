@@ -42,18 +42,19 @@ public class ReservationController {
 	@Autowired private RsvnRoomService rsvnRoomService;
 	@Autowired private RoomImageService roomImageService;
 	
-	@RequestMapping(value = "/reservation/pay", produces = "application/json;charset=utf-8")
+	@RequestMapping("/reservation/pay")
 	@ResponseBody
-	public Object pay(String item_name, String total_amount) {
+	public Object pay(String name, String email, String phone, String item_name, String total_amount) {
+		
+		
 		RestTemplate restTemplate = new RestTemplate();
-		String host = "https://kapi.kakao.com";
-        // 서버로 요청할 Header
+		String host = "https://kapi.kakao.com/v1/payment/ready";
+        
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK 701d2fb4d9d20c3624d31b24e8e0caab");
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         
-        // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "partner_order_id");
@@ -62,13 +63,28 @@ public class ReservationController {
         params.add("quantity", "1");
         params.add("total_amount", total_amount);
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "");
-        params.add("cancel_url", "");
-        params.add("fail_url", "");
+        params.add("approval_url", "http://localhost:9090/planit/reservation/payApproval");
+        params.add("cancel_url", "http://localhost:9090/planit/reservation/payCancel");
+        params.add("fail_url", "http://localhost:9090/planit/reservation/payFail");
  
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         Object object = restTemplate.postForObject(host, body, Map.class);        
         return object;
+	}
+	
+	@RequestMapping("/reservation/payApproval")
+	public String payApproval() {
+		return ".reservation.payApproval";
+	}
+	
+	@RequestMapping("/reservation/payCancel")
+	public String payCancel() {
+		return ".reservation.payCancel";
+	}
+	
+	@RequestMapping("/reservation/payFail")
+	public String payFail() {
+		return ".reservation.payFail";
 	}
 	
 	@RequestMapping("/reservation/book")

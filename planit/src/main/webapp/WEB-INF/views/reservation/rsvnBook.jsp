@@ -53,20 +53,36 @@
 			</tr>
 			<tr>
 				<th>이메일</th>
-				<td><input type = "email" id = "rsvnEmail"></td>
+				<td><input type = "text" id = "rsvnEmail"></td>
 			</tr>
 			<tr>
 				<th>연락처</th>
 				<td><input type = "text" id = "rsvnPhone" placeholder="- 없이 입력"></td>
 			</tr>
 		</table>
+		<span id = "rsvnFormMsg" style = "color: red;"></span>
 	</div>
 	<div>
 		<span>결제 예정 금액</span>
 		<h5>${rvo.room_price * stay}원</h5>
 	</div>
-	<div>
+	<div> 
+		<input type = "hidden" value = "${avo.accom_name}(${rvo.room_type}-${rvo.room_capa }인실)" id = "rsvnItem">
+		<input type = "hidden" value = "${rvo.room_price * stay}" id = "rsvnTotal">
 		<input type = "button" value = "취소하기" onclick="javascript:history.go(-1)">
 		<input type = "button" value = "결제하기" onclick="javascript:rsvnPay()">
+	</div>
+	<!-- 결제 모달 -->
+	<div id="rsvnPayModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog" role="document" style = "max-width: 100%;">
+	    <div class="modal-content">
+	      <div class="modal-header"> 
+	        <h5>결제하기</h5>
+	      </div>
+	      <div class="modal-body">
+             
+            </div>
+	    </div>
+	  </div>
 	</div>
 </div>
