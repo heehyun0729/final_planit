@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>수정하기</title>
-</head>
-<body>
 <h1>수정하기</h1>
 <form method="post" action="accomUpdate" enctype="multipart/form-data">
 	<input type="hidden" name="accom_num" value="${vo.accom_num }">
@@ -21,8 +14,6 @@
 	수정할파일 <input type="file" name="file1"><br/>
 	<input type="submit" value="저장">
 </form>
-</body>
-</html>
 
 
 
