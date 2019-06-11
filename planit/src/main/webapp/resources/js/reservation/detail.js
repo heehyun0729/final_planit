@@ -38,6 +38,32 @@ $(function() {
 	});
 });
 
+function openRoomDialog(room_num) {
+	num = room_num;	
+	$.ajax({
+		url: "/planit/reservation/roomDetail",
+		dataType: "json",
+		data: {room_num: num},
+		success: function(data) {
+			var images = data.room_images;
+			var title = data.room_type + "(" + data.room_capa + "인실)";
+			$("#modal-title").html(title);
+			var str = "";
+			for(var i = 0 ; i < images.length ; i++){
+				var img = images[i].roomImg_saveImg;
+				str += "<div><img src = '/planit/resources/uploadRoom/" + img + "'></div>";
+			}
+			$("#roomImages").empty();
+			$("#roomImages").append(str);
+			$("#roomImages img").css({
+				width: 300,
+				height: 300
+			});
+		}
+	});
+	$("#roomDialog").modal( "show" ); 
+}
+   
 function openRsvnDialog(room_num) {
 	num = room_num;
 	var checkin = $("#rsvnCheckinDatepicker").val();
@@ -61,13 +87,13 @@ function openRsvnDialog(room_num) {
 				str += ">" + i + "명</option>";
 				$("#rsvnDialogCnt").html(str);
 			}
-			setDialog(checkin, checkout, cnt, data.room_price);
+			setRsvnDialog(checkin, checkout, cnt, data.room_price);
 		}
 	});
 	$("#rsvnDialog").modal( "show" ); 
 }
 
-function setDialog(checkin, checkout, cnt, price) {
+function setRsvnDialog(checkin, checkout, cnt, price) {
 	var stay = setRsvnMsg(checkin, checkout, cnt);
 	setPayBtn(checkin, checkout, cnt);
 	if(cnt == -1){
@@ -125,9 +151,9 @@ function roomCheck() {
 			},
 			success: function(data) {
 				if(data != null){
-					setDialog(checkin, checkout, cnt, data.room_price);
+					setRsvnDialog(checkin, checkout, cnt, data.room_price);
 				}else{
-					setDialog(checkin, checkout, -1);
+					setRsvnDialog(checkin, checkout, -1);
 				}
 			}
 		});
@@ -171,4 +197,4 @@ function geocodeAddress(geocoder, resultsMap) {
 
 function rsvnPay() { 
 	console.log(111); 
-}
+}  
