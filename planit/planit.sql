@@ -66,12 +66,16 @@ DROP SEQUENCE MEMIMAGE_SEQ;
 CREATE TABLE MEMIMAGE(
 	img_num number(7,0) PRIMARY KEY,
 	mem_id varchar2(40) NOT NULL,
-	img_orgImg varchar2(50),
-	img_saveImg varchar2(50),
+	img_orgImg varchar2(150),
+	img_saveImg varchar2(150),
 	CONSTRAINT memimage_profile_no_fk FOREIGN KEY (mem_id)
 	REFERENCES MEMBERS (mem_id)
 );
 CREATE SEQUENCE MEMIMAGE_SEQ;
+
+ALTER TABLE MEMIMAGE MODIFY(IMG_ORGIMG VARCHAR2(150));
+ALTER TABLE MEMIMAGE MODIFY(IMG_SAVEIMG VARCHAR2(150));
+
 
 --판매자 테이블
 DROP TABLE SELLER;
