@@ -82,7 +82,6 @@ function detailClose() {
 	msgSendBtn.style="";
 }
 </script>
-
 <div id="myMsg">
 	<div class="myPageBtns">
 		<div id="errMsg" style="text-align: center;">
@@ -226,7 +225,7 @@ function detailClose() {
 		<br/>
 		<div id="msg_detail"></div>
 		<div>
-			<br/> <input id="msgSendBtn" class="userMypageUpdateBtn"
+			<br/><input id="msgSendBtn" class="userMypageUpdateBtn"
 				type="button" value="쪽지보내기" onclick="detailSendForm()" /><br>
 			<br/> <a href="<c:url value='/'/>">메인 페이지</a>
 		</div>

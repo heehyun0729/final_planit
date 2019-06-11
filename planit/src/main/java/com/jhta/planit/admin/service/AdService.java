@@ -1,12 +1,14 @@
 package com.jhta.planit.admin.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.jhta.planit.admin.dao.AdDao;
 import com.jhta.planit.admin.dao.AdImageDao;
@@ -157,5 +159,43 @@ public class AdService {
 	}
 	public List<AdInfoVo> getTodayAd(String adInfo_date){//¿À´Ã ±¤°í ¸®½ºÆ®
 		return adInfoDao.getTodayAd(adInfo_date);
+	}
+	public AdInfoVo getAdInfo2(int adInfo_num) {
+		return adInfoDao.getAdInfo2(adInfo_num);
+	}
+	@Transactional
+	public void showAd(Model model) {//±¤°í Ãâ·Â
+		Date date=new Date(System.currentTimeMillis());
+		String adInfo_date=date.toString();
+		List<AdInfoVo> getTodayAd=adInfoDao.getTodayAd(adInfo_date);
+		ArrayList<AdImageVo> imageList=new ArrayList<AdImageVo>();
+		ArrayList<Integer> chanceList=new ArrayList<Integer>();
+		for(int i=0;i<getTodayAd.size();i++) {
+			int adInfo_num=getTodayAd.get(i).getAdInfo_num();
+			AdImageVo vo=adImageDao.getAdInfoImage(adInfo_num);
+			imageList.add(vo);
+			AdInfoVo vo2=adInfoDao.getAdInfo2(adInfo_num);
+			int chance=vo2.getAdInfo_chance()*100;
+			chanceList.add(chance);
+			int adInfo_hit=vo2.getAdInfo_hit()+1;
+			HashMap<String, Integer> map=new HashMap<String, Integer>();
+			map.put("adInfo_num", adInfo_num);
+			map.put("adInfo_hit", adInfo_hit);
+			adInfoDao.hitAdInfo(map);
+		}
+		model.addAttribute("chanceList", chanceList );
+		model.addAttribute("imageList", imageList);
+	}
+	public void clickAd(int adInfo_num, Model model) {
+		AdInfoVo vo2=adInfoDao.getAdInfo2(adInfo_num);
+		int ad_num=vo2.getAd_num();
+		AdVo vo3=adDao.getAdInfo(ad_num);
+		int adInfo_click=vo2.getAdInfo_click()+1;
+		String url=vo3.getAd_url();		
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		map.put("adInfo_num", adInfo_num);
+		map.put("adInfo_click", adInfo_click);
+		adInfoDao.clickAdInfo(map);
+		model.addAttribute("url", url);
 	}
 }

@@ -14,6 +14,7 @@ $(document).ready(function() {
 	var RegexPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 	var RegxNickname1 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]{3,10}$/;
 	var RegxNickname2 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/;
+	var localurl=$('#localurl').val();
 	
 	//id 유효성 체크
 	$("#mem_id").on("propertychange change keyup paste input", function() {
@@ -30,7 +31,7 @@ $(document).ready(function() {
 	});
 	$("#idcheck").click(function() {
 		$.ajax({
-			url : $(location).attr('href')+"/idcheck",
+			url : localurl+"user/idcheck",
 			type : "post",
 			data : {'mem_id': $("#mem_id").val()},
 			success : function(data) {
@@ -137,7 +138,7 @@ $(document).ready(function() {
 	});
 	$("#nickcheck").click(function() {
 		$.ajax({
-			url : $(location).attr('href')+"/nickcheck",
+			url : localurl+"user/nickcheck",
 			type : "post",
 			data : {'mem_nickname': $("#mem_nickname").val()},
 			success : function(data) {
@@ -182,7 +183,7 @@ $(document).ready(function() {
 		if(RegexEmailDomain.test($("#mem_email2").val())){
 			let mem_email=$("#mem_email1").val()+"@"+$("#mem_email2").val();
 			$.ajax({
-				url : $(location).attr('href')+"/emailcheck",
+				url : localurl+"user/emailcheck",
 				type : "post",
 				data :{'mem_email': mem_email},
 				success : function(data) {

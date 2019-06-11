@@ -18,17 +18,17 @@ import com.jhta.planit.user.vo.MembersVo;
 @Controller
 public class MembersJoinController {
 	@Autowired private MembersService service;
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/join", method = RequestMethod.GET)
 	public String joinchoiceForm() {
 		return "user/joinchoice";
 	}
 	
-	@RequestMapping(value = "/nomaljoin", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/nomaljoin", method = RequestMethod.GET)
 	public String joinForm() {
 		return "user/join";
 	}
 
-	@RequestMapping(value = "/nomaljoin", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/nomaljoin", method = RequestMethod.POST)
 	public String join(MembersVo vo, Model model, RedirectAttributes attributes) throws Exception{
 		int n = service.membersJoin(vo);
 		if (n>0) {
@@ -40,7 +40,7 @@ public class MembersJoinController {
 		}
 	}
 	
-	@RequestMapping(value = "/nomaljoin/idcheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/idcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int idcheck(HttpServletRequest request) {
 		String mem_id = request.getParameter("mem_id");
@@ -53,7 +53,7 @@ public class MembersJoinController {
 		return result;
 	}
 
-	@RequestMapping(value = "/nomaljoin/nickcheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/nickcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int nickcheck(HttpServletRequest request) {
 		String mem_nickname = request.getParameter("mem_nickname");
@@ -67,7 +67,7 @@ public class MembersJoinController {
 	}
 	
 
-	@RequestMapping(value = "/nomaljoin/emailcheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/emailcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int emailcheck(HttpServletRequest request) {
 		String mem_email = request.getParameter("mem_email");

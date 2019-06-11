@@ -54,7 +54,7 @@ public class MypageService {
 		return dao.followedcnt(mem_id);
 	}
 
-	public MembersVo userInfo(HashMap<String, Object> map) {
-		return null;
+	public HashMap<String, Object> editprofileinfo(String mem_id) {
+		return dao.editprofileinfo(mem_id);
 	}
 }

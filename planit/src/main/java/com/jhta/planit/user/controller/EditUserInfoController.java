@@ -48,19 +48,27 @@ public class EditUserInfoController {
 	
 	@RequestMapping(value = "/user/edituserinfochk", method = RequestMethod.POST)
 	public ModelAndView editUsercheck(String mem_pwd, HttpSession session) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("mem_id", (String) session.getAttribute("mem_id"));
+		HashMap<String, String> map = new HashMap<String, String>();
+		String mem_id = (String) session.getAttribute("mem_id");
+		map.put("mem_id", mem_id);
 		map.put("mem_pwd", mem_pwd);
-		MembersVo vo = mypageService.userInfo(map);
 		ModelAndView mv = new ModelAndView();
-		if (vo != null) {
-			mv.addObject("vo", vo);
+		if (membersService.userCheck(map)) {
+			HashMap<String, Object> profilemap=mypageService.editprofileinfo(mem_id);
+			String profile_comm = ((String) profilemap.get("PROFILE_COMM")).replaceAll("\r\n", "<br>");
+			profilemap.put("PROFILE_COMM", profile_comm);
+			mv.addObject("map", profilemap);
 			mv.setViewName("/user/editprofile");
 		} else {
 			mv.addObject("errMsg", "정보가 올바르지 않습니다.");
 			mv.setViewName("/user/editUserChk");
 		}
 		return mv;
+	}
+	
+	@RequestMapping(value = "/user/editprofile",method = RequestMethod.POST)
+	public String editprofile() {
+		return null;
 	}
 	
 	@RequestMapping(value = "/user/idsearch", method = RequestMethod.GET)

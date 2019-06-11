@@ -6,7 +6,7 @@ $(document).ready(function() {
 	var chkid=false;
 	var chkpwd=false;
 	var chkpwdck=false;
-	var chknick=false;
+	var chknick=true;
 	var chkemail=false;
 	var RegexEmail = /^[a-z0-9]{1,20}$/;
 	var RegexEmailDomain = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -88,23 +88,6 @@ $(document).ready(function() {
 		}
 	}
 	
-	//닉네임 유효성 체크
-	$("#mem_nickname").on("propertychange change keyup paste input", function() {
-		chknick=false;
-		$("#nickcheck").prop("disabled", true);
-		$("#nickckresult").text("");
-		let cknick=$(this).val();
-		if(RegxNickname1.test(cknick)){
-			$("#nickcheck").prop("disabled", false);
-		}else{
-			$("#nickcheck").prop("disabled", true);
-			if(!RegxNickname2.test(cknick)){
-				$("#nickckresult").text("한글과 영문,숫자 이외엔 사용할 수 없습니다");
-				$("#nickckresult").attr("style", "color:red");
-			}
-		}
-	});
-	
 	$("#idsearch").submit(function(event) {
 		if($("#mem_email").val()==""){
 			$("#errMsg").html("이메일을 입력해 주세요");
@@ -124,7 +107,7 @@ $(document).ready(function() {
 	
 	$("#nickcheck").click(function() {
 		$.ajax({
-			url : $(location).attr('href')+"/nickcheck",
+			url : $(location).attr('href')+"user/nickcheck",
 			type : "post",
 			data : {'mem_nickname': $("#mem_nickname").val()},
 			success : function(data) {
@@ -138,28 +121,6 @@ $(document).ready(function() {
 				}
 			}
 		});
-	});
-	
-	$("#changePwd").submit(function(event) {
-		let formresult=true;
-		$("#submitError").text("");
-		if(!chkpwd) {
-			$("#submitError").text("비밀번호를 올바르게 입력해 주시기 바랍니다.");
-			formresult=false;
-			$("#mem_pwd").focus();
-		}else if(!chkpwdck) {
-			$("#submitError").text("비밀번호 중복체크가 올바르지 않습니다.");
-			formresult=false;
-			$("#mem_pwdck").focus();
-		}else if($("#mem_pwd").val()==$("#before_mem_pwd").val()){
-			$("#submitError").text("기존 비밀번호와 새 비밀번호가 같습니다");
-			formresult=false;
-			$("#mem_pwd").focus();
-		}
-		$("#submitError").attr("style", "color:red");
-		if (!formresult) {
-			event.preventDefault();
-		}
 	});
 	
 	$("#withdrawal").submit(function(event) {
@@ -176,5 +137,84 @@ $(document).ready(function() {
 			}
 		}
 	});
+	$("#imgInput").change(function(event) {
+		var file_kind = this.value.lastIndexOf('.');
+		 var file_name = this.value.substring(file_kind+1,this.length);
+		 var file_type = file_name.toLowerCase();
+		 var check_file_type=['jpg','gif','png','jpeg','bmp'];
+		 if(check_file_type.indexOf(file_type)==-1){
+			  alert('이미지 파일만 선택할 수 있습니다.');
+			  this.value=null;
+		} else{
+			if (this.files && this.files[0].size > (5 * 1024 * 1024)) {
+		       	alert("파일 사이즈가 5mb 를 넘습니다.");
+		       	this.value=null;
+		    } else if(this.files && this.files[0]){
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#profileImg').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(this.files[0]);
+			}
+		}
+	});
 	
+	$("#basicImgChange").click(function(){
+		$('#profileImg').attr('src', $('#localurl').val()+"resources/profileImg/BasicPhoto.png");
+		$("#imgInput").value=null;
+	});
+	
+	$("#nickchange").click(function(){
+		chknick=false;
+		$("#mem_nickname").prop("readonly",false);
+	});
+	
+	$("#mem_nickname").on("propertychange change keyup paste input", function() {
+		chknick=false;
+		$("#nickcheck").prop("disabled", true);
+		$("#nickckresult").text("");
+		let cknick=$(this).val();
+		if(RegxNickname1.test(cknick)){
+			$("#nickcheck").prop("disabled", false);
+		}else{
+			$("#nickcheck").prop("disabled", true);
+			if(!RegxNickname2.test(cknick)){
+				$("#nickckresult").text("한글과 영문,숫자 이외엔 사용할 수 없습니다");
+				$("#nickckresult").attr("style", "color:red");
+			}
+		}
+	});
+	
+	$("#nickcheck").click(function() {
+		alert($('#localurl').val()+"nomaljoin/nickcheck");
+		$.ajax({
+			url : $('#localurl').val()+"/nickcheck",
+			type : "post",
+			data : {'mem_nickname': $("#mem_nickname").val()},
+			success : function(data) {
+				if (data >0) {
+					$("#nickckresult").text("이미 사용중인 닉네임 입니다.");
+					$("#nickckresult").attr("style", "color:red");
+				} else {
+					$("#nickckresult").text("사용 가능한 닉네임 입니다.");
+					$("#nickckresult").attr("style", "color:blue");
+					chknick=true;
+				}
+			}
+		});
+	});
+	
+	$("#profileupdateform").submit(function(event) {
+		let formresult=true;
+		$("#submitError").text("");
+		if(!chknick) {
+			$("#submitError").text("닉네임 중복검사 해주시기 바랍니다");
+			formresult=false;
+			$("#mem_nickname").focus();
+		}
+		$("#submitError").attr("style", "color:red");
+		if (!formresult) {
+			event.preventDefault();
+		}
+	});
 });

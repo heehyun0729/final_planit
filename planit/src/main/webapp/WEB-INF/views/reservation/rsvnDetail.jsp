@@ -2,30 +2,30 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script async defer type="text/javascript"
-	src="//maps.googleapis.com/maps/api/js?key=${sessionScope.key }&callback=setMap"></script>
+	src="//maps.googleapis.com/maps/api/js?key=${sessionScope.key }"></script>
 <div>
 	<h1>숙소상세보기</h1>
 	<div>
 		<h2>${avo.accom_name }</h2>
-		<p>${avo.accom_addr} <a href = "javascript:showMap('${avo.accom_addr }')">지도 보기</a></p>
+		<p>${avo.accom_addr} <a href = "javascript:showMap('${avo.accom_addr }','${avo.accom_name }')">지도 보기</a></p>
 	</div>
-	
-	<div id="accomMapModal" class="modal" role="dialog">
-	  <div class="modal-dialog">
+	<!-- 지도 모달 -->
+	<div id="accomMapModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog" role="document" style = "max-width: 100%;">
 	    <div class="modal-content">
-	      <div class="modal-header">
+	      <div class="modal-header"> 
 	        ${avo.accom_name }의 위치
 	      </div>
 	      <div class="modal-body">
-	        <div id="accomMap"></div>
-	      </div>
+             <div id="accomMap"></div>
+            </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
-	
+	  
 	<div id = "accomImage">
 		 <img src = "<c:url value='/resources/uploadAccom/${avo.accommImg_saveImg }'/>">
 	</div>
@@ -49,7 +49,7 @@
 		<c:forEach var = "rvo" items = "${rlist }">
 			<div class = "roomDiv">
 				<div>
-					<span class = "roomName"><a href = "#">${rvo.room_type }</a></span><span>(${rvo.room_capa }인실)</span>
+					<span class = "roomName"><a href = "javascript:openRoomDialog(${rvo.room_num})">${rvo.room_type }</a></span><span>(${rvo.room_capa }인실)</span>
 				</div>
 				<div class = "roomImg">
 					<img src = "<c:url value='/resources/uploadRoom/${rvo.room_images[0].roomImg_saveImg}'/>">
@@ -68,7 +68,24 @@
 			<div style = "clear:both;"></div>
 		</c:forEach>
 	</div>
-	
+	<!-- 방 사진 모달 -->
+	<div id = "roomDialog" class="modal fade" role="dialog">
+		<div class="modal-dialog" style = "max-width: 100%;">
+			<div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id = "modal-title"></h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <div id = "roomImages">
+		        </div>
+		      </div>
+		    </div>
+	    </div>
+	</div>
+	<!-- 예약 모달 -->
 	<div id = "rsvnDialog" class="modal fade" role="dialog">
 		<div class="modal-dialog ">
 			<div class="modal-content">
