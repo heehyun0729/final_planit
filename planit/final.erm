@@ -11,7 +11,7 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>0.8</zoom>
-	<x>55</x>
+	<x>457</x>
 	<y>510</y>
 	<default_color>
 		<r>128</r>
@@ -92,7 +92,7 @@
 				<output_file_path>C:\Users\JHTA\Desktop\final.png</output_file_path>
 				<category_dir_path></category_dir_path>
 				<with_category_image>true</with_category_image>
-				<is_open_after_saved>true</is_open_after_saved>
+				<is_open_after_saved>false</is_open_after_saved>
 			</export_image_setting>
 			<export_java_setting>
 				<java_output></java_output>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-05-21 22:32:51</creation_date>
-			<updated_date>2019-06-11 19:40:01</updated_date>
+			<updated_date>2019-06-11 19:43:08</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -2164,9 +2164,9 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>결제금액</logical_name>
-			<physical_name>rsvnPay_price</physical_name>
-			<type>integer</type>
+			<logical_name>결제상태</logical_name>
+			<physical_name>rsvnPay_stat</physical_name>
+			<type>year(2)</type>
 		</word>
 		<word>
 			<id>125</id>
@@ -2180,9 +2180,9 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>결제상태</logical_name>
-			<physical_name>rsvnPay_stat</physical_name>
-			<type>year(2)</type>
+			<logical_name>결제금액</logical_name>
+			<physical_name>rsvnPay_total</physical_name>
+			<type>integer</type>
 		</word>
 		<word>
 			<id>126</id>
@@ -4847,8 +4847,8 @@
 			<width>378</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>96</x>
-			<y>1164</y>
+			<x>84</x>
+			<y>1068</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -6313,7 +6313,7 @@
 				<normal_column>
 					<id>88</id>
 					<referenced_column>118</referenced_column>
-					<relation>20</relation>
+					<relation>19</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>수신아이디</logical_name>
@@ -6347,7 +6347,7 @@
 				<normal_column>
 					<id>89</id>
 					<referenced_column>118</referenced_column>
-					<relation>19</relation>
+					<relation>20</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>송신아이디</logical_name>
@@ -7659,7 +7659,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>49</word_id>
+					<word_id>50</word_id>
 					<id>121</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -7887,7 +7887,7 @@
 			<option></option>
 			<columns>
 				<normal_column>
-					<word_id>50</word_id>
+					<word_id>49</word_id>
 					<id>126</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -10033,7 +10033,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>124</word_id>
+					<word_id>125</word_id>
 					<id>178</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -10066,7 +10066,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>125</word_id>
+					<word_id>124</word_id>
 					<id>179</id>
 					<description></description>
 					<unique_key_name></unique_key_name>

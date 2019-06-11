@@ -349,7 +349,7 @@ create table rsvnPay
 (
     rsvnPay_id varchar2(30) primary key,
     rsvn_num number(7) references rsvn(rsvn_num),
-    rsvnPay_price number(10), 
+    rsvnPay_total number(10), 
     rsvnPay_stat number(2),
     rsvnPay_date date
 );
