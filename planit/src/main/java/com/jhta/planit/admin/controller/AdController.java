@@ -12,6 +12,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -459,6 +461,18 @@ public class AdController {
 	@RequestMapping(value="/adClick")//광고 클릭
 	public String adClick(int adInfo_num, Model model) {
 		service.clickAd(adInfo_num, model);
-		return "-admin-adminBody-adClick";
+		return "-admin-adminAdManagement-adClick";
+	}
+	@RequestMapping(value="/admin/adminAdManagement/getDayAdProfit", produces="application/json;charset=utf-8")//일자별 광고 수익 출력
+	@ResponseBody
+	public String getDayAdProfit(String stringDays) {
+		String days[]=stringDays.split(",");
+		JSONArray jsonArray=new JSONArray();
+		for(int i=0;i<days.length;i++) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("adProfit", service.getDayAdProfit(days[i]));
+			jsonArray.put(jsonObject);
+		}
+		return jsonArray.toString();
 	}
 }

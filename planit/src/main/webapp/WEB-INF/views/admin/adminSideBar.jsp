@@ -120,14 +120,37 @@
 				<span class="menu-collapsed">달력</span>
 			</div>
 		</a>
-		<a href="#" class="bg-dark list-group-item list-group-item-action">
+		<a href="<c:url value="/admin/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>" class="bg-dark list-group-item list-group-item-action">
 			<div class="d-flex w-100 justify-content-start align-items-center">
 				<span class="fa fa-envelope fa-fw mr-3"></span>
 				<span class="menu-collapsed">쪽지
-					<span id="messageBadge" class="badge badge-pill badge-primary ml-2">5</span>
+					<span id="messageBadge" class="badge badge-pill badge-primary ml-2"><span id = "mul"></span></span>
 				</span>
 			</div>
 		</a>
+		<script>
+				var xhr = null;
+				//var cnum=setInterval(countList);
+				function countList() {
+					xhrList = new XMLHttpRequest();
+					xhrList.onreadystatechange = countListOk;
+					xhrList.open('get', '${pageContext.request.contextPath }/mem/readCheck?memId=${sessionScope.mem_id}', true);
+					xhrList.send();
+				}
+				function countListOk() {
+					if(xhrList.readyState == 4 && xhrList.status == 200){
+						var data = xhrList.responseXML;
+						var mul = document.getElementById("mul");
+						var result=data.getElementsByTagName("result")[0];
+						var comm = result.getElementsByTagName("comm")[0];
+						var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
+					    if(c!=0){
+					    	mul.innerHTML=  c;
+					    }
+						
+					}
+				}
+				</script>
 		<li class="list-group-item sidebar-separator menu-collapsed"></li>
 		<a href="#" class="bg-dark list-group-item list-group-item-action">
 			<div class="d-flex w-100 justify-content-start align-items-center">

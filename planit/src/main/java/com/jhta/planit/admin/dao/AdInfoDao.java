@@ -53,4 +53,7 @@ public class AdInfoDao {
 	public int clickAdInfo(HashMap<String, Integer> map) {
 		return sqlSession.update(NAMESPACE + "clickAdInfo", map);
 	}
+	public int getDayAdProfit(String adInfo_date) {
+		return sqlSession.selectOne(NAMESPACE + "getDayAdProfit", adInfo_date);
+	}
 }
