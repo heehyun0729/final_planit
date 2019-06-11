@@ -165,6 +165,14 @@ public class MembersService {
 		}
 		return b;
 	}
+	
+	public MembersVo noInfo(String mem_id) {
+		MembersVo vo=dao.userCheck(mem_id);
+		vo.setMem_pwd(null);
+		vo.setMem_stat(-10);
+		vo.setMem_api(null);
+		return vo;
+	}
 
 	public boolean pwdemail(HashMap<String, String> map) {
 		if (dao.selectuserAuth(map) != null) {
