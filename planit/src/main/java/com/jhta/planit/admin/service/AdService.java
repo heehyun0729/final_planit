@@ -169,17 +169,21 @@ public class AdService {
 		String adInfo_date=date.toString();
 		List<AdInfoVo> getTodayAd=adInfoDao.getTodayAd(adInfo_date);
 		ArrayList<AdImageVo> imageList=new ArrayList<AdImageVo>();
+		ArrayList<Integer> chanceList=new ArrayList<Integer>();
 		for(int i=0;i<getTodayAd.size();i++) {
 			int adInfo_num=getTodayAd.get(i).getAdInfo_num();
 			AdImageVo vo=adImageDao.getAdInfoImage(adInfo_num);
+			imageList.add(vo);
 			AdInfoVo vo2=adInfoDao.getAdInfo2(adInfo_num);
+			int chance=vo2.getAdInfo_chance()*100;
+			chanceList.add(chance);
 			int adInfo_hit=vo2.getAdInfo_hit()+1;
 			HashMap<String, Integer> map=new HashMap<String, Integer>();
 			map.put("adInfo_num", adInfo_num);
 			map.put("adInfo_hit", adInfo_hit);
 			adInfoDao.hitAdInfo(map);
-			imageList.add(vo);
 		}
+		model.addAttribute("chanceList", chanceList );
 		model.addAttribute("imageList", imageList);
 	}
 	public void clickAd(int adInfo_num, Model model) {
@@ -191,7 +195,6 @@ public class AdService {
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
 		map.put("adInfo_num", adInfo_num);
 		map.put("adInfo_click", adInfo_click);
-		System.out.println("@@!@@"+adInfo_num+","+adInfo_click);
 		adInfoDao.clickAdInfo(map);
 		model.addAttribute("url", url);
 	}

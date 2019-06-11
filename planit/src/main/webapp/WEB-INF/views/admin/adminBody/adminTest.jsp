@@ -31,14 +31,18 @@
 			  	<c:forEach var="vo" items="${imageList }" varStatus="status">
 				    <c:choose>
 					    <c:when test="${status.first }">
-					    	<div class="carousel-item active" data-interval="2000">
+							<c:forEach var="i" items="${chanceList }" begin="0" end="0">					    
+					    		<div class="carousel-item active" data-interval="${i }">
+					    	</c:forEach>
 					     		<a href="<c:url value='/adClick?adInfo_num=${vo.adInfo_num }'/>" target="_blank">
 					     			<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
 					    		</a>
 					    	</div>
 					    </c:when>
 					    <c:otherwise>
-						    <div class="carousel-item" data-interval="5000">
+						    <c:forEach var="i" items="${chanceList }" begin="${status.index }" end="${status.index }">
+					    		<div class="carousel-item " data-interval="${i }">
+					    	</c:forEach>
 					     		<a href="<c:url value='/adClick?adInfo_num=${vo.adInfo_num }'/>" target="_blank">
 					     			<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
 					    		</a>
