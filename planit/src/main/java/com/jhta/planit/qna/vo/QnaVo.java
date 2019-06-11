@@ -18,6 +18,7 @@ public class QnaVo {
 		this.qna_content = qna_content;
 		this.qna_date = qna_date;
 	}
+	
 	public int getQna_num() {
 		return qna_num;
 	}

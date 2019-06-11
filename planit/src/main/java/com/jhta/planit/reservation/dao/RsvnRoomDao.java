@@ -1,5 +1,6 @@
 package com.jhta.planit.reservation.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,7 +14,10 @@ public class RsvnRoomDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jhta.planit.reservation.mybatis.RsvnMapper";
 	
-	public List<RoomVo> list(int accom_num){
-		return sqlSession.selectList(NAMESPACE + ".roomList", accom_num);
+	public List<RoomVo> list(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE + ".roomList", map);
+	}
+	public RoomVo check(HashMap<String, Object> map) {
+		return sqlSession.selectOne(NAMESPACE + ".roomCheck", map);
 	}
 }

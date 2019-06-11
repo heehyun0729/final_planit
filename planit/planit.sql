@@ -45,7 +45,6 @@ CREATE TABLE PROFILE(
 	CONSTRAINT profile_mem_id_fk FOREIGN KEY (mem_id)
 	REFERENCES MEMBERS (mem_id)
 );
-
 CREATE SEQUENCE PROFILE_SEQ;
 
 DROP TABLE FOLLOW_LIST CASCADE CONSTRAINTS;
@@ -75,15 +74,18 @@ CREATE TABLE MEMIMAGE(
 CREATE SEQUENCE MEMIMAGE_SEQ;
 
 --판매자 테이블
-drop table seller CASCADE CONSTRAINTS;
-create table seller(
-    sell_num number(5) primary key,
-    mem_id varchar2(40) references members(mem_id),
-    sell_company varchar2(100),
-    sell_addr varchar2(200)
+DROP TABLE SELLER;
+DROP SEQUENCE SELLER_SEQ;
+CREATE TABLE SELLER(
+	SELL_NUM NUMBER(5) PRIMARY KEY,
+	MEM_ID VARCHAR2(40) NOT NULL,
+	SELL_COMPANY VARCHAR2(100) NOT NULL,
+	SELL_POSTCODE NUMBER(5,0),
+	SELL_ADDR VARCHAR2(200),
+	SELL_TEL VARCHAR2(20) NOT NULL
 );
-drop SEQUENCE seller_seq;
-CREATE SEQUENCE seller_seq;
+CREATE SEQUENCE SELLER_SEQ;
+
 
 --숙소테이블
 drop table accom CASCADE CONSTRAINTS;
@@ -329,8 +331,13 @@ create table rsvn
     room_num number(7) references room(room_num),
     rsvn_checkin date,
     rsvn_checkout date,
-    rsvn_cnt number(3) -- 인원수
+    rsvn_cnt number(3), 
+    rsvn_name varchar2(50),
+    rsvn_email varchar2(50),
+    rsvn_phone varchar2(20)
 );
+drop SEQUENCE rsvn_seq;
+CREATE SEQUENCE rsvn_seq;
 
 drop table rsvnPay CASCADE CONSTRAINTS;
 create table rsvnPay
@@ -339,5 +346,6 @@ create table rsvnPay
     rsvn_num number(7) references rsvn(rsvn_num),
     rsvnPay_price number(10), 
     rsvnPay_method varchar2(20),
-    rsvnPay_stat number(2)
+    rsvnPay_stat number(2),
+    rsvnPay_date date
 );

@@ -10,7 +10,7 @@
 	<h1>로그인</h1>
 	<h1><a href="<c:url value='/'/>">홈페이지</a></h1>
 	<div>
-		<form method="post" action="<c:url value='/login'/>" id="formLogin">
+		<form method="post" action="<c:url value='/user/login'/>" id="formLogin">
 			<label for="mem_id">ID</label><input type="text" id="mem_id" name="mem_id" value="${mem_id }"><br> 
 			<label for="mem_pwd">PW</label><input type="password" id="mem_pwd" name="mem_pwd"><br>
 			<div id="errMsg">${errMsg }</div>

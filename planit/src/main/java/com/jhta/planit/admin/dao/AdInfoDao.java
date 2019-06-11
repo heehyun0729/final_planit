@@ -43,5 +43,14 @@ public class AdInfoDao {
 	}
 	public int requestRefundAllAdInfo(int ad_num) {
 		return sqlSession.update(NAMESPACE + "requestRefundAllAdInfo", ad_num);
-	}	
+	}
+	public AdInfoVo getAdInfo2(int adInfo_num) {
+		return sqlSession.selectOne(NAMESPACE + "getAdInfo2", adInfo_num);
+	}
+	public int hitAdInfo(HashMap<String, Integer> map) {
+		return sqlSession.update(NAMESPACE + "hitAdInfo", map);
+	}
+	public int clickAdInfo(HashMap<String, Integer> map) {
+		return sqlSession.update(NAMESPACE + "clickAdInfo", map);
+	}
 }

@@ -17,12 +17,12 @@ public class MembersLoginController {
 	@Autowired
 	private MembersService service;
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
 	public String loginForm() {
 		return "user/login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public String login(String mem_id, String mem_pwd, Model model, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("mem_id", mem_id);
@@ -52,7 +52,7 @@ public class MembersLoginController {
 
 	}
 
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";

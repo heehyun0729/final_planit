@@ -3,44 +3,35 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.reservation.mybatis.RsvnMapper">
-	<sql id="rsvnSearch">
-		select distinct a.*
-        from accom a, 
-        (
-            select ro.* from room ro
-            where ro.room_num in
-                (
-                    select NVL(y.room_num, -1) room_num from
-                    (
-                        select r.room_num
-                        from room r
-                        <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
-                        , ( select NVL(z.room_num, -1) room_num from
-                                        (
-                                        select rs.room_num room_num
-                                        from rsvn rs, rsvnPay rp
-                                        where rs.rsvn_num = rp.rsvn_num
-                                            and rp.rsvnPay_stat = 0
-                                            and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
-                                            or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
-                                        )z right outer join dual on 1 = 1
-                                    )aa 
-                        </if>
-                        where r.roomChk = 0
-                        	<if test="cnt != null and cnt != ''">
-                            and r.room_capa >= #{cnt}
-                            </if>
-                            <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
-                            and r.room_num not in aa.room_num 
-                            </if>
-                    )y right outer join dual on 1 = 1
-                )
-        )y
-        where a.accomchk = 0
-            and a.accom_num = y.accom_num
-            <if test="keyword != null and keyword != ''">
-            and a.accom_name like '%'||#{keyword}||'%' or a.accom_city like '%'||#{keyword}||'%'
-            </if>
+	<sql id="rsvnRoomSearch">
+       select ro.* from room ro
+       where ro.room_num in
+          (
+              select NVL(y.room_num, -1) room_num from
+              (
+                  select r.room_num
+                  from room r
+                  <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
+                  , ( select NVL(z.room_num, -1) room_num from
+                                  (
+                                  select rs.room_num room_num
+                                  from rsvn rs, rsvnPay rp
+                                  where rs.rsvn_num = rp.rsvn_num
+                                      and rp.rsvnPay_stat = 0
+                                      and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+                                      or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+                                  )z right outer join dual on 1 = 1
+                              )aa 
+                  </if>
+                  where r.roomChk = 0
+                  	<if test="cnt != null and cnt != ''">
+                      and r.room_capa >= #{cnt}
+                      </if>
+                      <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
+                      and r.room_num not in aa.room_num 
+                      </if>
+              )y right outer join dual on 1 = 1
+          )       
 	</sql>
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
 		select * from
@@ -54,7 +45,16 @@
 		                where roomchk = 0
 		                group by accom_num) rr,
 		         (
-		            <include refid="rsvnSearch"/>
+			         select distinct a.*
+			        from accom a, 
+			        (
+		            <include refid="rsvnRoomSearch"/>
+		             )x
+			        where a.accomchk = 0
+			            and a.accom_num = x.accom_num
+			            <if test="keyword != null and keyword != ''">
+			            and a.accom_name like '%'||#{keyword}||'%' or a.accom_city like '%'||#{keyword}||'%'
+			            </if>
 		            order by a.accom_num desc
 		        )bb
 		        where bb.accom_num = rr.accom_num
@@ -63,10 +63,37 @@
 	<select id="count" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from
 		(
-		   <include refid="rsvnSearch"/>
+		   select distinct a.*
+	        from accom a, 
+	        (
+            <include refid="rsvnRoomSearch"/>
+             )x
+	        where a.accomchk = 0
+	            and a.accom_num = x.accom_num
+	            <if test="keyword != null and keyword != ''">
+	            and a.accom_name like '%'||#{keyword}||'%' or a.accom_city like '%'||#{keyword}||'%'
+	            </if>
 		)
 	</select>
-	<select id="roomList" parameterType="int" resultType="com.jhta.planit.room.vo.RoomVo">
-		select * from room where accom_num = #{accom_num} and roomchk = 0
+	<select id="roomList" parameterType="hashmap" resultType="com.jhta.planit.room.vo.RoomVo">
+		<include refid="rsvnRoomSearch"/>
+		and ro.accom_num = #{accom_num}
+	</select>
+	<select id="roomCheck" parameterType="hashmap" resultType="com.jhta.planit.room.vo.RoomVo">
+		select r.*
+		from room r, ( select NVL(z.room_num, -1) room_num from
+		                (
+		                select rs.room_num room_num
+		                from rsvn rs, rsvnPay rp
+		                where rs.rsvn_num = rp.rsvn_num
+		                    and rp.rsvnPay_stat = 0
+		                    and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+		                    or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+		                )z right outer join dual on 1 = 1
+		            )aa
+		where r.roomChk = 0
+		    and r.room_capa >= #{cnt}
+		    and r.room_num not in aa.room_num
+		    and r.room_num = #{room_num}
 	</select>
 </mapper>

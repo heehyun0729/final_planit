@@ -5,17 +5,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script>
 	$(document).ready(function(){
-		$("#carouselExampleIndicators").carousel({
-			ride: true;
+		$('.carousel').carousel({
+			pause: false,
+			interval: 3000
 		});
 	});	
 </script>
 <div class="container">
 	<div class="row">
-		<div class="col d-flex justify-content-start align-items-center text-center">
+		<div class="col">
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 			  <ol class="carousel-indicators">
-			  	<c:forEach var="i" items="${getTodayAd }" varStatus="status">
+			  	<c:forEach var="i" items="${imageList }" varStatus="status">
 				    <c:choose>
 					    <c:when test="${status.first }">
 					    	<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -30,13 +31,21 @@
 			  	<c:forEach var="vo" items="${imageList }" varStatus="status">
 				    <c:choose>
 					    <c:when test="${status.first }">
-					    	<div class="carousel-item active" data-interval="1000">
-					     		<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
+							<c:forEach var="i" items="${chanceList }" begin="0" end="0">					    
+					    		<div class="carousel-item active" data-interval="${i }">
+					    	</c:forEach>
+					     		<a href="<c:url value='/adClick?adInfo_num=${vo.adInfo_num }'/>" target="_blank">
+					     			<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
+					    		</a>
 					    	</div>
 					    </c:when>
 					    <c:otherwise>
-						    <div class="carousel-item" data-interval="1000">
-					     		<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
+						    <c:forEach var="i" items="${chanceList }" begin="${status.index }" end="${status.index }">
+					    		<div class="carousel-item " data-interval="${i }">
+					    	</c:forEach>
+					     		<a href="<c:url value='/adClick?adInfo_num=${vo.adInfo_num }'/>" target="_blank">
+					     			<img src="<c:url value='/resources/adImage/${vo.adImg_saveImg }'/>" width="1000" height="400" class="d-block w-100" alt="광고 이미지">
+					    		</a>
 					    	</div>
 					    </c:otherwise>
 				    </c:choose>
