@@ -66,6 +66,7 @@ function openRoomDialog(room_num) {
    
 function openRsvnDialog(room_num) {
 	num = room_num;
+	$("#room_num").val(num);
 	var checkin = $("#rsvnCheckinDatepicker").val();
 	var checkout = $("#rsvnCheckoutDatepicker").val();
 	var cnt = $("#hiddenCnt").val();
@@ -94,9 +95,10 @@ function openRsvnDialog(room_num) {
 }
 
 function setRsvnDialog(checkin, checkout, cnt, price) {
-	var stay = setRsvnMsg(checkin, checkout, cnt);
+	var stay = getStay(checkin, checkout);
+	setRsvnMsg(checkin, checkout, cnt);
 	setPayBtn(checkin, checkout, cnt);
-	if(cnt == -1){
+	if(cnt == -1 || stay == -1){
 		$("#roomPrice").html("0원");
 	}else{
 		$("#roomPrice").html((stay * price) + "원");
@@ -104,18 +106,26 @@ function setRsvnDialog(checkin, checkout, cnt, price) {
 }
 
 function setRsvnMsg(checkin, checkout, cnt) {
-	var stay = "";	
 	if(checkin == null || checkin == ""
 		|| checkout == null || checkout == ""){
 		$("#rsvnMsg").html("날짜를 선택해주세요.");
 	}else if(cnt == -1){
 		$("#rsvnMsg").html("예약이 불가능한 날짜입니다.");
 	}else{
-		var ci = new Date(checkin).getTime();
-		var co = new Date(checkout).getTime();
-		stay = (co - ci) / (1000 * 60 * 60 * 24);
+		var stay = getStay(checkin, checkout);
 		$("#rsvnMsg").html(cnt + "명 " + stay + "박 가격");
 	}
+}
+
+function getStay(checkin, checkout) {
+	var ci = new Date(checkin).getTime();
+	var co = new Date(checkout).getTime();
+	var stay = (co - ci) / (1000 * 60 * 60 * 24);
+	if(checkin == null || checkout == null
+			|| checkin == "" || checkout == ""){
+		stay = -1;
+	}
+	$("#stay").val(stay);
 	return stay;
 }
 
@@ -194,7 +204,3 @@ function geocodeAddress(geocoder, resultsMap) {
 	  }
 	});
 }
-
-function rsvnPay() { 
-	console.log(111); 
-}  

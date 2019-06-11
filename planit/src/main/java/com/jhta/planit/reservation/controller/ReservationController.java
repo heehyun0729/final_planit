@@ -35,6 +35,15 @@ public class ReservationController {
 	@Autowired private RsvnRoomService rsvnRoomService;
 	@Autowired private RoomImageService roomImageService;
 	
+	@RequestMapping(value = "/reservation/book")
+	public String goBook(int room_num, String checkin, String checkout, int cnt, int stay, Model model) {
+		model.addAttribute("checkin", checkin);
+		model.addAttribute("checkout", checkout);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("stay", stay);
+		return ".reservation.rsvnBook";
+	}
+	
 	public String getApi() throws IOException {
 		FileReader fr = null;
 		String key = "";

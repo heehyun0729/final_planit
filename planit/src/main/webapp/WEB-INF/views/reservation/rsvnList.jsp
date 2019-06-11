@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div>
-	<h1>예약</h1>
+	<h1>숙소</h1>
 	<div id = "rsvnMenu">
 		<ul>
 			<li><a href="<c:url value=''/>">숙소예약후기</a></li>
