@@ -186,7 +186,7 @@ public class AdService {
 		model.addAttribute("chanceList", chanceList );
 		model.addAttribute("imageList", imageList);
 	}
-	public void clickAd(int adInfo_num, Model model) {
+	public void clickAd(int adInfo_num, Model model) {//±§∞Ì ≈¨∏Ø
 		AdInfoVo vo2=adInfoDao.getAdInfo2(adInfo_num);
 		int ad_num=vo2.getAd_num();
 		AdVo vo3=adDao.getAdInfo(ad_num);
@@ -198,4 +198,8 @@ public class AdService {
 		adInfoDao.clickAdInfo(map);
 		model.addAttribute("url", url);
 	}
+	public int getDayAdProfit(String adInfo_date) {//∆Ø¡§¿œ ±§∞Ì √— ºˆ¿Õ πﬁ±‚
+		return adInfoDao.getDayAdProfit(adInfo_date);
+	}
+	
 }
