@@ -25,7 +25,7 @@
 	    </div>
 	  </div>
 	</div>
-	
+	  
 	<div id = "accomImage">
 		 <img src = "<c:url value='/resources/uploadAccom/${avo.accommImg_saveImg }'/>">
 	</div>
