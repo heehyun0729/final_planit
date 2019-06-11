@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>수정하기</title>
-</head>
-<body>
+
 <h1>수정하기</h1>
 <form method="post" action="roomUpdate" enctype="multipart/form-data">
 	숙소번호 ${vo.accom_num }<br/>
@@ -18,8 +12,7 @@
 	수정할파일 <input type="file" name="file1"><br/>
 	<input type="submit" value="저장">
 </form>
-</body>
-</html>
+
 
 
 
