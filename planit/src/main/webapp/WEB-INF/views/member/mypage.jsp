@@ -30,7 +30,7 @@
 				</c:if>
 			</ul>
 			<div class="-vDIg">
-				<span>${profilemap.PROFILE_COMM }</span>
+				<pre>${profilemap.PROFILE_COMM }</pre>
 			</div>
 		</section>
 	</div>

@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.planit.user.vo.MemImageVo;
 import com.jhta.planit.user.vo.MembersVo;
+import com.jhta.planit.user.vo.ProfileVo;
 
 @Repository
 public class MypageDao {
@@ -68,5 +70,17 @@ public class MypageDao {
 	
 	public int withdrawal(String mem_id) {
 		return sqlSession.update(NAMESPACE + ".withdrawal", mem_id);
+	}
+
+	public MemImageVo getsavImginfo(int img_num) {
+		return sqlSession.selectOne(NAMESPACE+".savImgInfo", img_num);
+	}
+
+	public int editImg(MemImageVo imgVo) {
+		return sqlSession.update(NAMESPACE + ".editImg", imgVo);
+	}
+
+	public int editprofile(ProfileVo profileVo) {
+		return sqlSession.update(NAMESPACE + ".editprofile", profileVo);
 	}
 }

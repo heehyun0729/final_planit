@@ -65,7 +65,7 @@ public class MembersJoinController {
 		}
 		return result;
 	}
-
+	
 	@RequestMapping(value = "/user/emailcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int emailcheck(HttpServletRequest request) {

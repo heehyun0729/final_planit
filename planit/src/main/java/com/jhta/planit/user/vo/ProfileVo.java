@@ -49,4 +49,10 @@ public class ProfileVo {
 		this.profile_comm = profile_comm;
 	}
 
+	@Override
+	public String toString() {
+		return "@!$@!#!@$$@!#@%@ ProfileVo [profile_no=" + profile_no + ", mem_id=" + mem_id + ", profile_open=" + profile_open
+				+ ", profile_comm=" + profile_comm + "]";
+	}
+
 }

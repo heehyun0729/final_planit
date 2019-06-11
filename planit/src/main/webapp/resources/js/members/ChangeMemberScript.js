@@ -105,24 +105,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#nickcheck").click(function() {
-		$.ajax({
-			url : $(location).attr('href')+"user/nickcheck",
-			type : "post",
-			data : {'mem_nickname': $("#mem_nickname").val()},
-			success : function(data) {
-				if (data >0) {
-					$("#nickckresult").text("이미 사용중인 닉네임 입니다.");
-					$("#nickckresult").attr("style", "color:red");
-				} else {
-					$("#nickckresult").text("사용 가능한 닉네임 입니다.");
-					$("#nickckresult").attr("style", "color:blue");
-					chknick=true;
-				}
-			}
-		});
-	});
-	
 	$("#withdrawal").submit(function(event) {
 		let count=0;
 		let cftxt=['정말로 탈퇴하시겠습니까?','탈퇴를 하게 되면 저희 플랜잇에 등록하였던 정보 복구가 힘들어 집니다. 그래도 하시겠습니까?','마지막입니다. 정말로 탈퇴를 하시겠습니까?'];
@@ -153,6 +135,7 @@ $(document).ready(function() {
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					$('#profileImg').attr('src', e.target.result);
+					$("#changeImg").val("/resources/profileImg/"+$("#imgInput").val().split("\\")[$("#imgInput").val().split("\\").length-1]);
 				}
 				reader.readAsDataURL(this.files[0]);
 			}
@@ -161,12 +144,13 @@ $(document).ready(function() {
 	
 	$("#basicImgChange").click(function(){
 		$('#profileImg').attr('src', $('#localurl').val()+"resources/profileImg/BasicPhoto.png");
-		$("#imgInput").value=null;
+		$("#changeImg").val("/resources/profileImg/BasicPhoto.png");
+		$("#imgInput").val(null);
 	});
 	
 	$("#nickchange").click(function(){
 		chknick=false;
-		$("#mem_nickname").prop("readonly",false);
+		$("#mem_nickname").prop("disabled",false);
 	});
 	
 	$("#mem_nickname").on("propertychange change keyup paste input", function() {
@@ -186,19 +170,24 @@ $(document).ready(function() {
 	});
 	
 	$("#nickcheck").click(function() {
-		alert($('#localurl').val()+"nomaljoin/nickcheck");
 		$.ajax({
-			url : $('#localurl').val()+"/nickcheck",
+			url : $('#localurl').val()+"user/editnickcheck",
 			type : "post",
 			data : {'mem_nickname': $("#mem_nickname").val()},
 			success : function(data) {
-				if (data >0) {
-					$("#nickckresult").text("이미 사용중인 닉네임 입니다.");
-					$("#nickckresult").attr("style", "color:red");
-				} else {
+				if (data >1) {
+					$("#nickckresult").text("현재 닉네임과 같은 것을 사용합니다");
+					$("#nickckresult").attr("style", "color:black");
+					$("#mem_nick").val($("#mem_nickname").val());
+					chknick=true;
+				} else if(data<0){
 					$("#nickckresult").text("사용 가능한 닉네임 입니다.");
 					$("#nickckresult").attr("style", "color:blue");
+					$("#mem_nick").val($("#mem_nickname").val());
 					chknick=true;
+				} else {
+					$("#nickckresult").text("이미 사용중인 닉네임 입니다.");
+					$("#nickckresult").attr("style", "color:red");
 				}
 			}
 		});

@@ -76,4 +76,8 @@ public class MembersDao {
 	public MembersVo selectuserAuth(HashMap<String, String> map) {
 		return sqlSession.selectOne(NAMESPACE + ".selectuserAuth", map);
 	}
+
+	public int nickupdate(HashMap<String, String> map) {
+		return sqlSession.update(NAMESPACE+".nickupdate", map);
+	}
 }
