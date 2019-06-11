@@ -329,8 +329,13 @@ create table rsvn
     room_num number(7) references room(room_num),
     rsvn_checkin date,
     rsvn_checkout date,
-    rsvn_cnt number(3) -- ÀÎ¿ø¼ö
+    rsvn_cnt number(3), 
+    rsvn_name varchar2(50),
+    rsvn_email varchar2(50),
+    rsvn_phone varchar2(20)
 );
+drop SEQUENCE rsvn_seq;
+CREATE SEQUENCE rsvn_seq;
 
 drop table rsvnPay CASCADE CONSTRAINTS;
 create table rsvnPay
@@ -339,5 +344,6 @@ create table rsvnPay
     rsvn_num number(7) references rsvn(rsvn_num),
     rsvnPay_price number(10), 
     rsvnPay_method varchar2(20),
-    rsvnPay_stat number(2)
+    rsvnPay_stat number(2),
+    rsvnPay_date date
 );

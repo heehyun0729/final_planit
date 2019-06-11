@@ -9,7 +9,7 @@
 		<h2>${avo.accom_name }</h2>
 		<p>${avo.accom_addr} <a href = "javascript:showMap('${avo.accom_addr }','${avo.accom_name }')">지도 보기</a></p>
 	</div>
-	
+	<!-- 지도 모달 -->
 	<div id="accomMapModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog" role="document" style = "max-width: 100%;">
 	    <div class="modal-content">
