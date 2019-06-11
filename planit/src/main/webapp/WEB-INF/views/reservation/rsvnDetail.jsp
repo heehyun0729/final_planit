@@ -49,7 +49,7 @@
 		<c:forEach var = "rvo" items = "${rlist }">
 			<div class = "roomDiv">
 				<div>
-					<span class = "roomName"><a href = "#">${rvo.room_type }</a></span><span>(${rvo.room_capa }인실)</span>
+					<span class = "roomName"><a href = "javascript:openRoomDialog(${rvo.room_num})">${rvo.room_type }</a></span><span>(${rvo.room_capa }인실)</span>
 				</div>
 				<div class = "roomImg">
 					<img src = "<c:url value='/resources/uploadRoom/${rvo.room_images[0].roomImg_saveImg}'/>">
@@ -68,7 +68,24 @@
 			<div style = "clear:both;"></div>
 		</c:forEach>
 	</div>
-	
+	<!-- 방 사진 모달 -->
+	<div id = "roomDialog" class="modal fade" role="dialog">
+		<div class="modal-dialog" style = "max-width: 100%;">
+			<div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id = "modal-title"></h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <div id = "roomImages">
+		        </div>
+		      </div>
+		    </div>
+	    </div>
+	</div>
+	<!-- 예약 모달 -->
 	<div id = "rsvnDialog" class="modal fade" role="dialog">
 		<div class="modal-dialog ">
 			<div class="modal-content">

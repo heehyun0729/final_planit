@@ -64,3 +64,8 @@
 	display: inline-block;
 	float: right;
 }
+
+#roomImages div{
+	display: inline-block;
+	float: left;
+}
