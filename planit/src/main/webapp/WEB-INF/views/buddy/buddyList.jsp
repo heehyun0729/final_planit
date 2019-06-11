@@ -193,9 +193,13 @@
 	}
 	//쪽지보내기 팝업
 	function msgPopup(id){
-		var popUrl = "<c:url value='/msgSendPopupForm?id="+id+"'/>";
-		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
-			window.open(popUrl,"쪽지보내기",popOption);
+		if('${mem_id}'!=null && '${mem_id}'!=""){
+			var popUrl = "<c:url value='/msgSendPopupForm?id="+id+"'/>";
+			var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+				window.open(popUrl,"쪽지보내기",popOption);
+		}else{
+			alert("로그인이 필요한 서비스 입니다.");
+		}
 	}
 	//유효성체크
 	function check(){

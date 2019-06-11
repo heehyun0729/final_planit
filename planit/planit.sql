@@ -312,7 +312,8 @@ CREATE TABLE buddy_apply
 	apply_num number(5,0) PRIMARY KEY,
 	buddy_num number(7,0) CONSTRAINT fk_buddyapply
     REFERENCES buddy(buddy_num) ON DELETE CASCADE,
-	mem_id varchar2(15) NOT NULL
+	mem_id varchar2(15) NOT NULL,
+    apply_state number(2,0)
 );
 drop SEQUENCE buddy_seq;
 drop SEQUENCE buddyCountry_seq;
