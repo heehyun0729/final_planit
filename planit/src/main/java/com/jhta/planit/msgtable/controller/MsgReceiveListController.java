@@ -53,4 +53,40 @@ public class MsgReceiveListController {
 		mv.addObject("keyword", keyword);
 		return mv;
 	}
+	
+	@RequestMapping("/admin/msgReceiveList")
+	public ModelAndView adminlist(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
+			String field,String keyword,String memId,String msgType,String msgDeletee) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field",field);
+		map.put("keyword",keyword);
+		map.put("mem_id",memId);
+		map.put("msgDeletee",msgDeletee);
+		if(msgType==null) {
+			memId="mem_id";
+		}
+		if(msgType.equals("SEND")) {
+			msgType="sendMemId";
+		}else if(msgType.equals("RECEIVE")) {
+			msgType="receiveMemId";
+		}else {
+			
+		}
+		
+		map.put("type", msgType);
+		int totalRowCount = service.count(map);
+		PageUtil pu = new PageUtil(pageNum,totalRowCount,5,5);
+		map.put("startRow",pu.getStartRow());
+		map.put("endRow",pu.getEndRow());
+		List<MsgTableVo> list = service.list(map);
+		ModelAndView mv = new ModelAndView("-msgtable-admin_myMsgList");
+		mv.addObject("list", list);
+		mv.addObject("type", "RECEIVE");
+		mv.addObject("pu", pu);
+		mv.addObject("mem_id", memId);
+		mv.addObject("msgDeletee", msgDeletee);
+		mv.addObject("field", field);
+		mv.addObject("keyword", keyword);
+		return mv;
+	}
 }
