@@ -39,6 +39,9 @@ public class AdDao {
 	public AdVo getAdInfo(int ad_num) {
 		return sqlSession.selectOne(NAMESPACE + "getAdInfo", ad_num);
 	}
+	public List<AdVo> getRecent5Ad(){
+		return sqlSession.selectList(NAMESPACE + "getRecent5Ad");
+	}
 	public int approveAd(int ad_num) {
 		return sqlSession.update(NAMESPACE + "approveAd", ad_num);
 	}
@@ -53,5 +56,8 @@ public class AdDao {
 	}
 	public int requestRefundAd(int ad_num) {
 		return sqlSession.update(NAMESPACE + "requestRefundAd", ad_num);
+	}
+	public int getTodayAdProfit(String ad_requestDate) {
+		return sqlSession.selectOne(NAMESPACE + "getTodayAdProfit", ad_requestDate);
 	}
 }

@@ -36,7 +36,6 @@
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/pay.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/accom/PlacePicker.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/accom/insert.js'/>"></script>
-<script type="text/javascript" src = "<c:url value = '/resources/js/ad/ad.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/qna/insert.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/qna/update.js'/>"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">

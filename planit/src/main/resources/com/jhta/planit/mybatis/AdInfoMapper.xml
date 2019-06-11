@@ -15,7 +15,7 @@
 	<select id="getAdInfoInfo" parameterType="int" resultType="com.jhta.planit.admin.vo.AdInfoVo">
 		select * from adInfo where ad_num=#{ad_num}
 	</select>
-	<select id="getTodayAd" parameterType="String" resultType="com.jhta.planit.admin.vo.AdInfoVo">
+	<select id="getTodayAd" parameterType="String" resultType="int">
 		select * from adInfo where adInfo_date=#{adInfo_date} and adInfo_status=1
 	</select>
 	<select id="getAdInfo2" parameterType="int" resultType="com.jhta.planit.admin.vo.AdInfoVo">

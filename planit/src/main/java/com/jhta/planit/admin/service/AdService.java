@@ -201,5 +201,10 @@ public class AdService {
 	public int getDayAdProfit(String adInfo_date) {//특정일 광고 총 수익 받기
 		return adInfoDao.getDayAdProfit(adInfo_date);
 	}
-	
+	public List<AdVo> getRecent5Ad(){//최근 5번 광고 거래 내역
+		return adDao.getRecent5Ad();
+	}
+	public int getTodayAdProfit(String ad_requestDate) {
+		return adDao.getTodayAdProfit(ad_requestDate);
+	}
 }

@@ -68,7 +68,7 @@
 		if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
 			lastDate[1]=29;
 		}
-		for(var i=1;i<lastDate[todayMonth];i++){
+		for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
 			today.setDate(today.getDate()-1);
 			todayYear=today.getFullYear();//년
 			todayMonth=today.getMonth()+1;//월
@@ -77,13 +77,17 @@
 			days.push(date);
 		}
 		var adProfit=[];
+		var sellProfit=[50000,70000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+		var totalProfit=[];
 		$.getJSON("<c:url value='/admin/adminAdManagement/getDayAdProfit'/>", {stringDays:days.toString()}, function(data) {
 			if(data!=null){
 				for(var i=0;i<data.length;i++){
-					adProfit.push(data[i].adProfit);
-				}
+					var dayAdProfit=data[i].adProfit;
+					var daySellProfit=sellProfit[i];
+					adProfit.push(dayAdProfit);
+					totalProfit.push(dayAdProfit+daySellProfit);
+				}				
 				
-				var sellProfit=[50000,70000];
 				var monthProfitChart = new Chart(ctx1, {
 				    type: 'line',
 				    data: {
@@ -94,7 +98,7 @@
 					            data: adProfit,
 					            fill: false,
 					            borderColor: [
-					                'rgba(54, 162, 235, 1)'
+					                'rgba(95, 0, 255, 1)'
 					            ],
 					            borderWidth: 2
 					        },
@@ -104,6 +108,15 @@
 					            fill: false,
 					            borderColor: [
 					                'rgba(75, 192, 192, 1)'
+					            ],
+					            borderWidth: 2
+				       		},
+				       		{
+					            label: '# 총 수익',
+					            data: totalProfit,
+					            fill: false,
+					            borderColor: [
+					                'rgba(29, 219, 22, 1)'
 					            ],
 					            borderWidth: 2
 				       		}
@@ -167,7 +180,7 @@
 				<div class="card-body">
 					<div class="container">
 						<div class="row ">
-							<div class="col mt-5 text-center">
+							<div class="col text-center">
 								<table class="table table-hover ">
 									<thead>
 									<tr>
@@ -176,13 +189,37 @@
 									</thead>
 									<tbody>
 									<c:choose>
-										<c:when test="${getAdList[0]!=null }">
-											<c:forEach var="vo" items="${getAdList }">
+										<c:when test="${map.getRecent5Ad[0]!=null }">
+											<c:forEach var="vo" items="${map.getRecent5Ad}">
 												<tr>
 													<td scope="row">${vo.ad_num }</td>
 													<td>${vo.mem_id }</td>
 													<td><fmt:formatNumber value="${vo.ad_price}" pattern="#,###" /></td>
-													<td></td>
+													<td>
+														<c:choose>
+															<c:when test="${vo.ad_progress=='0' }">
+																<div class="badge badge-primary">승인 대기중</div><br>
+															</c:when>
+															<c:when test="${vo.ad_progress=='1' }">
+																<div class="badge badge-success">승인됨</div><br>
+															</c:when>
+															<c:when test="${vo.ad_progress=='2' }">
+																<div class="badge badge-danger">반려됨</div><br>
+															</c:when>
+															<c:when test="${vo.ad_progress=='3' }">
+																<div class="badge badge-warning">환불 요청됨</div><br>
+															</c:when>
+															<c:when test="${vo.ad_progress=='4' }">
+																<div class="badge badge-secondary">부분 환불됨</div><br>
+															</c:when>
+															<c:when test="${vo.ad_progress=='5' }">
+																<div class="badge badge-dark">환불 완료됨</div><br>
+															</c:when>
+															<c:otherwise>
+																<div>X</div><br>
+															</c:otherwise>
+														</c:choose>	
+													</td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -204,7 +241,7 @@
 				<div class="card-body">
 					<div class="container">
 						<div class="row ">
-							<div class="col mt-5 text-center">
+							<div class="col text-center">
 								<table class="table table-hover ">
 									<thead>
 									<tr>
