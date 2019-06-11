@@ -20,7 +20,7 @@
 			<c:when test="${sessionScope.mem_id!=null }">
 				<li><a href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>">마이페이지</a></li>
 				<li><a href="<c:url value="/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>"><img style="width:20px"src='<c:url value='/resources/msgImage/message.png'/>'/><span id = "mul"></span></a></li>
-				<li><a href="<c:url value='/logout'/>">로그아웃</a></li>
+				<li><a href="<c:url value='/user/logout'/>">로그아웃</a></li>
 				
 				<script>
 				var xhr = null;
@@ -44,8 +44,8 @@
 				</script>
 			</c:when>
 			<c:otherwise>
-				<li><a href="<c:url value='/login'/>">로그인</a></li>
-				<li><a href="<c:url value='/join'/>">회원가입</a></li>
+				<li><a href="<c:url value='/user/login'/>">로그인</a></li>
+				<li><a href="<c:url value='/user/join'/>">회원가입</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

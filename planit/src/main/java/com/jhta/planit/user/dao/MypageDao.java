@@ -62,6 +62,10 @@ public class MypageDao {
 		return sqlSession.selectOne(NAMESPACE + ".followedcnt", mem_id);
 	}
 
+	public HashMap<String, Object> editprofileinfo(String mem_id) {
+		return sqlSession.selectOne(NAMESPACE + ".editprofileinfo", mem_id);
+	}
+	
 	public int withdrawal(String mem_id) {
 		return sqlSession.update(NAMESPACE + ".withdrawal", mem_id);
 	}

@@ -50,6 +50,11 @@
 		select m.mem_nickname,mi.img_saveImg from follow_list f, members m, memimage mi
 		where m.mem_id=f.mem_id and m.mem_id=mi.mem_id and f.profile_no=(select profile_no from follow_list where mem_id=#{mem_id})
 	</select>
+	<select id="editprofileinfo" resultType="hashmap" parameterType="string">
+		select p.mem_id,p.profile_open,p.profile_comm,i.img_saveimg,m.mem_nickname 
+		from profile p,memimage i,members m 
+		where m.mem_id=p.mem_id and m.mem_id=i.mem_id and p.mem_id=#{mem_id}
+	</select>
 	<!-- <update id="withdrawal" parameterType="string">
 		update profile
 	</update>-->
