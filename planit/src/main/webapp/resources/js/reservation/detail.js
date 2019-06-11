@@ -1,5 +1,6 @@
 var rsvnDialog;
 var num;
+var addr, name;
 
 $(function() {
 	$("#accomTabs").tabs({
@@ -29,6 +30,12 @@ $(function() {
 		dateFormat: "yy-mm-dd",
 		numberOfMonths: 2
     });	
+
+	$("#accomMapModal").on('shown.bs.modal', function() {
+		var map = setMap();
+		var geocoder = new google.maps.Geocoder();
+		geocodeAddress(geocoder, map);
+	});
 });
 
 function openRsvnDialog(room_num) {
@@ -126,22 +133,42 @@ function roomCheck() {
 		});
 	}
 }
-var map;
 function setMap() {
-	map = new google.maps.Map(document.getElementById("accomMap"), {
+	var map = new google.maps.Map(document.getElementById("accomMap"), {
 		center: {lat: 46.519, lng: 6.632},
-		zoom: 12,
+		zoom: 15,
 		mapTypeId: 'roadmap',
+	    scrollwheel : true,
 	    mapTypeControl: false,
 	    streetViewControl: false
 	}); 
+	return map;
 }
-function showMap(accom_addr) {
-	var geocoder = new google.maps.Geocoder();
-	
-	$('#accomMapModal').modal( "show" ); 
+function showMap(address, accom_name) {
+	addr = address;
+	name = accom_name
+	$('#accomMapModal').modal( "show" );
+}
+function geocodeAddress(geocoder, resultsMap) {
+	geocoder.geocode({'address': addr}, function(results, status) {
+	  if (status === 'OK') {
+	   resultsMap.setCenter(results[0].geometry.location);
+	    var marker = new google.maps.Marker({
+	      map: resultsMap,
+	      position: results[0].geometry.location
+	    });
+	    var content = "<div><h5>" + name + "</h5><span>" + addr + "</span></div>";
+	    var infowindow = new google.maps.InfoWindow({
+       	 content: content
+        });
+        infowindow.open(map, marker);
+        marker.addListener('click', function(e) {
+	        infowindow.open(map, marker);
+        });
+	  }
+	});
 }
 
-function rsvnPay() {
+function rsvnPay() { 
 	console.log(111); 
 }
