@@ -33,7 +33,7 @@
 				</c:otherwise>
 			</c:choose>
 			<th>${list.buddy_city }</th>
-			<th><input type="button" value="쪽지하기"></th>
+			<th><a href="<c:url value='/msgSendPopupForm?id=${list.mem_id }'/>">쪽지하기</a></th>
 		</tr>
 	</c:forEach>
 </table>

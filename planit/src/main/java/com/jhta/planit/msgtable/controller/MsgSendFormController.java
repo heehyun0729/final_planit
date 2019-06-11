@@ -21,6 +21,12 @@ public class MsgSendFormController {
 	public String join() {
 		return "/msgtable/member_myMsgSend";
 	}
+	@RequestMapping(value="/msgSendPopupForm",method = RequestMethod.GET)
+	public ModelAndView popup(String id) {
+		ModelAndView mv=new ModelAndView("/msgtable/member_msgPopup");
+		mv.addObject("id",id);
+		return mv;
+	}
 	
 	@RequestMapping(value="/msgSendForm",method = RequestMethod.POST) 
 	@ResponseBody

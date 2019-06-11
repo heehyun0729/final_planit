@@ -136,7 +136,7 @@
 	<!-- 동행찾기 글추가 -->
 	<insert id="buddy_insert" parameterType="com.jhta.planit.buddy.vo.BuddyVo">
 		insert into buddy
-		values(buddy_seq.nextval,'test4',#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
+		values(buddy_seq.nextval,#{mem_id},#{buddy_gender},#{buddy_birthYear},#{buddy_indate},#{buddy_outdate},#{buddy_msg},0)
 	</insert>
 	<!-- 국가추가 -->
 	<insert id="buddyCountry_insert" parameterType="String">

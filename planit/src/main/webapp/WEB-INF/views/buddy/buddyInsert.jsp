@@ -4,6 +4,10 @@
 
 <div id="insert_buddy">
 	<form method="post" action="<c:url value='/buddyInsert' />" onsubmit="return check()">
+		<div id="id">
+			<input name="mem_id" type="text" value="${mem_id}" readonly="readonly">
+		</div>
+		
 		<div id="choice_date">
 			여행 시작 날짜 : <input name="buddy_indate" type="text" id="buddy_indate" readonly="readonly">
 			여행 종료 날짜 : <input name="buddy_outdate" type="text" id="buddy_outdate" readonly="readonly">

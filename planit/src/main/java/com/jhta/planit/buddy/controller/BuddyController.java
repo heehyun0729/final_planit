@@ -3,7 +3,6 @@ package com.jhta.planit.buddy.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Spliterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,17 +26,15 @@ public class BuddyController {
 	
 	@RequestMapping("/buddyList")
 	public ModelAndView goBuddyList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
-			String kw_indate,String kw_outdate,String[] kw_city,String kw_gender,String kw_birthYear) {
+			String kw_indate,String kw_outdate,String[] kw_city,String kw_gender,String kw_birthYear, HttpSession session) {
+		//모델앤뷰 생성
+		ModelAndView mv=new ModelAndView(".buddy.buddyList");
 		
 		//세션에서 아이디 얻어오기
-		String id="test1";
+		String mem_id=(String)session.getAttribute("mem_id");
 		
 		//날짜 지난 게시물 자동 업뎃
 		service.updateState();
-		
-		//동행추천
-		List<String> sgId=service.sameDateCity(id);
-		System.out.println("sgId : "+sgId);
 		
 		//체크 박스 동적 생성
 		List<String> countryList=service.showCountry();
@@ -70,8 +67,17 @@ public class BuddyController {
 		find_map.put("endRow", pu.getEndRow());
 		List<BuddyListVo> buddyList=service.showAll(find_map);
 		
+		//동행추천
+		if(mem_id != null) {
+			List<String> sgId=service.sameDateCity(mem_id);
+			if(sgId!=null && sgId.size()>0) {
+				mv.addObject("sgId",sgId);
+			}else {
+				mv.addObject("sgId",""); 
+			}
+		}
+		
 		//뷰 페이지로 이동
-		ModelAndView mv=new ModelAndView(".buddy.buddyList");
 		mv.addObject("pu",pu);
 		mv.addObject("buddyList",buddyList);
 		mv.addObject("countryList",countryList);
@@ -91,38 +97,35 @@ public class BuddyController {
 		mv.addObject("kw_outdate",kw_outdate);
 		mv.addObject("kw_gender",kw_gender);
 		mv.addObject("kw_birthYear",kw_birthYear);
-		
-		if(sgId!=null && sgId.size()>0) {
-			mv.addObject("sgId",sgId);
-		}else {
-			mv.addObject("sgId",""); 
-		}
-		
+		mv.addObject("mem_id",mem_id);
 		
 		return mv;
 	}
 	
 	//글 등록
 	@RequestMapping(value="/buddyInsert", method=RequestMethod.GET)
-	public String goBuddyInsertForm() {
-		return ".buddy.buddyInsert";
+	public ModelAndView goBuddyInsertForm(HttpSession session) {
+		ModelAndView mv=new ModelAndView(".buddy.buddyInsert");
+		String mem_id=(String)session.getAttribute("mem_id");
+		mv.addObject("mem_id",mem_id);
+		return mv;
 	}
 	@RequestMapping(value="/buddyInsert", method=RequestMethod.POST)
 	public String buddyInsert(BuddyVo vo,BuddyCountryVo countryVo,BuddyCityVo cityVo) {
 		int n=service.buddyInsert(vo,countryVo,cityVo);
 		return "redirect:/buddyList";
 	}
+	
 	//팝업
 	@RequestMapping(value="/buddySg", method=RequestMethod.GET)
-	public ModelAndView popBuddySg(String mem_buddy) {
-		String idList[]=mem_buddy.split(",");
+	public ModelAndView popBuddySg(String buddy_num) {
 		ModelAndView mv=new ModelAndView("/buddy/buddySg");
 		List<BuddyListVo> list = new ArrayList<BuddyListVo>();
+		String idList[]=buddy_num.split(",");
 		for(int i=0;i<idList.length;i++) {
-			BuddyListVo vv=service.detail(idList[i]);
-			list.add(vv);
+			BuddyListVo blv=service.detail(idList[i]);
+			list.add(blv);
 		}
-		System.out.println(list);
 		mv.addObject("list",list);
 		return mv;
 	}
