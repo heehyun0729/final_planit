@@ -29,16 +29,13 @@ function rsvnPay() {
 			url: "/planit/reservation/pay",
 			dataType: "json",
 			data: {
-				name: name,
-				email: email,
-				phone: phone,
 				item_name: item_name,
 				total_amount: total_amount
 			},
 			success: function(data) {
-				if(data.result == 'success'){
-					location.href=data.next_redirect_pc_url;
-				}
+				$("#tid").val(data.tid);
+				$("#rsvnKakaoPay").html('<iframe style="border: 0px; " src="' + data.next_redirect_pc_url + '" width="500px" height="500px"></iframe>');
+				$("#rsvnPayModal").modal("show");
 			}
 		});
 	}

@@ -67,6 +67,10 @@
 		<h5>${rvo.room_price * stay}원</h5>
 	</div>
 	<div> 
+		<input type = "hidden" value = "${rvo.room_num}" id = "room_num">
+		<input type = "hidden" value = "${checkin}" id = "checkin">
+		<input type = "hidden" value = "${checkout}" id = "checkout">
+		<input type = "hidden" value = "${cnt}" id = "cnt">
 		<input type = "hidden" value = "${avo.accom_name}(${rvo.room_type}-${rvo.room_capa }인실)" id = "rsvnItem">
 		<input type = "hidden" value = "${rvo.room_price * stay}" id = "rsvnTotal">
 		<input type = "button" value = "취소하기" onclick="javascript:history.go(-1)">
@@ -76,11 +80,9 @@
 	<div id="rsvnPayModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog" role="document" style = "max-width: 100%;">
 	    <div class="modal-content">
-	      <div class="modal-header"> 
-	        <h5>결제하기</h5>
-	      </div>
 	      <div class="modal-body">
-             
+             <input type = "hidden" id = "tid">
+             <div id = "rsvnKakaoPay"></div>
             </div>
 	    </div>
 	  </div>
