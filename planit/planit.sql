@@ -143,6 +143,7 @@ CREATE TABLE MsgTable
 
 );
 
+--숙소문의 게시판
 DROP TABLE acommQna CASCADE CONSTRAINTS;
 drop sequence acommQna_num_seq;
 create table acommQna(
@@ -157,6 +158,9 @@ create table acommQna(
 );
 create sequence acommQna_num_seq;
 
+
+-- 자유문의 게시판 --
+
 DROP TABLE qna CASCADE CONSTRAINTS;
 drop sequence qna_num_seq;
 create table qna(
@@ -165,10 +169,23 @@ create table qna(
    qna_cate varchar2(30),
    qna_title varchar2(100),
    qna_content clob,
-   qna_date date,
    PRIMARY KEY (qna_num)
 );
 create sequence qna_num_seq;
+
+--자유문의 게시판 댓글--
+
+create table qnacomm
+(
+    QCOMM_NUM number(7) PRIMARY KEY,
+    MEM_ID VARCHAR2(15) REFERENCES MEMBERS(MEM_ID) NOT NULL,
+    QCOMM_CONTENT varchar(300),
+    QCOMM_DATE DATE NOT NULL,
+    QNA_NUM NUMBER(7) REFERENCES QNA(QNA_NUM) NOT NULL,
+    CONSTRAINT QNA_NUM_FK FOREIGN KEY(QNA_NUM)
+    REFERENCES QNA(QNA_NUM)ON DELETE CASCADE
+);
+CREATE SEQUENCE QCOMM_NUM_SEQ;
 
 DROP TABLE qnaComm CASCADE CONSTRAINTS;
 drop sequence qcomm_num_seq;
@@ -184,16 +201,6 @@ create table qnaComm(
 create sequence qcomm_num_seq;
 
 
-DROP TABLE qnaImage CASCADE CONSTRAINTS;
-drop sequence qnaImg_num_seq;
-create table qnaImage(
-   qnaImg_num number(7) primary key,
-   qna_num number(7) references qna(qna_num),
-   mem_id varchar2(15) references members(mem_id),
-   qnaImg_orgImg varchar2(50),
-   qnaImg_saveImg varchar(50)
-);
-create sequence qnaImg_num_seq;
 
 DROP TABLE ad CASCADE CONSTRAINTS;
 drop sequence ad_num_seq;

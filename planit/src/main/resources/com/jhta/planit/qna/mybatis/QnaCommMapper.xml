@@ -5,6 +5,23 @@
 <mapper namespace="com.jhta.planit.qna.mybatis.QnaCommMapper">
 	<insert id="insert" parameterType="com.jhta.planit.qna.vo.QnaCommVo">
 		insert into qnacomm
-		values(comments_seq.nextval,#{qna_num},#{mem_id},#{comments})
+		values(qcomm_num_seq.nextval,#{mem_id},#{qcomm_content},#{qcomm_date} where #{qna_num})
 	</insert>
+	
+	<select id="count" resultType="int" parameterType="int">
+		select NVL(count(*),0) from qnacomm
+		where qna_num=#{qna_num}
+	</select>
+	
+	<select id="getList" parameterType="hashmap" resultType="com.jhta.planit.qna.vo.QnaCommVo">
+		select * from
+		(
+			select aa.*,rownum rnum from
+			(
+				select * from qnacomm
+				where qna_num=#{qna_num}
+				order by qnacomm_num desc
+			)aa
+		)<![CDATA[ where rnum>=#{startRow} and rnum<=#{endRow}]]>
+	</select>
 </mapper>
