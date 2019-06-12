@@ -28,7 +28,6 @@ public class MembersLoginController {
 		map.put("mem_id", mem_id);
 		map.put("mem_pwd", mem_pwd);
 		int result = service.login(map);
-		System.out.println(result);
 		if (result > -2) {
 			session.setAttribute("mem_id", mem_id);
 			return "redirect:/";

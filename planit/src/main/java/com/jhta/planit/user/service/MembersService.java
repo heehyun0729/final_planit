@@ -56,14 +56,12 @@ public class MembersService {
 	public int login(HashMap<String, String> map) {
 		int n = -5;
 		MembersVo vo = dao.login(map.get("mem_id"));
-		System.out.println("test01");
 		if (vo != null) {
-			System.out.println("test02");
 			if (bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd())) {
 				n = vo.getMem_stat();
 			}
 		}
-		return 1;
+		return n;
 	}
 
 	public MembersVo idCheck(String mem_id) {
