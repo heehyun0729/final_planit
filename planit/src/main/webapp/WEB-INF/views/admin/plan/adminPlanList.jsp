@@ -16,6 +16,7 @@
 							<th scope="col">작성자</th>
 							<th scope="col">제목</th>
 							<th scope="col">공개여부</th>
+							<th scope="col">상세보기</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -26,7 +27,7 @@
 							</c:if>
 							<c:forEach var = "vo" items = "${list }">
 								<tr>
-									<td><input type = "checkbox" class = "planChk" name = "${vo.plan_num }"></td>
+									<td><input type = "checkbox" class = "planChk" value = "${vo.plan_num }" name = "plan_num"></td>
 									<td>${vo.plan_num }</td>
 									<td>${vo.mem_id }</td>
 									<td>${vo.plan_title }</td>
@@ -39,6 +40,9 @@
 												비공개
 											</c:otherwise>
 										</c:choose>
+									</td>
+									<td>
+										<input type = "button" class = "btn btn-primary" value = "상세보기" onclick="javascript:openPlanDetailModal(${vo.plan_num})">
 									</td>
 								</tr>
 							</c:forEach>
@@ -81,13 +85,12 @@
 			</div>
 		</div>
 	</article>
-	<!-- 모달 -->
-	<input id="clickMe" type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- 플래너 상세보기 모달 -->
+	<div class="modal fade" id="planDetailModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">상세정보</h5>
+					<h5 class="modal-title" id="exampleModalLabel">플래너 상세보기</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

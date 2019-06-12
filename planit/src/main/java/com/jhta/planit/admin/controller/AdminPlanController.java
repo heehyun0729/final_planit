@@ -25,7 +25,7 @@ public class AdminPlanController {
 		map.put("keyword", keyword);
 		int cnt = planService.count(map);
 		
-		PageUtil pu = new PageUtil(pageNum, cnt, 8, 5);
+		PageUtil pu = new PageUtil(pageNum, cnt, 10, 5);
 		int startRow = pu.getStartRow();
 		int endRow = pu.getEndRow();
 		int pageCnt = pu.getTotalPageCount();
