@@ -22,6 +22,7 @@
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/plan/planner</url-pattern>
+    <url-pattern>/reservation/book</url-pattern>
   </filter-mapping>
   
   <context-param>

@@ -25,6 +25,12 @@
 	<select id="getRecentAdNum" resultType="int">
 		select aa.ad_num from(select ad_num, rownum rnum from ad order by ad_num desc)aa where rnum=1
 	</select>
+	<select id="getTodayAdProfit" resultType="int">
+		select NVL(sum(ad_price),0) from ad where to_char(ad_requestDate,'yyyy-mm-dd')=#{ad_requestDate}
+	</select>
+	<select id="getRecent5Ad" resultType="com.jhta.planit.admin.vo.AdVo">
+		select * from (select aa.*, rownum rnum from(select * from ad order by ad_num desc)aa) where <![CDATA[rnum<6]]>
+	</select>
 	<select id="getTotalRowCount" parameterType="hashmap" resultType="int">
 		select NVL(count(*),0) cnt from ad <include refid="search"/>
 	</select>

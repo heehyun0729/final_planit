@@ -100,24 +100,29 @@
 					<p>${avo.accom_name }</p>
 					<p><span id = "roomName"></span><span id = "roomCapa"></span></p>
 				</div>
-				<div>
-					<p>날짜 및 인원 선택</p>
-					<input type="text" style = "width:100px;" id="rsvnCheckinDatepicker" value = "${checkin }" onchange="javascript:roomCheck()">
-					 ~ <input type="text" style = "width:100px;" id="rsvnCheckoutDatepicker" value = "${checkout }" onchange="javascript:roomCheck()">
-					<input type = "hidden" id = "hiddenCnt" value = "${cnt }">
-					인원: <select id = "rsvnDialogCnt" onchange="javascript:roomCheck()">
-					</select>
-				</div>
-				<div>
-					<p id = "rsvnMsg"></p>
+				<form method="post" action="<c:url value='/reservation/book'/>">
 					<div>
-						<span>총</span>
-						<span id = "roomPrice">0원</span>
+						<p>날짜 및 인원 선택</p>
+						<input type = "hidden" id = "hiddenCnt" value = "${cnt }">
+						<input type = "hidden" name = "accom_num" value = "${avo.accom_num }">
+						<input type = "hidden" id = "room_num" name = "room_num">
+						<input type = "hidden" id = "stay" name = "stay">
+						<input type="text" style = "width:100px;" id="rsvnCheckinDatepicker" name = "checkin" value = "${checkin }" onchange="javascript:roomCheck()">
+						 ~ <input type="text" style = "width:100px;" id="rsvnCheckoutDatepicker" name = "checkout" value = "${checkout }" onchange="javascript:roomCheck()">
+						인원: <select id = "rsvnDialogCnt" onchange="javascript:roomCheck()" name = "cnt">
+						</select>
 					</div>
-				</div>
-				<div>
-					<input type = "button" id = "btnPay" value = "결제하기">
-				</div>
+					<div>
+						<p id = "rsvnMsg"></p>
+						<div>
+							<span>총</span>
+							<span id = "roomPrice">0원</span>
+						</div>
+					</div>
+					<div>
+						<input type = "submit" id = "btnPay" value = "결제하기">
+					</div>
+				</form>
 		      </div>
 		    </div>
 	    </div>

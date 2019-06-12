@@ -186,7 +186,7 @@ public class AdService {
 		model.addAttribute("chanceList", chanceList );
 		model.addAttribute("imageList", imageList);
 	}
-	public void clickAd(int adInfo_num, Model model) {
+	public void clickAd(int adInfo_num, Model model) {//광고 클릭
 		AdInfoVo vo2=adInfoDao.getAdInfo2(adInfo_num);
 		int ad_num=vo2.getAd_num();
 		AdVo vo3=adDao.getAdInfo(ad_num);
@@ -197,5 +197,14 @@ public class AdService {
 		map.put("adInfo_click", adInfo_click);
 		adInfoDao.clickAdInfo(map);
 		model.addAttribute("url", url);
+	}
+	public int getDayAdProfit(String adInfo_date) {//특정일 광고 총 수익 받기
+		return adInfoDao.getDayAdProfit(adInfo_date);
+	}
+	public List<AdVo> getRecent5Ad(){//최근 5번 광고 거래 내역
+		return adDao.getRecent5Ad();
+	}
+	public int getTodayAdProfit(String ad_requestDate) {
+		return adDao.getTodayAdProfit(ad_requestDate);
 	}
 }

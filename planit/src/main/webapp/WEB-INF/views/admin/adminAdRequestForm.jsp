@@ -274,7 +274,7 @@
 				function(data) {
 					if(data!=null){
 						$("input[name='ad_tid']").val(data.tid);
-						$("#modalSrc").html('<iframe style="border: 0px; " src="' + data.next_redirect_pc_url + '" width="100%" height="500px"></iframe>');
+						$("#modalSrc").html('<iframe style="border: 0px; " src="' + data.next_redirect_pc_url + '" width="465px" height="500px"></iframe>');
 						$("#clickMe").click();
 					}
 			});

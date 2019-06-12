@@ -3,6 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.reservation.mybatis.RsvnMapper">
+	<insert id="insert" parameterType="hashmap">
+		insert into rsvn values(#{num}, #{mem_id}, #{room_num}, #{checkin}, #{checkout}, #{cnt}, #{name}, #{email}, #{phone})
+	</insert>
+	<select id="max" resultType="int">
+		select NVL(max(rsvn_num), 0) from rsvn
+	</select>
+	<delete id="delete" parameterType="int">
+		delete from rsvn where rsvn_num = #{num}
+	</delete>
+
 	<sql id="rsvnRoomSearch">
        select ro.* from room ro
        where ro.room_num in
@@ -33,7 +43,7 @@
               )y right outer join dual on 1 = 1
           )       
 	</sql>
-	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
+	<select id="accomList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
 		select * from
 		(
 		    select bb.accom_num accom_num, bb.sell_num sell_num, bb.accom_name accom_name, bb.accom_addr accom_addr, 
@@ -60,7 +70,7 @@
 		        where bb.accom_num = rr.accom_num
 			)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
 	</select>
-	<select id="count" parameterType="hashmap" resultType="int">
+	<select id="accomCount" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from
 		(
 		   select distinct a.*

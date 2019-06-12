@@ -1,23 +1,23 @@
 package com.jhta.planit.reservation.dao;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.jhta.planit.reservation.vo.RsvnAccomVo;
-
 @Repository
-public class RsvnAccomDao {
+public class RsvnDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jhta.planit.reservation.mybatis.RsvnMapper";
 	
-	public List<RsvnAccomVo> list(HashMap<String, Object> map){
-		return sqlSession.selectList(NAMESPACE + ".accomList", map);
+	public int insert(HashMap<String, Object> map) {
+		return sqlSession.insert(NAMESPACE + ".insert", map);
 	}
-	public int count(HashMap<String, Object> map) {
-		return sqlSession.selectOne(NAMESPACE + ".accomCount", map);
+	public int max() {
+		return sqlSession.selectOne(NAMESPACE + ".max");
+	}
+	public int delete(int num) {
+		return sqlSession.delete(NAMESPACE + ".delete", num);
 	}
 }

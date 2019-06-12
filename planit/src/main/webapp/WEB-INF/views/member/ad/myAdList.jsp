@@ -3,6 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<script>
+	$(document).ready(function(){
+		$(".table a").on("click", function(event){//모달 열기
+			event.preventDefault();
+			const src=$(event.target).parent().prop("href");
+			$("#modalSrc").html('<iframe style="border: 0px; " src="' + src + '" width="1000px" height="820px"></iframe>');
+			$("#clickMe").click();
+		});
+	});
+</script>
 <header>
 </header>
 <section>

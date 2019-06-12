@@ -66,12 +66,16 @@ DROP SEQUENCE MEMIMAGE_SEQ;
 CREATE TABLE MEMIMAGE(
 	img_num number(7,0) PRIMARY KEY,
 	mem_id varchar2(40) NOT NULL,
-	img_orgImg varchar2(50),
-	img_saveImg varchar2(50),
+	img_orgImg varchar2(150),
+	img_saveImg varchar2(150),
 	CONSTRAINT memimage_profile_no_fk FOREIGN KEY (mem_id)
 	REFERENCES MEMBERS (mem_id)
 );
 CREATE SEQUENCE MEMIMAGE_SEQ;
+
+ALTER TABLE MEMIMAGE MODIFY(IMG_ORGIMG VARCHAR2(150));
+ALTER TABLE MEMIMAGE MODIFY(IMG_SAVEIMG VARCHAR2(150));
+
 
 --판매자 테이블
 DROP TABLE SELLER;
@@ -319,7 +323,8 @@ CREATE TABLE buddy_apply
 	apply_num number(5,0) PRIMARY KEY,
 	buddy_num number(7,0) CONSTRAINT fk_buddyapply
     REFERENCES buddy(buddy_num) ON DELETE CASCADE,
-	mem_id varchar2(15) NOT NULL
+	mem_id varchar2(15) NOT NULL,
+    apply_state number(2,0)
 );
 drop SEQUENCE buddy_seq;
 drop SEQUENCE buddyCountry_seq;
@@ -349,10 +354,9 @@ CREATE SEQUENCE rsvn_seq;
 drop table rsvnPay CASCADE CONSTRAINTS;
 create table rsvnPay
 (
-    rsvnPay_id varchar2(500) primary key,
+    rsvnPay_id varchar2(30) primary key,
     rsvn_num number(7) references rsvn(rsvn_num),
-    rsvnPay_price number(10), 
-    rsvnPay_method varchar2(20),
+    rsvnPay_total number(10), 
     rsvnPay_stat number(2),
     rsvnPay_date date
 );

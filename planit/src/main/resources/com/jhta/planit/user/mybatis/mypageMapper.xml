@@ -51,10 +51,21 @@
 		where m.mem_id=f.mem_id and m.mem_id=mi.mem_id and f.profile_no=(select profile_no from follow_list where mem_id=#{mem_id})
 	</select>
 	<select id="editprofileinfo" resultType="hashmap" parameterType="string">
-		select p.mem_id,p.profile_open,p.profile_comm,i.img_saveimg,m.mem_nickname 
+		select p.mem_id,p.profile_open,p.profile_comm,i.img_num,i.img_saveimg,m.mem_nickname 
 		from profile p,memimage i,members m 
 		where m.mem_id=p.mem_id and m.mem_id=i.mem_id and p.mem_id=#{mem_id}
 	</select>
+	<select id="savImgInfo" resultType="com.jhta.planit.user.vo.MemImageVo" parameterType="int">
+		select * from memimage where img_num=#{img_num}
+	</select>
+	<update id="editImg" parameterType="com.jhta.planit.user.vo.MemImageVo">
+		update memimage set IMG_ORGIMG=#{img_orgimg}, IMG_SAVEIMG=#{img_saveimg}
+		where mem_id=#{mem_id}
+	</update>
+	<update id="editprofile" parameterType="com.jhta.planit.user.vo.ProfileVo">
+		update profile set PROFILE_OPEN=#{profile_open}, PROFILE_COMM=#{profile_comm}
+		where mem_id=#{mem_id}
+	</update>
 	<!-- <update id="withdrawal" parameterType="string">
 		update profile
 	</update>-->

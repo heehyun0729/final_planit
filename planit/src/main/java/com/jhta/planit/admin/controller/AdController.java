@@ -12,6 +12,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -129,15 +131,14 @@ public class AdController {
 		map.put("endDate", date);
 		List<AdInfoVo> list=service.getChance(map);
 		int chance=0;
-		int adProfit=0;
 		for(int a=0;a<list.size();a++) {
 			chance+=list.get(a).getAdInfo_chance();
-			adProfit+=list.get(a).getAdInfo_price();
 		}
+		int adProfit=service.getTodayAdProfit(date);
+		List<AdVo> getRecent5Ad=service.getRecent5Ad();
 		map.put("chance", chance);//금일 광고율 담기
 		map.put("adProfit", adProfit);//광고 수익 담기
-		
-		
+		map.put("getRecent5Ad", getRecent5Ad);//최근 5개 광고 거래내역 담기
 		
 		model.addAttribute("map", map);
 		return "-admin-adminBody-adminHome";
@@ -459,6 +460,19 @@ public class AdController {
 	@RequestMapping(value="/adClick")//광고 클릭
 	public String adClick(int adInfo_num, Model model) {
 		service.clickAd(adInfo_num, model);
-		return "-admin-adminBody-adClick";
+		return "-admin-adminAdManagement-adClick";
 	}
+	@RequestMapping(value="/admin/adminAdManagement/getDayAdProfit", produces="application/json;charset=utf-8")//일자별 광고 수익 출력
+	@ResponseBody
+	public String getDayAdProfit(String stringDays) {
+		String days[]=stringDays.split(",");
+		JSONArray jsonArray=new JSONArray();
+		for(int i=0;i<days.length;i++) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("adProfit", service.getDayAdProfit(days[i]));
+			jsonArray.put(jsonObject);
+		}
+		return jsonArray.toString();
+	}
+	
 }

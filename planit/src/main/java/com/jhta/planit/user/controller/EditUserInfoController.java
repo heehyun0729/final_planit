@@ -1,27 +1,37 @@
 package com.jhta.planit.user.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jhta.planit.user.service.MembersService;
 import com.jhta.planit.user.service.MypageService;
+import com.jhta.planit.user.vo.MemImageVo;
 import com.jhta.planit.user.vo.MembersVo;
+import com.jhta.planit.user.vo.ProfileVo;
 
 @Controller
 public class EditUserInfoController {
 	@Autowired private MembersService membersService;
 	@Autowired private MypageService mypageService;
-	
+
 	@RequestMapping(value = "/user/edit/{editInfo}", method = RequestMethod.GET)
 	public String editUsercheckForm(@PathVariable String editInfo, HttpSession session, RedirectAttributes attributes,
 			Model model) {
@@ -45,7 +55,7 @@ public class EditUserInfoController {
 			}
 		}
 	}
-	
+
 	@RequestMapping(value = "/user/edituserinfochk", method = RequestMethod.POST)
 	public ModelAndView editUsercheck(String mem_pwd, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -54,9 +64,7 @@ public class EditUserInfoController {
 		map.put("mem_pwd", mem_pwd);
 		ModelAndView mv = new ModelAndView();
 		if (membersService.userCheck(map)) {
-			HashMap<String, Object> profilemap=mypageService.editprofileinfo(mem_id);
-			String profile_comm = ((String) profilemap.get("PROFILE_COMM")).replaceAll("\r\n", "<br>");
-			profilemap.put("PROFILE_COMM", profile_comm);
+			HashMap<String, Object> profilemap = mypageService.editprofileinfo(mem_id);
 			mv.addObject("map", profilemap);
 			mv.setViewName("/user/editprofile");
 		} else {
@@ -65,12 +73,75 @@ public class EditUserInfoController {
 		}
 		return mv;
 	}
-	
-	@RequestMapping(value = "/user/editprofile",method = RequestMethod.POST)
-	public String editprofile() {
-		return null;
+
+	@RequestMapping(value = "/user/editnickcheck", method = RequestMethod.POST)
+	@ResponseBody
+	public int nickcheck(HttpServletRequest request, HttpSession session) {
+		String mem_nickname = request.getParameter("mem_nickname");
+		String mem_id = (String) session.getAttribute("mem_id");
+		MembersVo vo = membersService.nickCheck(mem_nickname);
+
+		int result = -1;
+		if (vo == null) {
+			result = -1;
+		} else if (vo.getMem_id().equals(mem_id)) {
+			result = 2;
+		} else if (vo != null) {
+			result = 1;
+		}
+		return result;
 	}
-	
+
+	@RequestMapping(value = "/user/editprofile", method = RequestMethod.POST)
+	public String editprofile(int img_num, int profile_open, String profile_comm, String mem_nickname,
+			MultipartFile imgInput, String changeImg, String mem_nick, HttpSession session,Model model) {
+		try {
+			String mem_id=(String) session.getAttribute("mem_id");
+			MemImageVo imgVo = null;
+			ProfileVo profileVo = null;
+
+			String basicPhoto = "/resources/profileImg/BasicPhoto.png";
+			String basichref = "/resources/profileImg/";
+			if (!imgInput.isEmpty() || changeImg.equals(basicPhoto)) {
+				String realPath = session.getServletContext().getRealPath("/");
+				String savefilename = mypageService.getsavImginfo(img_num).getImg_saveimg();
+				File file = new File(realPath + savefilename);
+				if (!savefilename.equals(basicPhoto)) {
+					if (!file.delete()) {
+						throw new Exception("파일삭제실패!");
+					}
+				}
+
+				if (!changeImg.equals(basicPhoto)) {
+					String orgfilename = imgInput.getOriginalFilename();
+					String img_saveimg = basichref + UUID.randomUUID() + "_" + orgfilename;
+					InputStream is = imgInput.getInputStream();
+					FileOutputStream fos = new FileOutputStream(realPath + img_saveimg);
+					FileCopyUtils.copy(is, fos);
+					is.close();
+					fos.close();
+					imgVo = new MemImageVo(img_num, mem_id, orgfilename, img_saveimg);
+				} else {
+					imgVo = new MemImageVo(img_num, mem_id, basicPhoto, basicPhoto);
+				}
+			}
+			profileVo = new ProfileVo(0, mem_id, profile_open, profile_comm);
+			System.out.println(profileVo.toString());
+			int result = mypageService.editprofile(imgVo, profileVo, mem_nick);
+			if (result > 0) {
+				return "redirect:/member/mypage/" + mem_id;
+			} else {
+				HashMap<String, Object> profilemap = mypageService.editprofileinfo(mem_id);
+				model.addAttribute("map", profilemap);
+				return "/user/editprofile";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+	}
+
 	@RequestMapping(value = "/user/idsearch", method = RequestMethod.GET)
 	public String idsearchForm() {
 		return "/user/idsearch";
@@ -80,7 +151,8 @@ public class EditUserInfoController {
 	public String idsearch(String mem_email, RedirectAttributes attributes, Model model) {
 		String mem_id = membersService.idsearch(mem_email);
 		if (mem_id != null) {
-			attributes.addFlashAttribute("authMsg", "당신의 아이디는 " + mem_id + "입니다.<br> 비밀번호를 찾으실려면 <a href='http://localhost:9090/planit/user/pwdsearch'>비밀번호 찾기</a>를 눌러 주세요");
+			attributes.addFlashAttribute("authMsg", "당신의 아이디는 " + mem_id
+					+ "입니다.<br> 비밀번호를 찾으실려면 <a href='http://localhost:9090/planit/user/pwdsearch'>비밀번호 찾기</a>를 눌러 주세요");
 			return "redirect:/member/result";
 		} else {
 			model.addAttribute("errMsg", "입력하신 정보가 올바르지 않습니다.");

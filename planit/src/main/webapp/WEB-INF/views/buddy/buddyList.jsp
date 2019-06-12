@@ -64,32 +64,34 @@
 				<th>희망나이</th>
 				<th>여행 소개</th>
 				<th>여행할 도시</th>
+				<th>쪽지하기</th>
 			</tr>
-			<c:forEach var="buddy" items="${buddyList}">
+			<c:forEach var="buddy" items="${buddyList}">	
 				<tr>
-					<th>${buddy.mem_id }</th>
-					<th>${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</th>
+					<td>${buddy.mem_id }</td>
+					<td>${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</td>
 					<c:choose>
 						<c:when test="${buddy.buddy_gender =='X'}">
-							<th>상관없음</th>
+							<td>상관없음</td>
 						</c:when>
 						<c:when test="${buddy.buddy_gender =='M'}">
-							<th>남자</th>
+							<td>남자</td>
 						</c:when>
 						<c:when test="${buddy.buddy_gender =='W'}">
-							<th>여자</th>
+							<td>여자</td>
 						</c:when>
 					</c:choose>
 					<c:choose>
 						<c:when test="${buddy.buddy_birthyear==0 }">
-							<th>상관없음</th>
+							<td>상관없음</td>
 						</c:when>
 						<c:otherwise>
-							<th>${buddy.buddy_birthyear }대</th>
+							<td>${buddy.buddy_birthyear }대</td>
 						</c:otherwise>
 					</c:choose>
-					<th>${buddy.buddy_msg }</th>
-					<th>${buddy.buddy_city }</th>
+					<td>${buddy.buddy_msg }</td>
+					<td>${buddy.buddy_city }</td>
+					<td><input type="button" value="쪽지하기" onclick="msgPopup('${buddy.mem_id }')"></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -143,9 +145,15 @@
 	    	$("#buddy_outdate").datepicker();
 	    	$("#buddy_outdate").datepicker( "option", "minDate", selectedDate );
 	    });
-		$("#insert_buddy").click(function(){
+	});
+	
+	//동행 글 추가
+	$("#insert_buddy").click(function(){
+		if('${mem_id}'!=null && '${mem_id}'!=""){
 			window.location.href="<c:url value='/buddyInsert' />";
-		});
+		}else{
+			alert("로그인이 필요한 서비스 입니다.");
+		}
 	});
 	
 	//리스트 전체보기
@@ -155,24 +163,43 @@
 	
 	//자동추천
 	$("#sg_buddy").click(function(){
-		if('${sgId}' != ''){
-			var result = confirm('같은 일정에 같은 도시를 여행하는 사람이 있습니다. 추천받으시겠습니까?');
-			if(result) { 
-				var list=${sgId};
-				alert('추천페이지로 넘어갑니다.');
-				alert(list);
-				popupOpen(list);
-			}else{}
-			
+		if('${mem_id}'!=null && '${mem_id}'!=""){
+			if('${sgId}' != ''){
+				var result = confirm('같은 일정에 같은 도시를 여행하는 사람이 있습니다. 추천받으시겠습니까?');
+				if(result) { 
+					var param=eval('${sgId}');
+					var str="";
+					for(var i=0;i<param.length;i++){
+						str+="buddy_num="+param[i]+"&";
+					}
+					alert('추천페이지로 넘어갑니다.');
+					popupOpen(str);
+				}else{
+					
+				}
+			}else{
+				alert('같은 일정에 같은 도시를 여행하는 사람이 없습니다.ㅠㅠ');
+			}
 		}else{
-			alert('같은 일정에 같은 도시를 여행하는 사람이 없습니다.ㅠㅠ');
+			alert("로그인이 필요한 서비스 입니다.");
 		}
 	});
-	//팝업
-	function popupOpen(param){
-		var popUrl = "<c:url value='/buddySg?mem_buddy="+param+"' />";
+	
+	//동행추천 팝업
+	function popupOpen(str){
+		var popUrl = "<c:url value='/buddySg?"+str+"'/>";
 		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
 			window.open(popUrl,"동행추천",popOption);
+	}
+	//쪽지보내기 팝업
+	function msgPopup(id){
+		if('${mem_id}'!=null && '${mem_id}'!=""){
+			var popUrl = "<c:url value='/msgSendPopupForm?id="+id+"'/>";
+			var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+				window.open(popUrl,"쪽지보내기",popOption);
+		}else{
+			alert("로그인이 필요한 서비스 입니다.");
+		}
 	}
 	//유효성체크
 	function check(){

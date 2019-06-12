@@ -6,20 +6,29 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.reservation.service.RsvnAccomService;
 import com.jhta.planit.reservation.service.RsvnRoomService;
+import com.jhta.planit.reservation.service.RsvnService;
 import com.jhta.planit.reservation.vo.RsvnAccomVo;
 import com.jhta.planit.room.service.RoomService;
 import com.jhta.planit.room.vo.RoomVo;
@@ -28,12 +37,94 @@ import com.jhta.planit.roomImage.vo.RoomImageVo;
 import com.jhta.util.PageUtil;
 
 @Controller
-public class ReservationController {
+public class RsvnController {
 	@Autowired private RsvnAccomService rsvnAccomService;
 	@Autowired private AccomService accomService;
 	@Autowired private RoomService roomService;
 	@Autowired private RsvnRoomService rsvnRoomService;
 	@Autowired private RoomImageService roomImageService;
+	@Autowired private RsvnService rsvnService;
+	
+	@RequestMapping(value = "/reservation/payApprovalOk", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public Object payApprovalOk(String tid, String pg_token) {
+		RestTemplate restTemplate = new RestTemplate();
+		String host = "https://kapi.kakao.com/v1/payment/approve";
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK 701d2fb4d9d20c3624d31b24e8e0caab");
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+        
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", "TC0ONETIME");
+        params.add("partner_order_id", "partner_order_id");
+        params.add("partner_user_id", "partner_user_id");
+        params.add("tid", tid);
+        params.add("pg_token", pg_token);
+ 
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        Object object = restTemplate.postForObject(host, body, Map.class);        
+        return object;
+	}
+	
+	@RequestMapping(value = "/reservation/pay", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public Object pay(String item_name, String total_amount) {
+		RestTemplate restTemplate = new RestTemplate();
+		String host = "https://kapi.kakao.com/v1/payment/ready";
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK 701d2fb4d9d20c3624d31b24e8e0caab");
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+        
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", "TC0ONETIME");
+        params.add("partner_order_id", "partner_order_id");
+        params.add("partner_user_id", "partner_user_id");
+        params.add("item_name", item_name);
+        params.add("quantity", "1");
+        params.add("total_amount", total_amount);
+        params.add("tax_free_amount", "0");
+        params.add("approval_url", "http://localhost:9090/planit/reservation/payApproval");
+        params.add("cancel_url", "http://localhost:9090/planit/reservation/payCancel");
+        params.add("fail_url", "http://localhost:9090/planit/reservation/payFail");
+ 
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        Object object = restTemplate.postForObject(host, body, Map.class);        
+        return object;
+	}
+	
+	@RequestMapping("/reservation/payApproval")
+	public String payApproval() {
+		return ".reservation.payApproval";
+	}
+	
+	@RequestMapping("/reservation/payCancel")
+	public String payCancel() {
+		return ".reservation.payCancel";
+	}
+	
+	@RequestMapping("/reservation/payFail")
+	public String payFail() {
+		return ".reservation.payFail";
+	}
+	
+	@RequestMapping("/reservation/book")
+	public String goBook(int accom_num, int room_num, String checkin, String checkout, int cnt, int stay, Model model) {
+		AccomVo avo = accomService.detail(accom_num);
+		RoomVo rvo = roomService.detail(room_num);
+		rvo.setRoom_images(roomImageService.list(room_num));
+		
+		model.addAttribute("avo", avo);
+		model.addAttribute("rvo", rvo);
+		model.addAttribute("checkin", checkin);
+		model.addAttribute("checkout", checkout);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("stay", stay);
+		return ".reservation.rsvnBook";
+	}
 	
 	public String getApi() throws IOException {
 		FileReader fr = null;
