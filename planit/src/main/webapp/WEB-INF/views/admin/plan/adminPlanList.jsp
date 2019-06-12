@@ -8,6 +8,10 @@
 			<div class="row ">
 				<div class="col mt-5 text-center">
 					<h1>일정 게시판</h1>
+					<form method = "post" action="<c:url value = '/admin/plan/delete'/>" id = "planDelete">
+					<div style = "float:left;">
+						<input type = "button" onclick = "deletePlan()" value = "삭제" class = "btn btn-primary">
+					</div>
 					<table class="table table-hover ">
 						<thead>
 						<tr>
@@ -47,7 +51,7 @@
 								</tr>
 							</c:forEach>
 						</tbody>
-					</table>
+					</table></form>
 					<div class="d-flex justify-content-center">
 						<ul class="pagination">
 							<c:if test="${startPage > 1 }">
@@ -95,8 +99,33 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" id="modalSrc">
-					
+				<div class="modal-body">
+					<div>
+						<img id = "planImg" style = "float: left;width: 200px;height: 200px;">
+						<table border = "1" width = "400" id = "planTbl">
+							<tr>
+								<th>번호</th>
+								<td id = "planNum"></td>
+							</tr>
+							<tr>
+								<th>작성자</th>
+								<td id = "planWriter"></td>
+							</tr>
+							<tr>
+								<th>제목</th>
+								<td id = "planTitle"></td>
+							</tr>
+							<tr>
+								<th>공개여부</th>
+								<td id = "planPublic"></td>
+							</tr>
+						</table>
+					</div>
+					<div style = "clear:both;">
+						<h5>일정표</h5>
+						<table border = "1" id = "planDetailTbl" width = "600">
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
