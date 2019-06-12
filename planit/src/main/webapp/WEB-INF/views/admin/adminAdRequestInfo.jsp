@@ -14,23 +14,21 @@
 	});
 </script>
 <body>
-<div class="container-fluid">
-	<div class="row mb-5 d-relative">
+<div class="container-fuid">
+	<div class="row ml-1 mr-1 mb-5 d-relative">
 		<div class="col">
 			<div id="adSlide" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img src="<c:url value='/resources/adminImages/graphs.jpg'/>" class="d-block w-100" alt="광고이미지1">
+						<img src="<c:url value='/resources/adminImages/graphs.jpg'/>" height="400" class="w-100" alt="광고이미지1">
 						<div class="go btn btn-primary"><span>광고신청하기</span></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="container">
-	<div class="row justify-content-md-center">
-		<div class="col">
+	<div class="row ml-5 mr-5 justify-content-md-center">
+		<div class="col ml-5 mr-5">
 			<div class="card h-100 hover">
 				<h5 class="card-header text-center bg-olive text-white">광고 신청</h5>
 				<div class="card-body align-self-center">

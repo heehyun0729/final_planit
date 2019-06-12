@@ -215,14 +215,15 @@
 				$("#infoWrapper .form-box").eq(1).hide();
 				$("#infoWrapper .form-box").eq(2).hide();
 				nowNum=1;
-				const x1=$("#infoWrapper").offset().left;
-				const y1=$("#infoWrapper").offset().top;				
-				const x2=$("#infoWrapper").width()/2;
-				const y2=$("#infoWrapper").height()/2;
-				const x3=x1+x2;
-				const y3=y1+y2;
-				$("#speechBubble1").offset({top: x3});
-				$("#speechBubble1").offset({left: y3});
+				const margin=$("#wrap").css("margin-left").replace("px","");
+				const x=$("#wrap").width()/2;
+				const y=$("#wrap").height()/2;
+				const x1=x+margin;
+				const y1=y+margin;
+				console.log(margin);
+				alert(x1);
+				//$("#speechBubble1").offset({top: y1});
+				$("#speechBubble1").offset({left: x1});
 				$('#speechBubble1').tooltip('show');
 				return;
 			};
@@ -240,6 +241,7 @@
 				$("#speechBubble2").offset({top: x3});
 				$("#speechBubble2").offset({left: y3});
 				$('#speechBubble2').tooltip('show');
+				
 				return;
 			}	
 			if($("#company").val()=="" || $("#url").val()==""){//에러메시지 출력
@@ -281,11 +283,11 @@
 			return;
 		});
 		
-		$('.speechBubble').on('shown.bs.tooltip', function () {//툴팁 지연시간 설정
-			setTimeout(function() { 
-				$('.speechBubble').tooltip('hide');
-			}, 1500);
-		});
+		//$('.speechBubble').on('shown.bs.tooltip', function () {//툴팁 지연시간 설정
+		//	setTimeout(function() { 
+		//		$('.speechBubble').tooltip('hide');
+		//	}, 1500);
+		//});
 	});	
 	function moveFile(name){//이미지 파일 미리보기
 		$("#file").empty();
@@ -592,12 +594,14 @@
 					for(var i=1;i<=todayDate;i++){
 						$("#"+i+"do").addClass('cant');
 						$("#"+i+"do").removeClass('hover');
+						$("#"+i+"do").removeClass('soldOut');
 						$("#"+i+"do").text("");
 					}
 				}else if(todayMonth==realToday.getMonth()+1 && isNextMonth==false){
 					for(var i=1;i<=todayDate;i++){
 						$("#"+i+"do").addClass('cant');
 						$("#"+i+"do").removeClass('hover');
+						$("#"+i+"do").removeClass('soldOut');
 						$("#"+i+"do").text("");
 					}
 				}
@@ -610,7 +614,7 @@
 <div class="wrapper">
 <header>
 </header>
-<section class="container">
+<section id="containerDiv" class="container">
 	<article class="formWrapper">		
 		<div id="calendar" class="calendarWrapper" ></div>
 		<input type="hidden" id="tempId">
