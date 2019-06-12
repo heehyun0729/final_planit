@@ -16,7 +16,7 @@
 			<div id="errMsg">${errMsg }</div>
 			<input type="submit" value="로그인">
 		</form>
-		<a href="<c:url value='/join'/>">회원가입</a> | <a href="<c:url value='/user/idsearch'/>">아이디</a>/<a href="<c:url value='/user/pwdsearch'/>">비밀번호</a> 찾기
+		<a href="<c:url value='/user/join'/>">회원가입</a> | <a href="<c:url value='/user/idsearch'/>">아이디</a>/<a href="<c:url value='/user/pwdsearch'/>">비밀번호</a> 찾기
 	</div>
 </body>
 </html>

@@ -36,6 +36,7 @@ public class RoomListController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field", field);
 		map.put("keyword", keyword);
+		map.put("accom_num", accom_num);
 		// 전체 글의갯수
 		int totalRowCount = service.count(map);
 		PageUtil pu = new PageUtil(pageNum, totalRowCount, 10, 10);

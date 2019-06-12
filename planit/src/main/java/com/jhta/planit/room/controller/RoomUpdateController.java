@@ -45,11 +45,11 @@ public class RoomUpdateController {
 	}
 
 	@RequestMapping(value = "/roomUpdate", method = RequestMethod.POST)
-	public String update( int room_num, int room_price, String room_comm, int room_capa,
+	public String update( int room_num, int accom_num,int room_price, String room_comm, int room_capa,
 			MultipartFile file1, HttpSession session) {
 		RoomVo vo1 = service1.detail(room_num);
 		List<RoomImageVo> vo2 = service2.detail(room_num);
-		 vo1 = new RoomVo(room_num, 0, null, room_price, room_comm, 0, room_capa, null);
+		 vo1 = new RoomVo(room_num, accom_num, null, room_price, room_comm, 0, room_capa, null);
 		if (service1.update(vo1) > 0) {
 			try {
 				if (!file1.isEmpty()) {
@@ -75,12 +75,12 @@ public class RoomUpdateController {
 					service2.insert(vd);
 				} else {
 				}
-				return ".room.success";
+				return "redirect:/roomList?accom_num="+accom_num;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "fail";
 			}
 		}
-		return ".room.success";
+		return "redirect:/roomList?accom_num="+accom_num;
 	}
 }

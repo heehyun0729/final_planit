@@ -3,6 +3,7 @@
 
 <h1>수정하기</h1>
 <form method="post" action="roomUpdate" enctype="multipart/form-data">
+	<input type="hidden" name="accom_num" value="${vo.accom_num }">
 	숙소번호 ${vo.accom_num }<br/>
 	<input type="hidden" name="room_num" value="${vo1.room_num }">
 	방타입 ${vo1.room_type }<br/>

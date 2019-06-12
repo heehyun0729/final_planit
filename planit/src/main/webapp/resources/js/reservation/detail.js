@@ -160,6 +160,7 @@ function roomCheck() {
 				cnt: cnt
 			},
 			success: function(data) {
+				console.log(data);
 				if(data != null){
 					setRsvnDialog(checkin, checkout, cnt, data.room_price);
 				}else{

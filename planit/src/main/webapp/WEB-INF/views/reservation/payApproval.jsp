@@ -1,34 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src = "<c:url value = '/resources/js/jquery-3.4.0.min.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		const tid=window.parent.$("#tid").val();
-		const pg_token=$("#pg_token").val();
+		const tid = window.parent.$("#rsvn_tid").val();
+		const pg_token = $("#rsvn_pg_token").val();
 		$.ajax({
-			url: "/planit/reservation/payApprovalOk",
-			dataType: "json",
-			data: {
-				item_name: item_name,
-				total_amount: total_amount
-			},
-			success: function(data) {
-				if(data.result == 'fail'){
-					alert("오류가 발생하였습니다.");
-				}else{
-					$("#tid").val(data.tid);
-					$("#rsvnKakaoPay").html('<iframe style="border: 0px; " src="' + data.next_redirect_pc_url + '" width="500px" height="500px"></iframe>');
-					$("#rsvnPayModal").modal("show");
-				}
+			url : "<c:url value='/reservation/payApprovalOk'/>",
+			method: "post",
+			dataType : "json",
+			data : {
+				tid: tid,
+				pg_token: pg_token
 			}
 		});
-		$.getJSON("<c:url value='/adminAdKakaoPayApprovalOk'/>",{cid:cid, tid:tid, partner_order_id:partner_order_id, partner_user_id:partner_user_id, pg_token:pg_token} ,
-			function(data) {
-				window.parent.$('#exampleModal').modal('hide');
-				window.parent.$("input[name='ad_payment']").val("카카오 페이");
-				window.parent.$("form").submit();
-		});
 	});
+	function rsvnComplete() {
+		window.parent.$("#rsvnPayModal").modal("hide");
+		window.parent.$("form").submit();
+	}
 </script>
+</head>
+<body>
 <div>
-	<input type="hidden" id="pg_token" value="${param.pg_token }">
+	<input type="hidden" id="rsvn_pg_token" value="${param.pg_token }">
+	<h1>결제완료</h1>
+	<span>확인 버튼을 눌러 예약을 완료해주세요.</span>
+	<input type = "button" value = "확인" onclick = "javascript:rsvnComplete()">
 </div>
+</body>
+</html>

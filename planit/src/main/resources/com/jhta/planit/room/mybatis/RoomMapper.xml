@@ -26,6 +26,7 @@
 		    select aa.*,rownum rnum from(
 		    	select * from room 
 		    	<include refid="search"/>
+		    	and accom_num=#{accom_num}
 		    	order by room_num desc
 		    )aa 
 		)
