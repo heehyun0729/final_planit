@@ -80,10 +80,10 @@
 			</div>
 		</a>
 		<div id='member' class="collapse sidebar-submenu">
-			<a href="#"	class="list-group-item list-group-item-action bg-dark text-white">
+			<a href="<c:url value='/admin/user/userlist'/>"	class="list-group-item list-group-item-action bg-dark text-white">
 				<span class="menu-collapsed">일반 회원</span>
 			</a>
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+			<a href="<c:url value='/admin/user/sellerlist'/>" class="list-group-item list-group-item-action bg-dark text-white">
 				<span class="menu-collapsed">사업자 회원</span>
 			</a>
 		</div>
