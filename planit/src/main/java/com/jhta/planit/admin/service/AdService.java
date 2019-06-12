@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import com.jhta.planit.admin.dao.AdDao;
 import com.jhta.planit.admin.dao.AdImageDao;
 import com.jhta.planit.admin.dao.AdInfoDao;
+import com.jhta.planit.admin.dao.AnalyticsDao;
 import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
@@ -25,6 +26,8 @@ public class AdService {
 	private AdInfoDao adInfoDao;
 	@Autowired
 	private AdImageDao adImageDao;
+	@Autowired
+	private AnalyticsDao analyticsDao;
 	@Transactional
 	public boolean insert(HashMap<String, Object> map) {//광고 신청
 		AdVo adVo=(AdVo)map.get("adVo");
@@ -204,7 +207,10 @@ public class AdService {
 	public List<AdVo> getRecent5Ad(){//최근 5번 광고 거래 내역
 		return adDao.getRecent5Ad();
 	}
-	public int getTodayAdProfit(String ad_requestDate) {
+	public int getTodayAdProfit(String ad_requestDate) {//금일 광고 수익
 		return adDao.getTodayAdProfit(ad_requestDate);
+	}
+	public List<Object> getPlanedCountry(){//플래너 국가들 받아오기
+		return analyticsDao.getPlanedCountry();
 	}
 }
