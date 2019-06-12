@@ -3,6 +3,7 @@ package com.jhta.planit.buddy.vo;
 import java.util.List;
 
 public class BuddyListVo {
+	private String buddy_num;
 	private String mem_id;
 	private String buddy_indate;
 	private String buddy_outdate;
@@ -15,9 +16,10 @@ public class BuddyListVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BuddyListVo(String mem_id, String buddy_indate, String buddy_outdate, String buddy_gender,
+	public BuddyListVo(String buddy_num, String mem_id, String buddy_indate, String buddy_outdate, String buddy_gender,
 			String buddy_birthyear, String buddy_msg, List<String> buddy_city) {
 		super();
+		this.buddy_num = buddy_num;
 		this.mem_id = mem_id;
 		this.buddy_indate = buddy_indate;
 		this.buddy_outdate = buddy_outdate;
@@ -25,6 +27,14 @@ public class BuddyListVo {
 		this.buddy_birthyear = buddy_birthyear;
 		this.buddy_msg = buddy_msg;
 		this.buddy_city = buddy_city;
+	}
+
+	public String getBuddy_num() {
+		return buddy_num;
+	}
+
+	public void setBuddy_num(String buddy_num) {
+		this.buddy_num = buddy_num;
 	}
 
 	public String getMem_id() {
@@ -82,4 +92,13 @@ public class BuddyListVo {
 	public void setBuddy_city(List<String> buddy_city) {
 		this.buddy_city = buddy_city;
 	}
+
+	@Override
+	public String toString() {
+		return "BuddyListVo [buddy_num=" + buddy_num + ", mem_id=" + mem_id + ", buddy_indate=" + buddy_indate
+				+ ", buddy_outdate=" + buddy_outdate + ", buddy_gender=" + buddy_gender + ", buddy_birthyear="
+				+ buddy_birthyear + ", buddy_msg=" + buddy_msg + ", buddy_city=" + buddy_city + "]";
+	}
+	
+	
 }
