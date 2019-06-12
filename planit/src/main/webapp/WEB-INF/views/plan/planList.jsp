@@ -31,6 +31,9 @@
 		</form>
 	</div>
 	<div id = "list">
+		<c:if test="${empty list }">
+			<div>조회된 결과가 없습니다.</div>
+		</c:if>
 		<c:forEach var = "vo" items="${list }">
 			<div class = "userPlan">
 				<div>
