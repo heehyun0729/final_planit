@@ -1,10 +1,13 @@
 package com.jhta.planit.reservation.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.jhta.planit.reservation.vo.MyRsvnVo;
 
 @Repository
 public class RsvnDao {
@@ -19,5 +22,8 @@ public class RsvnDao {
 	}
 	public int delete(int num) {
 		return sqlSession.delete(NAMESPACE + ".delete", num);
+	}
+	public List<MyRsvnVo> myList(String mem_id){
+		return sqlSession.selectList(NAMESPACE + ".myList", mem_id);
 	}
 }

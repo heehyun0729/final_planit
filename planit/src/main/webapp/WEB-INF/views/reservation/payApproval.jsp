@@ -29,7 +29,7 @@
 <div>
 	<input type="hidden" id="rsvn_pg_token" value="${param.pg_token }">
 	<h1>결제완료</h1>
-	<span>확인 버튼을 눌러 예약을 완료해주세요.</span>
+	<span>확인 버튼을 눌러 예약을 완료해주세요.</span><br>
 	<input type = "button" value = "확인" onclick = "javascript:rsvnComplete()">
 </div>
 </body>
