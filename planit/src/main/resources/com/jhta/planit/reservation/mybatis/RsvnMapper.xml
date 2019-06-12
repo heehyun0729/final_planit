@@ -6,21 +6,41 @@
 	<insert id="insert" parameterType="hashmap">
 		insert into rsvn values(#{num}, #{mem_id}, #{room_num}, #{checkin}, #{checkout}, #{cnt}, #{name}, #{email}, #{phone})
 	</insert>
-	<select id="myList" parameterType="String" resultType="com.jhta.planit.reservation.vo.MyRsvnVo">
-		select r.rsvn_num rsvn_num, r.rsvn_checkin rsvn_checkin, r.rsvn_checkout rsvn_checkout, r.rsvn_cnt rsvn_cnt,
-		    p.rsvnPay_id rsvnPay_id, p.rsvnPay_stat rsvnPay_stat, p.rsvnPay_date rsvnPay_date,
-		    a.accom_num accom_num, a.accom_name accom_name, 
-		    ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa
-		from rsvn r, rsvnPay p, accom a, room ro
-		where r.rsvn_num = p.rsvn_num and r.room_num = ro.room_num and a.accom_num = ro.accom_num
-		    and r.mem_id = #{mem_id}
-	</select>
 	<select id="max" resultType="int">
 		select NVL(max(rsvn_num), 0) from rsvn
 	</select>
 	<delete id="delete" parameterType="int">
 		delete from rsvn where rsvn_num = #{num}
 	</delete>
+	
+	<select id="myList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.MyRsvnVo">
+		select * from
+		(
+		    select aa.*, rownum rnum from
+		    (
+		        select r.rsvn_num rsvn_num, r.rsvn_checkin rsvn_checkin, r.rsvn_checkout rsvn_checkout, r.rsvn_cnt rsvn_cnt,
+		            p.rsvnPay_id rsvnPay_id, p.rsvnPay_stat rsvnPay_stat, p.rsvnPay_date rsvnPay_date,
+		            a.accom_num accom_num, a.accom_name accom_name, 
+		            ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa
+		        from rsvn r, rsvnPay p, accom a, room ro
+		        where r.rsvn_num = p.rsvn_num and r.room_num = ro.room_num and a.accom_num = ro.accom_num
+		            and r.mem_id = #{mem_id}
+		        order by r.rsvn_num desc
+		    )aa
+		)where <![CDATA[ rnum >= #{startRow} and rnum <= #{endRow} ]]>
+	</select>
+	<select id="myCount" parameterType="String" resultType="int">
+		select NVL(count(*), 0) from 
+		(
+		    select r.rsvn_num rsvn_num, r.rsvn_checkin rsvn_checkin, r.rsvn_checkout rsvn_checkout, r.rsvn_cnt rsvn_cnt,
+		        p.rsvnPay_id rsvnPay_id, p.rsvnPay_stat rsvnPay_stat, p.rsvnPay_date rsvnPay_date,
+		        a.accom_num accom_num, a.accom_name accom_name, 
+		        ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa
+		    from rsvn r, rsvnPay p, accom a, room ro
+		    where r.rsvn_num = p.rsvn_num and r.room_num = ro.room_num and a.accom_num = ro.accom_num
+		        and r.mem_id = #{mem_id}
+		)
+	</select>
 
 	<sql id="rsvnRoomSearch">
        select ro.* from room ro

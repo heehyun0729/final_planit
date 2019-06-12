@@ -23,7 +23,10 @@ public class RsvnDao {
 	public int delete(int num) {
 		return sqlSession.delete(NAMESPACE + ".delete", num);
 	}
-	public List<MyRsvnVo> myList(String mem_id){
-		return sqlSession.selectList(NAMESPACE + ".myList", mem_id);
+	public List<MyRsvnVo> myList(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE + ".myList", map);
+	}
+	public int myCount(String mem_id) {
+		return sqlSession.selectOne(NAMESPACE + ".myCount", mem_id);
 	}
 }
