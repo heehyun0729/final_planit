@@ -11,7 +11,11 @@
 					<table class="table table-hover ">
 						<thead>
 						<tr>
-							<th scope="col">번호</th><th scope="col">작성자</th><th scope="col">제목</th><th scope="col">공개여부</th>
+							<th scope="col"><input type = "checkbox" id = planChkAll></th>
+							<th scope="col">번호</th>
+							<th scope="col">작성자</th>
+							<th scope="col">제목</th>
+							<th scope="col">공개여부</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -22,6 +26,7 @@
 							</c:if>
 							<c:forEach var = "vo" items = "${list }">
 								<tr>
+									<td><input type = "checkbox" class = "planChk" name = "${vo.plan_num }"></td>
 									<td>${vo.plan_num }</td>
 									<td>${vo.mem_id }</td>
 									<td>${vo.plan_title }</td>
