@@ -17,7 +17,6 @@ public class QnaUpdateController {
 	@Autowired QnaService service;
 	@RequestMapping(value="/qna/updateQna",method=RequestMethod.GET)
 	public String updateForm(int qna_num,Model model) {
-		System.out.println(qna_num+"dddddddf");
 		QnaVo vo=service.getinfo(qna_num);
 		model.addAttribute("vo",vo);
 		return ".qna.updateQna";
@@ -28,11 +27,9 @@ public class QnaUpdateController {
 		map.put("qna_content", qna_content);
 		map.put("qna_title",qna_title);
 		map.put("qna_num", qna_num);
-		//map.put("qna_cate", qna_cate);
 		
 		ModelAndView mv=new ModelAndView("/qna/result");
 		int n=service.update(map);
-		System.out.println(map+"Ȧ�ηηη�");
 		if(n>0) {
 			mv.addObject("result", "success");
 		}else {

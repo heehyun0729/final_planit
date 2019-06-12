@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <div id="update">
 <form method="post" action="${pageContext.request.contextPath }/qna/updateQna">
-	<input type="hidden" name="qna_num" value=${vo.qna_num }>${vo.qna_num }
+	<input type="hidden" name="qna_num" value=${vo.qna_num }>
 		제목<input type="text" name="qna_title" value=${vo.qna_title }>
 		<!-- value=${vo.qna_title } -->
 		<textarea id="summernote" name="qna_content">${vo.qna_content }</textarea>

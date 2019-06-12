@@ -13,15 +13,4 @@
 	<!--<textarea rows="10" cols="50" name="qna_content"></textarea><br>  -->
 	<input type="submit" value="등록">
 </form>
-<!-- 
-<script>
-	$("#summernote").summernote({
-		  height: 300,
-		  minHeight: null,
-		  maxHeight: null
-	});
-
-</script>
- -->
-
 </div>

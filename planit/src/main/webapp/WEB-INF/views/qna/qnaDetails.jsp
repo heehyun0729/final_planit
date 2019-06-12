@@ -1,21 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript" src="${pageContext.request.contextPath }"></script>
 <script type="text/javascript">
 	$(function(){
-		getList(1);
+		//getList(1);
 		$("#addBtn").click(function(){
-			var comments=$("#comments").val();
+			var qnaContent=$("#qnaContent").val();
 			$.ajax({
-				url:"<c:url value='/qnacomm/qnaDetails'/>",
+				url:"<c:url value='/qnacomm/insert'/>",
 				type:"post",
-				data:{mem_id:${mem_id},comments:comments,qna_num:${qna_num}},
+				data:{qnaContent:qnaContent,qna_num:${vo.qna_num},mem_id:${vo.mem_id}},
 				dataType:"xml",
 				success:function(data){
 					var result=$(data).find("result").text();
 					if(result=='success'){
-						getList(1);
+						//getList(1);
 						$("#qnacomm_content").val("");
 					}else{
 						alert("댓글등록실패");
@@ -28,13 +27,13 @@
 		$("#commList").empty();
 		$.ajax({
 			url:"<c:url value='/qnacomm/getList'/>",
-			data:{pageNum:pageNum,qna_num:${qna_num}},
+			data:{pageNum:pageNum,qna_num:${vo.qna_num}},
 			dataType:"xml",
 			success:function(data){
 				$(data).find("list").each(function(){
 					var qnacomm_num=$(this).find("qnacomm_num").text();
 					var mem_id=$(this).find("mem_id").text();
-					var qna_content=$(this).find("qna_content").text();
+					var qnaContent=$(this).find("qnaContent").text();
 					var str="<div class='comm'>[작성자]" + mem_id +"<br>" +
 							"[내용]" + qna_content + "</div>";
 					$("#commList").append(str);
@@ -56,7 +55,7 @@
 							"<a href='javascript:getList(" + i + ")'><span style='color:gray'>[" + i + "]</span></a>";
 					}
 				}
-				if(endpageNum<pageCount){
+				if(endPageNum<pageCount){
 					pageHTML += "<a href='javascript:getList(" + (endPageNum+1) + ")'>[다음]</a>";
 				}
 				$("#page").html(pageHTML);
@@ -101,8 +100,7 @@
 		<div id="page"></div>
 	</div>
 	<div id="commAdd">
-		<input type="hidden" id="qna_num" value="qna_num"><br>
-		내용<textarea rows="3" cols="40" id="qna_content"></textarea><br>
+		내용<textarea rows="3" cols="40" name="qnaContent" id="qnaContent"></textarea><br>
 		<input type="button" value="등록" id="addBtn">
 	</div>
 </div>

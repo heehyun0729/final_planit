@@ -42,6 +42,7 @@ public class QnaController {
 			mv.addObject("result","fail");
 		}
 		return mv;
+		
 	}
 	/*@RequestMapping(value="qna/insertQna",method = RequestMethod.POST)
 	public String imgUpload(String qna_cate,String qna_title,String qna_content,MultipartFile file1,HttpSession session) {

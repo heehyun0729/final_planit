@@ -5,7 +5,11 @@
 <mapper namespace="com.jhta.planit.qna.mybatis.QnaCommMapper">
 	<insert id="insert" parameterType="com.jhta.planit.qna.vo.QnaCommVo">
 		insert into qnacomm
-		values(qcomm_num_seq.nextval,#{mem_id},#{qcomm_content},#{qcomm_date} where #{qna_num})
+		values(qcomm_num_seq.nextval,
+				#{mem_id},
+				#{qcomm_content},
+				sysdate,
+				#{qna_num})
 	</insert>
 	
 	<select id="count" resultType="int" parameterType="int">
@@ -20,7 +24,7 @@
 			(
 				select * from qnacomm
 				where qna_num=#{qna_num}
-				order by qnacomm_num desc
+				order by qcomm_num desc
 			)aa
 		)<![CDATA[ where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>
