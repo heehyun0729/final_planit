@@ -28,8 +28,8 @@
                                   from rsvn rs, rsvnPay rp
                                   where rs.rsvn_num = rp.rsvn_num
                                       and rp.rsvnPay_stat = 0
-                                      and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
-                                      or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+                                      and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
+                                      or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
                                   )z right outer join dual on 1 = 1
                               )aa 
                   </if>
@@ -97,8 +97,8 @@
 		                from rsvn rs, rsvnPay rp
 		                where rs.rsvn_num = rp.rsvn_num
 		                    and rp.rsvnPay_stat = 0
-		                    and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
-		                    or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+		                    and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
+		                    or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
 		                )z right outer join dual on 1 = 1
 		            )aa
 		where r.roomChk = 0

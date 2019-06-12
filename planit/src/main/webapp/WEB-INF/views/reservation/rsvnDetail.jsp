@@ -107,9 +107,9 @@
 						<input type = "hidden" name = "accom_num" value = "${avo.accom_num }">
 						<input type = "hidden" id = "room_num" name = "room_num">
 						<input type = "hidden" id = "stay" name = "stay">
-						<input type="text" style = "width:100px;" id="rsvnCheckinDatepicker" name = "checkin" value = "${checkin }" onchange="javascript:roomCheck()">
-						 ~ <input type="text" style = "width:100px;" id="rsvnCheckoutDatepicker" name = "checkout" value = "${checkout }" onchange="javascript:roomCheck()">
-						인원: <select id = "rsvnDialogCnt" onchange="javascript:roomCheck()" name = "cnt">
+						<input type="text" style = "width:100px;" id="rsvnCheckinDatepicker" name = "checkin" value = "${checkin }">
+						 ~ <input type="text" style = "width:100px;" id="rsvnCheckoutDatepicker" name = "checkout" value = "${checkout }">
+						인원: <select id = "rsvnDialogCnt" name = "cnt">
 						</select>
 					</div>
 					<div>

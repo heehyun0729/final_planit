@@ -203,8 +203,11 @@ public class RsvnController {
 		map.put("checkin", checkin);
 		map.put("checkout", checkout);
 		map.put("cnt", cnt);
-		System.out.println(map);
 		RoomVo vo = rsvnRoomService.check(map);
+		if(vo == null) {
+			vo = new RoomVo();
+			vo.setRoom_num(-1);
+		}
 		return vo;
 	}
 	
@@ -223,9 +226,7 @@ public class RsvnController {
 		map.put("checkin", checkin);
 		map.put("checkout", checkout);
 		map.put("cnt", cnt);
-		
-		System.out.println(accom_num + " / " + checkin + " / " + checkout + " / " + cnt);
-		
+				
 		List<RoomVo> rlist = rsvnRoomService.list(map);
 		for(RoomVo vo : rlist) {
 			String str1 = vo.getRoom_comm().replaceAll("\n", "<br>");

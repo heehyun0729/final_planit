@@ -19,6 +19,7 @@ $(function() {
 		onSelect: function(date) {
 			var d = new Date(date);
 			$("#rsvnCheckoutDatepicker").datepicker("option", "minDate", new Date(d.getFullYear(),d.getMonth(), d.getDate() + eval(1)));
+			roomCheck();
 		}
 	});
 	var to = $( "#rsvnCheckoutDatepicker" ).datepicker({
@@ -28,7 +29,10 @@ $(function() {
 		yearSuffix: "년",	
 		showMonthAfterYear: true,	
 		dateFormat: "yy-mm-dd",
-		numberOfMonths: 2
+		numberOfMonths: 2,
+		onSelect: function() {
+			roomCheck();
+		}
     });	
 
 	$("#accomMapModal").on('shown.bs.modal', function() {
@@ -88,7 +92,7 @@ function openRsvnDialog(room_num) {
 				str += ">" + i + "명</option>";
 				$("#rsvnDialogCnt").html(str);
 			}
-			setRsvnDialog(checkin, checkout, cnt, data.room_price);
+			roomCheck();
 		}
 	});
 	$("#rsvnDialog").modal( "show" ); 
@@ -160,11 +164,10 @@ function roomCheck() {
 				cnt: cnt
 			},
 			success: function(data) {
-				console.log(data);
-				if(data != null){
-					setRsvnDialog(checkin, checkout, cnt, data.room_price);
+				if(data.room_num == -1){
+					setRsvnDialog(checkin, checkout, -1, 0);
 				}else{
-					setRsvnDialog(checkin, checkout, -1);
+					setRsvnDialog(checkin, checkout, cnt, data.room_price);
 				}
 			}
 		});
