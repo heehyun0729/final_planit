@@ -29,14 +29,8 @@ public class ReviewDetailController {
 	vo.setReview_content(review_content);
 	 
 	int likenum=service3.like(review_num);
-	
-	//ReviewLikeVo vo3=service3.detail(review_num);
-	
 	ReviewImageVo vo2=service2.detail(review_num);
 	System.out.println("vo2:" + vo2.getReviewImge_saveImg());
-//	String reviewImge_saveImg=vo2.getReviewImge_saveImg();
-//	reviewImge_saveImg=reviewImge_saveImg;
-//	vo2.setReviewImge_saveImg(reviewImge_saveImg);
 	
 	ReviewVo next=service.next(review_num);
 	ReviewVo prev=service.prev(review_num);

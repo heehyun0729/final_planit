@@ -26,27 +26,11 @@ public class ReviewInsertController {
 		public String insert() {
 			return ".review.reviewInsert";
 		}
-//		@RequestMapping(value="/review/reviewInsert",method=RequestMethod.POST)
-//		public ModelAndView insertOk(ReviewVo vo) {
-//			ModelAndView mv=new ModelAndView("/review/result");
-//			System.out.println(vo);
-//			int n=service.insert(vo);
-//			if(n>0) {
-//				mv.addObject("result","success");
-//			}else {
-//				mv.addObject("result","fail");
-//			}
-//			return mv;
-//		}
-//	}
-		
 		 @RequestMapping(value="/review/reviewInsert",method=RequestMethod.POST)
 		 public String reviewInsert(ReviewVo vo, MultipartFile file1, HttpSession session  ) {
-			String path=session.getServletContext().getRealPath("/resources/upload");
+			String path=session.getServletContext().getRealPath("/resources/uploadReview");
 			System.out.println(path);
 			String reviewImg_orgImg=file1.getOriginalFilename();
-			//String reviewImg_orgImg2=file2.getOriginalFilename();
-			//String reviewImg_orgImg3=file3.getOriginalFilename();
 			
 			String reviewImg_saveImg=UUID.randomUUID() + "_" + reviewImg_orgImg;
 			try {

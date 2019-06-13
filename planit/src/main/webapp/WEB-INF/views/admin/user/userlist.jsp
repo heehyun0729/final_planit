@@ -66,7 +66,7 @@
 										<td>${vo.mem_id }</td>
 										<td>${vo.mem_nickname }</td>
 										<td>${vo.mem_email }</td>
-										<td>${vo.mem_gender }</td>
+										<td><c:choose><c:when test="${vo.mem_gender=='m' }">남성</c:when><c:otherwise>여성</c:otherwise></c:choose></td>
 										<td>${vo.mem_birthyear }</td>
 										<td>
 											<c:choose>
@@ -135,7 +135,7 @@
 								<c:choose>
 									<c:when test="${param.field=='mem_gender' }">
 										<label class='radio-inline'>남성<input class='form-control mr-sm-2' type='radio' name="keyword" value="m" <c:if test="${param.keyword == 'm' }">checked="checked"</c:if>></label>
-										<label class='radio-inline'>여성<input class='form-control mr-sm-2' type='radio' name="keyword" value="w" <c:if test="${param.keyword == 'w' }">checked="checked"</c:if>></label>
+										<label class='radio-inline'>여성<input class='form-control mr-sm-2' type='radio' name="keyword" value="f" <c:if test="${param.keyword == 'w' }">checked="checked"</c:if>></label>
 									</c:when>
 									<c:otherwise>
 										<input class="form-control mr-sm-2" value="${param.keyword }" name="keyword" type="search" placeholder="검색" aria-label="Search">

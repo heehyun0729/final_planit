@@ -59,15 +59,14 @@ public class ReviewDao {
 	public int like(int review_num) {
 		return sqlSession.selectOne(NAMESPACE + ".review_likeNum",review_num);
 	}
-	public int update(ReviewVo vo) {
-		return sqlSession.update(NAMESPACE + ".update",vo);
-	}
 	//좋아요취소
 	public int like1(int review_num) {
 		return sqlSession.selectOne(NAMESPACE + ".reivew_likeNum",review_num);
 	}
-	//글삭제
-	public int delete(int review_num) {
-		return sqlSession.delete(NAMESPACE + ".delete",review_num);
+	public int updateReviewChk(int review_num) {
+		return sqlSession.update(NAMESPACE + ".updateReviewChk", review_num);
+	}
+	public int reviewUpdate(ReviewVo vo) {
+		return sqlSession.update(NAMESPACE +".reviewUpdate",vo);
 	}
 }

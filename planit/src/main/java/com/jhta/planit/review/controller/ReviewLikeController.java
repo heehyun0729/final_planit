@@ -23,11 +23,6 @@ import com.jhta.planit.review.vo.ReviewVo;
 @Controller
 public class ReviewLikeController {
 	@Autowired private ReviewLikeService service;
-
-//	@RequestMapping(value="/review/reviewLike.do",method=RequestMethod.GET)
-//	public String insert() {
-//		return "review/reviewDetail";
-//	}
 	@RequestMapping(value="/review/reviewLike.do", produces="application/xml;charset=utf-8")
 	@ResponseBody
 	public String reviewDetail(int review_num,String mem_id) {
@@ -44,7 +39,6 @@ public class ReviewLikeController {
 		 * 
 		 */
 		ReviewLikeVo vo=service.likeList(map);
-		//JSONObject json=new JSONObject();
 		if(vo==null) {
 			ReviewLikeVo vo1=new ReviewLikeVo(0, mem_id, review_num, 1);
 			service.insert(vo1);
@@ -68,30 +62,5 @@ public class ReviewLikeController {
 		sb.append("<review_like>" + vo.getReview_like() + "</review_like>");//좋아요 수
 		System.out.println("xml:" + sb.toString());
 		return sb.toString();
-	
-		
-		
-		
-//		if(vo==null) {
-//			ReviewLikeVo vo1=new ReviewLikeVo(0, mem_id, review_num, 1);
-//			service.insert(vo1);
-//		}else{
-//			//업데이트 구문 1이 0으로 변경
-//			//if문 한번더 1인지 0인지
-//			ReviewLikeVo vo1=service.likeList(map);
-//			if(vo1.getReview_like()==1) {
-//				ReviewLikeVo vo2=new ReviewLikeVo(0, mem_id, review_num, 0);
-//				System.out.println(vo2);
-//				service.update(vo2);
-//			}else if(vo1.getReview_like()==0){
-//				ReviewLikeVo vo2=new ReviewLikeVo(0, mem_id, review_num, 1);
-//				System.out.println();
-//				service.update(vo2);
-//			}
-//		}
-		
-		
-		//return "redirect:/review/reviewDetail.do?review_num=" + review_num +"&hit=0";
-
 	}
 }

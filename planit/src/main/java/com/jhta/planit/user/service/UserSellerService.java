@@ -7,7 +7,7 @@ import com.jhta.planit.user.dao.UserSellerDao;
 import com.jhta.planit.user.vo.SellerVo;
 
 @Service
-public class SellerService {
+public class UserSellerService {
 	@Autowired private UserSellerDao dao;
 
 	public int sellJoin(SellerVo vo) {

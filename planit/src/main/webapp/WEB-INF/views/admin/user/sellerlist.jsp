@@ -51,7 +51,7 @@ $(document).ready(function() {
 										<td>${map.SELL_COMPANY }</td>
 										<td>${map.MEM_ID }</td>
 										<td>${map.SELL_ADDR }</td>
-										<td>${map.SELL_TEL } , ${map.MEM_STAT }</td>
+										<td>${map.SELL_TEL }</td>
 										<td>
 											<form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
 												<input type="hidden" id="mem_id1" name="mem_id1" value="${map.MEM_ID }">

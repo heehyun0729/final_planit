@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jhta.planit.user.service.MembersService;
-import com.jhta.planit.user.service.SellerService;
+import com.jhta.planit.user.service.UserSellerService;
 import com.jhta.planit.user.vo.SellerVo;
 
 @Controller
 public class SellerJoinController {
-	@Autowired private SellerService service;
+	@Autowired private UserSellerService service;
 	@Autowired private MembersService mservice;
 	
 	@RequestMapping(value = "/user/sellerapply", method = RequestMethod.GET)

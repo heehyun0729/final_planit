@@ -36,3 +36,4 @@ public class ReviewLikeDao {
 		return sqlSession.update(NAMESPACE + ".review_likeNumd",vo);
 	}
 }
+
