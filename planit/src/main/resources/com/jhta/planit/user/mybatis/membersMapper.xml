@@ -3,6 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.user.mybatis.membersMapper">
+	<sql id="search">
+		<where>
+			<choose>
+				<when test="field!=null and field!='' and info=='statuslist'">
+					${field} Like '%'||#{keyword}||'%' <![CDATA[ and mem_stat<-1 ]]>
+				</when>
+				<when test="field!=null and field!='' and info=='list'">
+					${field} Like '%'||#{keyword}||'%'
+				</when>
+				<when test="info=='statuslist'">
+					<![CDATA[ mem_stat<-1 ]]>
+				</when>
+			</choose>
+		</where>
+	</sql>
 	<insert id="membersJoin" parameterType="com.jhta.planit.user.vo.MembersVo">
 		insert into members
 		values(#{mem_id},#{mem_pwd},#{mem_nickname},#{mem_email},#{mem_gender},#{mem_birthyear},-1,null)
@@ -51,10 +66,20 @@
 	<select id="idsearch" resultType="string" parameterType="string">
 		select mem_id from members where mem_email=#{mem_email}
 	</select>
-	<select id="pwdsearch" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="map">
+	<select id="pwdsearch" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="hashmap">
 		select * from members where mem_id=#{mem_id} and mem_email=#{mem_email}
 	</select>
-	<select id="selectuserAuth" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="map">
+	<select id="selectuserAuth" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="hashmap">
 		select * from userAuth where mem_email = #{mem_email} and authKey = #{authKey}
 	</select>
+	<select id="getUserTotal" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from members <include refid="search"/>
+	</select>
+	<select id="getUserList" resultType="com.jhta.planit.user.vo.MembersVo" parameterType="hashmap">
+		select * from(select aa.*, rownum rnum from(select * from members <include refid="search"/>
+		 order by mem_id)aa) where rnum>=#{startRow} and <![CDATA[rnum<=#{endRow}]]>
+	</select>
+	<update id="changestat" parameterType="hashmap">
+		update members set mem_stat=#{mem_stat} where mem_id=#{mem_id}
+	</update>
 </mapper>
