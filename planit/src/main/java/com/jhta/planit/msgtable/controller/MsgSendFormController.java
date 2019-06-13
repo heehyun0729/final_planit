@@ -18,8 +18,10 @@ public class MsgSendFormController {
 		this.service =service;
 	}
 	@RequestMapping(value="/msgSendForm",method = RequestMethod.GET)
-	public String join() {
-		return "/msgtable/member_myMsgSend";
+	public ModelAndView popup1(String receiveMemId) {
+		ModelAndView mv=new ModelAndView("/msgtable/member_myMsgSend");
+		mv.addObject("id",receiveMemId);
+		return mv;
 	}
 	@RequestMapping(value="/msgSendfForm",method = RequestMethod.GET)
 	public String join1() {
@@ -44,6 +46,7 @@ public class MsgSendFormController {
 		}
 		return json.toString();
 	}
+	
 	@RequestMapping(value="/msgSendfForm",method = RequestMethod.POST) 
 	@ResponseBody
 	public Object joinOkk(MsgTableVo vo) {

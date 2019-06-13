@@ -63,7 +63,7 @@ function detailClose() {
 </script>
 <table class="myPageTable">
 	<tr>
-		<td>받을사람ooo</td>
+		<td>받을사람</td>
 		<td>
 			<input type="text" id="memId" name="memId"/> <input type="button" value="확인" onclick="checkId()"/><span id="memChk_res"></span>
 		</td>
