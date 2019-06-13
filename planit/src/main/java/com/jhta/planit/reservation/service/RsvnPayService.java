@@ -18,4 +18,7 @@ public class RsvnPayService {
 	public RsvnPayVo detailByRsvnNum(int rsvn_num) {
 		return rsvnPayDao.detailByRsvnNum(rsvn_num);
 	}
+	public int cancel(String tid) {
+		return rsvnPayDao.cancel(tid);
+	}
 }

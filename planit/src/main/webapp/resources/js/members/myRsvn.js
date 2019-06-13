@@ -1,3 +1,5 @@
+var total = "";
+
 $(function() {
 	$(".showRsvnDetail").click(function(e) {
 		e.preventDefault();
@@ -12,6 +14,7 @@ $(function() {
 			dataType: "json",
 			data: {rsvn_num: rsvn_num},
 			success: function(data) {
+				var total = data.total;
 				var rtds = $("#rsvnInfo td");
 				rtds.eq(0).html(rsvn_num);
 				rtds.eq(1).html(info[1]);
@@ -30,3 +33,20 @@ $(function() {
 		});
 	});
 });
+
+function payRefund(rsvn_num, tid) {
+	if(confirm("정말 예약을 취소하시겠습니까?")){
+		$.ajax({
+			url: "/planit/reservation/payRefund",
+			method: "post",
+			dataType: "json",
+			data: {
+				rsvn_num: rsvn_num,
+				tid: tid
+			},
+			success: function(data) {
+				location.reload();
+			}
+		});
+	}
+}
