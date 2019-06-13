@@ -17,6 +17,7 @@ public class SellerRsvnController {
 	public String list(String mem_id) {
 		SellerVo vo = sellerService.find(mem_id);
 		
+		
 		return ".seller.rsvnList";
 	}
 }
