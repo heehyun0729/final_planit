@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.jhta.planit.reservation.dao.RsvnDao;
 import com.jhta.planit.reservation.vo.MyRsvnVo;
 import com.jhta.planit.reservation.vo.RsvnVo;
+import com.jhta.planit.reservation.vo.SellerRsvnVo;
 
 @Service
 public class RsvnService {
@@ -31,5 +32,11 @@ public class RsvnService {
 	}
 	public RsvnVo detail(int num) {
 		return rsvnDao.detail(num);
+	}
+	public List<SellerRsvnVo> sellList(HashMap<String, Object> map){
+		return rsvnDao.sellList(map);
+	}
+	public int sellCount(int sell_num) {
+		return rsvnDao.sellCount(sell_num);
 	}
 }

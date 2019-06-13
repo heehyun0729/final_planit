@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jhta.planit.reservation.vo.MyRsvnVo;
 import com.jhta.planit.reservation.vo.RsvnVo;
+import com.jhta.planit.reservation.vo.SellerRsvnVo;
 
 @Repository
 public class RsvnDao {
@@ -32,5 +33,11 @@ public class RsvnDao {
 	}
 	public RsvnVo detail(int num) {
 		return sqlSession.selectOne(NAMESPACE + ".detail", num);
+	}
+	public List<SellerRsvnVo> sellList(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE + ".sellList", map);
+	}
+	public int sellCount(int sell_num) {
+		return sqlSession.selectOne(NAMESPACE + ".sellCount", sell_num);
 	}
 }
