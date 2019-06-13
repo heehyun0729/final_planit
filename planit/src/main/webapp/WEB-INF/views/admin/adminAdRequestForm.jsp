@@ -215,14 +215,11 @@
 				$("#infoWrapper .form-box").eq(1).hide();
 				$("#infoWrapper .form-box").eq(2).hide();
 				nowNum=1;
-				const margin=$("#wrap").css("margin-left").replace("px","");
+				const marginleft=parseInt($("#wrap").css("margin-left").replace("px",""));
 				const x=$("#wrap").width()/2;
 				const y=$("#wrap").height()/2;
-				const x1=x+margin;
-				const y1=y+margin;
-				console.log(margin);
-				alert(x1);
-				//$("#speechBubble1").offset({top: y1});
+				const x1=x+marginleft;
+				$("#speechBubble1").offset({top: y});
 				$("#speechBubble1").offset({left: x1});
 				$('#speechBubble1').tooltip('show');
 				return;
@@ -232,31 +229,28 @@
 				$("#infoWrapper .form-box").eq(1).show();
 				$("#infoWrapper .form-box").eq(2).hide();
 				nowNum=2;
-				const x1=$("#infoWrapper").offset().left;
-				const y1=$("#infoWrapper").offset().top;				
-				const x2=$("#infoWrapper").width()/2;
-				const y2=$("#infoWrapper").height()/2;
-				const x3=x1+x2;
-				const y3=y1+y2;
-				$("#speechBubble2").offset({top: x3});
-				$("#speechBubble2").offset({left: y3});
+				const marginleft=parseInt($("#wrap").css("margin-left").replace("px",""));
+				const x=$("#wrap").width()/2;
+				const x1=x+marginleft;
+				const y=$("#addFile").offset().top;
+				$("#speechBubble2").offset({left: x1});
+				$("#speechBubble2").offset({top: y});
 				$('#speechBubble2').tooltip('show');
 				
 				return;
 			}	
-			if($("#company").val()=="" || $("#url").val()==""){//에러메시지 출력
+			if($("#company").val()=="" || $("#url").val()==""){//에러메시지 출력sdfaaasadf
 				$("#infoWrapper .form-box").eq(0).hide();
 				$("#infoWrapper .form-box").eq(1).hide();
 				$("#infoWrapper .form-box").eq(2).show();
 				nowNum=3;
-				const x1=$("#infoWrapper").offset().left;
-				const y1=$("#infoWrapper").offset().top;				
-				const x2=$("#infoWrapper").width()/2;
-				const y2=$("#infoWrapper").height()/2;
-				const x3=x1+x2;
-				const y3=y1+y2;
-				$("#speechBubble3").offset({top: x3});
-				$("#speechBubble3").offset({left: y3});
+				const marginleft=parseInt($("#wrap").css("margin-left").replace("px",""));
+				const x=$("#wrap").width()/2;
+				const y=$("#formInfo").offset().top;
+				const y1=$("#formInfo").height()/2;
+				const x1=x+marginleft;
+				$("#speechBubble3").offset({left: x1});
+				$("#speechBubble3").offset({top: y+y1});
 				$('#speechBubble3').tooltip('show');
 				return;
 			}		
@@ -283,11 +277,11 @@
 			return;
 		});
 		
-		//$('.speechBubble').on('shown.bs.tooltip', function () {//툴팁 지연시간 설정
-		//	setTimeout(function() { 
-		//		$('.speechBubble').tooltip('hide');
-		//	}, 1500);
-		//});
+		$('.speechBubble').on('shown.bs.tooltip', function () {//툴팁 지연시간 설정
+			setTimeout(function() { 
+				$('.speechBubble').tooltip('hide');
+			}, 1500);
+		});
 	});	
 	function moveFile(name){//이미지 파일 미리보기
 		$("#file").empty();

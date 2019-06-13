@@ -61,4 +61,12 @@ public class BuddyDao {
 	public BuddyListVo detail(String id) {
 		return sqlSession.selectOne(NAMESPACE + ".buddy_detail",id);
 	}
+	//내가 쓴 글 확인
+	public List<BuddyListVo> showMgList(String mem_id) {
+		return sqlSession.selectList(NAMESPACE + ".buddy_MgList",mem_id);
+	}
+	//게시물 삭제
+	public int delete_buddy(String buddy_num) {
+		return sqlSession.update(NAMESPACE + ".buddy_del",buddy_num);
+	}
 }

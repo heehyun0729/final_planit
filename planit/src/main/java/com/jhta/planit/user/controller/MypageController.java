@@ -21,6 +21,10 @@ import com.jhta.planit.admin.service.AdService;
 import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
+import com.jhta.planit.reservation.service.RsvnPayService;
+import com.jhta.planit.reservation.service.RsvnService;
+import com.jhta.planit.reservation.vo.MyRsvnVo;
+import com.jhta.planit.reservation.vo.RsvnVo;
 import com.jhta.planit.user.service.MypageService;
 import com.jhta.util.PageUtil;
 
@@ -28,7 +32,41 @@ import com.jhta.util.PageUtil;
 public class MypageController {
 	@Autowired private MypageService service;
 	@Autowired private AdService adService;
-
+	@Autowired private RsvnService rsvnService;
+	@Autowired private RsvnPayService rsvnPayService;
+	
+	@RequestMapping("/member/mypage/{mem_id}/reservation/list")
+	public String myRsvnList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 
+			@PathVariable String mem_id, Model model) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		
+		int rowCnt = rsvnService.myCount(mem_id);
+		PageUtil pu = new PageUtil(pageNum, rowCnt, 5, 5);
+		int startRow = pu.getStartRow();
+		int endRow = pu.getEndRow();
+		int pageCnt = pu.getTotalPageCount();
+		int startPage = pu.getStartPageNum();
+		int endPage = pu.getEndPageNum();
+		map.put("mem_id", mem_id);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		
+		List<MyRsvnVo> list = rsvnService.myList(map);
+		for(MyRsvnVo vo : list) {
+			vo.setRsvnPay_date(vo.getRsvnPay_date().substring(0, 10));
+			vo.setRsvn_checkin(vo.getRsvn_checkin().substring(0, 10));
+			vo.setRsvn_checkout(vo.getRsvn_checkout().substring(0, 10));
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("startRow", startRow);
+		model.addAttribute("endRow", endRow);
+		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		return ".member.reservation.myRsvnList";
+	}
+	
 	@RequestMapping(value = "/member/mypage/ad/{mem_id}/myAdList")//내 광고 리스트
 	public String myAdList(@PathVariable String mem_id, @RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
 		String ad_progress="-1";

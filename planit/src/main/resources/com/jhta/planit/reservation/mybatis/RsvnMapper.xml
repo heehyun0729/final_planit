@@ -12,6 +12,35 @@
 	<delete id="delete" parameterType="int">
 		delete from rsvn where rsvn_num = #{num}
 	</delete>
+	
+	<select id="myList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.MyRsvnVo">
+		select * from
+		(
+		    select aa.*, rownum rnum from
+		    (
+		        select r.rsvn_num rsvn_num, r.rsvn_checkin rsvn_checkin, r.rsvn_checkout rsvn_checkout, r.rsvn_cnt rsvn_cnt,
+		            p.rsvnPay_id rsvnPay_id, p.rsvnPay_stat rsvnPay_stat, p.rsvnPay_date rsvnPay_date,
+		            a.accom_num accom_num, a.accom_name accom_name, 
+		            ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa
+		        from rsvn r, rsvnPay p, accom a, room ro
+		        where r.rsvn_num = p.rsvn_num and r.room_num = ro.room_num and a.accom_num = ro.accom_num
+		            and r.mem_id = #{mem_id}
+		        order by r.rsvn_num desc
+		    )aa
+		)where <![CDATA[ rnum >= #{startRow} and rnum <= #{endRow} ]]>
+	</select>
+	<select id="myCount" parameterType="String" resultType="int">
+		select NVL(count(*), 0) from 
+		(
+		    select r.rsvn_num rsvn_num, r.rsvn_checkin rsvn_checkin, r.rsvn_checkout rsvn_checkout, r.rsvn_cnt rsvn_cnt,
+		        p.rsvnPay_id rsvnPay_id, p.rsvnPay_stat rsvnPay_stat, p.rsvnPay_date rsvnPay_date,
+		        a.accom_num accom_num, a.accom_name accom_name, 
+		        ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa
+		    from rsvn r, rsvnPay p, accom a, room ro
+		    where r.rsvn_num = p.rsvn_num and r.room_num = ro.room_num and a.accom_num = ro.accom_num
+		        and r.mem_id = #{mem_id}
+		)
+	</select>
 
 	<sql id="rsvnRoomSearch">
        select ro.* from room ro
@@ -28,8 +57,8 @@
                                   from rsvn rs, rsvnPay rp
                                   where rs.rsvn_num = rp.rsvn_num
                                       and rp.rsvnPay_stat = 0
-                                      and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
-                                      or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+                                      and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
+                                      or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
                                   )z right outer join dual on 1 = 1
                               )aa 
                   </if>
@@ -97,8 +126,8 @@
 		                from rsvn rs, rsvnPay rp
 		                where rs.rsvn_num = rp.rsvn_num
 		                    and rp.rsvnPay_stat = 0
-		                    and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
-		                    or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and to_date(#{checkout}, 'yyyy-mm-dd')
+		                    and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
+		                    or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
 		                )z right outer join dual on 1 = 1
 		            )aa
 		where r.roomChk = 0

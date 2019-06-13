@@ -5,6 +5,7 @@
 <mapper namespace="com.jhta.planit.buddy.mybatis.buddyMapper">
 	<!-- 도시보기 컬렉션 -->
 	<resultMap type="com.jhta.planit.buddy.vo.BuddyListVo" id="buddylistvo">
+		<result property="buddy_num" column="buddy_num"/>
 		<result property="mem_id" column="mem_id"/>
 		<result property="buddy_indate" column="buddy_indate"/>
 		<result property="buddy_outdate" column="buddy_outdate"/>
@@ -205,6 +206,31 @@
 		t.COUNTRY_NUM COUNTRY_NUM_1,
 		t.BUDDY_CITY BUDDY_CITY
 		from buddy b,buddy_country c,buddy_city t 
-		where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_num=#{mem_id} and b.buddy_state=0
+		where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_num=#{b.buddy_num} and b.buddy_state=0
 	</select>
+	
+	<!-- 내가 쓴 글 -->
+	<select id="buddy_MgList" resultMap="buddylistvo" parameterType="String">
+		select b.BUDDY_NUM BUDDY_NUM,
+		b.MEM_ID MEM_ID,
+		b.BUDDY_GENDER BUDDY_GENDER,
+		b.BUDDY_BIRTHYEAR BUDDY_BIRTHYEAR,
+		TO_CHAR(b.buddy_indate, 'YYYY-MM-DD') buddy_indate,
+		TO_CHAR(b.buddy_outdate, 'YYYY-MM-DD') buddy_outdate,
+		b.BUDDY_MSG BUDDY_MSG,
+		b.BUDDY_STATE BUDDY_STATE,
+		c.COUNTRY_NUM COUNTRY_NUM,
+		c.BUDDY_NUM BUDDY_NUM_0,
+		c.BUDDY_COUNTRY BUDDY_COUNTRY,
+		t.CITY_NUM CITY_NUM,
+		t.COUNTRY_NUM COUNTRY_NUM_1,
+		t.BUDDY_CITY BUDDY_CITY
+		from buddy b, buddy_country c, buddy_city t
+		where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0 and b.mem_id=#{mem_id}
+	</select>
+	
+	<!-- 글 삭제 -->
+	<delete id="buddy_del" parameterType="String">
+		delete from buddy where buddy_num=#{buddy_num}
+	</delete>
 </mapper>

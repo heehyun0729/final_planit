@@ -1,11 +1,13 @@
 package com.jhta.planit.reservation.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.planit.reservation.dao.RsvnDao;
+import com.jhta.planit.reservation.vo.MyRsvnVo;
 
 @Service
 public class RsvnService {
@@ -19,5 +21,11 @@ public class RsvnService {
 	}
 	public int delete(int num) {
 		return rsvnDao.delete(num);
+	}
+	public List<MyRsvnVo> myList(HashMap<String, Object> map){
+		return rsvnDao.myList(map);
+	}
+	public int myCount(String mem_id) {
+		return rsvnDao.myCount(mem_id);
 	}
 }

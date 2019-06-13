@@ -113,6 +113,7 @@
 	<div id="button_div">
 		<input id="insert_buddy" type="button" value="동행찾는 글 등록하기">
 	</div>
+	<a href="<c:url value='/buddyMg' />">동행관리</a>
 </div>
 <script type="text/javascript">
 	$(function() {

@@ -68,4 +68,12 @@ public class BuddyService {
 	public BuddyListVo detail(String id){
 		return dao.detail(id);
 	}
+	//내가 쓴 글 확인
+	public List<BuddyListVo> showMgList(String mem_id){
+		return dao.showMgList(mem_id);
+	}
+	//게시물 삭제
+	public int delete_buddy(String buddy_num) {
+		return dao.delete_buddy(buddy_num);
+	}
 }

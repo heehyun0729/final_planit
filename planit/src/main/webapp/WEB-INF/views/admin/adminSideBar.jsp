@@ -53,16 +53,6 @@
 		</a>
 		<div id='sell' class="collapse sidebar-submenu">
 			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">숙소승인 요청
-					<span id="approveAcBadge" class="badge badge-pill badge-primary ml-2">5</span>
-				</span>
-			</a>
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">예약환불 요청
-					<span id="requestRefundAcBadge" class="badge badge-pill badge-primary ml-2">5</span>
-				</span>
-			</a>
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
 				<span class="menu-collapsed">숙소 목록</span>
 			</a>
 			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
@@ -104,7 +94,7 @@
 			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
 				<span class="menu-collapsed">후기 게시판</span>
 			</a>
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+			<a href="<c:url value = '/admin/plan/list'/>" class="list-group-item list-group-item-action bg-dark text-white">
 				<span class="menu-collapsed">일정 게시판</span>
 			</a>
 			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
@@ -152,7 +142,7 @@
 				}
 				</script>
 		<li class="list-group-item sidebar-separator menu-collapsed"></li>
-		<a href="#" class="bg-dark list-group-item list-group-item-action">
+		<a href="<c:url value="/adminAnalytics"/>" class="bg-dark list-group-item list-group-item-action">
 			<div class="d-flex w-100 justify-content-start align-items-center">
 				<span class="fas fa-chart-bar fa-fw mr-3"></span>
 				<span class="menu-collapsed">통계</span>

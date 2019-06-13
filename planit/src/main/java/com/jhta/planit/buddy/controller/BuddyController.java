@@ -61,7 +61,6 @@ public class BuddyController {
 		
 		//리스트 뽑기
 		int totalRowCount=service.count(find_map);
-		System.out.println("pageNum : "+pageNum);
 		PageUtil pu=new PageUtil(pageNum,totalRowCount,5,5);
 		find_map.put("startRow",pu.getStartRow());
 		find_map.put("endRow", pu.getEndRow());
@@ -116,6 +115,14 @@ public class BuddyController {
 		return "redirect:/buddyList";
 	}
 	
+	//글 삭제
+	@RequestMapping("/buddyDelete")
+	public String delete(String buddy_num) {
+		System.out.println("buddy_num://////////////////////////"+buddy_num);
+		service.delete_buddy(buddy_num);
+		return "redirect:/buddyMg";
+	}
+	
 	//팝업
 	@RequestMapping(value="/buddySg", method=RequestMethod.GET)
 	public ModelAndView popBuddySg(String buddy_num) {
@@ -127,6 +134,24 @@ public class BuddyController {
 			list.add(blv);
 		}
 		mv.addObject("list",list);
+		return mv;
+	}
+	//글관리
+	@RequestMapping(value="/buddyMg", method=RequestMethod.GET)
+	public ModelAndView buddyManager(HttpSession session) {
+		//모델앤뷰 생성
+		ModelAndView mv=new ModelAndView(".buddy.buddyMg");
+		
+		//날짜 지난 게시물 자동 업뎃
+		service.updateState();
+		
+		//세션에서 아이디 얻어오기
+		String mem_id=(String)session.getAttribute("mem_id");
+		
+		//리스트 뽑기
+		List<BuddyListVo> buddyList=service.showMgList(mem_id);
+		mv.addObject("buddyList",buddyList);
+		System.out.println(buddyList);
 		return mv;
 	}
 }
