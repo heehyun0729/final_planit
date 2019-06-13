@@ -14,7 +14,7 @@
 				<td>
 					<c:choose>
 						<c:when test="${vo.rsvnPay_stat == 0 }">
-							${vo.rsvn_num }
+							<a onclick = "javascript:showRsvnDetail()">${vo.rsvn_num }</a>
 						</c:when>
 						<c:otherwise>
 							-
@@ -42,20 +42,20 @@
 	</table>
 	<div>
 		<c:if test="${startPage > 1 }">
-			<a href = "<c:url value = '/member/mypage/reservation/${sessionScope.mem_id }/list?pageNum=${startPage - 1 }'/>"><span style = "color:skyblue;">[이전]</span></a>
+			<a href = "<c:url value = '/member/mypage/${sessionScope.mem_id }reservation//list?pageNum=${startPage - 1 }'/>"><span style = "color:skyblue;">[이전]</span></a>
 		</c:if>
 		<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
 			<c:choose>
 				<c:when test="${i == pageNum }">
-					<a href = "<c:url value = '/member/mypage/reservation/${sessionScope.mem_id }/list?pageNum=${i }'/>"><span style = "color:skyblue;">[${i }]</span></a>
+					<a href = "<c:url value = '/member/mypage/${sessionScope.mem_id }/reservation/list?pageNum=${i }'/>"><span style = "color:skyblue;">[${i }]</span></a>
 				</c:when>
 				<c:otherwise>
-					<a href = "<c:url value = '/member/mypage/reservation/${sessionScope.mem_id }/list?pageNum=${i }'/>"><span style = "color:gray;">[${i }]</span></a>
+					<a href = "<c:url value = '/member/mypage/${sessionScope.mem_id }/reservation/list?pageNum=${i }'/>"><span style = "color:gray;">[${i }]</span></a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${endPage < pageCnt }">
-			<a href = "<c:url value = '/member/mypage/reservation/${sessionScope.mem_id }/list?pageNum=${endPage + 1 }'/>"><span style = "color:skyblue;">[다음]</span></a>
+			<a href = "<c:url value = '/member/mypage/${sessionScope.mem_id }/reservation/list?pageNum=${endPage + 1 }'/>"><span style = "color:skyblue;">[다음]</span></a>
 		</c:if>
 	</div>
 </div>

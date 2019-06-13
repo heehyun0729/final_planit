@@ -35,7 +35,7 @@ public class MypageController {
 	@Autowired private RsvnService rsvnService;
 	@Autowired private RsvnPayService rsvnPayService;
 	
-	@RequestMapping("/member/mypage/reservation/{mem_id}/list")
+	@RequestMapping("/member/mypage/{mem_id}/reservation/list")
 	public String myRsvnList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 
 			@PathVariable String mem_id, Model model) {
 		HashMap<String,Object> map = new HashMap<String, Object>();

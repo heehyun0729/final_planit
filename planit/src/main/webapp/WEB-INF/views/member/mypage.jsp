@@ -40,7 +40,7 @@
 				<li><a href="<c:url value='/member/mypage/${mem_id }/travel'/>">다녀온 여행지</a></li>
 				<li><a href="<c:url value='/member/mypage/${mem_id }/postslist'/>">글목록</a></li>
 				<li><a href="<c:url value='/member/mypage/${mem_id }/comments'/>">댓글 모음</a></li>
-				<li><a href="<c:url value='/member/mypage/reservation/${mem_id }/list'/>">예약목록</a></li>
+				<li><a href="<c:url value='/member/mypage/${mem_id }/reservation/list'/>">예약목록</a></li>
 				<li><a href="<c:url value='/member/mypage/ad/${mem_id }/myAdList'/>">광고목록</a></li>
 			</ul>
 		</div>

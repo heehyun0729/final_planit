@@ -72,7 +72,7 @@ public class RsvnController {
 			int n1 = rsvnPayService.insert(map);
 			if(n1 > 0) {
 				// 마이페이지 예약내역
-				return "redirect:/member/mypage/" + mem_id + "/book";
+				return "redirect:/member/mypage/" + mem_id + "/reservation/list";
 			}else {
 				return ".error";
 			}
@@ -211,7 +211,7 @@ public class RsvnController {
 		return vo;
 	}
 	
-	@RequestMapping("/reservation/detail")
+	@RequestMapping("/reservation/accomDetail")
 	public String detail(int accom_num, String checkin, String checkout, 
 			@RequestParam(value = "cnt", defaultValue = "1") int cnt, Model model, HttpSession session) throws IOException {
 		String key = getApi();
@@ -239,10 +239,10 @@ public class RsvnController {
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);
-		return ".reservation.rsvnDetail";
+		return ".reservation.accomDetail";
 	}
 	
-	@RequestMapping("/reservation/list")
+	@RequestMapping("/reservation/accomList")
 	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 
 			String keyword, String checkin, String checkout, 
 			@RequestParam(value = "cnt", defaultValue = "1") int cnt, Model model) {
@@ -275,6 +275,6 @@ public class RsvnController {
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);
 		System.out.println(pu.getStartRow() + ", " + pu.getEndRow());
-		return ".reservation.rsvnList";
+		return ".reservation.accomList";
 	}
 }
