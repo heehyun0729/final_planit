@@ -158,26 +158,6 @@ public class AdController {
 		
 		return "redirect:/adminHome";
 	}
-	@RequestMapping(value="/adminAnalytics")//관리자 통계 페이지
-	public String adminAnalytics(Model model) {
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		Date getDate=new Date(System.currentTimeMillis());//금일 광고율, 수익 구하기
-		String date=getDate.toString();
-		map.put("startDate", date);
-		map.put("endDate", date);
-		List<AdInfoVo> list=service.getChance(map);
-		int chance=0;
-		for(int a=0;a<list.size();a++) {
-			chance+=list.get(a).getAdInfo_chance();
-		}
-		int adProfit=service.getTodayAdProfit(date);
-		List<AdVo> getRecent5Ad=service.getRecent5Ad();
-		map.put("chance", chance);//금일 광고율 담기
-		map.put("adProfit", adProfit);//광고 수익 담기
-		
-		model.addAttribute("map", map);
-		return "-admin-adminBody-adminAnalytics";
-	}
 	@RequestMapping(value="/adminAdRequestInfo", method=RequestMethod.GET)//광고 신청페이지
 	public String adminAdRequestInfo() {
 		return ".admin.adminAdRequestInfo";
