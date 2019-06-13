@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jhta.planit.reservation.vo.MyRsvnVo;
+import com.jhta.planit.reservation.vo.RsvnVo;
 
 @Repository
 public class RsvnDao {
@@ -28,5 +29,8 @@ public class RsvnDao {
 	}
 	public int myCount(String mem_id) {
 		return sqlSession.selectOne(NAMESPACE + ".myCount", mem_id);
+	}
+	public RsvnVo detail(int num) {
+		return sqlSession.selectOne(NAMESPACE + ".detail", num);
 	}
 }
