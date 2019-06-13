@@ -82,6 +82,32 @@ public class RsvnController {
 		}
 	}
 	
+	@RequestMapping(value = "/reservation/payRefund", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public Object payRefund(int rsvn_num, String tid) {
+		rsvnPayService.cancel(tid);	// DB ¼öÁ¤
+		
+		int cancel_amount = rsvnPayService.detailByRsvnNum(rsvn_num).getRsvnPay_total();
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String host = "https://kapi.kakao.com/v1/payment/cancel";
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK 701d2fb4d9d20c3624d31b24e8e0caab");
+        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+        
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", "TC0ONETIME");
+        params.add("tid", tid);
+        params.add("cancel_amount", String.valueOf(cancel_amount));
+        params.add("cancel_tax_free_amount", "0");
+ 
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        Object object = restTemplate.postForObject(host, body, Map.class);        
+        return object;
+	}
+	
 	@RequestMapping(value = "/reservation/payApprovalOk", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public Object payApprovalOk(String tid, String pg_token) {
@@ -100,8 +126,6 @@ public class RsvnController {
         params.add("tid", tid);
         params.add("pg_token", pg_token);
         
-        System.out.println(tid + "///" + pg_token);
- 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         Object object = restTemplate.postForObject(host, body, Map.class);        
         return object;

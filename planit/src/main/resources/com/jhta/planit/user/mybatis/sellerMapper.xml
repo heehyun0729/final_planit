@@ -3,7 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.user.mybatis.sellerMapper">
+	<sql id="search">
+		<choose>
+			<when test="field!=null and field!='' and info=='approval'">
+				${field} Like '%'||#{keyword}||'%' and mem_stat = 2
+			</when>
+			<when test="field!=null and field!='' and info=='list'">
+				${field} Like '%'||#{keyword}||'%' and mem_stat = 1
+			</when>
+			<when test="info=='approval'">
+				and mem_stat = 2
+			</when>
+			<when test="info=='list'">
+				and mem_stat = 1
+			</when>
+		</choose>
+	</sql>
 	<insert id="sellJoin">
 		insert into seller values(seller_seq.nextval,#{mem_id},#{sell_company},#{sell_postcode},#{sell_addr},#{sell_tel})
 	</insert>
+	<select id="getSellerTotal" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from seller s,members m where s.mem_id=m.mem_id <include refid="search"/>
+	</select>
+	<select id="getSellerList" resultType="hashmap" parameterType="hashmap">
+		select * from(
+		    select aa.*, rownum rnum from(
+		        select m.mem_id, m.mem_stat, s.sell_company, s.sell_addr, s.sell_tel from seller s, members m 
+		        where s.mem_id=m.mem_id <include refid="search"/>
+		        order by s.sell_num desc
+		    )aa
+		) 
+		<![CDATA[where rnum>=1 and rnum<=10]]>
+	</select>
+	<select id="getSellerInfo">
+		select m.mem_id,m.mem_stat,s.sell_num,s.sell_company,s.sell_postcode,s.sell_addr,s.sell_tel 
+		from members m,seller s where m.mem_id=s.mem_id and m.mem_id=#{mem_id}
+	</select>
+	<update id="approval" parameterType="string">
+		update members set mem_stat=1 where mem_id=#{mem_id}
+	</update>
 </mapper>

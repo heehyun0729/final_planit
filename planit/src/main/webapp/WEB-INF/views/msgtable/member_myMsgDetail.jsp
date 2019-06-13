@@ -13,4 +13,10 @@
 	</tr>
 </table>
 <br />
+<input class="Btn" type="button" value="답장하기" onclick="detailClose()" />
 <input class="Btn" type="button" value="닫기" onclick="detailClose()" />
+<script>
+function detailClose() {
+	window.close();
+}
+</script>

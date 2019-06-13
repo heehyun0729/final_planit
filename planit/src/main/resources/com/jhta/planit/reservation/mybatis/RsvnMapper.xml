@@ -122,7 +122,7 @@
 		and ro.accom_num = #{accom_num}
 	</select>
 	<select id="roomCheck" parameterType="hashmap" resultType="com.jhta.planit.room.vo.RoomVo">
-		select r.*
+		select distinct r.*
 		from room r, ( select NVL(z.room_num, -1) room_num from
 		                (
 		                select rs.room_num room_num

@@ -19,4 +19,7 @@ public class RsvnPayDao {
 	public RsvnPayVo detailByRsvnNum(int rsvn_num) {
 		return sqlSession.selectOne(NAMESPACE + ".detailByRsvnNum", rsvn_num);
 	}
+	public int cancel(String tid) {
+		return sqlSession.update(NAMESPACE + ".cancel", tid);
+	}
 }

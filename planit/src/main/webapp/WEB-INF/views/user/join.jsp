@@ -38,7 +38,7 @@
 		<input type="button" id="emailcheck" name="emailcheck" value="중복검사" disabled="disabled"> <span id="emailcheckresult"></span>
 		<br>
 		<label for="mem_gender">*성별(변경 불가!)</label><select id="mem_gender" name="mem_gender">
-			<option value="m">남(Man)</option>
+			<option value="m">남(Male)</option>
 			<option value="f">녀(Female)</option>
 		</select>
 		<br>

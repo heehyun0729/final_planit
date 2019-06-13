@@ -30,7 +30,7 @@
 				<c:choose>
 					<c:when test="${vo.rsvnPay_stat == 0 }">
 						<td>결제완료</td>
-						<td><input type = "button" value = "예약취소"></td>
+						<td><input type = "button" value = "예약취소" onclick = "payRefund('${vo.rsvn_num}', '${vo.rsvnPay_id }')"></td>
 					</c:when>
 					<c:otherwise>
 						<td>취소완료</td>

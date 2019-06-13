@@ -9,4 +9,7 @@
 	<select id="detailByRsvnNum" parameterType="int" resultType="com.jhta.planit.reservation.vo.RsvnPayVo">
 		select * from rsvnPay where rsvn_num = #{num}
 	</select>
+	<update id="cancel" parameterType="String">
+		update rsvnPay set rsvnPay_stat = 1 where rsvnPay_id = #{tid}
+	</update>
 </mapper>

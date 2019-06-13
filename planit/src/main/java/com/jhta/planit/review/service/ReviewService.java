@@ -42,7 +42,7 @@ public class ReviewService {
 		}
 		
 		
-		ReviewImageVo imageVo=new ReviewImageVo(0,review_num, reviewImge_orgImg, reviewImge_saveImg);
+		ReviewImageVo imageVo=new ReviewImageVo(0,review_num, reviewImge_orgImg, reviewImge_saveImg, 0);
 		
 		//dao 주입받는 코드 추가
 		//int insert=imdao.insert(vo);
@@ -87,7 +87,11 @@ public class ReviewService {
 	}
 	
 	//삭제
-	public int delete(int review_num) {
-		return dao.delete(review_num);
+	public int updateReviewChk(int review_num) {
+		return dao.updateReviewChk(review_num);
+	}
+	//수정
+	public int reviewUpdate(ReviewVo vo) {
+		return dao.reviewUpdate(vo);
 	}
 }

@@ -15,6 +15,7 @@
 			<td>조회수</td>
 			<td>별점</td>
 			<td>추천</td>
+			<td>삭제</td>
 			
 		</tr>
 		<c:forEach var="vo" items="${list }">
@@ -27,6 +28,7 @@
 				<td>${vo.review_hit }</td>
 				<td>${vo.review_star }</td>
 				<td>${vo.review_like }</td> 
+				<td><a href="${pageContext.request.contextPath }/reviewDelete?review_num=${vo.review_num}">삭제</a></td>
 			</tr>
 		</c:forEach>
 	</table>

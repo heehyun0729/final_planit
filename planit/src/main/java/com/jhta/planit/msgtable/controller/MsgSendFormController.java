@@ -21,6 +21,10 @@ public class MsgSendFormController {
 	public String join() {
 		return "/msgtable/member_myMsgSend";
 	}
+	@RequestMapping(value="/msgSendfForm",method = RequestMethod.GET)
+	public String join1() {
+		return "/msgtable/member_sendMsgPopup";
+	}
 	@RequestMapping(value="/msgSendPopupForm",method = RequestMethod.GET)
 	public ModelAndView popup(String id) {
 		ModelAndView mv=new ModelAndView("/msgtable/member_msgPopup");
@@ -31,6 +35,18 @@ public class MsgSendFormController {
 	@RequestMapping(value="/msgSendForm",method = RequestMethod.POST) 
 	@ResponseBody
 	public Object joinOk(MsgTableVo vo) {
+		int n = service.insert(vo);
+		JSONObject json = new JSONObject();
+		if (n>0) {
+			json.put("code", "success");
+		} else {
+			json.put("code", "fail");
+		}
+		return json.toString();
+	}
+	@RequestMapping(value="/msgSendfForm",method = RequestMethod.POST) 
+	@ResponseBody
+	public Object joinOkk(MsgTableVo vo) {
 		int n = service.insert(vo);
 		JSONObject json = new JSONObject();
 		if (n>0) {
