@@ -46,8 +46,34 @@
 </table>
 <br><br>
 <h2>동행 요청</h2>
-
+<table id="ApplyTable" style="width: 80%">
+	<tr>
+		<th>아이디</th>
+		<th>상태</th>
+		<th>수락/거절</th>
+		<th>쪽지하기</th>
+	</tr>
+	<c:forEach var="apply" items="${applyList}">	
+		<tr>
+			<td>${apply.mem_id}</td>
+			<c:choose>
+				<c:when test="${apply.apply_state==0}">
+					<td>대기중</td>
+				</c:when>
+				<c:when test="${apply.apply_state==1}">
+					<td>수락</td>
+				</c:when>
+				<c:when test="${apply.apply_state==2}">
+					<td>거절</td>
+				</c:when>
+			</c:choose>
+			<td><input type="button" value="수락" onclick=""><input type="button" value="거절" onclick=""></td>
+			<td><input type="button" value="쪽지하기" onclick="msgPopup('${apply.mem_id}')"></td>
+		</tr>
+	</c:forEach>
+</table>
 <script type="text/javascript">
+	//글 삭제
 	function del_buddy(buddy_num){
 		var result = confirm('해당 글을 삭제하시겠습니까?');
 		if(result) { 
@@ -55,6 +81,16 @@
 			window.location.href="<c:url value='/buddyDelete?buddy_num="+buddy_num+"' />";
 		}else{
 			
+		}
+	}
+	//쪽지보내기 팝업
+	function msgPopup(id){
+		if('${mem_id}'!=null && '${mem_id}'!=""){
+			var popUrl = "<c:url value='/msgSendPopupForm?id="+id+"'/>";
+			var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+				window.open(popUrl,"쪽지보내기",popOption);
+		}else{
+			alert("로그인이 필요한 서비스 입니다.");
 		}
 	}
 </script>

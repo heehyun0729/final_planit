@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jhta.planit.buddy.dao.BuddyDao;
+import com.jhta.planit.buddy.vo.BuddyApplyVo;
 import com.jhta.planit.buddy.vo.BuddyCityVo;
 import com.jhta.planit.buddy.vo.BuddyCountryVo;
 import com.jhta.planit.buddy.vo.BuddyListVo;
@@ -75,5 +76,13 @@ public class BuddyService {
 	//게시물 삭제
 	public int delete_buddy(String buddy_num) {
 		return dao.delete_buddy(buddy_num);
+	}
+	//동행 요청
+	public int apply_buddy(HashMap<String, String> map) {
+		return dao.apply_buddy(map);
+	}
+	//요청 확인
+	public List<BuddyApplyVo> buddy_applyList(String mem_id) {
+		return dao.buddy_applyList(mem_id);
 	}
 }

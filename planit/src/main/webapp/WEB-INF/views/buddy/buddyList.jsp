@@ -65,11 +65,12 @@
 				<th>여행 소개</th>
 				<th>여행할 도시</th>
 				<th>쪽지하기</th>
+				<th>동행요청하기</th>
 			</tr>
 			<c:forEach var="buddy" items="${buddyList}">	
 				<tr>
-					<td>${buddy.mem_id }</td>
-					<td>${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</td>
+					<td>${buddy.mem_id}</td>
+					<td>${buddy.buddy_indate} ~ ${buddy.buddy_outdate}</td>
 					<c:choose>
 						<c:when test="${buddy.buddy_gender =='X'}">
 							<td>상관없음</td>
@@ -82,16 +83,17 @@
 						</c:when>
 					</c:choose>
 					<c:choose>
-						<c:when test="${buddy.buddy_birthyear==0 }">
+						<c:when test="${buddy.buddy_birthyear==0}">
 							<td>상관없음</td>
 						</c:when>
 						<c:otherwise>
-							<td>${buddy.buddy_birthyear }대</td>
+							<td>${buddy.buddy_birthyear}대</td>
 						</c:otherwise>
 					</c:choose>
-					<td>${buddy.buddy_msg }</td>
-					<td>${buddy.buddy_city }</td>
-					<td><input type="button" value="쪽지하기" onclick="msgPopup('${buddy.mem_id }')"></td>
+					<td>${buddy.buddy_msg}</td>
+					<td>${buddy.buddy_city}</td>
+					<td><input type="button" value="쪽지하기" onclick="msgPopup('${buddy.mem_id}')"></td>
+					<td><input type="button" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -171,9 +173,8 @@
 					var param=eval('${sgId}');
 					var str="";
 					for(var i=0;i<param.length;i++){
-						str+="buddy_num="+param[i]+"&";
+						str=str+"buddy_num="+param[i]+"&";
 					}
-					alert('추천페이지로 넘어갑니다.');
 					popupOpen(str);
 				}else{
 					
@@ -209,6 +210,15 @@
 		}else{
 			alert("여행하려는 도시를 선택해주세요.");
 			return false;
+		}
+	}
+	function apply_buddy(buddy_num){
+		var result = confirm('동행을 요청하시겠습니까?');
+		if(result) {
+			alert("신청되었습니다.");
+			window.location.href="<c:url value='/buddyApplyBuddy?buddy_num="+buddy_num+"' />";
+		}else{
+			
 		}
 	}
 </script>

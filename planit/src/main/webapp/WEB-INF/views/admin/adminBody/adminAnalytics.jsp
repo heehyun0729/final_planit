@@ -140,7 +140,39 @@
 				    }
 				});
 			}
-		});		
+		});	
+		
+		
+		
+		var ctx2 = $("#usersPlanCountry");//플래너 국가 순위 차트
+		var countryList=[];
+		var cntList=[];
+		
+		<c:forEach var="i" items="${map.countryList }">
+			countryList.push("${i}");
+		</c:forEach>
+		<c:forEach var="i" items="${map.cntList }">
+			cntList.push("${i}");
+		</c:forEach>
+		console.log(countryList);
+		
+		
+		
+		var usersPlanCountrydata = {
+			    datasets: [{
+			        data: cntList,
+			        backgroundColor: ['rgba(95, 0, 255, 0.6)','rgba(0, 0, 0, 0.2)'],
+			        borderWidth: 1
+			    }],
+				labels: countryList
+			};
+		var usersPlanCountry = new Chart(ctx2, {
+		    type: 'pie',
+		    data: usersPlanCountrydata,
+		    options: {
+		    	maintainAspectRatio: false
+		    }
+		});
 	});
 </script>
 <div class="container mt-5">
