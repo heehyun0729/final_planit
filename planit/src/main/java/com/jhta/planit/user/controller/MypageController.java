@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import com.jhta.planit.admin.vo.AdVo;
 import com.jhta.planit.reservation.service.RsvnPayService;
 import com.jhta.planit.reservation.service.RsvnService;
 import com.jhta.planit.reservation.vo.MyRsvnVo;
+import com.jhta.planit.reservation.vo.RsvnPayVo;
 import com.jhta.planit.reservation.vo.RsvnVo;
 import com.jhta.planit.user.service.MypageService;
 import com.jhta.util.PageUtil;
@@ -34,6 +36,19 @@ public class MypageController {
 	@Autowired private AdService adService;
 	@Autowired private RsvnService rsvnService;
 	@Autowired private RsvnPayService rsvnPayService;
+	
+	@RequestMapping(value = "/member/mypage/reservation/detail", produces = "application/json;charset=utf8")
+	@ResponseBody
+	public String myRsvnDetail(int rsvn_num) {
+		RsvnVo rvo = rsvnService.detail(rsvn_num);
+		RsvnPayVo pvo = rsvnPayService.detailByRsvnNum(rsvn_num);
+		JSONObject json = new JSONObject();
+		json.put("name", rvo.getRsvn_name());
+		json.put("email", rvo.getRsvn_email());
+		json.put("phone", rvo.getRsvn_phone());
+		json.put("total", pvo.getRsvnPay_total());
+		return json.toString();
+	}
 	
 	@RequestMapping("/member/mypage/{mem_id}/reservation/list")
 	public String myRsvnList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 

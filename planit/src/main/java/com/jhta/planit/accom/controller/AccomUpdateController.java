@@ -28,7 +28,7 @@ public class AccomUpdateController {
 	public String updateForm(int accom_num,Model model) {
 		AccomVo vo=service.detail(accom_num);
 		model.addAttribute("vo",vo);
-		return "/accom/accomUpdate";
+		return ".accom.accomUpdate";
 	}
 	@RequestMapping(value="/accomUpdate",method=RequestMethod.POST)
 	public String update(int accom_num,String accom_name,String accom_addr,String accom_comm,
@@ -61,7 +61,7 @@ public class AccomUpdateController {
 				AccomVo vo2=new AccomVo(accom_num, 0, accom_name, accom_addr, accom_comm, accom_country, accom_city, null, null, 0);
 				service.update(vo2);
 			}
-			return "/accom/success";
+			return ".accom.success";
 		}catch(Exception e) {
 			e.printStackTrace();
 			return "fail";

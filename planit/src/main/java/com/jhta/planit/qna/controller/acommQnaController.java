@@ -25,5 +25,6 @@ public class acommQnaController {
 			mv.addObject("result","fail");
 		}
 		return mv;
+		
 	}
 }

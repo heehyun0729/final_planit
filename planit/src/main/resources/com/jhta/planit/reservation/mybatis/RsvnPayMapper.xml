@@ -6,4 +6,7 @@
 	<insert id="insert" parameterType="hashmap">
 		insert into rsvnPay values(#{tid}, #{num}, #{total}, 0, sysdate)
 	</insert>
+	<select id="detailByRsvnNum" parameterType="int" resultType="com.jhta.planit.reservation.vo.RsvnPayVo">
+		select * from rsvnPay where rsvn_num = #{num}
+	</select>
 </mapper>

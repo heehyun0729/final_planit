@@ -12,6 +12,9 @@
 	<delete id="delete" parameterType="int">
 		delete from rsvn where rsvn_num = #{num}
 	</delete>
+	<select id="detail" parameterType="int" resultType="com.jhta.planit.reservation.vo.RsvnVo">
+		select * from rsvn where rsvn_num = #{num}
+	</select>
 	
 	<select id="myList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.MyRsvnVo">
 		select * from

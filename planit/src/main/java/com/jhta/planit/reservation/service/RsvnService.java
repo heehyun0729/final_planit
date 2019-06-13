@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.planit.reservation.dao.RsvnDao;
 import com.jhta.planit.reservation.vo.MyRsvnVo;
+import com.jhta.planit.reservation.vo.RsvnVo;
 
 @Service
 public class RsvnService {
@@ -27,5 +28,8 @@ public class RsvnService {
 	}
 	public int myCount(String mem_id) {
 		return rsvnDao.myCount(mem_id);
+	}
+	public RsvnVo detail(int num) {
+		return rsvnDao.detail(num);
 	}
 }

@@ -43,7 +43,7 @@ public class RoomListController {
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
 		List<RoomVo> list = service.list(map);
-		ModelAndView mv = new ModelAndView("/room/roomList");
+		ModelAndView mv = new ModelAndView(".room.roomList");
 		mv.addObject("accom_num", accom_num);
 		mv.addObject("list", list);
 		mv.addObject("pu",pu);
