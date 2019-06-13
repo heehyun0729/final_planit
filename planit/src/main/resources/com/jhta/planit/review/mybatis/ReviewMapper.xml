@@ -6,7 +6,7 @@
  
  <!-- 리뷰글작성 -->
   	<insert id="insert" parameterType="com.jhta.planit.review.vo.ReviewVo">
-  		insert into Review values(rew_Seq.nextval,#{mem_id},#{review_country},#{review_city},#{review_title},#{review_content},sysdate,0,0,0,0)
+  		insert into Review values(rew_Seq.nextval,#{mem_id},#{review_country},#{review_city},#{review_title},#{review_content},sysdate,0,0,0)
   	</insert>
   	<select id="getReviewNum" resultType="int" >
   		select  max(review_num) from Review

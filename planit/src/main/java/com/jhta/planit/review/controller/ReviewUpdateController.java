@@ -43,7 +43,7 @@ public class ReviewUpdateController {
 		System.out.println("ffff");
 			List<ReviewImageVo> vo2 =service2.detail2(review_num);
 			System.out.println("weer:" + review_num);
-			vo =new ReviewVo(review_num, null, review_country, review_city, review_title, review_content, null, 0, 0, 0, 0);
+			vo =new ReviewVo(review_num, null, review_country, review_city, review_title, review_content, null, 0, 0, 0);
 			System.out.println("ffr:" + review_content);
 			if(service.reviewUpdate(vo)>0) {
 			try {

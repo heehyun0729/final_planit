@@ -13,7 +13,6 @@
 			<td>글제목</td>
 			<td>작성일</td>
 			<td>조회수</td>
-			<td>별점</td>
 			<td>추천</td>
 			<td>삭제</td>
 			
@@ -24,10 +23,7 @@
 				<td>${vo.review_country }</td>
 				<td>${vo.review_city }</td>
 				<td><a href="${pageContext.request.contextPath }/review/reviewDetail.do?review_num=${vo.review_num}&field=${field}&keyword=${keyword}&pageNum=${pageNum}">${vo.review_title }</a></td>
-				<td>${vo.review_date }</td>
-				<td>${vo.review_hit }</td>
-				<td>${vo.review_star }</td>
-				<td>${vo.review_like }</td> 
+				<td>${vo.review_date }</td> 
 				<td><a href="${pageContext.request.contextPath }/reviewDelete?review_num=${vo.review_num}">삭제</a></td>
 			</tr>
 		</c:forEach>
