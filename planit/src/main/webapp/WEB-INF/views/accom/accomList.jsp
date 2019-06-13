@@ -15,6 +15,7 @@
 			<th>이미지</th>
 			<th>숙소수정</th>
 			<th>숙소삭제</th>
+			<th>방삭제</th>
 		</tr>
 		<c:forEach var="vo" items="${list }">
 			<tr>
@@ -25,9 +26,10 @@
 				<td>${vo.accom_comm }</td>
 				<td>${vo.accom_country }</td>
 				<td>${vo.accom_city }</td>
-				<td><a href="<c:url value='/roomList?accom_num=${vo.accom_num }'/>"><img style="width: 150px;height: 100px"src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>"></a></td>	
+				<td><img style="width: 150px;height: 100px"src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>"></td>	
 				<td><a href="${pageContext.request.contextPath }/accomUpdate?accom_num=${vo.accom_num}">숙소수정</a></td>
 				<td><a href="${pageContext.request.contextPath }/accomDelete?accom_num=${vo.accom_num}">숙소삭제</a></td>
+				<td><a href="<c:url value='/roomList?accom_num=${vo.accom_num }'/>">방정보</a></td>
 			</tr>
 		</c:forEach>
 	</table>

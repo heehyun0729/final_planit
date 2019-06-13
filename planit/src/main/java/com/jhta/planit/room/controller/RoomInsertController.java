@@ -26,7 +26,7 @@ public class RoomInsertController {
 	}
 	@RequestMapping(value="/roomInsert",method = RequestMethod.GET)
 	public String roomInsert() {
-		return "/room/roomInsert";
+		return ".room.roomInsert";
 	}
 	
 	@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
