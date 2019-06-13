@@ -13,7 +13,6 @@
 		<li><a href = "<c:url value='/reservation/accomList'/>">숙소예약</a></li>
 		<li><a href = "<c:url value='/review/reviewList'/>">여행후기</a></li>
 		<li><a href = "<c:url value='/qnaList'/>">여행문의</a></li>
-		
 	</ul>
 	<ul>
 		<c:choose>
