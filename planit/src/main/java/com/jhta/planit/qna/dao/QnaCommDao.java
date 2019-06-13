@@ -16,10 +16,12 @@ public class QnaCommDao {
 	public int insert(QnaCommVo vo) {
 		return sqlSession.insert(NAMESPACE + ".insert",vo);
 	}
+	/*
 	public int getCount(int qna_num) {
 		return sqlSession.selectOne(NAMESPACE + ".count",qna_num); 
 	}
 	public List<QnaCommVo> list(HashMap<String, Integer> map){
 		return sqlSession.selectList(NAMESPACE + ".getList",map);
 	}
+	*/
 }

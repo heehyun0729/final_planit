@@ -31,7 +31,7 @@ public class QnaCommController {
 		return sb.toString();
 	}
 	
-@RequestMapping(value="/qnacomm/getList",produces = "application/xml;charset=utf-8")
+/*@RequestMapping(value="/qnacomm/getList",produces = "application/xml;charset=utf-8")
 @ResponseBody
 	public String getList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum, int qna_num) {
 		int count=service.getCount(qna_num);
@@ -47,7 +47,7 @@ public class QnaCommController {
 		for(QnaCommVo vo:list) {
 			sb.append("<list>");
 			sb.append("<qcomm_num>" + vo.getQcomm_num() + "</qcomm_num");
-			sb.append("<mem_id>" + vo.getQcomm_content() + "</mem_id>");
+			sb.append("<mem_id>" + vo.getMem_id() + "</mem_id>");
 			sb.append("<qcomm_content>" + vo.getQcomm_content() + "</qcomm_content>");
 			sb.append("</list>");
 		}
@@ -56,5 +56,5 @@ public class QnaCommController {
 		sb.append("<pageCount>" + pu.getTotalPageCount() + "</pageCount>");
 		sb.append("</result>");
 		return sb.toString();
-		}
+		}*/
 }
