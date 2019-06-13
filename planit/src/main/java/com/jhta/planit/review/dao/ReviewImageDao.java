@@ -26,17 +26,26 @@ public class ReviewImageDao {
 	public List<ReviewImageVo> list(){
 		return sqlSession.selectList(NAMESPACE +".list"); 
 	}
-	public int delete(int reviewImge_num) {
-		return sqlSession.delete(NAMESPACE + ".delete",reviewImge_num); 
+	public int delete(int review_num) {
+		return sqlSession.delete(NAMESPACE + ".delete",review_num); 
 	}
 	public ReviewImageVo getinfo(int reviewImge_num) {
 		return sqlSession.selectOne(NAMESPACE + ".getinfo",reviewImge_num); 
 	}
-	public int update(ReviewImageVo vo) {
+	public int reviewUpdate(ReviewImageVo vo) {
 		return sqlSession.update(NAMESPACE + ".update",vo);
 	}
 	//»ó¼¼
 	public ReviewImageVo detail(int review_num) {
 		return sqlSession.selectOne(NAMESPACE + ".detail",review_num);
+	}
+	public int updateImgChk(int reviewImge_num) {
+		return sqlSession.update(NAMESPACE + ".updateImgChk",reviewImge_num);
+	}
+	public List<ReviewImageVo> detail2(int review_num) {
+		return sqlSession.selectList(NAMESPACE + ".detail2", review_num);
+	}
+	public int reviewImgDelete(int review_num) {
+		return sqlSession.delete(NAMESPACE + ".reviewImgDelete",review_num); 
 	}
 }
