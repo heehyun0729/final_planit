@@ -16,6 +16,7 @@ public class QnaCommDao {
 	public int insert(HashMap<String, Object> map) {
 		return sqlSession.insert(NAMESPACE + ".insert",map);
 	}
+	
 	public int getCount(int qna_num) {
 		return sqlSession.selectOne(NAMESPACE + ".count",qna_num); 
 	}
