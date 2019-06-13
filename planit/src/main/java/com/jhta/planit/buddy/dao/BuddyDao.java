@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.planit.buddy.vo.BuddyApplyVo;
 import com.jhta.planit.buddy.vo.BuddyCityVo;
 import com.jhta.planit.buddy.vo.BuddyCountryVo;
 import com.jhta.planit.buddy.vo.BuddyListVo;
@@ -68,5 +69,13 @@ public class BuddyDao {
 	//게시물 삭제
 	public int delete_buddy(String buddy_num) {
 		return sqlSession.update(NAMESPACE + ".buddy_del",buddy_num);
+	}
+	//동행 요청
+	public int apply_buddy(HashMap<String, String> map) {
+		return sqlSession.update(NAMESPACE + ".apply_buddy",map);
+	}
+	//요청 확인
+	public List<BuddyApplyVo> buddy_applyList(String mem_id) {
+		return sqlSession.selectList(NAMESPACE + ".buddy_applyList",mem_id);
 	}
 }

@@ -35,12 +35,12 @@
 	
 	<sql id="inc_indate">
 		<if test="kw_indate!=null and kw_indate!=''">
-			and b.buddy_indate=#{kw_indate}
+			<![CDATA[and b.buddy_indate<=#{kw_indate} and b.buddy_outdate>=#{kw_indate}]]>
 		</if>
 	</sql>
 	<sql id="inc_outdate">
 		<if test="kw_outdate!=null and kw_outdate!=''">
-			and b.buddy_outdate=#{kw_outdate}
+			<![CDATA[and b.buddy_outdate>=#{kw_outdate}]]>
 		</if>
 	</sql>
 	
@@ -233,4 +233,17 @@
 	<delete id="buddy_del" parameterType="String">
 		delete from buddy where buddy_num=#{buddy_num}
 	</delete>
+	
+	<!-- 동행 요청 -->
+	<insert id="apply_buddy" parameterType="hashmap">
+		insert into buddy_apply values(buddyApply_seq.nextval,#{buddy_num},#{mem_id},0)
+	</insert>
+	
+	<!-- 동행 요청 확인 -->
+	<select id="buddy_applyList" resultType="com.jhta.planit.buddy.vo.BuddyApplyVo" parameterType="String">
+		select a.MEM_ID MEM_ID, a.APPLY_STATE APPLY_STATE
+		from buddy b,buddy_country c,buddy_city t, buddy_apply a
+		where b.buddy_num=c.buddy_num and c.buddy_num=a.buddy_num and c.country_num=t.country_num and
+		b.buddy_state=0 and a.apply_state=0 and b.mem_id=#{mem_id}
+	</select>
 </mapper>
