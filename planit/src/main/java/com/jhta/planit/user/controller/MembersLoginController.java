@@ -30,6 +30,7 @@ public class MembersLoginController {
 		int result = service.login(map);
 		if (result > -2) {
 			session.setAttribute("mem_id", mem_id);
+			session.setAttribute("mem_stat", result);
 			return "redirect:/";
 		} else {
 			model.addAttribute("mem_id", mem_id);
