@@ -13,8 +13,7 @@
 		<li><a href = "<c:url value='/reservation/accomList'/>">숙소예약</a></li>
 		<li><a href = "<c:url value='/review/reviewList'/>">여행후기</a></li>
 		<li><a href = "<c:url value='/qnaList'/>">여행문의</a></li>
-		<li><a href = "<c:url value='/acommQna'/>">숙소문의</a></li>
-		
+		<li><a href = "<c:url value='/acommQna'/>">숙소문의</a></li>	
 	</ul>
 	<ul>
 		<c:choose>
@@ -22,7 +21,6 @@
 				<li><a href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>">마이페이지</a></li>
 				<li><a href="<c:url value="/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>"><img style="width:20px"src='<c:url value='/resources/msgImage/message.png'/>'/><span id = "mul"></span></a></li>
 				<li><a href="<c:url value='/user/logout'/>">로그아웃</a></li>
-				
 				<script>
 				var xhr = null;
 			    //var cnum=setInterval(countList);
@@ -44,6 +42,9 @@
 					}
 				}
 				</script>
+				<c:if test="${sessionScope.mem_stat==1 }">
+				<li><a href="<c:url value='/sellerInsertListForm'/>">판매자 등록 리스트</a></li>
+				</c:if>
 			</c:when>
 			<c:otherwise>
 				<li><a href="<c:url value='/user/login'/>">로그인</a></li>
