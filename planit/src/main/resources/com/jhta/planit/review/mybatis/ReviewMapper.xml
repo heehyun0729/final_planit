@@ -4,9 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.jhta.planit.review.mybatis.ReviewMapper">
  
- 	<!-- 리뷰글작성 -->
+ <!-- 리뷰글작성 -->
   	<insert id="insert" parameterType="com.jhta.planit.review.vo.ReviewVo">
-  		insert into Review values(rew_Seq.nextval,#{mem_id},#{review_country},#{review_city},#{review_title},#{review_content},sysdate,0,0,0)
+  		insert into Review values(rew_Seq.nextval,#{mem_id},#{review_country},#{review_city},#{review_title},#{review_content},sysdate,0,0,0,0)
   	</insert>
   	<select id="getReviewNum" resultType="int" >
   		select  max(review_num) from Review
@@ -32,7 +32,7 @@
   	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.review.vo.ReviewVo">
   		select *from(
   			select aa.*,rownum rnum from(
-  				select *from review
+  				select *from review where reviewChk=0
   				<include refid="search"/>
   				order by review_num desc
   			)aa
@@ -84,9 +84,19 @@
 	<select id="likeList" parameterType="hashmap" resultType="com.jhta.planit.review.vo.ReviewLikeVo">
 	select * from ReviewLike where mem_id=#{mem_id} and review_num=#{review_num}
 	</select>
-	
+	<!-- 삭제 -->
+	<update id="updateReviewChk" parameterType="int">
+		update review set
+		reviewChk=1 where review_num=#{review_num}
+	</update>
 	<!-- 삭제 -->
 	<delete id="delete" parameterType="int">
 		delete from review where review_num=#{review_num}
 	</delete>
+	<!-- 수정 -->
+ 	<update id="reviewUpdate" parameterType="com.jhta.planit.review.vo.ReviewVo">
+ 		update review set
+ 		 review_country=#{review_country},review_city=#{review_city},review_title=#{review_title},review_content=#{review_content}
+ 		 where review_num=#{review_num}
+ 	</update>
   </mapper>

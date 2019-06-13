@@ -6,10 +6,33 @@
 
 <!-- 이미지 업로드 -->
 	<insert id="insert" parameterType="com.jhta.planit.review.vo.ReviewImageVo">
-  		insert into ReviewImage values(rew_Seq.nextval,#{review_num},#{reviewImge_orgImg},#{reviewImge_saveImg})	
+  		insert into ReviewImage values(rew_Seq.nextval,#{review_num},#{reviewImge_orgImg},#{reviewImge_saveImg},0)	
 	</insert> 
 	
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.review.vo.ReviewImageVo">
   		select * from reviewImage where review_num=#{review_num}
   	</select>
+  	
+  	<!-- 삭제 -->
+  	<update id="updateImgChk" parameterType="int">
+  		update ReviewImage set
+  		reviewImageChk=1 where reviewImge_num=#{ReviewImage_num}
+  	</update>
+  	
+  	<select id="detail2" parameterType="int" resultType="com.jhta.planit.review.vo.ReviewImageVo">
+		select * from ReviewImage where review_num = #{review_num} and REVIWIMGECHK = 0
+	</select>
+  	
+  	<delete id="reviewImgDelete" parameterType="int">
+  		delete from ReviewImage where review_num=#{review_num}
+  	</delete>
+  	
+  	<update id="reviewImgUpdate" parameterType="com.jhta.planit.review.vo.ReviewImageVo">
+  		update reviewImage set
+  		<if test="reviewImge_orgImg!=null">
+  			reviewImg_orgImg=#{reviewImg_orgImg},
+  			reviewImg_saveImg=#{reviewImg_saveImg}
+  		</if>
+  		where reviewImge_num=#{reviewImge_num}
+  	</update>
   </mapper>

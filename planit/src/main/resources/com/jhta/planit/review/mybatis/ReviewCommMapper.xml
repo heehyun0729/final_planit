@@ -5,9 +5,33 @@
   <mapper namespace="com.jhta.planit.review.mybatis.ReviewCommMapper">
   <!-- 댓글 등록 -->
   <insert id="insert" parameterType="com.jhta.planit.review.vo.ReviewCommVo">
-  	insert into ReviewComm values(rewcom_seq.nextval,#{review_num},#{mem_id},#{rcomm_content},sysdate,0,0,0)
-  
+  	insert into ReviewComm values(rewcom_seq.nextval,#{review_num},#{mem_id},#{rcomm_content},sysdate,0,0,0,0)
   </insert>
   
+  <!-- 댓글수 -->
+  <select id="count" resultType="int" parameterType="int">
+  	select NVL(count(*),0) from reviewComm
+  	where review_num=#{review_num}
+  </select>
   
+  <select id="getList" parameterType="hashmap" resultType="com.jhta.planit.review.vo.ReviewCommVo">
+ 		select * from
+ 		(
+	 		select aa.*,rownum rnum from
+	 		(
+		 		select * from ReviewComm
+		 		where review_num=#{review_num}
+		 		order by rcomm_num desc
+ 			)aa
+ 		)<![CDATA[ where rnum>=#{startRow} and rnum<=#{endRow}]]>
+ 	</select>
+ 	
+ 	<!-- 삭제 -->
+	<delete id="updateCommChk" parameterType="int">
+	delete from ReviewComm where rcomm_num=#{rcomm_num}
+	</delete>
+ 	
+ 		<select id="detail" parameterType="int" resultType="com.jhta.planit.review.vo.ReviewCommVo">
+  		select * from reviewComm where review_num=#{review_num} <!--  and reviewChk=0 -->
+  	</select>
   </mapper>
