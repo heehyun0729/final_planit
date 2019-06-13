@@ -19,8 +19,13 @@ public class QnaCommController {
 	
 	@RequestMapping(value="/qnacomm/insert",produces = "application/xml;charset=utf-8")
 	@ResponseBody
-	public String insert(QnaCommVo vo) {
-		int n=service.insert(vo);
+	public String insert(String mem_id,int qna_num, String qcomm_content) {
+		HashMap<String, Object> map =new HashMap<String, Object>();
+		map.put("mem_id", mem_id);
+		map.put("qna_num", qna_num);
+		map.put("qcomm_content", qcomm_content);
+		
+		int n=service.insert(map);
 		String result="success";
 		if(n<1) {
 			result="fail";
@@ -31,7 +36,7 @@ public class QnaCommController {
 		return sb.toString();
 	}
 	
-/*@RequestMapping(value="/qnacomm/getList",produces = "application/xml;charset=utf-8")
+@RequestMapping(value="/comments/getList",produces = "application/xml;charset=utf-8")
 @ResponseBody
 	public String getList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum, int qna_num) {
 		int count=service.getCount(qna_num);
@@ -46,9 +51,10 @@ public class QnaCommController {
 		sb.append("<result>");
 		for(QnaCommVo vo:list) {
 			sb.append("<list>");
-			sb.append("<qcomm_num>" + vo.getQcomm_num() + "</qcomm_num");
+			sb.append("<qcomm_num>" + vo.getQcomm_num() + "</qcomm_num>");
 			sb.append("<mem_id>" + vo.getMem_id() + "</mem_id>");
 			sb.append("<qcomm_content>" + vo.getQcomm_content() + "</qcomm_content>");
+			sb.append("<qcomm_date>" + vo.getQcomm_date() + "</qcomm_date>");
 			sb.append("</list>");
 		}
 		sb.append("<startPageNum>" + pu.getStartPageNum() + "</startPageNum>");
@@ -56,5 +62,5 @@ public class QnaCommController {
 		sb.append("<pageCount>" + pu.getTotalPageCount() + "</pageCount>");
 		sb.append("</result>");
 		return sb.toString();
-		}*/
+		}
 }

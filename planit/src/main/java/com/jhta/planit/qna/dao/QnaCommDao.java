@@ -13,15 +13,13 @@ import com.jhta.planit.qna.vo.QnaCommVo;
 public class QnaCommDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE="com.jhta.planit.qna.mybatis.QnaCommMapper";
-	public int insert(QnaCommVo vo) {
-		return sqlSession.insert(NAMESPACE + ".insert",vo);
+	public int insert(HashMap<String, Object> map) {
+		return sqlSession.insert(NAMESPACE + ".insert",map);
 	}
-	/*
 	public int getCount(int qna_num) {
 		return sqlSession.selectOne(NAMESPACE + ".count",qna_num); 
 	}
 	public List<QnaCommVo> list(HashMap<String, Integer> map){
 		return sqlSession.selectList(NAMESPACE + ".getList",map);
 	}
-	*/
 }

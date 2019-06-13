@@ -12,15 +12,13 @@ import com.jhta.planit.qna.vo.QnaCommVo;
 @Service
 public class QnaCommService {
 	@Autowired private QnaCommDao dao;
-	public int insert(QnaCommVo vo) {
-		return dao.insert(vo);
+	public int insert(HashMap<String, Object> map) {
+		return dao.insert(map);
 	}
-	/*
 	public int getCount(int qna_num) {
 		return dao.getCount(qna_num);
 	}
 	public List<QnaCommVo> list(HashMap<String, Integer> map){
 		return dao.list(map);
 	}
-	*/
 }

@@ -44,24 +44,5 @@ public class QnaController {
 		return mv;
 		
 	}
-	/*@RequestMapping(value="qna/insertQna",method = RequestMethod.POST)
-	public String imgUpload(String qna_cate,String qna_title,String qna_content,MultipartFile file1,HttpSession session) {
-		ServletContext application=session.getServletContext();
-		String uploadPath=application.getRealPath("/resource/qnaImage");
-		String qnaImg_orgImg=file1.getOriginalFilename();
-		String qnaImg_saveImg=UUID.randomUUID() + "_" + qnaImg_orgImg;
-		try {
-			InputStream is=file1.getInputStream();
-			FileOutputStream fos=new FileOutputStream(uploadPath + "\\" + qnaImg_saveImg);
-			FileCopyUtils.copy(is, fos);
-			is.close();
-			fos.close();
-			QnaImageVo vo=new QnaImageVo(0,0,qnaImg_orgImg, qnaImg_saveImg);
-		//	service.insert(vo);
-			return ".qna.insertQna";
-		}catch(IOException ie) {
-			System.out.println(ie.getMessage());
-			return  "error";
-		}
-	}*/
+	
 }

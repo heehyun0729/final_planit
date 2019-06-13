@@ -47,5 +47,11 @@ public class QnaCommVo{
 	public void setQna_num(int qna_num) {
 		this.qna_num = qna_num;
 	}
+	@Override
+	public String toString() {
+		return "QnaCommVo [qcomm_num=" + qcomm_num + ", mem_id=" + mem_id + ", qcomm_content=" + qcomm_content
+				+ ", qcomm_date=" + qcomm_date + ", qna_num=" + qna_num + "]";
+	}
+	
 }
 
