@@ -18,9 +18,9 @@ public class MsgSendFormController {
 		this.service =service;
 	}
 	@RequestMapping(value="/msgSendForm",method = RequestMethod.GET)
-	public ModelAndView popup1(String receiveMemId) {
+	public ModelAndView popup1(String id) {
 		ModelAndView mv=new ModelAndView("/msgtable/member_myMsgSend");
-		mv.addObject("id",receiveMemId);
+		mv.addObject("id",id);
 		return mv;
 	}
 	@RequestMapping(value="/msgSendfForm",method = RequestMethod.GET)

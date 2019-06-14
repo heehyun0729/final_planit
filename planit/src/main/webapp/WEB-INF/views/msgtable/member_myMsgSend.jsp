@@ -4,7 +4,7 @@
 	<tr>
 		<td>받을사람</td>
 		<td>
-			<input type="text" id="id" name="id" value="${vo.sendMemId }" readonly="readonly"/><span id="memChk_res"></span>
+			<input type="text" id="id" name="id" value="${id}" readonly="readonly"/><span id="memChk_res"></span>
 		</td>
 	</tr>
 	<tr>
@@ -32,7 +32,7 @@ function sendMessage() {
 	xhr.onreadystatechange=sendMessageResult;
 	xhr.open("post","${pageContext.request.contextPath}/msgSendfForm",true);	
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xhr.send("receiveMemId=${mem_id}&sendMemId=" + memId+"&msgContent="+contHtml);
+	xhr.send("receiveMemId=${sessionScope.mem_id }&sendMemId=" + id+"&msgContent="+contHtml);
 	opener.parent.location.reload();
 	window.close();
 }
@@ -42,11 +42,9 @@ function sendMessageResult() {
 		var result=eval("(" + data +")");
 		if (result.code == "success") {			
 			document.location="${pageContext.request.contextPath}/msgSendList?memId=${sessionScope.mem_id }&msgType=SEND&errMsg=쪽지를 보냈습니다.";
-			
 		} else {
 			document.location="${pageContext.request.contextPath}/msgSendList?memId=${sessionScope.mem_id }&msgType=SEND&errMsg=오류가 발생했습니다.";
 		}
-		
 	}
 }
 function detailClose() {

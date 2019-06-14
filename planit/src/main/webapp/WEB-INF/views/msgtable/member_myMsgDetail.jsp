@@ -14,17 +14,13 @@
 </table>
 <br />
 <c:if test="${type=='RECEIVE'}">
-<input class="Btn" type="button" value="답장하기" onclick="reSend('${vo.receiveMemId}')" />
+<input class="Btn" type="button" value="답장하기" onclick="reSend('${vo.sendMemId}')" />
 </c:if>
 <input class="Btn" type="button" value="닫기" onclick="detailClose()" />
 <script>
 
-function reSend(receiveMemId){
-	var popUrl = "${pageContext.request.contextPath}/msgSendForm?id="+receiveMemId;
-	var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
-		window.open(popUrl,"답장보내기",popOption);	
-		opener.parent.location.reload();
-		window.close();
+function reSend(sendMemId){
+		location.href='${pageContext.request.contextPath}/msgSendForm?id='+sendMemId;
 }
 function detailClose() {
 	opener.parent.location.reload();

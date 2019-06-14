@@ -144,7 +144,7 @@ function ppp(){
 								</td>
 								</c:if>
 								<c:if test="${type=='RECEIVE'}">
-								<td><input type="button" value="파워삭제"
+								<td><input type="button" value="삭제"
 									onclick="javascript:location.href='${pageContext.request.contextPath}/msgDeletee?msgNum=${vo.msgNum}'">
 								</td>
 								</c:if>
