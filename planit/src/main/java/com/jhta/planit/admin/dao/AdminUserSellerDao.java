@@ -28,4 +28,8 @@ public class AdminUserSellerDao {
 		return sqlSession.update(NAMESPACE+".approval", mem_id);
 	}
 
+	public int returns(String mem_id) {
+		return sqlSession.delete(NAMESPACE+".returns", mem_id);
+	}
+
 }

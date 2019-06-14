@@ -75,6 +75,12 @@ public class AdminUserController {
 	public int sellerApproval(String mem_id) {
 		return sellerservice.approval(mem_id);
 	}
+	
+	@RequestMapping(value = "/admin/user/sellerreturn", method = RequestMethod.POST)
+	@ResponseBody
+	public int sellerReturn(String mem_id) {
+		return sellerservice.returns(mem_id);
+	}
 
 	public int userSearch(int pageNum, String field, String keyword, String info, Model model) {
 		HashMap<String, Object> map = new HashMap<String, Object>();

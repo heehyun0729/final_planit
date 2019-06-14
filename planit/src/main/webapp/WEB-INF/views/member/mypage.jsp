@@ -17,6 +17,7 @@
 					<c:otherwise>>팔로우</c:otherwise>
 				</c:choose></button>
 			</div>
+			<c:choose><c:when test=""></c:when> </c:choose>
 			<ul class="mypage">
 				<li class="Y8-fY "><a class="-nal3 " href="<c:url value='/member/mypage/${mem_id }/postslist'/>">게시물<span id="postcnt">?</span></a></li>
 				<li class="Y8-fY "><a class="-nal3 " href="<c:url value='/member/mypage/${mem_id }/followedlist'/>">팔로워<span id="followedcnt">${profilemap.FOLLOWER }</span></a></li>
@@ -30,7 +31,10 @@
 				</c:if>
 			</ul>
 			<div class="-vDIg">
-				<pre>${profilemap.PROFILE_COMM }</pre>
+				<c:choose>
+					<c:when test="${profilemap.FOLLOW_GRADE==0 && !mem_tf }">비공개 프로필입니다.</c:when>
+					<c:otherwise><pre>${profilemap.PROFILE_COMM }</pre></c:otherwise> 
+				</c:choose>
 			</div>
 		</section>
 	</div>
@@ -45,6 +49,12 @@
 			</ul>
 		</div>
 	</c:if>
-	<div id="mypage_content">${content }</div>
+	<div id="mypage_content" >${content }
+		
+	</div>
 </div>
 <script type="text/javascript" src="<c:url value='/resources/js/members/mypageScript.js'/>"></script>
+<script>
+	if()
+$("#mypage_content").html('ddd')
+</script>

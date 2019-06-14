@@ -16,9 +16,24 @@ $(document).ready(function() {
 			data : {'mem_id':$("#mem_id1").val()},
 			success : function(data) {
 				if (data >0) {
-					alert("변경성공!");
+					alert("승인성공!");
 				} else {
-					alert("변경실패!");
+					alert("승인실패!");
+				}
+			}
+		});
+	});
+	$("#sellerreturn").submit(function(event) {
+		event.preventDefault();
+		$.ajax({
+			url : $('#localurl').val()+"admin/user/sellerreturn",
+			type : "post",
+			data : {'mem_id':$("#mem_id2").val()},
+			success : function(data) {
+				if (data >0) {
+					alert("승인성공!");
+				} else {
+					alert("승인실패!");
 				}
 			}
 		});
@@ -61,77 +76,24 @@ $(document).ready(function() {
 											승인됨
 										</c:when>
 										<c:otherwise>
+												<input type="hidden" id="localurl" value="<c:url value='/'/>">
 											<form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
 												<input type="hidden" id="mem_id1" name="mem_id1" value="${map.MEM_ID }">
-												<input type="hidden" id="localurl" value="<c:url value='/'/>">
 												<input type="submit" value="승인">
+											</form>
+											<form method="post" action="<c:url value='/admin/user/sellerreturn'/>" id="sellerreturn">
+												<input type="hidden" id="mem_id2" name="mem_id2" value="${map.MEM_ID }">
+												<input type="submit" value="반려">
 											</form>
 										</c:otherwise>
 									</c:choose>
 								</td>
 							</tr>
-									<%--<tr>
-										<td>${map.SELL_COMPANY }</td>
-									</tr>
-									<tr>
-								<td>${map.MEM_ID }</td>
-									</tr>
-									<tr>
-								<td>${map.SELL_ADDR }</td>
-									</tr>
-									<tr>
-								<td>${map.SELL_TEL }</td>
-									</tr>
-									<tr>
-										<td><a href="<c:url value='/admin/user/sellerinfo?mem_id=${map.MEM_ID }'/>">상세보기</a></td>
-									</tr>
-										<!-- <td>
-											<form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
-												<input type="hidden" id="mem_id1" name="mem_id1" value="${map.MEM_ID }">
-												<input type="hidden" id="localurl" value="<c:url value='/'/>">
-												<input type="submit" value="승인" <c:if test="${map.MEM_STAT<2 }">disabled="disabled"</c:if>>
-											</form>
-										</td>-->
-									</tr>
-								</c:forEach>
-							<c:otherwise>
-								<tr>
-									<td scope="row" colspan="8">해당 요청이 없습니다.</td>
-								</tr>
-							</c:otherwise> --%>
 					</table>
-					<div class="d-flex justify-content-center">
-						<ul class="pagination">
-							<c:if test="${map.startPageNum!=1 }">
-								<li class="page-item"><a class="page-link" href="<c:url value='/admin/user/sellerlist?info=${map.info }&pageNum=${pu.startPageNum-1}&field=${param.field}&keyword=${param.keyword}'/>">◀</a></li>
-							</c:if>
-							<c:forEach var="i" begin="${map.startPageNum }" end="${map.endPageNum }">
-								<c:choose>
-									<c:when test="${map.pageNum==i }">
-										<li class="page-item active"><a class="page-link" href="<c:url value='/admin/user/sellerlist?info=list&pageNum=${i}&field=${param.field}&keyword=${param.keyword}'/>">${i }</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item"><a class="page-link" href="<c:url value='/admin/user/sellerlist?info=list&pageNum=${i}&field=${param.field}&keyword=${param.keyword}'/>">${i }</a></li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<c:if test="${map.totalPageCount!=pu.endPageNum }">
-								<li class="page-item"><a class="page-link" href="<c:url value='/admin/user/sellerlist?info=${map.info }&pageNum=${pu.endPageNum+1}&field=${param.field}&keyword=${param.keyword}'/>">▶</a></li>
-							</c:if>
-						</ul>
+					<div>
+						<button type="button" onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerlist?info=list'">판매자회원목록</button>
+						<button type="button" onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerlist?info=approval'">판매자승인대기목록</button>
 					</div>
-					<form id="form" class="form-inline d-flex justify-content-center" method="post" action="<c:url value='/admin/user/sellerlist'/>">
-						<input type="hidden" name="${map.info }">
-						<select id="field" name="field" class="custom-select">
-							<option value="mem_id" <c:if test="${param.field=='mem_id' }">selected="selected"</c:if>>회사명</option>
-							<option value="mem_nickname" <c:if test="${param.field=='mem_nickname' }">selected="selected"</c:if>>아이디</option>
-							<option value="mem_email" <c:if test="${param.field=='mem_email' }">selected="selected"</c:if>>주소</option>
-						</select>
-							<div id="searchinput">
-								<input class="form-control mr-sm-2" value="${param.keyword }" name="keyword" type="search" placeholder="검색" aria-label="Search">
-							</div>
-							<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="searchsubmit">검색</button>
-					</form>
 				</div>
 			</div>
 		</div>

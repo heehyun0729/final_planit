@@ -42,4 +42,7 @@
 	<update id="approval" parameterType="string">
 		update members set mem_stat=1 where mem_id=#{mem_id}
 	</update>
+	<delete id="returns" parameterType="string">
+		delete from seller where mem_id=#{mem_id}
+	</delete>
 </mapper>
