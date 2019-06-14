@@ -40,7 +40,7 @@
 		(
 		    select aa.*, rownum rnum from
 		        (
-		        select r.rsvn_num rsvn_num, a.accom_num accom_num, a.accom_name accom_name, ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa,
+		        select r.rsvn_num rsvn_num, r.mem_id mem_id, a.accom_num accom_num, a.accom_name accom_name, ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa,
 		            to_char(r.rsvn_checkin, 'yyyy-mm-dd') rsvn_checkin, to_char(r.rsvn_checkout, 'yyyy-mm-dd') rsvn_checkout, r.rsvn_cnt rsvn_cnt, r.rsvn_name rsvn_name, r.rsvn_email rsvn_email, r.rsvn_phone rsvn_phone,
 		            p.rsvnPay_total rsvnPay_total, p.rsvnPay_stat rsvnPay_stat, to_char(p.rsvnPay_date, 'yyyy-mm-dd') rsvnPay_date
 		        from rsvn r, rsvnPay p, room ro, accom a
@@ -88,7 +88,7 @@
 	<select id="sellCount" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from
 		(
-		select r.rsvn_num rsvn_num, a.accom_num accom_num, a.accom_name accom_name, ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa,
+		select r.rsvn_num rsvn_num, r.mem_id mem_id, a.accom_num accom_num, a.accom_name accom_name, ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa,
 		    to_char(r.rsvn_checkin, 'yyyy-mm-dd') rsvn_checkin, to_char(r.rsvn_checkout, 'yyyy-mm-dd') rsvn_checkout, r.rsvn_cnt rsvn_cnt, r.rsvn_name rsvn_name, r.rsvn_email rsvn_email, r.rsvn_phone rsvn_phone,
 		    p.rsvnPay_total rsvnPay_total, p.rsvnPay_stat rsvnPay_stat, to_char(p.rsvnPay_date, 'yyyy-mm-dd') rsvnPay_date
 		from rsvn r, rsvnPay p, room ro, accom a
