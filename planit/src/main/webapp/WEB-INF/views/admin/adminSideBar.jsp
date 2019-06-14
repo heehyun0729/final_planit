@@ -50,38 +50,15 @@
 				</span>
 				<span class="fas fa-caret-down ml-auto"></span>
 			</div>
-		</a>
-		<c:choose>
-			<c:when test="${sessionScope.mem_stat==1 }"><!-- 판매자 -->
-				<div id='sell' class="collapse sidebar-submenu">
-					<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-						<span class="menu-collapsed">숙소 목록</span>
-					</a>
-					<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-						<span class="menu-collapsed">예약 목록</span>
-					</a>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div id='sell' class="collapse sidebar-submenu">
-					<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-						<span class="menu-collapsed">숙소 목록</span>
-					</a>
-					<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-						<span class="menu-collapsed">예약 목록</span>
-					</a>
-				</div>
-			</c:otherwise>
-		</c:choose>
-			
-			<div id='sell' class="collapse sidebar-submenu">
-				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-					<span class="menu-collapsed">숙소 목록</span>
-				</a>
-				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-					<span class="menu-collapsed">예약 목록</span>
-				</a>
-			</div>
+		</a>	
+		<div id='sell' class="collapse sidebar-submenu">
+			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+				<span class="menu-collapsed">숙소 목록</span>
+			</a>
+			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+				<span class="menu-collapsed">예약 목록</span>
+			</a>
+		</div>
 		<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
 			<small></small>
 		</li>

@@ -37,14 +37,8 @@
 										<td>${map.SELL_ADDR }</td>
 										<td>${map.SELL_TEL }</td>
 										<td>
-											<%-- <form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
-												<input type="hidden" id="mem_id1" name="mem_id1" value="${map.MEM_ID }">
-												<input type="hidden" id="localurl" value="<c:url value='/'/>">
-												<input type="submit" value="승인" <c:if test="${map.MEM_STAT<2 }">disabled="disabled"</c:if>>
-											</form> --%>
 											<button type="button"  onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerinfo?mem_id=${map.MEM_ID }'">상세보기</button>
 										</td>
-										<!-- <td><a href="<c:url value='/admin/user/sellerinfo?&mem_id=${map.MEM_ID }'/>">상세보기</a></td>-->
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -77,11 +71,11 @@
 						</ul>
 					</div>
 					<form id="form" class="form-inline d-flex justify-content-center" method="post" action="<c:url value='/admin/user/sellerlist'/>">
-						<input type="hidden" name="${map.info }">
+						<input type="hidden" name="info" value="${map.info }">
 						<select id="field" name="field" class="custom-select">
-							<option value="mem_id" <c:if test="${param.field=='mem_id' }">selected="selected"</c:if>>회사명</option>
-							<option value="mem_nickname" <c:if test="${param.field=='mem_nickname' }">selected="selected"</c:if>>아이디</option>
-							<option value="mem_email" <c:if test="${param.field=='mem_email' }">selected="selected"</c:if>>주소</option>
+							<option value="sell_company" <c:if test="${param.field=='sell_company' }">selected="selected"</c:if>>회사명</option>
+							<option value="s.mem_id" <c:if test="${param.field=='mem_id' }">selected="selected"</c:if>>아이디</option>
+							<option value="sell_addr" <c:if test="${param.field=='sell_addr' }">selected="selected"</c:if>>주소</option>
 						</select>
 							<div id="searchinput">
 								<input class="form-control mr-sm-2" value="${param.keyword }" name="keyword" type="search" placeholder="검색" aria-label="Search">
