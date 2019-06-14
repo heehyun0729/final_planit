@@ -28,6 +28,7 @@
 		<script type="text/javascript" src="<c:url value='/resources/js/plan/moment.min.js'/>"></script>
 		<script type="text/javascript" src="<c:url value='/resources/js/plan/jquery.qtip.min.js'/>"></script>
 		<script type="text/javascript" src="<c:url value='/resources/js/plan/fullcalendar.min.js'/>"></script>
+		<script type="text/javascript" src = "<c:url value = '/resources/js/plan/locale-all.js'/>"></script>
 		<title>PlanIt::관리자::</title>
 	</head>
 	<style>
