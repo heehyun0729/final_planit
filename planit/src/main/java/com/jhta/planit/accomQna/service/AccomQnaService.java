@@ -15,9 +15,9 @@ public class AccomQnaService {
 	public void setDao(AccomQnaDao dao) {
 		this.dao = dao;
 	}
-	public int insert(HashMap<String, Object>map) {
+	/*public int insert(HashMap<String, Object>map) {
 		return dao.insert(map);
-	}
+	}*/
 	public List<AccomQnaVo> list(HashMap<String, Object>map){
 		return dao.list(map);
 	}

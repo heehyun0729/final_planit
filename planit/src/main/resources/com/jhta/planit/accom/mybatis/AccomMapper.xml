@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.jhta.planit.accom.mybatis.AccomMapper">
+	<insert id="acqInsert" parameterType="hashmap">
+		insert into accomQna 
+		values(accomQna_num_seq.nextval,#{mem_id},#{accom_num},#{accomqna_title},#{accomqna_content},sysdate) 
+	</insert>
 	<insert id="insert"
 		parameterType="com.jhta.planit.accom.vo.AccomVo">
 		insert into accom

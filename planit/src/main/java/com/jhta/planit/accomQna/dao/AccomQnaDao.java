@@ -16,7 +16,7 @@ public class AccomQnaDao {
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-	public int insert(HashMap<String, Object>map) {
+	public int insertAcq(HashMap<String, Object>map) {
 		return sqlSession.insert(NAMESPACE + ".insert",map);
 	}
 	public List<AccomQnaVo> list(HashMap<String, Object>map){

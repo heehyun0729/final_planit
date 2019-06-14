@@ -13,6 +13,7 @@ import com.jhta.planit.accom.vo.AccomVo;
 public class AccomDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE="com.jhta.planit.accom.mybatis.AccomMapper";
+
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession =sqlSession;
 	}
@@ -42,5 +43,8 @@ public class AccomDao {
 	}
 	public int update(AccomVo vo) {
 		return sqlSession.update(NAMESPACE +".update",vo);
+	}
+	public int insertAcq(HashMap<String, Object>map) {
+		return sqlSession.insert(NAMESPACE + ".acqInsert",map);
 	}
 }

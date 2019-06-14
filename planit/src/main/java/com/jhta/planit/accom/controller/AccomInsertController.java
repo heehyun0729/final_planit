@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.seller.vo.SellerVo;
@@ -135,6 +137,17 @@ public class AccomInsertController {
 		JSONObject json = new JSONObject();
 		json.put("apiKey", apiKey);
 		return json.toString();
+	}
+	@RequestMapping(value="/reservation/accomDetail", method=RequestMethod.POST)
+	public String insert(String mem_id,int accom_num,String accomQna_title,String accomQna_content) {
+		ModelAndView mv=new ModelAndView("/accomQna/result");
+		HashMap<String, Object>map = new HashMap<String, Object>();
+		map.put("mem_id",mem_id);
+		map.put("accom_num",accom_num);
+		map.put("accomQna_title",accomQna_title);
+		map.put("accomQna_content",accomQna_content);
+		service.insertAcq(map);
+		return "redirect:/reservation/accomDetail?accom_num=" + accom_num;
 	}
 }
 

@@ -10,14 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.planit.accomQna.service.AccomQnaService;
 import com.jhta.planit.accomQna.vo.AccomQnaVo;
-@Controller
+/*@Controller
 public class AccomQnaController {
 	@Autowired private AccomQnaService service;
 	@RequestMapping(value="/accomQna",method=RequestMethod.GET)
 	public String insert() {
 		return ".accomQna.insertAccomQna";
 	}
-	@RequestMapping(value="/accomQna/insertAccomQna", method=RequestMethod.POST)
+	/*@RequestMapping(value="/accomQna/insertAccomQna", method=RequestMethod.POST)
 	public String insert(String mem_id,int accom_num,String accomQna_title,String accomQna_content) {
 		ModelAndView mv=new ModelAndView("/accomQna/result");
 		HashMap<String, Object>map = new HashMap<String, Object>();
@@ -34,7 +34,7 @@ public class AccomQnaController {
 		}else {
 			mv.addObject("result","fail");
 		}
-		return mv;*/
+		return mv;
 		
 	}
-}
+}*/
