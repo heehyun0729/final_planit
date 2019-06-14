@@ -13,21 +13,21 @@
 				$("#searchinput").html("<input class='form-control mr-sm-2' name='keyword' type='search' placeholder='검색' aria-label='Search'>");
 				$("#searchsubmit").prop("disabled", false);
 			}else{
-				$("#searchinput").html("<label>남성<input class='form-control mr-sm-2' value='m' name='keyword' type='radio'></label><label>여성<input class='form-control mr-sm-2' value='w' name='keyword' type='radio'></label>");
+				$("#searchinput").html("<label>남성<input class='form-control mr-sm-2' value='m' name='keyword' type='radio'></label><label>여성<input class='form-control mr-sm-2' value='f' name='keyword' type='radio'></label>");
 				$("#searchsubmit").prop("disabled", true);
 			}
 		});
 		$("#searchinput").on("click", "input:radio[name='keyword']", function(){
 			$("#searchsubmit").prop("disabled", false);
 		});
-		$("#statchangeform").submit(function(event) {
+		$(".statchangeform").submit(function(event) {
 			event.preventDefault();
 			$.ajax({
 				url : $('#localurl').val()+"admin/user/statchange",
 				type : "post",
 				data : {
-					'mem_stat': $("#mem_changestat").val(),
-					'mem_id':$("#mem_id1").val()
+					'mem_stat': $(event.target).find(".aa").prev().val(),
+					'mem_id':$(event.target).find(".aa").prev().prev().val(),
 					},
 				success : function(data) {
 					if (data >0) {
@@ -66,7 +66,12 @@
 										<td>${vo.mem_id }</td>
 										<td>${vo.mem_nickname }</td>
 										<td>${vo.mem_email }</td>
-										<td><c:choose><c:when test="${vo.mem_gender=='m' }">남성</c:when><c:otherwise>여성</c:otherwise></c:choose></td>
+										<td>
+											<c:choose>
+												<c:when test="${vo.mem_gender=='m' }">남성</c:when>
+												<c:otherwise>여성</c:otherwise>
+											</c:choose>
+										</td>
 										<td>${vo.mem_birthyear }</td>
 										<td>
 											<c:choose>
@@ -81,15 +86,15 @@
 										</td>
 										<td>${vo.mem_api }</td>
 										<td>
-											<form method="post" action="/admin/user/statchange" id="statchangeform">
-												<input type="hidden" id="mem_id1" name="mem_id1" value="${vo.mem_id }">
-												<input type="hidden" id="localurl" value="<c:url value='/'/>">
-												<select <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if> id="mem_changestat" name="mem_changestat">
+											<input type="hidden" id="localurl" value="<c:url value='/'/>">
+											<form method="post" action="<c:url value='/admin/user/statchange'/>" class="statchangeform">
+												<input type="hidden" name="mem_id1" value="${vo.mem_id }">
+												<select <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if> name="mem_changestat">
 													<option value="2" <c:if test="${vo.mem_stat==2 }">selected="selected"</c:if>>일반</option>
 													<option value="-2" <c:if test="${vo.mem_stat==-2 }">selected="selected"</c:if>>정지</option>
 													<option value="-3" <c:if test="${vo.mem_stat==-3 }">selected="selected" disabled="disabled"</c:if>>탈퇴</option>
 												</select>
-												<input type="submit" value="변경" <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if>>
+												<input type="submit" value="변경" class="aa" <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if>>
 											</form>
 										</td>
 									</tr>
@@ -135,7 +140,7 @@
 								<c:choose>
 									<c:when test="${param.field=='mem_gender' }">
 										<label class='radio-inline'>남성<input class='form-control mr-sm-2' type='radio' name="keyword" value="m" <c:if test="${param.keyword == 'm' }">checked="checked"</c:if>></label>
-										<label class='radio-inline'>여성<input class='form-control mr-sm-2' type='radio' name="keyword" value="f" <c:if test="${param.keyword == 'w' }">checked="checked"</c:if>></label>
+										<label class='radio-inline'>여성<input class='form-control mr-sm-2' type='radio' name="keyword" value="f" <c:if test="${param.keyword == 'f' }">checked="checked"</c:if>></label>
 									</c:when>
 									<c:otherwise>
 										<input class="form-control mr-sm-2" value="${param.keyword }" name="keyword" type="search" placeholder="검색" aria-label="Search">

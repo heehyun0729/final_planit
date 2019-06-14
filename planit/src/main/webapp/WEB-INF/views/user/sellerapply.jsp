@@ -302,7 +302,7 @@
 		<input type="text" id="sell_postcode" name="sell_postcode" placeholder="우편번호" readonly="readonly">
 		<input type="button" id="searchPost" value="우편번호 찾기"><br>
 		<input type="text" id="sell_addr1" placeholder="주소" readonly="readonly"><br>
-		<input type="text" id="sell_addr2" placeholder="상세주소" readonly="readonly">
+		<input type="text" id="sell_addr2" placeholder="상세주소" >
 		<input type="text" id="sell_addr3" placeholder="참고항목" readonly="readonly">
 		<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 		<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" alt="닫기 버튼">
@@ -327,7 +327,7 @@
 			<option value="062">광주(062)</option>
 			<option value="063">전북(063)</option>
 			<option value="064">제주(064)</option>
-			<option value="064">기타(070)</option>
+			<option value="070">기타(070)</option>
 			<option value="">지역번호 없음</option>
 		</select>
 		<span class="gubun">-</span><input type="text" id="sell_tel2" class="sell_tels" maxlength="4"><span class="gubun">-</span><input type="text" id="sell_tel3" class="sell_tels" maxlength="4">

@@ -68,8 +68,16 @@ public class MypageDao {
 		return sqlSession.selectOne(NAMESPACE + ".editprofileinfo", mem_id);
 	}
 	
-	public int withdrawal(String mem_id) {
-		return sqlSession.update(NAMESPACE + ".withdrawal", mem_id);
+	public int withdrawal1(String mem_id) {
+		return sqlSession.delete(NAMESPACE + ".withdrawal1", mem_id);
+	}
+	
+	public int withdrawal2(String mem_id) {
+		return sqlSession.update(NAMESPACE + ".withdrawal2", mem_id);
+	}
+	
+	public int withdrawal3(String mem_id) {
+		return sqlSession.update(NAMESPACE + ".withdrawal3", mem_id);
 	}
 
 	public MemImageVo getsavImginfo(int img_num) {

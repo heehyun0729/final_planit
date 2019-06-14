@@ -61,13 +61,13 @@ public class AdminUserController {
 		return "-admin-user-sellerinfo";
 	}
 	
-	@RequestMapping(value = "/admin/user/statchange",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/user/statchange", method = RequestMethod.POST)
 	@ResponseBody
-	public int userStatChange(int mem_stat,String mem_id) {
-		HashMap<String, Object> map=new HashMap<String, Object>();
+	public int userStatChange(int mem_stat, String mem_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("mem_id", mem_id);
 		map.put("mem_stat", mem_stat);
-		int n=membersservice.changestat(map);
+		int n = membersservice.changestat(map);
 		return n;
 	}
 	

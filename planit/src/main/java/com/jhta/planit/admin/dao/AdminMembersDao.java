@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.jhta.planit.admin.vo.AdVo;
 import com.jhta.planit.user.vo.MembersVo;
 
 @Repository
@@ -25,5 +24,9 @@ public class AdminMembersDao {
 
 	public int changestat(HashMap<String, Object> map) {
 		return sqlSession.update(NAMESPACE + ".changestat", map);
+	}
+
+	public int withdrawal(String mem_id) {
+		return sqlSession.update(NAMESPACE + ".withdrawal", mem_id);
 	}
 }
