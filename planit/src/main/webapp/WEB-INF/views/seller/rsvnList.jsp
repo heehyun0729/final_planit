@@ -3,9 +3,68 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 	$(function(){
+		var bgcolors = ['#113f67', '#34699a', '#408ab4', '#65c6c4', '#35477d', '#6c5b7b', '#c06c84', '#f67280'];
 		$("#showMsgPopup").click(function(e) {
 			e.preventDefault();
 		});
+		$.ajax({
+			  url: "<c:url value='/seller/reservation/getList'/>",
+			  dataType: "json",
+			  success: function(data) {
+				var events = [];
+				for(var i = 0 ; i < data.length ; i++){
+					var date = new Date(data[i].checkout);
+					var checkout = new Date(date.getFullYear(), date.getMonth(), date.getDate() + eval(1));
+					var formattedDate = formatDate(checkout).substr(0, 10);
+					var desc = "<b>투숙객명: </b>: " + data[i].name + "<br>" +
+							"<b>이메일</b>: " + data[i].email + "<br>" +
+							"<b>연락처</b>: " + data[i].phone + "<br>" + 
+							"<b>예약자</b>: " + data[i].id + "<br>";
+					events.push({
+						title: data[i].name + "(" + data[i].cnt + "명) / " + data[i].accom_name + "(" + data[i].room_type + " - " + data[i].room_capa + "인실)",
+						start: data[i].checkin,
+						end: formattedDate,
+						color: bgcolors[i % 8],
+						eventTextColor: 'white',
+						accom_name: data[i].accom_name + "(" + data[i].room_type + " - " + data[i].room_capa + "인실)",
+						description: desc
+					});
+				}
+				$("#rsvnCalendar").fullCalendar({
+					header: {
+						left: 'prev',
+						center: 'title',
+						right: 'next' 
+					},
+					buttonIcons: true, 
+					editable: false,
+					locale:'ko',
+					events:	{
+						events,
+						textColor: 'white'
+					},
+					height: 560,
+					contentHeight:540,
+					// tooltip
+					eventRender: function(event, element) {
+						 element.qtip({
+						      content: {
+						    	  title: event.accom_name,
+						    	  text: event.description
+						      },
+						      position: {
+						          my: 'bottom center',
+						          at: 'top center',
+						          target: element
+						      },
+						      style: {
+						          classes: 'qtip-light qtip-shadow'
+						      }
+						 });
+					}
+				});
+			}
+		  });
 	});
 	function ppp(){
 		var mem_id = $("#showMsgPopup").html();
@@ -16,11 +75,10 @@
 </script>
 <div>
 	<h1>예약 목록</h1>
-	<div>
-	
-	</div>
+	<div id="rsvnCalendar"></div>
+	<h2>전체 예약 목록</h2>
 	<a href = "<c:url value = '/accommList'/>" target = "_blank">숙소 목록</a><br>
-	<form method="post" action="<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }'/>" id = "sellRsvnForm">
+	<form method="post" action="<c:url value = '/seller/reservation/list'/>" id = "sellRsvnForm">
 		<select name = "order" onchange="javascript:sellRsvnSubmit()">
 			<option value = "num_desc"
 				<c:if test = "${order == 'num_desc' }">selected = "selected"</c:if>
@@ -126,20 +184,20 @@
 	
 	<div>
 		<c:if test="${startPage > 1 }">
-			<a href = "<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }&pageNum=${startPage - 1 }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>"><span style = "color:skyblue;">[이전]</span></a>
+			<a href = "<c:url value = '/seller/reservation/list?pageNum=${startPage - 1 }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>"><span style = "color:skyblue;">[이전]</span></a>
 		</c:if>
 		<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
 			<c:choose>
 				<c:when test="${i == pageNum }">
-					<a href = "<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }&pageNum=${i }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>"><span style = "color:skyblue;">[${i }]</span></a>
+					<a href = "<c:url value = '/seller/reservation/list?pageNum=${i }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>"><span style = "color:skyblue;">[${i }]</span></a>
 				</c:when>
 				<c:otherwise>
-					<a href = "<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }&pageNum=${i }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>"><span style = "color:gray;">[${i }]</span></a>
+					<a href = "<c:url value = '/seller/reservation/list?pageNum=${i }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>"><span style = "color:gray;">[${i }]</span></a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${endPage < pageCnt }">
-			<a href = "<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }&pageNum=${endPage + 1 }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>"><span style = "color:skyblue;">[다음]</span></a>
+			<a href = "<c:url value = '/seller/reservation/list?pageNum=${endPage + 1 }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>"><span style = "color:skyblue;">[다음]</span></a>
 		</c:if>
 	</div>
 </div>
