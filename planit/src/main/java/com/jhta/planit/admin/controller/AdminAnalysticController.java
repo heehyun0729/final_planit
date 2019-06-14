@@ -33,9 +33,13 @@ public class AdminAnalysticController {
 			chance+=list.get(a).getAdInfo_chance();
 		}
 		int adProfit=service.getTodayAdProfit(date);
-		List<AdVo> getRecent5Ad=service.getRecent5Ad();
 		map.put("chance", chance);//금일 광고율 담기
 		map.put("adProfit", adProfit);//광고 수익 담기
+		
+		int roomRate=service.getPaidRoomsRate();//방 예약율 구하기
+		map.put("roomRate", (roomRate*100));
+		int todaySellProfit=service.todaySellProfit();//금일 예약 수익 구하기
+		map.put("todaySellProfit", todaySellProfit);
 		
 		List<Object> getPlanedCountry=service.getPlanedCountry();//플래너 국가 구하기
 		ArrayList<String> countryList=new ArrayList<String>();
@@ -45,11 +49,51 @@ public class AdminAnalysticController {
 			String plandetail_country=(String)PlanedList.get("PLANDETAIL_COUNTRY");
 			countryList.add(plandetail_country);
 			BigDecimal cntValue=(BigDecimal)PlanedList.get("CNT");
-			System.out.println("@@"+cntValue);
 			cntList.add(cntValue);
 		}
-		map.put("countryList", countryList);//국가 리스트 담기
-		map.put("cntList", cntList);//국가별 횟수 담기
+		map.put("countryList", countryList);//플래너 국가 리스트 담기
+		map.put("cntList", cntList);//플래너 국가별 횟수 담기
+		
+		List<Object> getBuddyCountry=service.getBuddyCountry();//동행 국가 구하기
+		ArrayList<String> buddyCountryList=new ArrayList<String>();
+		ArrayList<BigDecimal> buddyCntList=new ArrayList<BigDecimal>();
+		for(int i=0;i<getBuddyCountry.size();i++) {
+			HashMap<String, Object> BuddyList=(HashMap<String, Object>)getBuddyCountry.get(i);
+			String buddy_country=(String)BuddyList.get("BUDDY_COUNTRY");
+			buddyCountryList.add(buddy_country);
+			BigDecimal buddyCntValue=(BigDecimal)BuddyList.get("CNT");
+			buddyCntList.add(buddyCntValue);
+		}
+		map.put("buddyCountryList", buddyCountryList);//동행 국가 리스트 담기
+		map.put("buddyCntList", buddyCntList);//동행 국가별 횟수 담기
+		
+		List<Object> getMembersGender=service.getMembersGender();//회원 성별 구하기
+		ArrayList<String> genderList=new ArrayList<String>();
+		ArrayList<BigDecimal> genderCntList=new ArrayList<BigDecimal>();
+		for(int i=0;i<getMembersGender.size();i++) {
+			HashMap<String, Object> memberList=(HashMap<String, Object>)getMembersGender.get(i);
+			String mem_gender=(String)memberList.get("MEM_GENDER");
+			genderList.add(mem_gender);
+			BigDecimal genderCntValue=(BigDecimal)memberList.get("CNT");
+			genderCntList.add(genderCntValue);
+		}
+		map.put("genderList", genderList);
+		map.put("genderCntList", genderCntList);
+		
+		List<Object> getMembersBirthYear=service.getMembersBirthYear();//회원 생일 분포 구하기
+		ArrayList<BigDecimal> birthYearList=new ArrayList<BigDecimal>();
+		ArrayList<BigDecimal> birthYearCntList=new ArrayList<BigDecimal>();
+		for(int i=0;i<getMembersBirthYear.size();i++) {
+			HashMap<String, Object> birthList=(HashMap<String, Object>)getMembersBirthYear.get(i);
+			BigDecimal mem_birthYear=(BigDecimal)birthList.get("MEM_BIRTHYEAR");
+			birthYearList.add(mem_birthYear);
+			BigDecimal mem_birthYearCnt=(BigDecimal)birthList.get("CNT");
+			birthYearCntList.add(mem_birthYearCnt);
+		}
+		map.put("birthYearList", birthYearList);
+		map.put("birthYearCntList", birthYearCntList);
+		
+		
 		
 		model.addAttribute("map", map);
 		return "-admin-adminBody-adminAnalytics";

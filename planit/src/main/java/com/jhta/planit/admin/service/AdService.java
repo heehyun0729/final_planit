@@ -17,6 +17,8 @@ import com.jhta.planit.admin.dao.AnalyticsDao;
 import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
+import com.jhta.planit.reservation.vo.RsvnPayVo;
+import com.jhta.planit.reservation.vo.RsvnVo;
 
 @Service
 public class AdService {
@@ -204,13 +206,45 @@ public class AdService {
 	public int getDayAdProfit(String adInfo_date) {//특정일 광고 총 수익 받기
 		return adInfoDao.getDayAdProfit(adInfo_date);
 	}
+	public int getDaySellProfit(String rsvnPay_date) {//특정일 예약 총 수익 받기
+		return analyticsDao.getDaySellProfit(rsvnPay_date);
+	}
 	public List<AdVo> getRecent5Ad(){//최근 5번 광고 거래 내역
 		return adDao.getRecent5Ad();
 	}
 	public int getTodayAdProfit(String ad_requestDate) {//금일 광고 수익
 		return adDao.getTodayAdProfit(ad_requestDate);
 	}
-	public List<Object> getPlanedCountry(){//플래너 국가들 받아오기
+	public List<Object> getPlanedCountry(){//플래너 국가 순위 차트
 		return analyticsDao.getPlanedCountry();
+	}
+	public List<Object> getBuddyCountry(){//동행 국가 순위 차트
+		return analyticsDao.getBuddyCountry();
+	}
+	public List<Object> getMembersGender(){//회원 성별 차트
+		return analyticsDao.getMembersGender();
+	}
+	public List<Object> getMembersBirthYear(){//회원 생일 분포 차트
+		return analyticsDao.getMembersBirthYear();
+	}
+	public int getPaidRoomsRate() {//방 예약율 구하기
+		int tot=analyticsDao.getRooms();
+		int paid=analyticsDao.getPaidRooms();
+		try {
+			int rate=paid/tot;
+			return rate;
+		}catch(ArithmeticException ae) {
+			int rate=0;
+			return rate;
+		}		
+	}
+	public int todaySellProfit() {//금일 예약 수익 구하기
+		return analyticsDao.todaySellProfit();
+	}
+	public List<RsvnPayVo> getRecent5Sell(){//최근 5건 예약 거래 내역 구하기
+		return analyticsDao.getRecent5Sell();
+	}
+	public RsvnVo getRsvnInfo(int rsvn_num) {
+		return analyticsDao.getRsvnInfo(rsvn_num);
 	}
 }
