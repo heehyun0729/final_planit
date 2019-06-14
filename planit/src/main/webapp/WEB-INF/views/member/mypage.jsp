@@ -41,7 +41,7 @@
 	<c:if test="${mem_tf }">
 		<div id="mypage_menu">
 			<ul>
-				<li><a href="<c:url value='/member/mypage/${mem_id }/travel'/>">다녀온 여행지</a></li>
+				<li><a href="<c:url value='/member/mypage/${mem_id }/plan/list'/>">플래너</a></li>
 				<li><a href="<c:url value='/member/mypage/${mem_id }/postslist'/>">글목록</a></li>
 				<li><a href="<c:url value='/member/mypage/${mem_id }/comments'/>">댓글 모음</a></li>
 				<li><a href="<c:url value='/member/mypage/${mem_id }/reservation/list'/>">예약목록</a></li>

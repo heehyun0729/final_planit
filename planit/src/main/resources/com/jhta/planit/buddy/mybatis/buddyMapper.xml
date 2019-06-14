@@ -12,6 +12,7 @@
 		<result property="buddy_gender" column="buddy_gender"/>
 		<result property="buddy_birthyear" column="buddy_birthyear"/>
 		<result property="buddy_msg" column="buddy_msg"/>
+		<result property="apply_state" column="apply_state"/>
 		<collection property="buddy_city" ofType="String">
 			<result property="buddy_city" column="buddy_city"/>
 		</collection>
@@ -239,11 +240,47 @@
 		insert into buddy_apply values(buddyApply_seq.nextval,#{buddy_num},#{mem_id},0)
 	</insert>
 	
-	<!-- 동행 요청 확인 -->
+	<!-- 동행 요청 대기 -->
 	<select id="buddy_applyList" resultType="com.jhta.planit.buddy.vo.BuddyApplyVo" parameterType="String">
-		select a.MEM_ID MEM_ID, a.APPLY_STATE APPLY_STATE
+		select a.apply_num, a.buddy_num, a.MEM_ID MEM_ID, a.APPLY_STATE APPLY_STATE
 		from buddy b,buddy_country c,buddy_city t, buddy_apply a
 		where b.buddy_num=c.buddy_num and c.buddy_num=a.buddy_num and c.country_num=t.country_num and
-		b.buddy_state=0 and a.apply_state=0 and b.mem_id=#{mem_id}
+		b.buddy_state=0 and b.mem_id=#{mem_id}
+	</select>
+	
+	<!-- 동행 요청 수락 -->
+	<update id="apply_accept" parameterType="String">
+		update buddy_apply set apply_state=1
+		where apply_num=#{apply_num}
+	</update>
+	<!-- 동행 요청 거절 -->
+	<update id="apply_refuse" parameterType="String">
+		update buddy_apply set apply_state=2
+		where apply_num=#{apply_num}
+	</update>
+	
+	<!-- 동행 요청 확인 -->
+	<select id="apply_ck" resultMap="buddylistvo" parameterType="String">
+		select b.BUDDY_NUM BUDDY_NUM,
+		b.MEM_ID MEM_ID,
+		b.BUDDY_GENDER BUDDY_GENDER,
+		b.BUDDY_BIRTHYEAR BUDDY_BIRTHYEAR,
+		TO_CHAR(b.buddy_indate, 'YYYY-MM-DD') buddy_indate,
+		TO_CHAR(b.buddy_outdate, 'YYYY-MM-DD') buddy_outdate,
+		b.BUDDY_MSG BUDDY_MSG,
+		t.BUDDY_CITY BUDDY_CITY,
+		a.APPLY_STATE APPLY_STATE
+		from buddy b,buddy_country c,buddy_city t, buddy_apply a
+		where b.buddy_num=c.buddy_num and c.buddy_num=a.buddy_num and c.country_num=t.country_num and
+		b.buddy_state=0 and a.mem_id=#{mem_id}
+	</select>
+	
+	<!-- 내 동행 확인 -->
+	<select id="mybuddy_ck" resultType="com.jhta.planit.buddy.vo.BuddyVo" parameterType="String">
+		select b.BUDDY_NUM BUDDY_NUM,
+		a.MEM_ID MEM_ID
+		from buddy b,buddy_country c,buddy_city t, buddy_apply a
+		where b.buddy_num=c.buddy_num and c.buddy_num=a.buddy_num and c.country_num=t.country_num and
+		b.buddy_state=0 and a.apply_state=1 and b.mem_id=#{mem_id}
 	</select>
 </mapper>

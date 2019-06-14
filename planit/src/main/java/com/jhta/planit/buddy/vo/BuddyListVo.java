@@ -11,13 +11,14 @@ public class BuddyListVo {
 	private String buddy_birthyear;
 	private String buddy_msg;
 	private List<String> buddy_city;
+	private String apply_state;
 	
 	public BuddyListVo() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public BuddyListVo(String buddy_num, String mem_id, String buddy_indate, String buddy_outdate, String buddy_gender,
-			String buddy_birthyear, String buddy_msg, List<String> buddy_city) {
+			String buddy_birthyear, String buddy_msg, List<String> buddy_city, String apply_state) {
 		super();
 		this.buddy_num = buddy_num;
 		this.mem_id = mem_id;
@@ -27,6 +28,7 @@ public class BuddyListVo {
 		this.buddy_birthyear = buddy_birthyear;
 		this.buddy_msg = buddy_msg;
 		this.buddy_city = buddy_city;
+		this.apply_state = apply_state;
 	}
 
 	public String getBuddy_num() {
@@ -93,12 +95,11 @@ public class BuddyListVo {
 		this.buddy_city = buddy_city;
 	}
 
-	@Override
-	public String toString() {
-		return "BuddyListVo [buddy_num=" + buddy_num + ", mem_id=" + mem_id + ", buddy_indate=" + buddy_indate
-				+ ", buddy_outdate=" + buddy_outdate + ", buddy_gender=" + buddy_gender + ", buddy_birthyear="
-				+ buddy_birthyear + ", buddy_msg=" + buddy_msg + ", buddy_city=" + buddy_city + "]";
+	public String getApply_state() {
+		return apply_state;
 	}
-	
-	
+
+	public void setApply_state(String apply_state) {
+		this.apply_state = apply_state;
+	}
 }
