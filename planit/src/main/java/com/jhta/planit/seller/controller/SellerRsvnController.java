@@ -101,6 +101,6 @@ public class SellerRsvnController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
-		return ".seller.rsvnList";
+		return "-admin-seller-rsvnList";
 	}
 }

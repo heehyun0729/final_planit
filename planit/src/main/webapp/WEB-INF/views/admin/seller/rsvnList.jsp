@@ -72,6 +72,16 @@
 		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
 			window.open(popUrl,"쪽지보내기",popOption);
 	}
+	function formatDate(date) {
+		var y = date.getFullYear();
+		var m = date.getMonth() + 1;
+		m = m >= 10 ? m : "0" + m;
+		var d = date.getDate();
+		d = d >= 10 ? d : "0" + d;
+		var week = ["일", "월", "화", "수", "목", "금", "토"];
+		var day = week[date.getDay()];
+		return y + "-" + m + "-" + d + "(" + day + ")";
+	}
 </script>
 <div>
 	<h1>예약 목록</h1>

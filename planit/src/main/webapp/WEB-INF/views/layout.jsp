@@ -39,7 +39,6 @@
 <script type="text/javascript" src = "<c:url value = '/resources/js/qna/insert.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/qna/update.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/members/myRsvn.js'/>"></script>
-<script type="text/javascript" src = "<c:url value = '/resources/js/seller/sellRsvn.js'/>"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 </head>
