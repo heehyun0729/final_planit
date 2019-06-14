@@ -7,6 +7,23 @@
 	
 </style>
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#sellerapproval").submit(function(event) {
+		event.preventDefault();
+		$.ajax({
+			url : $('#localurl').val()+"admin/user/sellerapproval",
+			type : "post",
+			data : {'mem_id':$("#mem_id1").val()},
+			success : function(data) {
+				if (data >0) {
+					alert("변경성공!");
+				} else {
+					alert("변경실패!");
+				}
+			}
+		});
+	});
+});
 </script>
 <div>
 <header>
@@ -16,57 +33,72 @@
 		<div class="container">
 			<div class="row ">
 				<div class="col mt-5 text-center">
-					<ul class="nav nav-pills">
-						<li class="nav-item"><a class="nav-link ${map.info == 'list' ? 'active': ''}" href="<c:url value='/admin/user/sellerlist?info=list'/>" class="ui-tabs-anchor">판매자회원목록</a></li>
-						<li class="nav-item"><a class="nav-link ${map.info == 'approval' ? 'active': ''}" href="<c:url value='/admin/user/sellerlist?info=approval'/>" class="ui-tabs-anchor">판매자승인대기목록</a></li>
-					</ul>
 					<table class="table table-hover ">
-						<thead>
-						<tr>
-							<th scope="col">회사명</th>
-						</tr>
-						<tr>
-							<th scope="col">아이디</th>
-						</tr>
-						<tr>
-							<th scope="col">주소</th>
-						</tr>
-						<tr>
-							<th scope="col">전화번호</th>
-						</tr>
-						</thead>
-						<tbody>
-						<c:choose>
-							<c:when test="${getList[0]!=null }">
-								<c:forEach var="map" items="${getList }">
-									<tr>
-										<td>${map.SELL_COMPANY }</td>
-										<td>${map.MEM_ID }</td>
-										<td>${map.SELL_ADDR }</td>
-										<td>${map.SELL_TEL }</td>
-										<td><a href="<c:url value='/admin/user/sellerinfo?mem_id=${map.MEM_ID }'/>">상세보기</a></td>
-										<!-- <td>
-											<form method="post" action="/admin/user/statchange" id="statchangeform">
-												<input type="hidden" id="mem_id1" name="mem_id1" value="${vo.mem_id }">
+							<tr>
+								<th scope="col">회사명</th>
+								<td>${map.SELL_COMPANY }</td>
+							</tr>
+							<tr>
+								<th scope="col">아이디</th>
+								<td>${map.MEM_ID }</td>
+							</tr>
+							<tr>
+								<th scope="col">주소</th>
+								<td>
+									우편번호 : ${map.SELL_POSTCODE }<br>
+									주소 : ${map.SELL_ADDR }
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">전화번호</th>
+								<td>${map.SELL_TEL }</td>
+							</tr>
+							<tr>
+								<th>승인</th>
+								<td>
+									<c:choose>
+										<c:when test="${map.MEM_STAT<2 }">
+											승인됨
+										</c:when>
+										<c:otherwise>
+											<form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
+												<input type="hidden" id="mem_id1" name="mem_id1" value="${map.MEM_ID }">
 												<input type="hidden" id="localurl" value="<c:url value='/'/>">
-												<select <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if> id="mem_changestat" name="mem_changestat">
-													<option value="2" <c:if test="${vo.mem_stat==2 }">selected="selected"</c:if>>일반</option>
-													<option value="-2" <c:if test="${vo.mem_stat==-2 }">selected="selected"</c:if>>정지</option>
-													<option value="-3" <c:if test="${vo.mem_stat==-3 }">selected="selected" disabled="disabled"</c:if>>탈퇴</option>
-												</select>
-												<input type="submit" value="변경" <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if>>
+												<input type="submit" value="승인">
+											</form>
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+									<%--<tr>
+										<td>${map.SELL_COMPANY }</td>
+									</tr>
+									<tr>
+								<td>${map.MEM_ID }</td>
+									</tr>
+									<tr>
+								<td>${map.SELL_ADDR }</td>
+									</tr>
+									<tr>
+								<td>${map.SELL_TEL }</td>
+									</tr>
+									<tr>
+										<td><a href="<c:url value='/admin/user/sellerinfo?mem_id=${map.MEM_ID }'/>">상세보기</a></td>
+									</tr>
+										<!-- <td>
+											<form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
+												<input type="hidden" id="mem_id1" name="mem_id1" value="${map.MEM_ID }">
+												<input type="hidden" id="localurl" value="<c:url value='/'/>">
+												<input type="submit" value="승인" <c:if test="${map.MEM_STAT<2 }">disabled="disabled"</c:if>>
 											</form>
 										</td>-->
 									</tr>
 								</c:forEach>
-							</c:when>
 							<c:otherwise>
 								<tr>
 									<td scope="row" colspan="8">해당 요청이 없습니다.</td>
 								</tr>
-							</c:otherwise>
-						</c:choose>
-						</tbody>
+							</c:otherwise> --%>
 					</table>
 					<div class="d-flex justify-content-center">
 						<ul class="pagination">

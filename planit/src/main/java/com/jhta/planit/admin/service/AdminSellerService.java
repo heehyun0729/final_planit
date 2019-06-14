@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.planit.admin.dao.AdminUserSellerDao;
-import com.jhta.planit.user.dao.UserSellerDao;
-import com.jhta.planit.user.vo.SellerVo;
 
 @Service
 public class AdminSellerService {

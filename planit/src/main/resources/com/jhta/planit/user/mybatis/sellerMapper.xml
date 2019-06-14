@@ -35,7 +35,7 @@
 		) 
 		<![CDATA[where rnum>=1 and rnum<=10]]>
 	</select>
-	<select id="getSellerInfo">
+	<select id="getSellerInfo" resultType="hashmap" parameterType="string">
 		select m.mem_id,m.mem_stat,s.sell_num,s.sell_company,s.sell_postcode,s.sell_addr,s.sell_tel 
 		from members m,seller s where m.mem_id=s.mem_id and m.mem_id=#{mem_id}
 	</select>

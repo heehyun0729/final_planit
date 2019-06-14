@@ -130,7 +130,9 @@ public class MembersService {
 
 		if (bCryptPasswordEncoder.matches(map.get("mem_pwd"), vo.getMem_pwd())) {
 			n = dao.withdrawal(map.get("mem_id"));
-			//n = n + mdao.withdrawal(map.get("mem_id"));
+			n = n + mdao.withdrawal1(map.get("mem_id"));
+			n = n + mdao.withdrawal2(map.get("mem_id"));
+			n = n + mdao.withdrawal3(map.get("mem_id"));
 		} else {
 			n = -10;
 		}
