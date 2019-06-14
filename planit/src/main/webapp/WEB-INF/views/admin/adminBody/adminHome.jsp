@@ -54,7 +54,14 @@
 					center: {
 						text: '${map.chance}%'
 					}
-				}
+				},
+		    	plugins:{
+		    		labels: [
+		    		    {
+		    		      render: 'label'
+		    		    }
+		    		  ]
+		    	}
 		    }
 		});
 		
@@ -77,16 +84,21 @@
 			days.push(date);
 		}
 		var adProfit=[];
-		var sellProfit=[50000,70000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+		var sellProfit=[];
 		var totalProfit=[];
 		$.getJSON("<c:url value='/admin/adminAdManagement/getDayAdProfit'/>", {stringDays:days.toString()}, function(data) {
 			if(data!=null){
-				for(var i=0;i<data.length;i++){
+				for(var i=0;i<(data.length/2);i++){//광고수익
 					var dayAdProfit=data[i].adProfit;
-					var daySellProfit=sellProfit[i];
 					adProfit.push(dayAdProfit);
-					totalProfit.push(dayAdProfit+daySellProfit);
-				}				
+				}
+				for(var i=(data.length/2);i<data.length;i++){//예약수익
+					var daySellProfit=data[i].sellProfit;
+					sellProfit.push(daySellProfit);
+				}
+				for(var i=0;i<data.length;i++){//총수익
+					totalProfit.push(adProfit[i]+sellProfit[i]);
+				}			
 				
 				var monthProfitChart = new Chart(ctx1, {
 				    type: 'line',
@@ -160,7 +172,7 @@
 				<h4 class="card-header">금일 수익</h4>
 				<div class="card-body">
 					<img src="<c:url value='/resources/adminImages/won.png'/>" width="100" height="100"><br>
-					<span><fmt:formatNumber value="${map.adProfit }" pattern="#,###" />&#8361;</span>
+					<span><fmt:formatNumber value="${map.adProfit+map.todaySellProfit }" pattern="#,###" />&#8361;</span>
 				</div>
 			</div>
 			<div class="card h-100 w-100">
@@ -175,7 +187,7 @@
 	</div>
 	<div class="row mt-5">
 		<div class="col d-flex justify-content-start align-items-center text-center">
-			<div class="card w-100 mr-5">
+			<div class="card w-100 h-100 mr-5">
 				<h4 class="card-header text-left">최근 광고 거래</h4>
 				<div class="card-body">
 					<div class="container">
@@ -236,8 +248,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="card w-100">
-				<h4 class="card-header text-left">최근 예약 거래(개발)</h4>
+			<div class="card w-100 h-100">
+				<h4 class="card-header text-left">최근 예약 거래</h4>
 				<div class="card-body">
 					<div class="container">
 						<div class="row ">
@@ -250,13 +262,27 @@
 									</thead>
 									<tbody>
 									<c:choose>
-										<c:when test="${getAdList[0]!=null }">
-											<c:forEach var="vo" items="${getAdList }">
+										<c:when test="${map.getRecent5Sell[0]!=null }">
+											<c:forEach var="vo" items="${map.getRecent5Sell}" varStatus="status">
 												<tr>
-													<td scope="row">${vo.ad_num }</td>
-													<td>${vo.mem_id }</td>
-													<td><fmt:formatNumber value="${vo.ad_price}" pattern="#,###" /></td>
-													<td></td>
+													<td scope="row">${vo.rsvnPay_id }</td>
+													<c:forEach var="getId" begin="${status.index }" end="${status.index }" items="${map.getRecent5SellId }">
+														<td>${getId}</td>
+													</c:forEach>
+													<td><fmt:formatNumber value="${vo.rsvnPay_total }" pattern="#,###" /></td>
+													<td>
+														<c:choose>
+															<c:when test="${vo.rsvnPay_stat=='0' }">
+																<div class="badge badge-success">예약됨</div><br>
+															</c:when>
+															<c:when test="${vo.rsvnPay_stat=='1' }">
+																<div class="badge badge-dark">환불됨</div><br>
+															</c:when>
+															<c:otherwise>
+																<div>X</div><br>
+															</c:otherwise>
+														</c:choose>	
+													</td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -265,7 +291,7 @@
 												<td scope="row" colspan="4">최근 거래 내역이 없습니다.</td>
 											</tr>
 										</c:otherwise>
-									</c:choose>		
+									</c:choose>
 									</tbody>				
 								</table>
 							</div>

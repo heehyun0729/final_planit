@@ -43,6 +43,30 @@ public class AccomListController {
 		mv.addObject("keyword",keyword);
 		return mv;
 	}
+	
+	@RequestMapping("/admin/accommList")
+	public ModelAndView list1(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
+			String field,String keyword,HttpSession session) {
+		HashMap<String,Object> map=new HashMap<String, Object>();
+		map.put("field",field);
+		map.put("keyword",keyword);
+		map.put("mem_id",session.getAttribute("mem_id"));
+		SellerVo vo1 = service.find((String)map.get("mem_id"));
+		int sell_num=vo1.getSell_num();
+		map.put("sell_num", sell_num);
+		//전체 글의갯수
+		int totalRowCount=service.count(map);
+		PageUtil pu=new PageUtil(pageNum,totalRowCount,10, 10);
+		map.put("startRow",pu.getStartRow());
+		map.put("endRow",pu.getEndRow());
+		List<AccomVo> list=service.list1(map);
+		ModelAndView mv=new ModelAndView("-accom-admin_accomList");
+		mv.addObject("list",list);
+		mv.addObject("pu",pu);
+		mv.addObject("field",field);
+		mv.addObject("keyword",keyword);
+		return mv;
+	}
 }
 
 

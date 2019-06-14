@@ -35,6 +35,8 @@ import com.jhta.planit.admin.service.AdService;
 import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
+import com.jhta.planit.reservation.vo.RsvnPayVo;
+import com.jhta.planit.reservation.vo.RsvnVo;
 import com.jhta.util.PageUtil;
 
 @Controller
@@ -135,10 +137,20 @@ public class AdController {
 			chance+=list.get(a).getAdInfo_chance();
 		}
 		int adProfit=service.getTodayAdProfit(date);
-		List<AdVo> getRecent5Ad=service.getRecent5Ad();
+		List<AdVo> getRecent5Ad=service.getRecent5Ad();//최근 5개 광고 거래내역 구하기
+		List<RsvnPayVo> getRecent5Sell=service.getRecent5Sell();//최근 5개 예약 거래내역 구하기
+		ArrayList<String> getRecent5SellId=new ArrayList<String>();
+		for(int i=0;i<getRecent5Sell.size();i++) {
+			String mem_id=service.getRsvnInfo(getRecent5Sell.get(i).getRsvn_num()).getMem_id();
+			getRecent5SellId.add(mem_id);
+		}
+		int todaySellProfit=service.todaySellProfit();//금일 예약 수익 구하기
+		map.put("todaySellProfit", todaySellProfit);
 		map.put("chance", chance);//금일 광고율 담기
 		map.put("adProfit", adProfit);//광고 수익 담기
-		map.put("getRecent5Ad", getRecent5Ad);//최근 5개 광고 거래내역 담기
+		map.put("getRecent5Ad", getRecent5Ad);
+		map.put("getRecent5Sell", getRecent5Sell);
+		map.put("getRecent5SellId", getRecent5SellId);
 		
 		model.addAttribute("map", map);
 		return "-admin-adminBody-adminHome";
@@ -470,6 +482,11 @@ public class AdController {
 		for(int i=0;i<days.length;i++) {
 			JSONObject jsonObject=new JSONObject();
 			jsonObject.put("adProfit", service.getDayAdProfit(days[i]));
+			jsonArray.put(jsonObject);
+		}
+		for(int i=0;i<days.length;i++) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("sellProfit", service.getDaySellProfit(days[i]));
 			jsonArray.put(jsonObject);
 		}
 		return jsonArray.toString();

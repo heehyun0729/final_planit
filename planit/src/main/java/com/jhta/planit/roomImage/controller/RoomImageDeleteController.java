@@ -28,4 +28,14 @@ public class RoomImageDeleteController {
 			return "result";
 		}
 	}
+	@RequestMapping("/admin/roomImageDelete")
+	public String delete1(@RequestParam(value="accom_num", required=true) int accom_num, @RequestParam(value="roomImg_num", required=true) int roomImg_num, Model model) {
+		int n =service.updateImgCheck(roomImg_num);
+		if(n>0) {
+			return "redirect:/admin/roomList?accom_num="+accom_num;
+		}else {
+			model.addAttribute("result","fail");
+			return "result";
+		}
+	}
 }

@@ -6,4 +6,37 @@
 	<select id="getPlanedCountry" resultType="hashmap">
 		select plandetail_country, count(plandetail_country) as cnt from plandetail group by plandetail_country
 	</select>
+	<select id="getBuddyCountry" resultType="hashmap">
+		select buddy_country, count(buddy_country) as cnt from buddy_country group by buddy_country
+	</select>
+	<select id="getMembersGender" resultType="hashmap">
+		select mem_gender, count(mem_gender) as cnt from members group by mem_gender
+	</select>
+	<select id="getMembersBirthYear" resultType="hashmap">
+		select mem_birthYear, count(mem_birthYear) as cnt from members group by mem_birthYear
+	</select>
+	<select id="getRooms" resultType="int">
+		select count(room_num) as cnt from room where roomChk=0
+	</select>
+	<select id="getPaidRooms" resultType="int">
+		select count(rsvnPay_id) as cnt from rsvnPay where rsvnPay_stat=0
+	</select>
+	<select id="todaySellProfit" resultType="int">
+		select NVL(sum(rsvnPay_total), 0) from rsvnPay where to_char(rsvnPay_date, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd') and rsvnPay_stat=0
+	</select>
+	<select id="getDaySellProfit" parameterType="String" resultType="int">
+		select NVL(sum(rsvnPay_total), 0) from rsvnPay where rsvnPay_date=#{rsvnPay_date} and rsvnPay_stat=0
+	</select>
+	<select id="getRecent5Sell" resultType="com.jhta.planit.reservation.vo.RsvnPayVo">
+		select * from (select aa.*, rownum rnum from(select * from rsvnPay order by rsvnpay_date desc)aa) where <![CDATA[rnum<6]]>
+	</select>
+	<select id="getRsvnInfo" parameterType="int" resultType="com.jhta.planit.reservation.vo.RsvnVo">
+		select * from rsvn where rsvn_num=#{rsvn_num}
+	</select>
+	<select id="getDayAdHit" parameterType="String" resultType="int">
+		select NVL(sum(adInfo_hit), 0) from adInfo where adInfo_date=#{adInfo_date}
+	</select>
+	<select id="getDayAdClick" parameterType="String" resultType="int">
+		select NVL(sum(adInfo_click), 0) from adInfo where adInfo_date=#{adInfo_date}
+	</select>
 </mapper>

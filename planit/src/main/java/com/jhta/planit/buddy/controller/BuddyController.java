@@ -33,7 +33,7 @@ public class BuddyController {
 		
 		//세션에서 아이디 얻어오기
 		String mem_id=(String)session.getAttribute("mem_id");
-		
+		System.out.println("/////////////////////////////////mem_id : "+mem_id);
 		//날짜 지난 게시물 자동 업뎃
 		service.updateState();
 		
@@ -65,6 +65,7 @@ public class BuddyController {
 		PageUtil pu=new PageUtil(pageNum,totalRowCount,5,5);
 		find_map.put("startRow",pu.getStartRow());
 		find_map.put("endRow", pu.getEndRow());
+		find_map.put("mem_id", mem_id);
 		List<BuddyListVo> buddyList=service.showAll(find_map);
 		
 		//동행추천
@@ -116,46 +117,67 @@ public class BuddyController {
 		return "redirect:/buddyList";
 	}
 	
-	//동행추천 팝업
+	//동행추천
 	@RequestMapping(value="/buddySg", method=RequestMethod.GET)
 	public ModelAndView popBuddySg(String buddy_num) {
 		ModelAndView mv=new ModelAndView("/buddy/buddySg");
 		List<BuddyListVo> list = new ArrayList<BuddyListVo>();
-		System.out.println("/////////////////////////////"+buddy_num);
+		
 		String idList[]=buddy_num.split(",");
 		for(int i=0;i<idList.length;i++) {
-			BuddyListVo blv=service.detail(idList[i]);
-			list.add(blv);
+		BuddyListVo blv=service.detail(idList[i]);
+		list.add(blv);
 		}
+		mv.addObject("buddy_num",buddy_num);
 		mv.addObject("list",list);
 		return mv;
 	}
+	
 	//마이페이지 - 버디
 	@RequestMapping(value="/buddyMg", method=RequestMethod.GET)
 	public ModelAndView buddyManager(HttpSession session) {
 		//모델앤뷰 생성
 		ModelAndView mv=new ModelAndView(".buddy.buddyMg");
-		
+
 		//날짜 지난 게시물 자동 업뎃
 		service.updateState();
-		
+
 		//세션에서 아이디 얻어오기
 		String mem_id=(String)session.getAttribute("mem_id");
 		
 		//리스트 뽑기
 		List<BuddyListVo> buddyList=service.showMgList(mem_id);
 		List<BuddyApplyVo> applyList=service.buddy_applyList(mem_id);
+		List<BuddyListVo> applyCk=service.apply_ck(mem_id);
+		List<BuddyVo> mybuddy=service.mybuddy_ck(mem_id);
 		
+		mv.addObject("mybuddy",mybuddy);
+		mv.addObject("applyCk",applyCk);
 		mv.addObject("applyList",applyList);
 		mv.addObject("buddyList",buddyList);
 		return mv;
 	}
+	
 	//글 삭제
 	@RequestMapping("/buddyDelete")
 	public String delete(String buddy_num) {
 		service.delete_buddy(buddy_num);
 		return "redirect:/buddyMg";
 	}
+	
+	//동행 요청 취소
+	@RequestMapping("/applyCancle")
+	public String cancle(String buddy_num,HttpSession session) {
+		//세션에서 아이디 얻어오기
+		String mem_id=(String)session.getAttribute("mem_id");
+		HashMap<String, String>find_apply=new HashMap<String, String>();
+		find_apply.put("mem_id", mem_id);
+		find_apply.put("buddy_num", buddy_num);
+		service.cancle_apply(find_apply);
+		return "redirect:/buddyMg";
+	}
+	
+	//동행 요청
 	@RequestMapping("/buddyApplyBuddy")
 	public String apply_buddy(String buddy_num,HttpSession session) {
 		//세션에서 아이디 얻어오기
@@ -165,5 +187,30 @@ public class BuddyController {
 		map.put("mem_id", mem_id);
 		service.apply_buddy(map);
 		return "redirect:/buddyList";
-	}	
+	}
+	@RequestMapping("/buddyApplyBuddy_pop")
+	public String apply_buddy_pop(String buddy_num,String buddy_num1,HttpSession session) {
+		//세션에서 아이디 얻어오기
+		String mem_id=(String)session.getAttribute("mem_id");
+		HashMap<String, String>map = new HashMap<String, String>();
+		map.put("buddy_num", buddy_num);
+		map.put("mem_id", mem_id);
+		service.apply_buddy(map);
+		return "redirect:/buddySg";
+	}
+	//동행 요청 수락
+	@RequestMapping("/buddyAccept")
+	public String buddyAccept(String apply_num,HttpSession session) {
+		//세션에서 아이디 얻어오기
+		service.apply_accept(apply_num);
+		return "redirect:/buddyMg";
+	}
+	//동행 요청 거절
+	@RequestMapping("/buddyRefuse")
+	public String buddyRefuse(String apply_num,HttpSession session) {
+		//세션에서 아이디 얻어오기
+		System.out.println("///////////////////////////////////apply_num : "+apply_num);
+		service.apply_refuse(apply_num);
+		return "redirect:/buddyMg";
+	}
 }

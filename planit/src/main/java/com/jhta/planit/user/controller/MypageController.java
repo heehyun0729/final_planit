@@ -22,6 +22,8 @@ import com.jhta.planit.admin.service.AdService;
 import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
+import com.jhta.planit.plan.service.PlanService;
+import com.jhta.planit.plan.vo.PlanVo;
 import com.jhta.planit.reservation.service.RsvnPayService;
 import com.jhta.planit.reservation.service.RsvnService;
 import com.jhta.planit.reservation.vo.MyRsvnVo;
@@ -36,6 +38,37 @@ public class MypageController {
 	@Autowired private AdService adService;
 	@Autowired private RsvnService rsvnService;
 	@Autowired private RsvnPayService rsvnPayService;
+	@Autowired private PlanService planService;
+	
+	@RequestMapping("/member/mypage/{mem_id}/plan/list")
+	public String myPlanList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
+			String field, String keyword, Model model) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		int cnt = planService.count(map);
+		
+		PageUtil pu = new PageUtil(pageNum, cnt, 8, 5);
+		int startRow = pu.getStartRow();
+		int endRow = pu.getEndRow();
+		int pageCnt = pu.getTotalPageCount();
+		int startPage = pu.getStartPageNum();
+		int endPage = pu.getEndPageNum();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		
+		List<PlanVo> list = planService.list(map);
+		model.addAttribute("list", list);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("startRow", startRow);
+		model.addAttribute("endRow", endRow);
+		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("field", field);
+		model.addAttribute("keyword", keyword);
+		return ".member.plan.myPlanList";
+	}
 	
 	@RequestMapping(value = "/member/mypage/reservation/detail", produces = "application/json;charset=utf8")
 	@ResponseBody

@@ -6,7 +6,7 @@
 </h1>
 <table>
 	<tr>
-		<th>아이디</th><th>시작날짜</th><th>끝날짜</th><th>희망성별</th><th>희망나이</th><th>도시</th><th>쪽지하기</th>
+		<th>아이디</th><th>시작날짜</th><th>끝날짜</th><th>희망성별</th><th>희망나이</th><th>도시</th><th>쪽지하기</th><th>동행요청</th>
 	</tr>
 	<c:forEach var="list" items="${list}">
 		<tr>
@@ -34,6 +34,19 @@
 			</c:choose>
 			<th>${list.buddy_city }</th>
 			<th><a href="<c:url value='/msgSendPopupForm?id=${list.mem_id }'/>">쪽지하기</a></th>
+			<td><input type="button" value="동행요청하기" onclick="apply_buddy('${list.buddy_num}')"></td>
 		</tr>
 	</c:forEach>
 </table>
+<script type="text/javascript">
+//동행요청
+function apply_buddy(buddy_num){
+	var result = confirm('동행을 요청하시겠습니까?');
+	if(result) {
+		alert("신청되었습니다.");
+		window.location.href="<c:url value='/buddyApplyBuddy_pop?buddy_num="+buddy_num+"' />";
+	}else{
+		
+	}
+}
+</script>

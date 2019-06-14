@@ -28,6 +28,10 @@ public class RoomInsertController {
 	public String roomInsert() {
 		return ".room.roomInsert";
 	}
+	@RequestMapping(value="/admin/roomInsert",method = RequestMethod.GET)
+	public String roomInsert1() {
+		return "-room-admin_roomInsert";
+	}
 	
 	@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
 	 public String roomInsert(@RequestParam(value="accom_num", required=true) int accom_num,RoomVo vo, MultipartFile file1, HttpSession session  ) {
@@ -73,5 +77,50 @@ public class RoomInsertController {
 		service.insertRoomImage(vo);
 		
 		return "redirect:/roomList?accom_num="+accom_num;
+	}
+	
+	@RequestMapping(value="/admin/roomInsert",method=RequestMethod.POST)
+	 public String roomInsert1(@RequestParam(value="accom_num", required=true) int accom_num,RoomVo vo, MultipartFile file1, HttpSession session  ) {
+		String path=session.getServletContext().getRealPath("/resources/uploadRoom");
+		String roomImg_orgImg=file1.getOriginalFilename();		
+		String roomImg_saveImg=UUID.randomUUID() + "_" + roomImg_orgImg;
+		try {
+			InputStream in=file1.getInputStream();
+			FileOutputStream out=new FileOutputStream(path + "/" + roomImg_saveImg);
+			FileCopyUtils.copy(in, out);
+			in.close();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("vo", vo);
+		map.put("roomImg_orgImg",roomImg_orgImg );
+		map.put("roomImg_saveImg",roomImg_saveImg );
+		service.insert(map);
+		return "redirect:/admin/roomList?accom_num="+accom_num;
+	}
+	@RequestMapping(value="/admin/roomImageInsert",method=RequestMethod.POST)
+	 public String roomImageInsert1(@RequestParam(value="accom_num", required=true) int accom_num, RoomImageVo vo, MultipartFile file1, HttpSession session) {
+		String path=session.getServletContext().getRealPath("/resources/uploadRoom");
+		String roomImg_orgImg=file1.getOriginalFilename();		
+		String roomImg_saveImg=UUID.randomUUID() + "_" + roomImg_orgImg;
+		try {
+			InputStream in=file1.getInputStream();
+			FileOutputStream out=new FileOutputStream(path + "/" + roomImg_saveImg);
+			FileCopyUtils.copy(in, out);
+			in.close();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		vo.setRoomImg_orgImg(roomImg_orgImg);
+		vo.setRoomImg_saveImg(roomImg_saveImg);
+
+		service.insertRoomImage(vo);
+		
+		return "redirect:/admin/roomList?accom_num="+accom_num;
 	}
 }

@@ -38,8 +38,7 @@
 <script type="text/javascript" src = "<c:url value = '/resources/js/accom/insert.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/qna/insert.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/qna/update.js'/>"></script>
-<script type="text/javascript" src = "<c:url value = '/resources/js/members/myRsvn.js'/>"></script>
-<script type="text/javascript" src = "<c:url value = '/resources/js/seller/sellRsvn.js'/>"></script>
+<script type="text/javascript" src = "<c:url value = '/resources/js/members/myRsvn.js'/>"></script> 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 </head>
@@ -51,6 +50,11 @@
 	<div id = "content">
 		<tiles:insertAttribute name = "content"/>
 	</div>
+	<c:if test="${profilemap!=null }">
+		<div id = "profilecontent">
+			<tiles:insertAttribute name = "profilecontent"/>
+		</div>
+	</c:if>
 	<div id = "footer">
 		<tiles:insertAttribute name = "footer"/>
 	</div>

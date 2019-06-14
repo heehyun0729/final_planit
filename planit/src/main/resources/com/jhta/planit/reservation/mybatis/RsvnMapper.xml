@@ -51,7 +51,9 @@
 		        )aa
 		)
 		<where>
-			<![CDATA[ rnum >= #{startRow} and rnum <= #{endRow} ]]>
+			<if test="startRow != null and startRow != '' and endRow != null and endRow != ''">
+				<![CDATA[ rnum >= #{startRow} and rnum <= #{endRow} ]]>
+			</if>
 			<include refid="sellRsvnSearch"></include>
 		</where>
 		order by

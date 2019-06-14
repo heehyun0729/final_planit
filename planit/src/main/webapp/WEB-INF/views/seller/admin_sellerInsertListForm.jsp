@@ -3,6 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 	<h1>판매자 등록양식</h1>
 	<ul>
-		<li><a href="${pageContext.request.contextPath}/accommInsert">숙소추가</a></li>
-		<li><a href="${pageContext.request.contextPath}/accommList">방추가</a></li>
+		<li><a href="${pageContext.request.contextPath}/admin/accommInsert">숙소추가</a></li>
+		<li><a href="${pageContext.request.contextPath}/admin/accommList">방추가</a></li>
 	</ul>

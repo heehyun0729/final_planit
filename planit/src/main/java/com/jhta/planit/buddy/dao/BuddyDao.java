@@ -70,12 +70,32 @@ public class BuddyDao {
 	public int delete_buddy(String buddy_num) {
 		return sqlSession.update(NAMESPACE + ".buddy_del",buddy_num);
 	}
+	//동행 요청 취소
+	public int cancle_apply(HashMap<String, String>find_apply) {
+		return sqlSession.update(NAMESPACE + ".cancle",find_apply);
+	}
 	//동행 요청
 	public int apply_buddy(HashMap<String, String> map) {
 		return sqlSession.update(NAMESPACE + ".apply_buddy",map);
 	}
-	//요청 확인
+	//요청 대기
 	public List<BuddyApplyVo> buddy_applyList(String mem_id) {
 		return sqlSession.selectList(NAMESPACE + ".buddy_applyList",mem_id);
+	}
+	//요청 수락
+	public int apply_accept(String apply_num) {
+		return sqlSession.update(NAMESPACE + ".apply_accept",apply_num);
+	}
+	//요청 거절
+	public int apply_refuse(String apply_num) {
+		return sqlSession.update(NAMESPACE + ".apply_refuse",apply_num);
+	}
+	//요청 확인
+	public List<BuddyListVo> apply_ck(String mem_id) {
+		return sqlSession.selectList(NAMESPACE + ".apply_ck",mem_id);
+	}
+	//내 동행 확인
+	public List<BuddyVo> mybuddy_ck(String mem_id) {
+		return sqlSession.selectList(NAMESPACE + ".mybuddy_ck",mem_id);
 	}
 }

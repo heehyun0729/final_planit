@@ -348,8 +348,6 @@ create table rsvn
     rsvn_email varchar2(50),
     rsvn_phone varchar2(20)
 );
-drop SEQUENCE rsvn_seq;
-CREATE SEQUENCE rsvn_seq;
 
 drop table rsvnPay CASCADE CONSTRAINTS;
 create table rsvnPay

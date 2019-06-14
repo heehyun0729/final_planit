@@ -212,6 +212,7 @@
 			return false;
 		}
 	}
+	//동행요청
 	function apply_buddy(buddy_num){
 		var result = confirm('동행을 요청하시겠습니까?');
 		if(result) {

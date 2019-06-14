@@ -29,4 +29,14 @@ public class RoomDeleteController {
 			return "result";
 		}
 	}
+	@RequestMapping("/admin/roomDelete")
+	public String delete1(@RequestParam(value="accom_num", required=true) int accom_num, @RequestParam(value="room_num", required=true) int room_num, Model model) {
+		int n =service.updateRoomCheck(room_num);
+		if(n>0) {
+			return "redirect:/admin/roomList?accom_num="+accom_num;
+		}else {
+			model.addAttribute("result","fail");
+			return "result";
+		}
+	}
 }

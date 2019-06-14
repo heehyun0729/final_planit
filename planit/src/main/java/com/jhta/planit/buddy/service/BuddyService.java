@@ -77,6 +77,10 @@ public class BuddyService {
 	public int delete_buddy(String buddy_num) {
 		return dao.delete_buddy(buddy_num);
 	}
+	//동행 요청 취소
+	public int cancle_apply(HashMap<String, String>find_apply) {
+		return dao.cancle_apply(find_apply);
+	}
 	//동행 요청
 	public int apply_buddy(HashMap<String, String> map) {
 		return dao.apply_buddy(map);
@@ -84,5 +88,21 @@ public class BuddyService {
 	//요청 확인
 	public List<BuddyApplyVo> buddy_applyList(String mem_id) {
 		return dao.buddy_applyList(mem_id);
+	}
+	//요청 수락
+	public int apply_accept(String apply_num) {
+		return dao.apply_accept(apply_num);
+	}
+	//요청 거절
+	public int apply_refuse(String apply_num) {
+		return dao.apply_refuse(apply_num);
+	}
+	//요청 확인
+	public List<BuddyListVo> apply_ck(String mem_id) {
+		return dao.apply_ck(mem_id);
+	}
+	//내 동행 확인
+	public List<BuddyVo> mybuddy_ck(String mem_id) {
+		return dao.mybuddy_ck(mem_id);
 	}
 }

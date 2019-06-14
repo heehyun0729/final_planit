@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jhta.planit.admin.dao.AdminUserSellerDao;
 
@@ -26,5 +27,13 @@ public class AdminSellerService {
 
 	public int approval(String mem_id) {
 		return dao.approval(mem_id);
+	}
+
+	@Transactional
+	public int returns(String mem_id) {
+		int n = 0;
+		n=dao.returns(mem_id);
+		//n=n+
+		return n;
 	}
 }
