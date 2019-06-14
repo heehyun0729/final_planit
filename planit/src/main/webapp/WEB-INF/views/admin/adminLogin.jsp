@@ -109,8 +109,6 @@
 			<div class="text-center mb-4">			
 				<img class="mb-4" src="<c:url value='/resources/adminImages/logo.svg'/>" alt="" width="72" height="72">
 				<h1 class="h3 mb-3 font-weight-normal">PlanIt Admin</h1>
-				<p>회원쪽 정리되는대로 업데이트 예정.</p>
-				<p><code>아무거나 입력 후 로그인 누르면 이동됩니다.</code></p>
 			</div>
 			<div id="loginAlert" class="alert alert-danger" role="alert">
 				<h4 class="alert-heading">로그인 실패!</h4>

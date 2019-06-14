@@ -171,7 +171,7 @@ public class AdController {
 		map.put("mem_id", mem_id);
 		map.put("mem_pwd", mem_pwd);
 		int result = mservice.login(map);
-		if (result == 0) {
+		if (result == 0 || result== 1 ) {
 			session.setAttribute("mem_id", mem_id);
 			session.setAttribute("mem_stat", result);
 			return "redirect:/adminHome";
