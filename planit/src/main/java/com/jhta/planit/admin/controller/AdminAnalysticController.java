@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.planit.admin.service.AdService;
 import com.jhta.planit.admin.vo.AdInfoVo;
@@ -93,10 +96,24 @@ public class AdminAnalysticController {
 		map.put("birthYearList", birthYearList);
 		map.put("birthYearCntList", birthYearCntList);
 		
-		
-		
 		model.addAttribute("map", map);
 		return "-admin-adminBody-adminAnalytics";
 	}
-	
+	@RequestMapping(value="/adminAnalytics/getDayAdInfo", produces="application/json;charset=utf-8")//일자별 광고 정보 출력
+	@ResponseBody
+	public String getDayAdInfo(String stringDays) {
+		String days[]=stringDays.split(",");
+		JSONArray jsonArray=new JSONArray();
+		for(int i=0;i<days.length;i++) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("getDayAdHit", service.getDayAdHit(days[i]));
+			jsonArray.put(jsonObject);
+		}
+		for(int i=0;i<days.length;i++) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("getDayAdClick", service.getDayAdClick(days[i]));
+			jsonArray.put(jsonObject);
+		}
+		return jsonArray.toString();
+	}
 }

@@ -45,4 +45,10 @@ public class AnalyticsDao {
 	public RsvnVo getRsvnInfo(int rsvn_num){//예약 번호로 정보 구하기
 		return sqlSession.selectOne(NAMESPACE + "getRsvnInfo", rsvn_num);
 	}
+	public int getDayAdHit(String rsvnPay_date){//해당 일 광고 조회수 구하기
+		return sqlSession.selectOne(NAMESPACE + "getDayAdHit", rsvnPay_date);
+	}
+	public int getDayAdClick(String rsvnPay_date){//해당 일 광고 클릭수 구하기
+		return sqlSession.selectOne(NAMESPACE + "getDayAdClick", rsvnPay_date);
+	}
 }

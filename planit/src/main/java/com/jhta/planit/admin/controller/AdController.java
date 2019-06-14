@@ -144,7 +144,8 @@ public class AdController {
 			String mem_id=service.getRsvnInfo(getRecent5Sell.get(i).getRsvn_num()).getMem_id();
 			getRecent5SellId.add(mem_id);
 		}
-		
+		int todaySellProfit=service.todaySellProfit();//금일 예약 수익 구하기
+		map.put("todaySellProfit", todaySellProfit);
 		map.put("chance", chance);//금일 광고율 담기
 		map.put("adProfit", adProfit);//광고 수익 담기
 		map.put("getRecent5Ad", getRecent5Ad);

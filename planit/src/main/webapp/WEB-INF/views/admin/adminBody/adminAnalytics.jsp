@@ -35,6 +35,7 @@
 		todayAdChart();
 		todaySellChart();
 		monthProfitChart();
+		monthAdChart();
 		usersPlanCountry();
 		usersBuddyCountry();
 		usersGender();
@@ -192,6 +193,94 @@
 				                }
 				            }]
 				        }
+				    }
+				});
+			}
+		});	
+	}
+	
+	function monthAdChart(){//최근 한 달 광고 클릭율
+		let ctx = $("#monthAdChart");
+		let days=[];
+		let today=new Date();
+		let todayYear=today.getFullYear();//년
+		let todayMonth=today.getMonth()+1;//월
+		let todayDate=today.getDate();//일
+		let lastDate=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
+			lastDate[1]=29;
+		}
+		for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
+			today.setDate(today.getDate()-1);
+			todayYear=today.getFullYear();//년
+			todayMonth=today.getMonth()+1;//월
+			todayDate=today.getDate();//일
+			const date=todayYear + "-" + todayMonth + "-" + todayDate;
+			days.push(date);
+		}
+		let hit=[];
+		let click=[];
+		$.getJSON("<c:url value='/adminAnalytics/getDayAdInfo'/>", {stringDays:days.toString()}, function(data) {
+			if(data!=null){
+				for(var i=0;i<(data.length/2);i++){//조회 수
+					var getDayAdHit=data[i].getDayAdHit;
+					hit.push(getDayAdHit);
+				}
+				for(var i=(data.length/2);i<data.length;i++){//클릭 수
+					var getDayAdClick=data[i].getDayAdClick;
+					click.push(getDayAdClick);
+				}
+				
+				var monthAdChart = new Chart(ctx, {
+				    type: 'bar',
+				    data: {
+				        labels: days,
+				        datasets: [
+				        	{
+				        		label: '# 클릭 수',
+					            data: click,
+					            fill: false,
+					            borderColor: [
+					                'rgba(75, 192, 192, 1)'
+					            ],
+					            borderWidth: 2
+					        },
+					        {
+					        	label: '# 조회 수',
+					            data: hit,
+					            fill: false,
+					            borderColor: [
+					                'rgba(95, 0, 255, 1)'
+					            ],
+					            borderWidth: 2,
+					            type: 'line'
+				       		}
+					    ]
+				    },
+				    options: {
+				    	legend: {display: false},
+				    	maintainAspectRatio: false,
+				        scales: {
+				            yAxes: [{
+				            	gridLines:{display: false},
+				                ticks: {
+				                    beginAtZero: true
+				                }
+				            }],
+				            xAxes: [{
+				            	gridLines:{display: false},
+				                ticks: {
+				                    beginAtZero: true
+				                }
+				            }]
+				        },
+				        plugins:{
+				    		labels: [
+				    		    {
+				    		      render: 'value'
+				    		    }
+				    		  ]
+				    	}
 				    }
 				});
 			}
@@ -441,6 +530,18 @@
 									<div class="card-body text-center">
 										<div class="chart">
 											<canvas id="monthProfitChart" width="100" height="400"></canvas>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row  mt-3">
+							<div class="col">
+								<div class="card">
+									<h4 class="card-header">최근 한 달 광고 정보</h4>
+									<div class="card-body text-center">
+										<div class="chart">
+											<canvas id="monthAdChart" width="100" height="400"></canvas>
 										</div>
 									</div>
 								</div>

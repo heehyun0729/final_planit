@@ -33,4 +33,10 @@
 	<select id="getRsvnInfo" parameterType="int" resultType="com.jhta.planit.reservation.vo.RsvnVo">
 		select * from rsvn where rsvn_num=#{rsvn_num}
 	</select>
+	<select id="getDayAdHit" parameterType="String" resultType="int">
+		select NVL(sum(adInfo_hit), 0) from adInfo where adInfo_date=#{adInfo_date}
+	</select>
+	<select id="getDayAdClick" parameterType="String" resultType="int">
+		select NVL(sum(adInfo_click), 0) from adInfo where adInfo_date=#{adInfo_date}
+	</select>
 </mapper>

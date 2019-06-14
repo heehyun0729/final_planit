@@ -247,4 +247,10 @@ public class AdService {
 	public RsvnVo getRsvnInfo(int rsvn_num) {
 		return analyticsDao.getRsvnInfo(rsvn_num);
 	}
+	public int getDayAdHit(String rsvnPay_date) {//해당 일 광고 조회수 구하기
+		return analyticsDao.getDayAdHit(rsvnPay_date);
+	}
+	public int getDayAdClick(String rsvnPay_date) {//해당 일 광고 클릭수 구하기
+		return analyticsDao.getDayAdClick(rsvnPay_date);
+	}
 }

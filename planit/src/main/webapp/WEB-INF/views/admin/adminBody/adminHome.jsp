@@ -172,7 +172,7 @@
 				<h4 class="card-header">금일 수익</h4>
 				<div class="card-body">
 					<img src="<c:url value='/resources/adminImages/won.png'/>" width="100" height="100"><br>
-					<span><fmt:formatNumber value="${map.adProfit }" pattern="#,###" />&#8361;</span>
+					<span><fmt:formatNumber value="${map.adProfit+map.todaySellProfit }" pattern="#,###" />&#8361;</span>
 				</div>
 			</div>
 			<div class="card h-100 w-100">
