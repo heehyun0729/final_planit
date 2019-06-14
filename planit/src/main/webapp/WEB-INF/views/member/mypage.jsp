@@ -11,11 +11,11 @@
 		<section class="zwlfE">
 			<div class="nZSzR">
 				<h1 class="mypage_profile_nickname">${profilemap.MEM_NICKNAME }</h1>
-				<button id="mypage_followbtn" <c:choose>
-					<c:when test="${mem_tf }">disabled="disabled">환영합니다.</c:when>
-					<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE>0 }">>팔로우 됨</c:when>
-					<c:otherwise>>팔로우</c:otherwise>
-				</c:choose></button>
+				<c:choose>
+					<c:when test="${mem_tf }">환영합니다.</c:when>
+					<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE>0 }"><button id="mypage_followbtn">팔로우 됨</button></c:when>
+					<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE>0 }"><button id="mypage_followbtn">팔로우</button></c:when>
+				</c:choose>
 			</div>
 			<c:choose><c:when test=""></c:when> </c:choose>
 			<ul class="mypage">

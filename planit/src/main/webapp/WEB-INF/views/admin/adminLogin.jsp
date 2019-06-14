@@ -111,12 +111,12 @@
 			</div>
 	
 			<div class="form-label-group">
-				<input type="text" id="inputEmail" class="form-control" placeholder="아이디" required="" autofocus="">
+				<input type="text" id="inputEmail" name="mem_id" class="form-control" placeholder="아이디" required="" autofocus="">
 				<label for="inputId">아이디</label>
 			</div>
 	
 			<div class="form-label-group">
-				<input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" required="">
+				<input type="password" id="inputPassword" name="mem_pwd" class="form-control" placeholder="비밀번호" required="">
 				<label for="inputPassword">비밀번호</label>
 			</div>
 			<br>

@@ -14,8 +14,7 @@ import com.jhta.planit.user.service.MembersService;
 
 @Controller
 public class MembersLoginController {
-	@Autowired
-	private MembersService service;
+	@Autowired private MembersService service;
 
 	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
 	public String loginForm() {

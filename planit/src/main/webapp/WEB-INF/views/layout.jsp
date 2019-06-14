@@ -50,11 +50,6 @@
 	<div id = "content">
 		<tiles:insertAttribute name = "content"/>
 	</div>
-	<c:if test="${profilemap!=null }">
-		<div id = "profilecontent">
-			<tiles:insertAttribute name = "profilecontent"/>
-		</div>
-	</c:if>
 	<div id = "footer">
 		<tiles:insertAttribute name = "footer"/>
 	</div>

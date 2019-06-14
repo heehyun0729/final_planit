@@ -37,12 +37,13 @@ import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
 import com.jhta.planit.reservation.vo.RsvnPayVo;
 import com.jhta.planit.reservation.vo.RsvnVo;
+import com.jhta.planit.user.service.MembersService;
 import com.jhta.util.PageUtil;
 
 @Controller
 public class AdController {
-	@Autowired
-	private AdService service;
+	@Autowired private AdService service;
+	@Autowired private MembersService mservice;
 	public int goWithData(int ad_num, Model model) {//데이터 추출
 		AdVo getAdInfo=service.getAdInfo(ad_num);
 		List<AdInfoVo> getAdInfoInfo=service.getAdInfoInfo(ad_num);
@@ -116,7 +117,7 @@ public class AdController {
 		return ".admin.adminAdRequestFormOk";
 	}
 	@RequestMapping(value="/adminLogin", method=RequestMethod.GET)//관리자 로그인
-	public String adminLogin() {
+	public String adminLoginForm() {
 		return "/admin/adminLogin";
 	}
 	@RequestMapping(value="/adminLogout", method=RequestMethod.GET)//관리자 로그아웃
@@ -144,8 +145,7 @@ public class AdController {
 			String mem_id=service.getRsvnInfo(getRecent5Sell.get(i).getRsvn_num()).getMem_id();
 			getRecent5SellId.add(mem_id);
 		}
-		int todaySellProfit=service.todaySellProfit();//금일 예약 수익 구하기
-		map.put("todaySellProfit", todaySellProfit);
+		
 		map.put("chance", chance);//금일 광고율 담기
 		map.put("adProfit", adProfit);//광고 수익 담기
 		map.put("getRecent5Ad", getRecent5Ad);
@@ -166,9 +166,20 @@ public class AdController {
 		return "-admin-adminAdManagement-adCalendar";
 	}
 	@RequestMapping(value="/adminLogin", method=RequestMethod.POST)//관리자 로그인 -> 홈///기능추가하기
-	public String adminLoginOk() {
-		
-		return "redirect:/adminHome";
+	public String adminLoginOk(String mem_id, String mem_pwd, Model model, HttpSession session) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mem_id", mem_id);
+		map.put("mem_pwd", mem_pwd);
+		int result = mservice.login(map);
+		if (result == 0) {
+			session.setAttribute("mem_id", mem_id);
+			session.setAttribute("mem_stat", result);
+			return "redirect:/adminHome";
+		} else {
+			model.addAttribute("mem_id", mem_id);
+			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
+			return "/admin/adminLogin";
+		}
 	}
 	@RequestMapping(value="/adminAdRequestInfo", method=RequestMethod.GET)//광고 신청페이지
 	public String adminAdRequestInfo() {
