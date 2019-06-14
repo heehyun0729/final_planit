@@ -62,3 +62,7 @@ function decreaseCnt() {
 	cnt--;
 	$("#rsvnCnt").val(cnt);
 }
+
+function sellRsvnSubmit() {
+	$("#sellRsvnForm").submit();
+}

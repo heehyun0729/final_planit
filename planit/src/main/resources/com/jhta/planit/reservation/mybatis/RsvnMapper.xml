@@ -31,6 +31,9 @@
 				</otherwise>
 			</choose>
 		</if>
+		<if test="complete != null and complete != ''">
+			and rsvnPay_stat = 0
+		</if>
 	</sql>
 	<select id="sellList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.SellerRsvnVo">
 		select * from
@@ -51,7 +54,36 @@
 			<![CDATA[ rnum >= #{startRow} and rnum <= #{endRow} ]]>
 			<include refid="sellRsvnSearch"></include>
 		</where>
-		order by rsvn_num desc
+		order by
+		<choose>
+			<when test="order == 'num_desc'">
+				rsvn_num desc
+			</when>
+			<when test="order == 'num_asc'">
+				rsvn_num asc
+			</when>
+			<when test="order == 'checkin_asc'">
+				rsvn_checkin asc
+			</when>
+			<when test="order == 'checkin_desc'">
+				rsvn_checkin desc
+			</when>
+			<when test="order == 'checkout_asc'">
+				rsvn_checkout asc
+			</when>
+			<when test="order == 'checkout_desc'">
+				rsvn_checkout desc
+			</when>
+			<when test="order == 'accom_asc'">
+				accom_name asc
+			</when>
+			<when test="order == 'accom_desc'">
+				accom_name desc
+			</when>
+			<otherwise>
+				rsvn_num desc
+			</otherwise>
+		</choose>
 	</select>
 	<select id="sellCount" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from

@@ -22,12 +22,14 @@ public class SellerRsvnController {
 	
 	@RequestMapping("/seller/reservation/list")
 	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, String mem_id, Model model,
-			String checkin, String checkout, String field, String keyword) {
+			String order, String complete, String checkin, String checkout, String field, String keyword) {
 		SellerVo vo = sellerService.find(mem_id);
 		int sell_num = vo.getSell_num();
 		
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		map.put("sell_num", sell_num);
+		map.put("order", order);
+		map.put("complete", complete);
 		map.put("checkin", checkin);
 		map.put("checkout", checkout);
 		map.put("field", field);
@@ -51,6 +53,8 @@ public class SellerRsvnController {
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("order", order);
+		model.addAttribute("complete", complete);
 		model.addAttribute("field", field);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("checkin", checkin);
