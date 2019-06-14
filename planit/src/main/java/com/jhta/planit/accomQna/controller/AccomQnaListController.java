@@ -24,5 +24,6 @@ public class AccomQnaListController {
 		ModelAndView mv=new ModelAndView(".accomqna.accomqnaList");
 		mv.addObject("list", list);
 		return mv;
+		
 	}
 }
