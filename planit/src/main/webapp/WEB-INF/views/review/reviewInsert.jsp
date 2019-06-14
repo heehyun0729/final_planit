@@ -4,8 +4,7 @@
 <div id=ReviewInsert>
 <h1></h1>
 <form method="post" action="${pageContext.request.contextPath }/review/reviewInsert" enctype="multipart/form-data">
-	<!--  아이디<input type="hidden" name="mem_id" value="${mem_id }"><br>-->
-	아이디<input type="text" name="mem_id"><br>
+	  아이디<input type="text" readonly="readonly" name="mem_id" value="${sessionScope.mem_id }"><br>
 	국가<input type="text" name="review_country"><br>
 	도시<input type="text" name="review_city"><br>
 	제목<input type="text" name="review_title"><br>

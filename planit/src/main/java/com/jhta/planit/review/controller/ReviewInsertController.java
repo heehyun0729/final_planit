@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.planit.review.service.ReviewService;
@@ -27,7 +28,7 @@ public class ReviewInsertController {
 			return ".review.reviewInsert";
 		}
 		 @RequestMapping(value="/review/reviewInsert",method=RequestMethod.POST)
-		 public String reviewInsert(ReviewVo vo, MultipartFile file1, HttpSession session  ) {
+		 public String reviewInsert(@RequestParam(value="mem_id",required=true) String mem_id ,ReviewVo vo, MultipartFile file1, HttpSession session  ) {
 			String path=session.getServletContext().getRealPath("/resources/uploadReview");
 			System.out.println(path);
 			String reviewImg_orgImg=file1.getOriginalFilename();
