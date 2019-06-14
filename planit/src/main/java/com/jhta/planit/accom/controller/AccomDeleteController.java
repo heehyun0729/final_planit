@@ -30,4 +30,14 @@ public class AccomDeleteController {
 			return "result";
 		}
 	}
+	@RequestMapping("/admin/accomDelete")
+	public String delete1(@RequestParam(value="accom_num", required=true) int accom_num, Model model) {
+		int n =service.updateAccomCheck(accom_num);
+		if(n>0) {
+			return "redirect:/admin/accommList";
+		}else {
+			model.addAttribute("result","fail");
+			return "result";
+		}
+	}
 }

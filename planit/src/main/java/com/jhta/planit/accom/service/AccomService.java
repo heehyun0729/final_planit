@@ -31,6 +31,9 @@ public class AccomService {
 	public List<AccomVo> list(HashMap<String,Object> map){
 		return dao.list(map);
 	}
+	public List<AccomVo> list1(HashMap<String,Object> map){
+		return dao.list1(map);
+	}
 	public AccomVo next(int accom_num) {
 		return dao.next(accom_num);
 	}
