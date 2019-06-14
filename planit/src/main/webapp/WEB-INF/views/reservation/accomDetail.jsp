@@ -150,8 +150,8 @@
 			<p>후기</p>
 		</div>
 		<div id="accomQna">
-			<form method="post" action="<c:url value="/accomQna/insertAccomQna"/>">
-				<input type="hidden" name="accom_num" value="${accom_num }">
+			<form method="post" action="<c:url value="/reservation/accomDetail"/>">
+				<input type="hidden" name="accom_num" value="${avo.accom_num }">
 				<input type="hidden" name="mem_id" value="${mem_id }">
 				제목<input type="text" name="accomQna_title"><br>
 			 	내용<textarea rows="10" cols="50" name="accomQna_content"></textarea><br>
@@ -167,7 +167,6 @@
 					</tr>
 					<c:forEach var="vo" items="${list }">
 						<tr>
-							<td>${vo.accomQna_num }</td>
 							<td>${vo.mem_id}</td>
 							<td>${vo.accomQna_title}</td>
 							<td>${vo.accomQna_content }</td>
