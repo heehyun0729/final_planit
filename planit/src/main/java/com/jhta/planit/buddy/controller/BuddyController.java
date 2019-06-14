@@ -33,7 +33,7 @@ public class BuddyController {
 		
 		//세션에서 아이디 얻어오기
 		String mem_id=(String)session.getAttribute("mem_id");
-		
+		System.out.println("/////////////////////////////////mem_id : "+mem_id);
 		//날짜 지난 게시물 자동 업뎃
 		service.updateState();
 		
@@ -65,6 +65,7 @@ public class BuddyController {
 		PageUtil pu=new PageUtil(pageNum,totalRowCount,5,5);
 		find_map.put("startRow",pu.getStartRow());
 		find_map.put("endRow", pu.getEndRow());
+		find_map.put("mem_id", mem_id);
 		List<BuddyListVo> buddyList=service.showAll(find_map);
 		
 		//동행추천

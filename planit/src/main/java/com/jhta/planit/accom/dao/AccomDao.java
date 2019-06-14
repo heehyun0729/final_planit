@@ -25,6 +25,9 @@ public class AccomDao {
 	public List<AccomVo> list(HashMap<String,Object> map){
 		return sqlSession.selectList(NAMESPACE+".list",map);
 	}
+	public List<AccomVo> list1(HashMap<String,Object> map){
+		return sqlSession.selectList(NAMESPACE+".list1",map);
+	}
 	public AccomVo next(int accom_num) {
 		return sqlSession.selectOne(NAMESPACE +".next",accom_num);
 	}

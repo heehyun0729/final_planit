@@ -52,10 +52,10 @@
 			</div>
 		</a>	
 		<div id='sell' class="collapse sidebar-submenu">
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+			<a href="<c:url value='/admin/sellerInsertListForm'/>" class="list-group-item list-group-item-action bg-dark text-white">
 				<span class="menu-collapsed">숙소 목록</span>
 			</a>
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+			<a href="<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }'/>" class="list-group-item list-group-item-action bg-dark text-white">
 				<span class="menu-collapsed">예약 목록</span>
 			</a>
 		</div>
