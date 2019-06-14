@@ -7,7 +7,7 @@
 		$("#showMsgPopup").click(function(e) {
 			e.preventDefault();
 		});
-		$.ajax({
+		$.ajax({ 
 			  url: "<c:url value='/seller/reservation/getList'/>",
 			  dataType: "json",
 			  success: function(data) {
