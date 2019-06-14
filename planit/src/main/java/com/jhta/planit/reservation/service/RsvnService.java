@@ -36,7 +36,7 @@ public class RsvnService {
 	public List<SellerRsvnVo> sellList(HashMap<String, Object> map){
 		return rsvnDao.sellList(map);
 	}
-	public int sellCount(int sell_num) {
-		return rsvnDao.sellCount(sell_num);
+	public int sellCount(HashMap<String, Object> map) {
+		return rsvnDao.sellCount(map);
 	}
 }

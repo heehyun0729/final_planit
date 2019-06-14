@@ -37,7 +37,7 @@ public class RsvnDao {
 	public List<SellerRsvnVo> sellList(HashMap<String, Object> map){
 		return sqlSession.selectList(NAMESPACE + ".sellList", map);
 	}
-	public int sellCount(int sell_num) {
-		return sqlSession.selectOne(NAMESPACE + ".sellCount", sell_num);
+	public int sellCount(HashMap<String, Object> map) {
+		return sqlSession.selectOne(NAMESPACE + ".sellCount", map);
 	}
 }

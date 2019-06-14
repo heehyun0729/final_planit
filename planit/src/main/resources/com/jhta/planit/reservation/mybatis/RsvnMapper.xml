@@ -16,6 +16,22 @@
 		select * from rsvn where rsvn_num = #{num}
 	</select>
 	
+	<sql id="sellRsvnSearch">
+		<if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
+			and rsvn_checkin between to_date(#{checkin}) and to_date(#{checkout})
+  			  and rsvn_checkout between to_date(#{checkin}) and to_date(#{checkout})
+		</if>
+		<if test="field != null and field != '' and keyword != null and keyword != ''">
+			<choose>
+				<when test="field == 'rsvn_num'">
+					and rsvn_num = #{keyword}
+				</when>
+				<otherwise>
+					and ${field} like '%'||#{keyword}||'%'
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
 	<select id="sellList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.SellerRsvnVo">
 		select * from
 		(
@@ -30,10 +46,14 @@
 		            and ro.accom_num = a.accom_num
 		            and a.sell_num = #{sell_num}
 		        )aa
-		)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
+		)
+		<where>
+			<![CDATA[ rnum >= #{startRow} and rnum <= #{endRow} ]]>
+			<include refid="sellRsvnSearch"></include>
+		</where>
 		order by rsvn_num desc
 	</select>
-	<select id="sellCount" parameterType="int" resultType="int">
+	<select id="sellCount" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from
 		(
 		select r.rsvn_num rsvn_num, a.accom_num accom_num, a.accom_name accom_name, ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa,
@@ -45,6 +65,9 @@
 		    and ro.accom_num = a.accom_num
 		    and a.sell_num = #{sell_num}
 		)
+		<where>
+			<include refid="sellRsvnSearch"></include>
+		</where>
 	</select>
 	
 	<select id="myList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.MyRsvnVo">

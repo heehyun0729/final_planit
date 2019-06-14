@@ -3,11 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div>
 	<h1>예약 목록</h1>
+	<a href = "<c:url value = '/accommList'/>">숙소 목록</a>
 	<table border = "1">
 		<tr>
 			<th>예약번호<br>(결제일)</th><th>숙소명<br>(객실)</th><th>체크인<br>~ 체크아웃</th><th>인원수</th>
 			<th>투숙객명</th><th>이메일</th><th>연락처</th><th>결제금액</th><th>상태</th>
 		</tr>
+		<c:if test="${empty list }">
+			<tr>
+				<td colspan = "9">조회된 정보가 없습니다.</td>
+			</tr>
+		</c:if>
 		<c:forEach var = "vo" items = "${list }">
 			<tr>
 				<td>
@@ -15,7 +21,7 @@
 					(${vo.rsvnPay_date })
 				</td>
 				<td>
-					${vo.accom_name }<br>
+					<a href = "<c:url value = '/roomList?accom_num=${vo.accom_num }'/>" target = "_blank">${vo.accom_name }</a><br>
 					(${vo.room_type } - ${vo.room_capa }인실)
 				</td>
 				<td>
@@ -40,6 +46,35 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<div>
+		<form method="post" action="<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }'/>">
+			투숙 기간: <input type="text" id="sellCheckin" name = "checkin" value = "${checkin }"> ~ <input type="text" id="sellCheckout" name = "checkout" value = "${checkout }"><br>
+			<input type = "hidden" value = "${pageNum }" name = "pageNum">
+			<select name = "field">
+				<option value = "rsvn_num"
+					<c:if test = "${field == 'rsvn_num' }">selected = "selected"</c:if>
+				>예약번호</option>
+				<option value = "accom_name"
+					<c:if test = "${field == 'accom_name' }">selected = "selected"</c:if>
+				>숙소명</option>
+				<option value = "room_type"
+					<c:if test = "${field == 'room_type' }">selected = "selected"</c:if>
+				>객실명</option>
+				<option value = "rsvn_name"
+					<c:if test = "${field == 'rsvn_name' }">selected = "selected"</c:if>
+				>투숙객명</option>
+				<option value = "rsvn_email"
+					<c:if test = "${field == 'rsvn_email' }">selected = "selected"</c:if>
+				>이메일</option>
+				<option value = "rsvn_phone"
+					<c:if test = "${field == 'rsvn_phone' }">selected = "selected"</c:if>
+				>연락처</option>
+			</select>
+			<input type = "text" name = "keyword" value = "${keyword }">
+			<input type = "submit" value = "검색">
+		</form>
+	</div>
 	
 	<div>
 		<c:if test="${startPage > 1 }">

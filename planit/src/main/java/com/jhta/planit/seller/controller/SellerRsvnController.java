@@ -21,20 +21,25 @@ public class SellerRsvnController {
 	@Autowired SellerService sellerService;
 	
 	@RequestMapping("/seller/reservation/list")
-	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, String mem_id, Model model) {
+	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, String mem_id, Model model,
+			String checkin, String checkout, String field, String keyword) {
 		SellerVo vo = sellerService.find(mem_id);
 		int sell_num = vo.getSell_num();
 		
-		HashMap<String,Object> map=new HashMap<String, Object>();
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("sell_num", sell_num);
+		map.put("checkin", checkin);
+		map.put("checkout", checkout);
+		map.put("field", field);
+		map.put("keyword", keyword);
 		
-		int rowCnt = rsvnService.sellCount(sell_num);
+		int rowCnt = rsvnService.sellCount(map);
 		PageUtil pu = new PageUtil(pageNum, rowCnt, 5, 5);
 		int startRow = pu.getStartRow();
 		int endRow = pu.getEndRow();
 		int pageCnt = pu.getTotalPageCount();
 		int startPage = pu.getStartPageNum();
 		int endPage = pu.getEndPageNum();
-		map.put("sell_num", sell_num);
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		
@@ -46,6 +51,10 @@ public class SellerRsvnController {
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("field", field);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("checkin", checkin);
+		model.addAttribute("checkout", checkout);
 		return ".seller.rsvnList";
 	}
 }
