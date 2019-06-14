@@ -52,7 +52,7 @@
 		<tiles:insertAttribute name = "content"/>
 	</div>
 	<c:if test="${profilemap!=null }">
-		<div id = "content">
+		<div id = "profilecontent">
 			<tiles:insertAttribute name = "profilecontent"/>
 		</div>
 	</c:if>

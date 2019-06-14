@@ -49,12 +49,5 @@
 			</ul>
 		</div>
 	</c:if>
-	<div id="mypage_content" >${content }
-		
-	</div>
 </div>
 <script type="text/javascript" src="<c:url value='/resources/js/members/mypageScript.js'/>"></script>
-<script>
-	if()
-$("#mypage_content").html('ddd')
-</script>
