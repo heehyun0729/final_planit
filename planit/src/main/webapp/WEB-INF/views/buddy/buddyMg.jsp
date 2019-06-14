@@ -109,6 +109,7 @@
 		<th>여행 소개</th>
 		<th>여행할 도시</th>
 		<th>요청상태</th>
+		<th>취소하기</th>
 	</tr>
 	<c:forEach var="ck" items="${applyCk}">	
 		<tr>
@@ -147,6 +148,7 @@
 					<td>거절</td>
 				</c:when>
 			</c:choose>
+			<td><input type="button" value="취소하기" onclick="cancle_apply('${ck.buddy_num}')"></td>
 		</tr>
 	</c:forEach>
 </table>
@@ -158,6 +160,16 @@
 		if(result) { 
 			alert("삭제되었습니다.");
 			window.location.href="<c:url value='/buddyDelete?buddy_num="+buddy_num+"' />";
+		}else{
+			
+		}
+	}
+	//동행 요청 취소
+	function cancle_apply(buddy_num){
+		var result = confirm('동행 요청을 취소하시겠습니까?');
+		if(result) { 
+			alert("취소되었습니다.");
+			window.location.href="<c:url value='/applyCancle?buddy_num="+buddy_num+"' />";
 		}else{
 			
 		}

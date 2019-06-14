@@ -254,6 +254,11 @@
 		delete from buddy where buddy_num=#{buddy_num}
 	</delete>
 	
+	<!-- 동행 요청 취소 -->
+	<delete id="cancle" parameterType="hashmap">
+		delete from buddy_apply where buddy_num=#{buddy_num} and mem_id=#{mem_id}
+	</delete>
+	
 	<!-- 동행 요청 -->
 	<insert id="apply_buddy" parameterType="hashmap">
 		insert into buddy_apply values(buddyApply_seq.nextval,#{buddy_num},#{mem_id},0)

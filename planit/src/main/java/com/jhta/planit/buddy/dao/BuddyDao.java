@@ -70,6 +70,10 @@ public class BuddyDao {
 	public int delete_buddy(String buddy_num) {
 		return sqlSession.update(NAMESPACE + ".buddy_del",buddy_num);
 	}
+	//悼青 夸没 秒家
+	public int cancle_apply(HashMap<String, String>find_apply) {
+		return sqlSession.update(NAMESPACE + ".cancle",find_apply);
+	}
 	//悼青 夸没
 	public int apply_buddy(HashMap<String, String> map) {
 		return sqlSession.update(NAMESPACE + ".apply_buddy",map);

@@ -157,12 +157,26 @@ public class BuddyController {
 		mv.addObject("buddyList",buddyList);
 		return mv;
 	}
+	
 	//글 삭제
 	@RequestMapping("/buddyDelete")
 	public String delete(String buddy_num) {
 		service.delete_buddy(buddy_num);
 		return "redirect:/buddyMg";
 	}
+	
+	//동행 요청 취소
+	@RequestMapping("/applyCancle")
+	public String cancle(String buddy_num,HttpSession session) {
+		//세션에서 아이디 얻어오기
+		String mem_id=(String)session.getAttribute("mem_id");
+		HashMap<String, String>find_apply=new HashMap<String, String>();
+		find_apply.put("mem_id", mem_id);
+		find_apply.put("buddy_num", buddy_num);
+		service.cancle_apply(find_apply);
+		return "redirect:/buddyMg";
+	}
+	
 	//동행 요청
 	@RequestMapping("/buddyApplyBuddy")
 	public String apply_buddy(String buddy_num,HttpSession session) {

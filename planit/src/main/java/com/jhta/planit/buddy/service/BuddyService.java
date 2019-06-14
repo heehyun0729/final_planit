@@ -77,6 +77,10 @@ public class BuddyService {
 	public int delete_buddy(String buddy_num) {
 		return dao.delete_buddy(buddy_num);
 	}
+	//悼青 夸没 秒家
+	public int cancle_apply(HashMap<String, String>find_apply) {
+		return dao.cancle_apply(find_apply);
+	}
 	//悼青 夸没
 	public int apply_buddy(HashMap<String, String> map) {
 		return dao.apply_buddy(map);
