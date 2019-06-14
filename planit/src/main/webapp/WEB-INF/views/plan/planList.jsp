@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+$(function(){
+	$("#showMsgPopup").click(function(e) {
+		e.preventDefault();
+	});
+});
+function ppp(mem_id){
+	var popUrl = "<c:url value='/msgSendForm?id=" + mem_id + "'/>";
+	var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+		window.open(popUrl,"쪽지보내기",popOption);
+}
+</script>
 <div id = "box">
 	<div id = "planTop">
 		<h2>Planit과 함께 여행을 즐겨보세요.</h2>
@@ -43,7 +55,11 @@
 					<a href = "<c:url value = '/plan/detail?pageNum=${pageNum }&field=${field }&keyword=${keyword }&plan_num=${vo.plan_num }'/>">${vo.plan_title }</a>
 				</div>
 				<div class = "planId">
-					${vo.mem_id }
+					<ul>
+						<li>${vo.mem_id }</li>
+						<li><a href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a></li>
+						<li><a href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a></li>
+					</ul>
 				</div>
 			</div>
 		</c:forEach>

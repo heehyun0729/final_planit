@@ -133,7 +133,7 @@
 						~ ${vo.rsvn_checkout }
 					</td>
 					<td>${vo.rsvn_cnt }명</td>
-					<td><a href = "#" onclick="ppp()" id = "showMsgPopup">${vo.mem_id }</a></td>
+					<td><a href = "#" onclick="javascript:ppp()" id = "showMsgPopup">${vo.mem_id }</a></td>
 					<td>${vo.rsvn_name }</td>
 					<td>${vo.rsvn_email }</td>
 					<td>${vo.rsvn_phone }</td>

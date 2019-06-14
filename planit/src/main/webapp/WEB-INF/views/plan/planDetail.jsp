@@ -3,12 +3,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script async defer type="text/javascript"
 	src="//maps.googleapis.com/maps/api/js?key=${sessionScope.key }&callback=initDetailMap"></script>
-
+<script>
+	$(function(){
+		$("#showMsgPopup").click(function(e) {
+			e.preventDefault();
+		});
+	});
+	function ppp(mem_id){
+		var popUrl = "<c:url value='/msgSendForm?id=" + mem_id + "'/>";
+		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+			window.open(popUrl,"쪽지보내기",popOption);
+	}
+</script>
 <div id="planDetail">
 	<input type="hidden" id="plan_num" value="${vo.plan_num }">
 	<div id="planTitle">
 		<h2>${vo.plan_title }</h2>
-		<div>${vo.mem_id }</div>
+		<div>
+			<ul>
+				<li>${vo.mem_id }</li>
+				<li><a href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a></li>
+				<li><a href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a></li>
+			</ul>
+		</div>
 	</div>
 	<c:if test="${sessionScope.mem_id == vo.mem_id }">
 		<div id="planMenu">
