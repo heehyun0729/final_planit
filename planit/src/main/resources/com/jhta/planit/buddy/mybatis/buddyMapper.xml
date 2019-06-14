@@ -21,16 +21,35 @@
 	<!-- 검색 -->
 	<sql id="inc_city">
 		<choose>
-			<when test="kw_city!=null and kw_city!=''">
-	            select b.buddy_num from buddy b, buddy_country c, buddy_city t 
-				where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0 and
-				<foreach collection="kw_city" item="list"  open="(" close=")" separator="or">
-					t.buddy_city=#{list}
-	 			</foreach>
+			<when test="mem_id!=null and mem_id!=''">
+				<choose>
+					<when test="kw_city!=null and kw_city!=''">
+			            select b.buddy_num from buddy b, buddy_country c, buddy_city t 
+						where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0 and mem_id not in (#{mem_id}) and
+						<foreach collection="kw_city" item="list"  open="(" close=")" separator="or">
+							t.buddy_city=#{list}
+			 			</foreach>
+					</when>
+					<otherwise>
+						select * from buddy where buddy_state=0 and mem_id not in (#{mem_id})
+					</otherwise>
+				</choose>
 			</when>
 			<otherwise>
-				select * from buddy where buddy_state=0
+				<choose>
+					<when test="kw_city!=null and kw_city!=''">
+			            select b.buddy_num from buddy b, buddy_country c, buddy_city t 
+						where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0 and
+						<foreach collection="kw_city" item="list"  open="(" close=")" separator="or">
+							t.buddy_city=#{list}
+			 			</foreach>
+					</when>
+					<otherwise>
+						select * from buddy where buddy_state=0
+					</otherwise>
+				</choose>
 			</otherwise>
+			
 		</choose>
 	</sql>
 	

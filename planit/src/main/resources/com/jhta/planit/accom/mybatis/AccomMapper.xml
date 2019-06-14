@@ -32,6 +32,16 @@
 		)
 		<![CDATA[ where rnum >=#{startRow} and rnum <= #{endRow} ]]>
 	</select>
+	<select id="list1" parameterType="hashmap" resultType="com.jhta.planit.accom.vo.AccomVo">
+		select * from(
+		    select aa.*,rownum rnum from(
+		    	select * from accom 
+		    	<include refid="search"/>
+		    	order by accom_num desc
+		    )aa 
+		)
+		<![CDATA[ where rnum >=#{startRow} and rnum <= #{endRow} ]]>
+	</select>
 	<!-- 다음글 -->
 	<select id="next" parameterType="int" resultType="com.jhta.planit.accom.vo.AccomVo">
 		select * from
