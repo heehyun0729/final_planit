@@ -43,6 +43,14 @@ public class RoomUpdateController {
 		model.addAttribute("vo1", vo1);
 		return ".room.roomUpdate";
 	}
+	@RequestMapping(value = "/adminRoomUpdate", method = RequestMethod.GET)
+	public String updateForm1(int accom_num, int room_num, Model model) {
+		AccomVo vo = service.detail(accom_num);
+		RoomVo vo1 = service1.detail(room_num);
+		model.addAttribute("vo", vo);
+		model.addAttribute("vo1", vo1);
+		return "-room-admin_roomUpdate";
+	}
 
 	@RequestMapping(value = "/roomUpdate", method = RequestMethod.POST)
 	public String update( int room_num, int accom_num,int room_price, String room_comm, int room_capa,
@@ -82,5 +90,44 @@ public class RoomUpdateController {
 			}
 		}
 		return "redirect:/roomList?accom_num="+accom_num;
+	}
+	@RequestMapping(value = "/adminRoomUpdate", method = RequestMethod.POST)
+	public String update1( int room_num, int accom_num,int room_price, String room_comm, int room_capa,
+			MultipartFile file1, HttpSession session) {
+		RoomVo vo1 = service1.detail(room_num);
+		List<RoomImageVo> vo2 = service2.detail(room_num);
+		 vo1 = new RoomVo(room_num, accom_num, null, room_price, room_comm, 0, room_capa, null);
+		if (service1.update(vo1) > 0) {
+			try {
+				if (!file1.isEmpty()) {
+					String path = session.getServletContext().getRealPath("/resources/uploadRoom");
+					for(int i=0;i<vo2.size();i++) {
+						RoomImageVo vv=vo2.get(i);
+					File f = new File(path + "\\" + vv.getRoomImg_saveImg());
+					if (!f.delete()) {
+						new Exception("파일삭제실패!");
+					}
+					}
+					// 2. 첨부된 파일 저장
+					String roomImg_orgImg = file1.getOriginalFilename();
+					String roomImg_saveImg = UUID.randomUUID() + "_" + roomImg_orgImg;
+					InputStream is = file1.getInputStream();
+					FileOutputStream fos = new FileOutputStream(path + "\\" + roomImg_saveImg);
+					FileCopyUtils.copy(is, fos);
+					is.close();
+					fos.close();
+					// 3. db수정
+					service2.delete(room_num);
+					RoomImageVo vd = new RoomImageVo(0, room_num, roomImg_orgImg, roomImg_saveImg, 0);
+					service2.insert(vd);
+				} else {
+				}
+				return "redirect:/admin/roomList?accom_num="+accom_num;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "fail";
+			}
+		}
+		return "redirect:/admin/roomList?accom_num="+accom_num;
 	}
 }
