@@ -44,7 +44,12 @@
 				</script>
 				<c:if test="${sessionScope.mem_stat==1 }">
 				<li><a href="<c:url value='/sellerInsertListForm'/>">판매자 등록 리스트</a></li>
+				<li><a onclick="window.open('<c:url value='/adminLogin'/>')" href = "#">판매자페이지</a></li>
 				</c:if>
+				<c:if test="${sessionScope.mem_stat==0 }">
+				<li><a onclick="window.open('<c:url value='/adminLogin'/>')" href = "#">관리자페이지</a></li>
+				</c:if>
+			
 			</c:when>
 			<c:otherwise>
 				<li><a href="<c:url value='/user/login'/>">로그인</a></li>
