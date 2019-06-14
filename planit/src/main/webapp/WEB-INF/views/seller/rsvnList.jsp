@@ -3,10 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 	$(function(){
-		$("#showMsgPopup")
+		$("#showMsgPopup").click(function(e) {
+			e.preventDefault();
+		});
 	});
 	function ppp(){
-		var popUrl = "<c:url value='/msgSendfForm'/>";
+		var mem_id = $("#showMsgPopup").html();
+		var popUrl = "<c:url value='/msgSendForm?id=" + mem_id + "'/>";
 		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
 			window.open(popUrl,"쪽지보내기",popOption);
 	}
