@@ -97,7 +97,10 @@
 		</style>
 		<script type="text/javascript">
 			$(document).ready(function () {
-				
+				$("#loginAlert").hide();
+				if(${errMsg!=null}){
+					$("#loginAlert").fadeIn("500");
+				}
 			});
 		</script>		
 	</head>
@@ -109,9 +112,14 @@
 				<p>회원쪽 정리되는대로 업데이트 예정.</p>
 				<p><code>아무거나 입력 후 로그인 누르면 이동됩니다.</code></p>
 			</div>
-	
+			<div id="loginAlert" class="alert alert-danger" role="alert">
+				<h4 class="alert-heading">로그인 실패!</h4>
+				<p>로그인 정보가 올바르지 않습니다.</p>
+				<hr>
+				<p class="mb-0"><a href="<c:url value='/user/join'/>" class="alert-link">회원가입</a> 또는 <a href="<c:url value='/user/idsearch'/>" class="alert-link">아이디</a>/<a href="<c:url value='/user/pwdsearch'/>" class="alert-link">비밀번호</a> 찾기</p>
+			</div>
 			<div class="form-label-group">
-				<input type="text" id="inputEmail" name="mem_id" class="form-control" placeholder="아이디" required="" autofocus="">
+				<input type="text" id="inputEmail" name="mem_id" class="form-control" value="${mem_id }" placeholder="아이디" required="" autofocus="">
 				<label for="inputId">아이디</label>
 			</div>
 	
