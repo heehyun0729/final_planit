@@ -6,10 +6,10 @@
 	<sql id="search">
 		<choose>
 			<when test="field!=null and field!='' and info=='approval'">
-				${field} Like '%'||#{keyword}||'%' and mem_stat = 2
+				and ${field} Like '%'||#{keyword}||'%' and mem_stat = 2
 			</when>
 			<when test="field!=null and field!='' and info=='list'">
-				${field} Like '%'||#{keyword}||'%' and mem_stat = 1
+				and ${field} Like '%'||#{keyword}||'%' and mem_stat = 1
 			</when>
 			<when test="info=='approval'">
 				and mem_stat = 2

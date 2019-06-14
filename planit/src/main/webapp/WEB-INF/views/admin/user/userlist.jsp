@@ -129,7 +129,7 @@
 						</ul>
 					</div>
 					<form id="form" class="form-inline d-flex justify-content-center" method="post" action="<c:url value='/admin/user/userlist'/>">
-						<input type="hidden" name="${map.info }">
+						<input type="hidden" name="info" value="${map.info }">
 						<select id="field" name="field" class="custom-select">
 							<option value="mem_id" <c:if test="${param.field=='mem_id' }">selected="selected"</c:if>>아이디</option>
 							<option value="mem_nickname" <c:if test="${param.field=='mem_nickname' }">selected="selected"</c:if>>닉네임</option>

@@ -46,10 +46,9 @@ public class AdminUserController {
 		return "-admin-user-sellerlist";
 	}
 	
-	@RequestMapping(value="/admin/user/sellerlist", method = RequestMethod.POST)
-	public String sellerSearchList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-			@RequestParam(value = "info", defaultValue = "list") String info, String field, String keyword,
-			Model model) {
+	@RequestMapping(value = "/admin/user/sellerlist", method = RequestMethod.POST)
+	public String sellerSearchList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, String info,
+			String field, String keyword, Model model) {
 		sellerSearch(pageNum, field, keyword, info, model);
 		return "-admin-user-sellerlist";
 	}
