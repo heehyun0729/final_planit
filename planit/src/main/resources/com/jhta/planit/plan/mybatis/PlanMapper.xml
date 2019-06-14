@@ -23,6 +23,9 @@
 		        <if test = "keyword != null and keyword != ''">
 	               	 where ${field} like '%'||#{keyword}||'%'
                 </if>
+                <if test="mem_id != null and mem_id != ''">
+					 and mem_id = #{mem_id}
+				</if>
 		    )
 	</select>
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.plan.vo.PlanVo">
@@ -47,6 +50,9 @@
 		        order by plan_num desc
 		    )aa
 		)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
+		<if test="mem_id != null and mem_id != ''">
+			 and mem_id = #{mem_id}
+		</if>
 	</select>
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanVo">
 		select * from plan where plan_num = #{plan_num}
