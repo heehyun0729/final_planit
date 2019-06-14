@@ -2,6 +2,7 @@ package com.jhta.planit.reservation.vo;
 
 public class SellerRsvnVo {
 	private int rsvn_num;
+	private String mem_id;
 	private int accom_num;
 	private String accom_name;
 	private int room_num;
@@ -19,11 +20,12 @@ public class SellerRsvnVo {
 	
 	public SellerRsvnVo() {}
 
-	public SellerRsvnVo(int rsvn_num, int accom_num, String accom_name, int room_num, String room_type, int room_capa,
+	public SellerRsvnVo(int rsvn_num, String mem_id, int accom_num, String accom_name, int room_num, String room_type, int room_capa,
 			String rsvn_checkin, String rsvn_checkout, int rsvn_cnt, String rsvn_name, String rsvn_email,
 			String rsvn_phone, int rsvnPay_total, int rsvnPay_stat, String rsvnPay_date) {
 		super();
 		this.rsvn_num = rsvn_num;
+		this.mem_id = mem_id;
 		this.accom_num = accom_num;
 		this.accom_name = accom_name;
 		this.room_num = room_num;
@@ -46,6 +48,14 @@ public class SellerRsvnVo {
 
 	public void setRsvn_num(int rsvn_num) {
 		this.rsvn_num = rsvn_num;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
 	}
 
 	public int getAccom_num() {

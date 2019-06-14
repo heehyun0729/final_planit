@@ -5,7 +5,7 @@ public class MembersVo {
 	private String mem_pwd;
 	private String mem_nickname;
 	private String mem_email;
-	private char mem_gender;
+	private String mem_gender;
 	private int mem_birthyear;
 	private int mem_stat;
 	private String mem_api;
@@ -13,7 +13,7 @@ public class MembersVo {
 	public MembersVo() {
 	}
 
-	public MembersVo(String mem_id, String mem_pwd, String mem_nickname, String mem_email, char mem_gender,
+	public MembersVo(String mem_id, String mem_pwd, String mem_nickname, String mem_email, String mem_gender,
 			int mem_birthyear, int mem_stat, String mem_api) {
 		super();
 		this.mem_id = mem_id;
@@ -58,11 +58,11 @@ public class MembersVo {
 		this.mem_email = mem_email;
 	}
 
-	public char getMem_gender() {
+	public String getMem_gender() {
 		return mem_gender;
 	}
 
-	public void setMem_gender(char mem_gender) {
+	public void setMem_gender(String mem_gender) {
 		this.mem_gender = mem_gender;
 	}
 

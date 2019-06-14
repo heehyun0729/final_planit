@@ -7,23 +7,7 @@
 	
 </style>
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#sellerapproval").submit(function(event) {
-		event.preventDefault();
-		$.ajax({
-			url : $('#localurl').val()+"admin/user/sellerapproval",
-			type : "post",
-			data : {'mem_id':$("#mem_id1").val()},
-			success : function(data) {
-				if (data >0) {
-					alert("변경성공!");
-				} else {
-					alert("변경실패!");
-				}
-			}
-		});
-	});
-});
+
 </script>
 <div>
 <header>
@@ -53,13 +37,14 @@ $(document).ready(function() {
 										<td>${map.SELL_ADDR }</td>
 										<td>${map.SELL_TEL }</td>
 										<td>
-											<form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
+											<%-- <form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
 												<input type="hidden" id="mem_id1" name="mem_id1" value="${map.MEM_ID }">
 												<input type="hidden" id="localurl" value="<c:url value='/'/>">
 												<input type="submit" value="승인" <c:if test="${map.MEM_STAT<2 }">disabled="disabled"</c:if>>
-											</form>
+											</form> --%>
+											<button type="button"  onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerinfo?mem_id=${map.MEM_ID }'">상세보기</button>
 										</td>
-										<!-- <td><a href="<c:url value='/admin/user/sellerinfo?&mem_id=${map.MEM_ID }'/>">상세보기</a></td> -->
+										<!-- <td><a href="<c:url value='/admin/user/sellerinfo?&mem_id=${map.MEM_ID }'/>">상세보기</a></td>-->
 									</tr>
 								</c:forEach>
 							</c:when>

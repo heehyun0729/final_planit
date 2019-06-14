@@ -66,7 +66,16 @@
 		update profile set PROFILE_OPEN=#{profile_open}, PROFILE_COMM=#{profile_comm}
 		where mem_id=#{mem_id}
 	</update>
-	<!-- <update id="withdrawal" parameterType="string">
-		update profile
-	</update>-->
+	 <delete id="withdrawal1" parameterType="string">
+	 	delete from follow_list 
+		where mem_id=#{mem_id} or profile_no=(
+		select profile_no from profile where mem_id=#{mem_id})
+	</delete>
+	 <update id="withdrawal2" parameterType="string">
+		update memimage set IMG_ORGIMG='/resources/profileImg/BasicPhoto.png', IMG_SAVEIMG='/resources/profileImg/BasicPhoto.png' 
+		where mem_id=#{mem_id}
+	</update>
+	 <update id="withdrawal3" parameterType="string">
+		update profile set profile_comm='탈퇴한 회원입니다', profile_open=4 where mem_id=#{mem_id}
+	</update>
 </mapper>
