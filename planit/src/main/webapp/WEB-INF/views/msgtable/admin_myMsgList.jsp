@@ -82,6 +82,20 @@ function detailClose() {
 	msgSendBtn.style="";
 }
 </script>
+<script>
+function dm(num){
+		var popUrl = "${pageContext.request.contextPath}/msg${type=='SEND'?'Send':'Receive'}Detail?msgNum="+num;
+		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+			window.open(popUrl,"상세보기",popOption);
+			
+}
+function ppp(){
+	var popUrl = "<c:url value='/msgSendfForm'/>";
+	var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+		window.open(popUrl,"쪽지보내기",popOption);
+		
+}
+</script>
 <div id="myMsg">
 	<div class="myPageBtns">
 		<div id="errMsg" style="text-align: center;">
@@ -117,7 +131,7 @@ function detailClose() {
 						<c:forEach var="vo" items="${list}">
 							<tr>
 								<td>${type=="SEND" ? vo.receiveMemId : vo.sendMemId}</td>
-								<td onclick="detailMessage(${vo.msgNum})"><a
+								<td onclick="dm(${vo.msgNum})"><a
 									style="color: black;" href="#"><nobr>${vo.msgContent.replace("<br/>","")}</nobr></a>
 								</td>
 								<td>${vo.msgWdate}</td>
@@ -226,7 +240,7 @@ function detailClose() {
 		<div id="msg_detail"></div>
 		<div>
 			<br/><input id="msgSendBtn" class="userMypageUpdateBtn"
-				type="button" value="쪽지보내기" onclick="detailSendForm()" /><br>
+				type="button" value="쪽지보내기" onclick="ppp()" /><br>
 			<br/> <a href="<c:url value='/'/>">메인 페이지</a>
 		</div>
 	</div>

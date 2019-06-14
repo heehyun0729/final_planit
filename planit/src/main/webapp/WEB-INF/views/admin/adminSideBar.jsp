@@ -51,14 +51,37 @@
 				<span class="fas fa-caret-down ml-auto"></span>
 			</div>
 		</a>
-		<div id='sell' class="collapse sidebar-submenu">
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">숙소 목록</span>
-			</a>
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">예약 목록</span>
-			</a>
-		</div>
+		<c:choose>
+			<c:when test="${sessionScope.mem_stat==1 }"><!-- 판매자 -->
+				<div id='sell' class="collapse sidebar-submenu">
+					<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+						<span class="menu-collapsed">숙소 목록</span>
+					</a>
+					<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+						<span class="menu-collapsed">예약 목록</span>
+					</a>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div id='sell' class="collapse sidebar-submenu">
+					<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+						<span class="menu-collapsed">숙소 목록</span>
+					</a>
+					<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+						<span class="menu-collapsed">예약 목록</span>
+					</a>
+				</div>
+			</c:otherwise>
+		</c:choose>
+			
+			<div id='sell' class="collapse sidebar-submenu">
+				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">숙소 목록</span>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">예약 목록</span>
+				</a>
+			</div>
 		<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
 			<small></small>
 		</li>
@@ -114,28 +137,29 @@
 			<div class="d-flex w-100 justify-content-start align-items-center">
 				<span class="fa fa-envelope fa-fw mr-3"></span>
 				<span class="menu-collapsed">쪽지
-					<span id="messageBadge" class="badge badge-pill badge-primary ml-2"><span id = "mul"></span></span>
+					<span id="messageBadge" class="badge badge-pill badge-primary ml-2"></span>
 				</span>
 			</div>
 		</a>
 		<script>
 				var xhr = null;
-				//var cnum=setInterval(countList);
+				var cnum=setInterval(countList);
 				function countList() {
 					xhrList = new XMLHttpRequest();
 					xhrList.onreadystatechange = countListOk;
 					xhrList.open('get', '${pageContext.request.contextPath }/mem/readCheck?memId=${sessionScope.mem_id}', true);
 					xhrList.send();
+					
 				}
 				function countListOk() {
 					if(xhrList.readyState == 4 && xhrList.status == 200){
 						var data = xhrList.responseXML;
-						var mul = document.getElementById("mul");
+						var messageBadge = document.getElementById("messageBadge");
 						var result=data.getElementsByTagName("result")[0];
 						var comm = result.getElementsByTagName("comm")[0];
 						var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
 					    if(c!=0){
-					    	mul.innerHTML=  c;
+					    	messageBadge.innerHTML=  c;
 					    }
 						
 					}

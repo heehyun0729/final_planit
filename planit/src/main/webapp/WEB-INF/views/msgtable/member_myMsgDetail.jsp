@@ -23,8 +23,11 @@ function reSend(receiveMemId){
 	var popUrl = "${pageContext.request.contextPath}/msgSendForm?id="+receiveMemId;
 	var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
 		window.open(popUrl,"답장보내기",popOption);	
+		opener.parent.location.reload();
+		window.close();
 }
 function detailClose() {
+	opener.parent.location.reload();
 	window.close();
 }
 

@@ -87,7 +87,7 @@ function dm(num){
 		var popUrl = "${pageContext.request.contextPath}/msg${type=='SEND'?'Send':'Receive'}Detail?msgNum="+num;
 		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
 			window.open(popUrl,"상세보기",popOption);
-			
+			//	window.location.reload();	
 }
 function ppp(){
 	var popUrl = "<c:url value='/msgSendfForm'/>";
