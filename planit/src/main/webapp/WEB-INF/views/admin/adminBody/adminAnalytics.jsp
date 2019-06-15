@@ -117,11 +117,13 @@
 		if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
 			lastDate[1]=29;
 		}
+		var today1=new Date();
+		today1.setDate(today.getDate()-lastDate[todayMonth]);
 		for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
-			today.setDate(today.getDate()-1);
-			todayYear=today.getFullYear();//년
-			todayMonth=today.getMonth()+1;//월
-			todayDate=today.getDate();//일
+			today1.setDate(today1.getDate()+1);
+			todayYear=today1.getFullYear();//년
+			todayMonth=today1.getMonth()+1;//월
+			todayDate=today1.getDate();//일
 			const date=todayYear + "-" + todayMonth + "-" + todayDate;
 			days.push(date);
 		}
@@ -210,11 +212,13 @@
 		if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
 			lastDate[1]=29;
 		}
+		var today1=new Date();
+		today1.setDate(today.getDate()-lastDate[todayMonth]);
 		for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
-			today.setDate(today.getDate()-1);
-			todayYear=today.getFullYear();//년
-			todayMonth=today.getMonth()+1;//월
-			todayDate=today.getDate();//일
+			today1.setDate(today1.getDate()+1);
+			todayYear=today1.getFullYear();//년
+			todayMonth=today1.getMonth()+1;//월
+			todayDate=today1.getDate();//일
 			const date=todayYear + "-" + todayMonth + "-" + todayDate;
 			days.push(date);
 		}
@@ -241,7 +245,7 @@
 					            data: click,
 					            fill: false,
 					            borderColor: [
-					                'rgba(75, 192, 192, 1)'
+					                ''
 					            ],
 					            borderWidth: 2
 					        },
@@ -290,7 +294,7 @@
 	function usersPlanCountry(){//플래너 국가 순위 차트
 		var ctx2 = $("#usersPlanCountry");
 		var countryList=[];
-		var cntList=[];		
+		var cntList=[];	
 		<c:forEach var="i" items="${map.countryList }">
 			countryList.push("${i}");
 		</c:forEach>
@@ -379,7 +383,18 @@
 		    data: usersBuddyCountrydata,
 		    options: {
 		    	maintainAspectRatio: false,
-		    	legend: {display: false}
+		    	legend: {display: false},
+		    	plugins:{
+		    		labels: [
+		    		    {
+		    		      render: 'label',
+		    		      position: 'outside'
+		    		    },
+		    		    {
+		    		      render: 'percentage'
+		    		    }
+		    		  ]
+		    	}
 		    }
 		});
 	}
@@ -451,7 +466,14 @@
 		                'rgba(255, 206, 86, 0.2)',
 		                'rgba(75, 192, 192, 0.2)',
 		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)'
+		                'rgba(255, 159, 64, 0.2)',
+		                'rgba(0, 159, 64, 0.2)',
+		                'rgba(163, 45, 171, 0.2)',
+		                'rgba(163, 45, 171, 0.2)',
+		                'rgba(0, 45, 171, 0.2)',
+		                'rgba(175, 145, 171, 0.2)',
+		                'rgba(171, 205, 201, 0.2)',
+		                'rgba(85, 76, 111, 0.2)'
 		            ],
 		            borderColor: [
 		            	  'rgba(255, 99, 132, 1)',
@@ -459,7 +481,13 @@
 		                  'rgba(255, 206, 86, 1)',
 		                  'rgba(75, 192, 192, 1)',
 		                  'rgba(153, 102, 255, 1)',
-		                  'rgba(255, 159, 64, 1)'
+		                  'rgba(255, 159, 64, 1)',
+		                  'rgba(0, 159, 64, 1)',
+		                  'rgba(163, 45, 171, 1)',
+		                  'rgba(0, 45, 171, 1)',
+		                  'rgba(175, 145, 171, 1)',
+		                  'rgba(171, 205, 201, 1)',
+		                  'rgba(85, 76, 111, 1)'
 		            ],
 			        borderWidth: 1
 			    }],
@@ -529,7 +557,7 @@
 									<h4 class="card-header">최근 한 달 수익</h4>
 									<div class="card-body text-center">
 										<div class="chart">
-											<canvas id="monthProfitChart" width="100" height="400"></canvas>
+											<canvas id="monthProfitChart" width="100" height="200"></canvas>
 										</div>
 									</div>
 								</div>
@@ -541,7 +569,7 @@
 									<h4 class="card-header">최근 한 달 광고 정보</h4>
 									<div class="card-body text-center">
 										<div class="chart">
-											<canvas id="monthAdChart" width="100" height="400"></canvas>
+											<canvas id="monthAdChart" width="100" height="200"></canvas>
 										</div>
 									</div>
 								</div>

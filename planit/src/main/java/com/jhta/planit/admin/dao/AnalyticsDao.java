@@ -27,10 +27,10 @@ public class AnalyticsDao {
 	public List<Object> getMembersBirthYear(){//회원 생일 분포 차트
 		return sqlSession.selectList(NAMESPACE + "getMembersBirthYear");
 	}
-	public int getRooms(){//총 등록된 방의 갯수 구하기
+	public double getRooms(){//총 등록된 방의 갯수 구하기
 		return sqlSession.selectOne(NAMESPACE + "getRooms");
 	}
-	public int getPaidRooms(){//예약된 방의 갯수 구하기
+	public double getPaidRooms(){//예약된 방의 갯수 구하기
 		return sqlSession.selectOne(NAMESPACE + "getPaidRooms");
 	}
 	public int todaySellProfit(){//방의 갯수 구하기

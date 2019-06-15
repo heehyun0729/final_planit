@@ -38,9 +38,8 @@ public class AdminAnalysticController {
 		int adProfit=service.getTodayAdProfit(date);
 		map.put("chance", chance);//금일 광고율 담기
 		map.put("adProfit", adProfit);//광고 수익 담기
-		
-		int roomRate=service.getPaidRoomsRate();//방 예약율 구하기
-		map.put("roomRate", (roomRate*100));
+		int roomRate=(int)Math.floor(service.getPaidRoomsRate());//방 예약율 구하기
+		map.put("roomRate", roomRate);
 		int todaySellProfit=service.todaySellProfit();//금일 예약 수익 구하기
 		map.put("todaySellProfit", todaySellProfit);
 		

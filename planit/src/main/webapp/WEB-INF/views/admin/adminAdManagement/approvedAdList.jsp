@@ -7,7 +7,17 @@
 <style type="text/css">
 </style>
 <script type="text/javascript">
-	
+	$(document).ready(function(){
+		$(".table a").on("click", function(event){//모달 열기
+			event.preventDefault();
+			const src=$(event.target).parent().prop("href");
+			$("#modalSrc").html('<iframe style="border: 0px; " src="' + src + '" width="1000px" height="820px"></iframe>');
+			$("#clickMe").click();
+		});
+		$('#exampleModal').on('hidden.bs.modal', function () {//모달 닫힐때 새로고침
+			  window.location.reload();
+		});
+	});
 </script>
 <div>
 <header>

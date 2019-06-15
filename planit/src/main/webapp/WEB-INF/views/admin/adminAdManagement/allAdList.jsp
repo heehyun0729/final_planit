@@ -5,6 +5,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx" %>
 <tilesx:useAttribute name="current" />
+<script>
+	$(document).ready(function(){
+		$(".table a").on("click", function(event){//모달 열기
+			event.preventDefault();
+			const src=$(event.target).parent().prop("href");
+			$("#modalSrc").html('<iframe style="border: 0px; " src="' + src + '" width="1000px" height="820px"></iframe>');
+			$("#clickMe").click();
+		});
+		$('#exampleModal').on('hidden.bs.modal', function () {//모달 닫힐때 새로고침
+			  window.location.reload();
+		});
+	});
+</script>
 <header>
 </header>
 <section>

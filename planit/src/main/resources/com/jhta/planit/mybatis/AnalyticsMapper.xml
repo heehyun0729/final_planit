@@ -13,12 +13,12 @@
 		select mem_gender, count(mem_gender) as cnt from members group by mem_gender
 	</select>
 	<select id="getMembersBirthYear" resultType="hashmap">
-		select mem_birthYear, count(mem_birthYear) as cnt from members group by mem_birthYear
+		select mem_birthYear, count(mem_birthYear) as cnt from members group by mem_birthYear order by mem_birthYear
 	</select>
-	<select id="getRooms" resultType="int">
+	<select id="getRooms" resultType="double">
 		select count(room_num) as cnt from room where roomChk=0
 	</select>
-	<select id="getPaidRooms" resultType="int">
+	<select id="getPaidRooms" resultType="double">
 		select count(rsvnPay_id) as cnt from rsvnPay where rsvnPay_stat=0
 	</select>
 	<select id="todaySellProfit" resultType="int">

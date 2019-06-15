@@ -75,11 +75,13 @@
 		if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
 			lastDate[1]=29;
 		}
+		var today1=new Date();
+		today1.setDate(today.getDate()-lastDate[todayMonth]);
 		for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
-			today.setDate(today.getDate()-1);
-			todayYear=today.getFullYear();//년
-			todayMonth=today.getMonth()+1;//월
-			todayDate=today.getDate();//일
+			today1.setDate(today1.getDate()+1);
+			todayYear=today1.getFullYear();//년
+			todayMonth=today1.getMonth()+1;//월
+			todayDate=today1.getDate();//일
 			const date=todayYear + "-" + todayMonth + "-" + todayDate;
 			days.push(date);
 		}
@@ -186,8 +188,8 @@
 		</div>
 	</div>
 	<div class="row mt-5">
-		<div class="col d-flex justify-content-start align-items-center text-center">
-			<div class="card w-100 h-100 mr-5">
+		<div class="col-auto">
+			<div class="card h-100">
 				<h4 class="card-header text-left">최근 광고 거래</h4>
 				<div class="card-body">
 					<div class="container">
@@ -248,7 +250,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="card w-100 h-100">
+		</div>
+		<div class="col">
+			<div class="card h-100">
 				<h4 class="card-header text-left">최근 예약 거래</h4>
 				<div class="card-body">
 					<div class="container">

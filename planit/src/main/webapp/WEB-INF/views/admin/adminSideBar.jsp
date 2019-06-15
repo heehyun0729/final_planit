@@ -46,7 +46,7 @@
 			<div class="d-flex w-100 justify-content-start align-items-center">
 				<span class="fas fa-bed fa-fw mr-3"></span>
 				<span class="menu-collapsed">숙소/예약
-					<span id="acBadge" class="badge badge-pill badge-primary ml-2">5</span>
+					<span id="acBadge" class="badge badge-pill badge-primary ml-2"></span>
 				</span>
 				<span class="fas fa-caret-down ml-auto"></span>
 			</div>

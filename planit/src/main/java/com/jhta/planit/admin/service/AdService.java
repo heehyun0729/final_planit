@@ -227,11 +227,11 @@ public class AdService {
 	public List<Object> getMembersBirthYear(){//회원 생일 분포 차트
 		return analyticsDao.getMembersBirthYear();
 	}
-	public int getPaidRoomsRate() {//방 예약율 구하기
-		int tot=analyticsDao.getRooms();
-		int paid=analyticsDao.getPaidRooms();
+	public double getPaidRoomsRate() {//방 예약율 구하기
 		try {
-			int rate=paid/tot;
+			double tot=analyticsDao.getRooms();
+			double paid=analyticsDao.getPaidRooms();
+			double rate=((paid/tot)*100);
 			return rate;
 		}catch(ArithmeticException ae) {
 			int rate=0;
