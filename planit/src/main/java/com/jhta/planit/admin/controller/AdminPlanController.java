@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jhta.planit.plan.service.PlanDetailService;
 import com.jhta.planit.plan.service.PlanService;
 import com.jhta.planit.plan.vo.PlanDetailVo;
+import com.jhta.planit.plan.vo.PlanListVo;
 import com.jhta.planit.plan.vo.PlanVo;
 import com.jhta.util.PageUtil;
 
@@ -120,7 +121,7 @@ public class AdminPlanController {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		
-		List<PlanVo> list = planService.list(map);
+		List<PlanListVo> list = planService.list(map);
 		model.addAttribute("list", list);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("startRow", startRow);

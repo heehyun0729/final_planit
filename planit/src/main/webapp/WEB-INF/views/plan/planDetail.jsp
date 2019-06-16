@@ -20,6 +20,7 @@
 	<div id="planTitle">
 		<h2>${vo.plan_title }</h2>
 		<div>
+			<img src = "<c:url value = '${map.IMG_SAVEIMG }'/>" style = "width: 50px;height: 50px;float: left;">
 			<ul>
 				<li>${vo.mem_id }</li>
 				<li><a href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a></li>

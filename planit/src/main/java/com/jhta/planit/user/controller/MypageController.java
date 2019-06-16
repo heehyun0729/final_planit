@@ -23,6 +23,7 @@ import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
 import com.jhta.planit.plan.service.PlanService;
+import com.jhta.planit.plan.vo.PlanListVo;
 import com.jhta.planit.plan.vo.PlanVo;
 import com.jhta.planit.reservation.service.RsvnPayService;
 import com.jhta.planit.reservation.service.RsvnService;
@@ -57,7 +58,7 @@ public class MypageController {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		
-		List<PlanVo> list = planService.list(map);
+		List<PlanListVo> list = planService.list(map);
 		model.addAttribute("list", list);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("startRow", startRow);

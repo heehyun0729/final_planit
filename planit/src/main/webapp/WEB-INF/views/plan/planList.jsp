@@ -55,6 +55,7 @@ function ppp(mem_id){
 					<a href = "<c:url value = '/plan/detail?pageNum=${pageNum }&field=${field }&keyword=${keyword }&plan_num=${vo.plan_num }'/>">${vo.plan_title }</a>
 				</div>
 				<div class = "planId">
+					<img src = "<c:url value = '${vo.img_saveImg }'/>" style = "width: 50px;height: 50px;float: left;">
 					<ul>
 						<li>${vo.mem_id }</li>
 						<li><a href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a></li>

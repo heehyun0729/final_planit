@@ -28,12 +28,13 @@
 				</if>
 		    )
 	</select>
-	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.plan.vo.PlanVo">
+	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.plan.vo.PlanListVo">
 		select * from
 		(
 		    select aa.*, rownum rnum from
 		    (
-		        select * from plan
+		        select pp.*, m.img_saveImg img_saveImg 
+		        from plan pp, memImage m
 		        where plan_num in 
 		            (
 		                select plan_num from
@@ -47,6 +48,7 @@
 		               	 where ${field} like '%'||#{keyword}||'%'
 		                </if>
 		            )
+		        and pp.mem_id = m.mem_id
 		        order by plan_num desc
 		    )aa
 		)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
