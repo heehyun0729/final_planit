@@ -173,10 +173,12 @@ public class MypageController {
 		parammap.put("mem_id", mem_id);
 		parammap.put("session_mem_id", (String) session.getAttribute("mem_id"));
 		HashMap<Object, Object> profilemap=service.profileInfo(parammap);
+		HashMap<String, Object> listpage=new HashMap<String, Object>();
 		List<HashMap<Object, Object>> contentlist;
 		ModelAndView mv = new ModelAndView();
 		if (content.equals("followedlist")) {
 			mv.setViewName("^member^mypage^"+mem_id+"^followedlist");
+			
 			contentlist = service.followedlist(mem_id);
 			mv.addObject("contentmap", contentlist);
 		} else if (content.equals("followlist")) {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div>
+${totalcnt }명
 <div id="table">
 <c:forEach var="contentmap" items="${contentmap }">
 <div class="row">

@@ -32,7 +32,7 @@
 			</ul>
 			<div class="-vDIg">
 				<c:choose>
-					<c:when test="${profilemap.FOLLOW_GRADE==0 && !mem_tf }">비공개 프로필입니다.</c:when>
+					<c:when test="${profilemap.FOLLOW_GRADE==0 && !mem_tf}">비공개 프로필입니다.</c:when>
 					<c:otherwise><pre>${profilemap.PROFILE_COMM }</pre></c:otherwise> 
 				</c:choose>
 			</div>
