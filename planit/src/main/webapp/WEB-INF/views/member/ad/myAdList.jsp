@@ -59,7 +59,7 @@
 					<div class="d-flex justify-content-center">
 						<ul class="pagination">
 							<c:if test="${map.startPageNum!=1 }">
-								<li class="page-item"><a class="page-link" href='${pageContext.request.contextPath }/?pageNum=${pu.startPageNum-1}'>◀</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/member/mypage/ad/${mem_id}/myAdList?pageNum=${map.startPageNum-1}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">◀</a></li>
 							</c:if>
 							<c:forEach var="i" begin="${map.startPageNum }" end="${map.endPageNum }">
 								<c:choose>
@@ -71,8 +71,8 @@
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-							<c:if test="${map.totalPageCount!=pu.endPageNum }">
-								<li class="page-item"><a class="page-link" href='${pageContext.request.contextPath }/?pageNum=${pu.endPageNum+1}'>▶</a></li>
+							<c:if test="${map.totalPageCount!=map.endPageNum }">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/member/mypage/ad/${mem_id}/myAdList?pageNum=${map.endPageNum+1}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">▶</a></li>
 							</c:if>
 						</ul>
 					</div>
