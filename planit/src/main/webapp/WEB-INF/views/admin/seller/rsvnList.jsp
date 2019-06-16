@@ -180,14 +180,14 @@
 									</c:forEach>
 								</tbody>
 							</table>
-							<div class = "row d-flex justify-content-center">
-								<span>투숙 기간: </span><input type="text" class="form-control col-sm-2" id="sellCheckin" name="checkin" value="${checkin }">
-								<span> ~ </span><input type="text" class="form-control col-sm-2" id="sellCheckout" name="checkout" value="${checkout }"><br>
+							<div class = "row d-flex justify-content-center" style = "margin-bottom: 10px;">
+								<span><i class="far fa-calendar-alt fa-2x"></i>&nbsp;</span><input type="text" class="form-control col-sm-2" id="sellCheckin" name="checkin" value="${checkin }">
+								<span>&nbsp;~&nbsp;</span><input type="text" class="form-control col-sm-2" id="sellCheckout" name="checkout" value="${checkout }"><br>
 								<input type="hidden" value="${pageNum }" name="pageNum">
 							</div>
-							<div class="form-inline d-flex justify-content-center" method="post" action="<c:url value = '/admin/plan/list'/>">
+							<div class="form-inline d-flex justify-content-center">
 								<input type="hidden" value="${pageNum }" name="pageNum">
-								<select name="field" class="custom-select">
+								<select name="field" class="custom-select" style = "margin-right: 5px;">
 									<option value = "rsvn_num"
 										<c:if test = "${field == 'rsvn_num' }">selected = "selected"</c:if>
 									>예약번호</option>
@@ -209,7 +209,7 @@
 									<option value = "rsvn_phone"
 										<c:if test = "${field == 'rsvn_phone' }">selected = "selected"</c:if>
 									>연락처</option>
-								</select> 
+								</select>
 								<input class="form-control mr-sm-2" value="${keyword }" name="keyword" type="search">
 								<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">검색</button>
 							</div>
