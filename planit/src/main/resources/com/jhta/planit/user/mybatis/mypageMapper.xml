@@ -7,7 +7,15 @@
 		select m.mem_nickname, mi.img_saveImg, p.profile_open, p.profile_comm, 
 			(select nvl(count(*),0) from follow_list f where f.mem_id=#{mem_id}) follow, 
 			(select nvl(count(*),0) from follow_list f where f.profile_no=( select profile_no from profile where mem_id=#{mem_id})) follower, 
-			nvl((select follow_grade from follow_list where mem_id=#{session_mem_id} and profile_no=( select profile_no from profile where mem_id=#{mem_id})),0) follow_grade 
+			nvl((select follow_grade from follow_list where mem_id=#{session_mem_id} and profile_no=( select profile_no from profile where mem_id=#{mem_id})),0) follow_grade
+			<!-- (select sum(write.cnt) from (
+				select nvl(count(*),0) cnt from review where mem_id=#{mem_id} 
+				union all 
+				select nvl(count(*),0) cnt from qna where mem_id='idest01'
+				union all
+				select nvl(count(*),0) cnt from acommQna where mem_id='idest01'
+				)write
+			--> 
 		from members m,profile p, memimage mi 
 		where m.mem_id=p.mem_id and m.mem_id=mi.mem_id and m.mem_id=#{mem_id}
 	</select>
@@ -27,12 +35,15 @@
 		select nvl(count(*),0) from follow_list where profile_no=( select profile_no from profile where mem_id=#{mem_id})
 	</select>
 	<select id="followedlist" resultType="hashmap" parameterType="string">
-		select m.mem_nickname,mi.img_saveImg from follow_list f, members m, memimage mi
-		where m.mem_id=f.mem_id and m.mem_id=mi.mem_id and f.profile_no=(select profile_no from follow_list where mem_id=#{mem_id})
+		select m.mem_nickname,m.mem_id,mi.img_saveImg from follow_list f, members m, memimage mi
+		where m.mem_id=f.mem_id and m.mem_id=mi.mem_id and f.profile_no=(
+			select profile_no from profile where mem_id=#{mem_id})
 	</select>
 	<select id="followlist" resultType="hashmap" parameterType="string">
-		select m.mem_nickname,mi.img_saveImg from follow_list f, members m, memimage mi
-		where m.mem_id=f.mem_id and m.mem_id=mi.mem_id and f.mem_id=#{mem_id}
+		select m.mem_nickname,m.mem_id,mi.img_saveImg from follow_list f, members m, memimage mi
+		where m.mem_id=f.mem_id and m.mem_id=mi.mem_id and f.mem_id=mi.mem_id and m.mem_id in (
+			select mem_id from profile where profile_no in (
+				select profile_no from follow_list where mem_id=#{mem_id}))
 	</select>
 	<select id="postslist" resultType="hashmap" parameterType="string">
 		select m.mem_nickname,mi.img_saveImg from follow_list f, members m, memimage mi

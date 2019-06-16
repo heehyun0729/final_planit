@@ -47,8 +47,8 @@
 	<div id = "header">
 		<tiles:insertAttribute name = "header"/>
 	</div>
-	<div id = "content">
-		<tiles:insertAttribute name = "content"/>
+	<div id = "profile">
+		<tiles:insertAttribute name = "profile"/>
 	</div>
 	<div id = "profilecontent">
 		<tiles:insertAttribute name = "profilecontent"/>

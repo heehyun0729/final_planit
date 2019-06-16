@@ -161,7 +161,7 @@ public class MypageController {
 			parammap.put("session_mem_id", "");
 		}
 		HashMap<Object, Object> profilemap=service.profileInfo(parammap);
-		ModelAndView mv=new ModelAndView(".member.mypage");
+		ModelAndView mv=new ModelAndView("^member^mypage");
 		mv.addObject("mem_tf", acc_member(mem_id, (String) session.getAttribute("mem_id")));
 		mv.addObject("profilemap", profilemap);
 		return mv;
@@ -175,11 +175,13 @@ public class MypageController {
 		parammap.put("session_mem_id", (String) session.getAttribute("mem_id"));
 		HashMap<Object, Object> profilemap=service.profileInfo(parammap);
 		List<HashMap<Object, Object>> contentlist;
-		ModelAndView mv = new ModelAndView(".member.mypage");
+		ModelAndView mv = new ModelAndView();
 		if (content.equals("followedlist")) {
+			mv.setViewName("^member^mypage^"+mem_id+"^followedlist");
 			contentlist = service.followedlist(mem_id);
 			mv.addObject("contentmap", contentlist);
 		} else if (content.equals("followlist")) {
+			mv.setViewName("^member^mypage^"+mem_id+"^followlist");
 			contentlist = service.followlist(mem_id);
 			mv.addObject("contentmap", contentlist);
 		} else if (content.equals("postslist")) {

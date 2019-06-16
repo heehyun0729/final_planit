@@ -14,7 +14,7 @@
 				<c:choose>
 					<c:when test="${mem_tf }">환영합니다.</c:when>
 					<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE>0 }"><button id="mypage_followbtn">팔로우 됨</button></c:when>
-					<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE>0 }"><button id="mypage_followbtn">팔로우</button></c:when>
+					<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE==0 }"><button id="mypage_followbtn">팔로우</button></c:when>
 				</c:choose>
 			</div>
 			<c:choose><c:when test=""></c:when> </c:choose>
@@ -49,6 +49,5 @@
 			</ul>
 		</div>
 	</c:if>
-	<div id="mypage_content" >${content }</div>
 </div>
 <script type="text/javascript" src="<c:url value='/resources/js/members/mypageScript.js'/>"></script>

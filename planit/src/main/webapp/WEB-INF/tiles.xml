@@ -25,24 +25,28 @@
 			value="/WEB-INF/views/{1}.jsp" />
 	</definition>	
 	
-	<definition name=".mypage"
-		template="/WEB-INF/views/user/mypagelayout.jsp">
+	<definition name="mypage"
+		template="/WEB-INF/views/member/mypagelayout.jsp">
 		<put-attribute name="header"
 			value="/WEB-INF/views/header.jsp" />
-		<put-attribute name="content"
-			value="/WEB-INF/views/main.jsp" />
-		<put-attribute name="content"
-			value="/WEB-INF/views/main.jsp" />
+		<put-attribute name="profile"
+			value="/WEB-INF/views/member/mypage.jsp" />
+		<put-attribute name="profilecontent"
+			value="/WEB-INF/views/member/mypagemain.jsp" />
 		<put-attribute name="footer"
 			value="/WEB-INF/views/footer.jsp" />
 	</definition>	
-	<definition name=".*.*.*.*" extends=".main">
-		<put-attribute name="content"
-			value="/WEB-INF/views/{1}/{2}/{4}.jsp" />
+	<definition name="^*^*^*^*" extends="mypage">
+		<put-attribute name="profilecontent"
+			value="/WEB-INF/views/member/mypagecontent/{4}.jsp" />
 	</definition>
-	<definition name=".*.*.*" extends=".main">
-		<put-attribute name="content"
-			value="/WEB-INF/views/{1}/{2}.jsp" />
+	<definition name="^*^*^*" extends="mypage">
+		<put-attribute name="profilecontent"
+			value="/WEB-INF/views/member/mypagecontent/{3}.jsp" />
+	</definition>
+	<definition name="^*^*" extends="mypage">
+		<put-attribute name="profilecontent"
+			value="/WEB-INF/views/member/mypagecontent/mypagemain.jsp" />
 	</definition>
 	
 	<definition name="admin"
