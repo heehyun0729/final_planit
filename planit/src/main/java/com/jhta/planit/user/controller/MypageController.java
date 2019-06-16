@@ -24,7 +24,6 @@ import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
 import com.jhta.planit.plan.service.PlanService;
 import com.jhta.planit.plan.vo.PlanListVo;
-import com.jhta.planit.plan.vo.PlanVo;
 import com.jhta.planit.reservation.service.RsvnPayService;
 import com.jhta.planit.reservation.service.RsvnService;
 import com.jhta.planit.reservation.vo.MyRsvnVo;
