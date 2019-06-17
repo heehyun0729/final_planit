@@ -32,12 +32,15 @@ import com.jhta.planit.plan.service.PlanService;
 import com.jhta.planit.plan.vo.PlanDetailVo;
 import com.jhta.planit.plan.vo.PlanListVo;
 import com.jhta.planit.plan.vo.PlanVo;
+import com.jhta.planit.user.service.MypageService;
+import com.jhta.planit.user.vo.MemImageVo;
 import com.jhta.util.PageUtil;
 
 @Controller
 public class PlanController {
 	@Autowired private PlanService planService;
 	@Autowired private PlanDetailService planDetailService;
+	@Autowired private MypageService mypageService;
 
 	@RequestMapping(value = "/plan/update", produces = "application/json;charset=utf-8")
 	@ResponseBody
@@ -314,6 +317,14 @@ public class PlanController {
 			dvo.setPlanDetail_inDate(date_in);
 			dvo.setPlanDetail_outDate(date_out);
 		}
+		String mem_id = vo.getMem_id();
+		String session_mem_id = (String)session.getAttribute("mem_id");
+		HashMap<String, String> parammap = new HashMap<String, String>();
+		parammap.put("mem_id", mem_id);
+		parammap.put("session_mem_id", session_mem_id);
+		HashMap<Object, Object> map = mypageService.profileInfo(parammap);
+		String img = (String) map.get("IMG_SAVEIMG");
+		model.addAttribute("img", img);
 		model.addAttribute("dlist", dlist);
 		return ".plan.planDetail";
 	}

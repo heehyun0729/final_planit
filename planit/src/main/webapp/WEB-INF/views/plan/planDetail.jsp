@@ -15,12 +15,104 @@
 			window.open(popUrl,"쪽지보내기",popOption);
 	}
 </script>
+<!--================Breadcrumb Area =================-->
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" style = "background: url(../resources/images/map.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">계획짜기</h2>
+            <ol class="breadcrumb">
+                <li><a href="<c:url value = '/'/>">홈</a></li>
+                <li class="active">계획짜기</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<!--================Breadcrumb Area =================-->
+<input type="hidden" id="plan_num" value="${vo.plan_num }">
+ <section class="contact_area section_gap">
+    <div class="container">
+        <div class="row">
+        	<div class = "col-lg-2 col-md-1">
+				<h2>${vo.plan_title }</h2>
+			</div>
+			<div class = "col-lg-2 col-md-1" style = "padding-top: 5px;">
+				<img src = "<c:url value = '${img }'/>" class="img-circle avatar" style = "display: inline-block;float:left;margin-right: 15px;">
+				<div class="dropdown show" style = "display: inline-block;float:left;">
+				  <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${vo.mem_id }</a>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				  	<a class="dropdown-item" href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a>
+					<a class="dropdown-item" href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a>
+				  </div>
+				</div>
+			</div>
+			<div class = "col-md-8">
+				<div class="dropdown show" style = "display: inline-block;float:left;">
+				  <a href="#" class = "genric-btn success circle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class = "lnr lnr-cog"></i>&nbsp;&nbsp; 관리</a>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				  	<a href = "#" class="dropdown-item" data-toggle="modal" data-target="#startDateDialog">출발일변경</a>
+				  	<a href = "#" class="dropdown-item" data-toggle="modal" data-target="#infoDialog">정보수정</a>
+				  	<a href = "<c:url value='/plan/planner?plan_num=${vo.plan_num }'/>" class="dropdown-item">루트수정</a>
+				  	<a href = "#" class="dropdown-item" onclick="javascript:deletePlan()">일정삭제</a>
+				  </div>
+				</div>
+			</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="contact_info">
+                    <div class="info_item">
+                        <i class="lnr lnr-home"></i>
+                        <h6>California, United States</h6>
+                        <p>Santa monica bullevard</p>
+                    </div>
+                    <div class="info_item">
+                        <i class="lnr lnr-phone-handset"></i>
+                        <h6><a href="#">00 (440) 9865 562</a></h6>
+                        <p>Mon to Fri 9am to 6 pm</p>
+                    </div>
+                    <div class="info_item">
+                        <i class="lnr lnr-envelope"></i>
+                        <h6><a href="#">support@colorlib.com</a></h6>
+                        <p>Send us your query anytime!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Enter Message"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <button type="submit" value="submit" class="btn theme_btn button_hover">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 <div id="planDetail">
 	<input type="hidden" id="plan_num" value="${vo.plan_num }">
 	<div id="planTitle">
 		<h2>${vo.plan_title }</h2>
 		<div>
-			<img src = "<c:url value = '${map.IMG_SAVEIMG }'/>" style = "width: 50px;height: 50px;float: left;">
+			<img src = "<c:url value = '${img }'/>" style = "width: 50px;height: 50px;float: left;">
 			<ul>
 				<li>${vo.mem_id }</li>
 				<li><a href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a></li>
