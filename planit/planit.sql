@@ -358,3 +358,89 @@ create table rsvnPay
     rsvnPay_stat number(2),
     rsvnPay_date date
 );
+
+//여행 후기 테이블
+CREATE SEQUENCE rew_SEQ;
+create SEQUENCE rewlik_SEQ;
+create SEQUENCE rewcom_SEQ;
+CREATE SEQUENCE rewie_SEQ;
+
+create table Review
+(
+    review_num number(7) primary key,
+    mem_id varchar2(15) references members(mem_id),
+    review_country varchar2(200),
+    review_city varchar2(200),
+    review_title varchar2(500),
+    review_content CLOB,
+    review_date Date,
+    review_hit number(7), 
+    review_like number(7),
+    reviewChk number(1)
+);
+
+//여행 후기 이미지 테이블
+create table ReviewImage(
+    reviewImge_num number(7) primary key,
+    review_num number(7) REFERENCES review(review_num),
+    reviewImge_orgImg varchar2(500),
+    reviewImge_saveImg varchar2(500),
+    reviwImgeChk number(1)
+);
+
+//여행 후기 좋아요 테이블
+CREATE TABLE ReviewLike
+(
+    review_likenum number(7) primary key,
+    mem_id VARCHAR2(15) references members(mem_id),
+    review_num references review(review_num),
+    review_like number(7)
+);
+
+//여행 후기 댓글 테이블
+CREATE TABLE ReviewComm
+(
+    rcomm_num number(7) primary key,
+    review_num number(7) references review(review_num),
+    mem_id varchar2(15) references members(mem_id),
+    rcomm_content varchar2(1000),
+    rcomm_date date,
+    rcomm_step number(3),
+    rcomm_ref number(7),
+    rcomm_lev number(3),
+    rcommChk number(1)
+);
+
+CREATE SEQUENCE rrew;
+create table reservationReview
+(
+    resReview_num number(7) primary key,
+    mem_id varchar2(30) references members(mem_id),
+    rsvn_num number(7) references rsvn(rsvn_num),
+    resReview_title varchar2(500),
+    resReview_content CLOB,
+    resReview_data Date,
+    resReview_star number(2),
+    resReview_chk number(1)
+);
+
+CREATE SEQUENCE rrewl;
+create table resReviewLike
+(
+    resReview_likenum number(7) primary key,
+    mem_id varchar2(30) references members(mem_id),
+    resReview_num number(7) references reservationReview(resReview_num),
+    resReview_like number(7)
+);
+
+CREATE SEQUENCE rrewI;
+
+DROP TABLE resReviewImg;
+create table resReviewImg
+(
+    resReviewImg_num number(7) primary key,
+    resReview_num references reservationReview (resReview_num),
+    resReviewImg_orgImg varchar2(50),
+    resReviewImg_saveImg varchar2(50),
+    resReviewImgChk number(1)
+);
