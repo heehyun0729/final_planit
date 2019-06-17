@@ -31,4 +31,10 @@ $(document).ready(function() {
 			$(location).attr("href", $(location).attr('href') + "/login");
 		}
 	});
+	$(".profileurl").click(function(event){
+		let open=$("#open").val();
+		if (open<=0) {
+			event.preventDefault();
+		}
+	});
 });
