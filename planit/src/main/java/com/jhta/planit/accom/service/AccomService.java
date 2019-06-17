@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.jhta.planit.accom.dao.AccomDao;
 import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.accomQna.dao.AccomQnaDao;
+import com.jhta.planit.accomQna.vo.AccomQnaVo;
 import com.jhta.planit.seller.dao.SellerDao;
 import com.jhta.planit.seller.vo.SellerVo;
 
@@ -17,7 +18,6 @@ import com.jhta.planit.seller.vo.SellerVo;
 public class AccomService {
 	@Autowired private AccomDao dao;
 	@Autowired private SellerDao sellerDao;
-	@Autowired private AccomQnaDao acqDao;
 	public void setDao(AccomDao dao) {
 		this.dao =dao;
 	}
@@ -52,6 +52,9 @@ public class AccomService {
 		return dao.update(vo);
 	}
 	public int insertAcq(HashMap<String, Object>map) {
-		return acqDao.insertAcq(map);
+		return dao.insertAcq(map);
 	}
+	/*public List<AccomQnaVo> acqList(HashMap<String, Object>map){
+		return dao.acqList(map);
+	}*/
 }

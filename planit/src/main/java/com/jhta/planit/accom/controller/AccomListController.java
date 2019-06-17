@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
+import com.jhta.planit.accomQna.vo.AccomQnaVo;
 import com.jhta.planit.seller.vo.SellerVo;
 import com.jhta.util.PageUtil;
 

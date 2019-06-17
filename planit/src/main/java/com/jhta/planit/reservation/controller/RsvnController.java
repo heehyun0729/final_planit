@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
+import com.jhta.planit.accomQna.vo.AccomQnaVo;
 import com.jhta.planit.reservation.service.RsvnAccomService;
 import com.jhta.planit.reservation.service.RsvnPayService;
 import com.jhta.planit.reservation.service.RsvnRoomService;
@@ -197,7 +199,7 @@ public class RsvnController {
 		FileReader fr = null;
 		String key = "";
 		try {
-			fr = new FileReader(new File("C:\\spring\\maven.1559001609549\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
+			fr = new FileReader(new File("C:\\spring\\workspace\\maven.1559701823902\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;
@@ -250,7 +252,8 @@ public class RsvnController {
 		map.put("checkin", checkin);
 		map.put("checkout", checkout);
 		map.put("cnt", cnt);
-				
+		//숙소문의 리스트
+		
 		List<RoomVo> rlist = rsvnRoomService.list(map);
 		for(RoomVo vo : rlist) {
 			String str1 = vo.getRoom_comm().replaceAll("\n", "<br>");
@@ -263,8 +266,36 @@ public class RsvnController {
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);
+		
+	/*	HashMap<String, Object> map2=new HashMap<String, Object>();
+		List<AccomQnaVo> list =rsvnService.acqList(map2);
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("list", list);*/
 		return ".reservation.accomDetail";
+				//"redirect:/reservation/accomDetail?accom_num=" + 
 	}
+	/*
+	@RequestMapping("/reservation/accomDetail")
+	public ModelAndView acpList(//@RequestParam(value="pageNum", defaultValue = "1") int pageNum,
+			/*String field,String keyword,HttpSession session) {
+		
+		
+		map.put("field", field);
+		map.put("keyword", keyword);
+		int totalRowCount=rsvnService.count(map);
+		PageUtil pu=new PageUtil(pageNum,totalRowCount,5,5);
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndPageNum());
+		
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		List<AccomQnaVo> list =rsvnService.acqList(map);
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("list", list);
+		//mv.addObject("pu", pu);
+		//mv.addObject("field", field);
+		//mv.addObject("keyword", keyword);
+		return mv;
+	}*/
 	
 	@RequestMapping("/reservation/accomList")
 	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 

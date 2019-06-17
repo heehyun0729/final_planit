@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jhta.planit.accom.dao.AccomDao;
+import com.jhta.planit.accomQna.dao.AccomQnaDao;
+import com.jhta.planit.accomQna.vo.AccomQnaVo;
 import com.jhta.planit.reservation.dao.RsvnDao;
 import com.jhta.planit.reservation.vo.MyRsvnVo;
 import com.jhta.planit.reservation.vo.RsvnVo;
@@ -14,6 +17,7 @@ import com.jhta.planit.reservation.vo.SellerRsvnVo;
 @Service
 public class RsvnService {
 	@Autowired private RsvnDao rsvnDao;
+	@Autowired private AccomDao accomDao;
 	
 	public int insert(HashMap<String, Object> map) {
 		return rsvnDao.insert(map);
@@ -38,5 +42,11 @@ public class RsvnService {
 	}
 	public int sellCount(HashMap<String, Object> map) {
 		return rsvnDao.sellCount(map);
+	}
+	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
+		return accomDao.acqList(map);
+	}
+	public int count(HashMap<String, Object>map) {
+		return accomDao.count(map);
 	}
 }

@@ -19,7 +19,7 @@ public class AccomQnaDao {
 	public int insertAcq(HashMap<String, Object>map) {
 		return sqlSession.insert(NAMESPACE + ".insert",map);
 	}
-	public List<AccomQnaVo> list(HashMap<String, Object>map){
-		return sqlSession.selectList(NAMESPACE + ".list",map);
-	}
+	/*public List<AccomQnaVo> acqList(HashMap<String, Object>map){
+		return sqlSession.selectList(NAMESPACE + ".acqList",map);
+	}*/
 }
