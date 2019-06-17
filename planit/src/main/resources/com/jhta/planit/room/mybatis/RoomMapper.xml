@@ -14,6 +14,7 @@
 		<if test="field!=null and field!=''">
 		    and ${field} like '%'||#{keyword}||'%'
 		</if>
+		and accom_num=#{accom_num}
 	</sql>
 	<!-- 전체글의갯수 -->
 	<select id="count" resultType="int" parameterType="hashmap"> 
@@ -26,7 +27,6 @@
 		    select aa.*,rownum rnum from(
 		    	select * from room 
 		    	<include refid="search"/>
-		    	and accom_num=#{accom_num}
 		    	order by room_num desc
 		    )aa 
 		)

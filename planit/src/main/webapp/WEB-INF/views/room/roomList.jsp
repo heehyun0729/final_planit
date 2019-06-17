@@ -51,12 +51,12 @@
 			<c:choose>
 				<c:when test="${pu.pageNum==i }">
 					<a
-						href="${pageContext.request.contextPath }/roomList?pageNum=${i}&accom_num=${accom_num}"><span
+						href="${pageContext.request.contextPath }/roomList?pageNum=${i}&accom_num=${map.accom_num}"><span
 						class="thisPage">[${i }]</span></a>
 				</c:when>
 				<c:otherwise>
 					<a
-						href="${pageContext.request.contextPath }/roomList?pageNum=${i}&accom_num=${accom_num}"><span
+						href="${pageContext.request.contextPath }/roomList?pageNum=${i}&accom_num=${map.accom_num}"><span
 						class="thisPage">[${i }]</span></a>
 				</c:otherwise>
 			</c:choose>

@@ -15,7 +15,7 @@
 			<th>이미지</th>
 			<th>숙소수정</th>
 			<th>숙소삭제</th>
-			<th>방삭제</th>
+			<th>방정보</th>
 		</tr>
 		<c:forEach var="vo" items="${list }">
 			<tr>
@@ -44,12 +44,12 @@
 			<c:choose>
 				<c:when test="${pu.pageNum==i }">
 					<a
-						href="${pageContext.request.contextPath }/accommList?pageNum=${i}&sell_num=${sell_num}"><span
+						href="${pageContext.request.contextPath }/accommList?pageNum=${i}&sell_num=${map.sell_num}"><span
 						class="thisPage">[${i }]</span></a>
 				</c:when>
 				<c:otherwise>
 					<a
-						href="${pageContext.request.contextPath }/accommList?pageNum=${i}&sell_num=${sell_num}"><span
+						href="${pageContext.request.contextPath }/accommList?pageNum=${i}&sell_num=${map.sell_num}"><span
 						class="thisPage">[${i }]</span></a>
 				</c:otherwise>
 			</c:choose>

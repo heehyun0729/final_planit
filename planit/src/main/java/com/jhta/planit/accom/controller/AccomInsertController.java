@@ -36,7 +36,7 @@ public class AccomInsertController {
 	}
 	@RequestMapping(value="/accommInsert",method = RequestMethod.GET)
 	public String join() {
-		return ".accom.accomInsert";
+		return "-accom-accomInsert";
 	}
 	@RequestMapping(value="/admin/accommInsert",method = RequestMethod.GET)
 	public String join1() {
@@ -44,7 +44,7 @@ public class AccomInsertController {
 	}
 	@RequestMapping(value="/sellerInsertListForm",method = RequestMethod.GET)
 	public String goHome() {
-		return ".seller.sellerInsertListForm";
+		return "-seller-sellerInsertListForm";
 	}
 	@RequestMapping(value="/admin/sellerInsertListForm",method = RequestMethod.GET)
 	public String goToHome() {
@@ -75,7 +75,7 @@ public class AccomInsertController {
 			System.out.println(uploadPath +" 경로에 파일업로드 완료!");
 			AccomVo vo=new AccomVo(0, sell_num, accom_name, accom_addr, accom_comm, accom_country, accom_city, accommImg_orgImg, accommImg_saveImg,0);
 			service.insert(vo);
-			return ".accom.success";			
+			return "-accom-success";			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 			return "error";

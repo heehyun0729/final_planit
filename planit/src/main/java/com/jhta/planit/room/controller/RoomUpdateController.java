@@ -41,7 +41,7 @@ public class RoomUpdateController {
 		RoomVo vo1 = service1.detail(room_num);
 		model.addAttribute("vo", vo);
 		model.addAttribute("vo1", vo1);
-		return ".room.roomUpdate";
+		return "-room-roomUpdate";
 	}
 	@RequestMapping(value = "/adminRoomUpdate", method = RequestMethod.GET)
 	public String updateForm1(int accom_num, int room_num, Model model) {

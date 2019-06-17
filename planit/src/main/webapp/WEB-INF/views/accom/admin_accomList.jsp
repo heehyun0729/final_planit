@@ -15,7 +15,7 @@
 			<th>이미지</th>
 			<th>숙소수정</th>
 			<th>숙소삭제</th>
-			<th>방삭제</th>
+			<th>방정보</th>
 		</tr>
 		<c:forEach var="vo" items="${list }">
 			<tr>
