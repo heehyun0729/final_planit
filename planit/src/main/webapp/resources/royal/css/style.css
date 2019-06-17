@@ -174,7 +174,7 @@ button:focus {
 }
 
 .theme_btn:before {
-  background: #f8b100;
+  background: #52C5FD;
 }
 
 .theme_btn:hover {
@@ -215,7 +215,7 @@ button:focus {
   -ms-transform: translateX(-100%);
   transform: translateX(-100%);
   z-index: -1;
-  background: #f8b100;
+  background: #52C5FD;
   -webkit-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear;
@@ -1407,7 +1407,7 @@ button:focus {
 }
 
 .blog_right_sidebar .newsletter_widget .bbtns {
-  background: #f8b600;
+  background: #52C5FD;
   color: #fff;
   font-size: 12px;
   line-height: 38px;
@@ -1829,7 +1829,7 @@ button:focus {
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
-  background: #f8b600;
+  background: #52C5FD;
   display: inline-block;
   padding: 7px 44px;
   -webkit-transition: all 0.2s linear;
@@ -2234,7 +2234,7 @@ button:focus {
 
 .generic-banner {
   margin-top: 60px;
-  background-color: #f8b600;
+  background-color: #52C5FD;
   text-align: center;
 }
 
@@ -2331,7 +2331,7 @@ button:focus {
 }
 
 b, sup, sub, u, del {
-  color: #f8b600;
+  color: #52C5FD;
 }
 
 h1 {
@@ -2470,25 +2470,25 @@ h1, h2, h3, h4, h5, h6 {
 
 .genric-btn.primary {
   color: #fff;
-  background: #f8b600;
+  background: #52C5FD;
   border: 1px solid transparent;
 }
 
 .genric-btn.primary:hover {
-  color: #f8b600;
-  border: 1px solid #f8b600;
+  color: #52C5FD;
+  border: 1px solid #52C5FD;
   background: #fff;
 }
 
 .genric-btn.primary-border {
-  color: #f8b600;
-  border: 1px solid #f8b600;
+  color: #52C5FD;
+  border: 1px solid #52C5FD;
   background: #fff;
 }
 
 .genric-btn.primary-border:hover {
   color: #fff;
-  background: #f8b600;
+  background: #52C5FD;
   border: 1px solid transparent;
 }
 
@@ -2624,7 +2624,7 @@ h1, h2, h3, h4, h5, h6 {
 .generic-blockquote {
   padding: 30px 50px 30px 30px;
   background: #fff;
-  border-left: 2px solid #f8b600;
+  border-left: 2px solid #52C5FD;
 }
 
 @media (max-width: 991px) {
@@ -2766,7 +2766,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   width: 14px;
   height: 14px;
-  border: 3px solid #f8b600;
+  border: 3px solid #52C5FD;
   background: #fff;
   top: 4px;
   left: 0;
@@ -2779,7 +2779,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .ordered-list li {
   list-style-type: decimal-leading-zero;
-  color: #f8b600;
+  color: #52C5FD;
   font-weight: 500;
   line-height: 1.82em !important;
 }
@@ -2792,7 +2792,7 @@ h1, h2, h3, h4, h5, h6 {
 .ordered-list-alpha li {
   margin-left: 30px;
   list-style-type: lower-alpha;
-  color: #f8b600;
+  color: #52C5FD;
   font-weight: 500;
   line-height: 1.82em !important;
 }
@@ -2805,7 +2805,7 @@ h1, h2, h3, h4, h5, h6 {
 .ordered-list-roman li {
   margin-left: 30px;
   list-style-type: lower-roman;
-  color: #f8b600;
+  color: #52C5FD;
   font-weight: 500;
   line-height: 1.82em !important;
 }
@@ -2877,7 +2877,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .single-input-primary:focus {
   outline: none;
-  border: 1px solid #f8b600;
+  border: 1px solid #52C5FD;
 }
 
 .single-input-accent {
@@ -2938,7 +2938,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background: #f8b600;
+  background: #52C5FD;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
@@ -3027,7 +3027,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .primary-switch input:checked + label:before {
-  background: #f8b600;
+  background: #52C5FD;
 }
 
 .confirm-switch {
@@ -3389,12 +3389,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .default-select .nice-select .list .option.selected {
-  color: #f8b600;
+  color: #52C5FD;
   background: transparent;
 }
 
 .default-select .nice-select .list .option:hover {
-  color: #f8b600;
+  color: #52C5FD;
   background: transparent;
 }
 
@@ -3455,12 +3455,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-select .nice-select .list .option.selected {
-  color: #f8b600;
+  color: #52C5FD;
   background: transparent;
 }
 
 .form-select .nice-select .list .option:hover {
-  color: #f8b600;
+  color: #52C5FD;
   background: transparent;
 }
 
