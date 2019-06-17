@@ -157,24 +157,25 @@
 			 	내용<textarea rows="10" cols="50" name="accomQna_content"></textarea><br>
 				<input type="submit" value="등록">
 			</form>
-			<div id="list">
-				<table border="1" style="word-break:break-all">
-					<tr>
-						<th>작성자</th>
-						<th>제목</th>
-						<th>내용</th>
-						<th>날짜</th>
-					</tr>
-					<c:forEach var="vo" items="${list }">
-						<tr>
-							<td>${vo.mem_id}</td>
-							<td>${vo.accomQna_title}</td>
-							<td>${vo.accomQna_content }</td>
-							<td>${vo.accomQna_date}</td>
-						</tr>
-					</c:forEach>
-				</table>
+			<c:forEach var="vo" items="${list }">
+			<div id="accomList">
+				<div class="acq_writer">
+					작성자:<p>${vo.mem_id}</p>
+				</div>
+				<div class="acq_title">
+					제목:<p>${vo.accomQna_title}</p>
+				</div>
+				<div class="acq_content">
+					내용:<p>${vo.accomQna_content }</p>
+				</div>
+				<div class="acq_date">
+					날짜:<p>${vo.accomQna_date}</p>
+				</div>
+				<div class="accom_num">
+					<input type="hidden" value="${avo.accom_num }">
+				</div>
 			</div>
+			</c:forEach>
 		</div>
 	</div>
 </div>
