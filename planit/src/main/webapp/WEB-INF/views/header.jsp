@@ -26,7 +26,7 @@
                     <li class="nav-item"><a class="nav-link disable" href="elements.html">&nbsp;</a></li>
                     <c:choose>
 						<c:when test="${sessionScope.mem_id!=null }">
-							<li class="nav-item"><a href="<c:url value="/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>" class="nav-link" title = "쪽지"><i class="far fa-envelope"></i><span id = "mul"></span></a></li>
+							<li class="nav-item"><a href="<c:url value="/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>" class="nav-link" title = "쪽지"><i class="far fa-envelope"></i><span id="messageBadge" class="badge badge-pill badge-primary ml-2"></span></a></li>
 							<li class="nav-item"><a href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>" class="nav-link" title = "마이페이지"><i class="fas fa-user-circle"></i></a></li>
 							<li class="nav-item"><a href="<c:url value='/user/logout'/>" class="nav-link" title = "로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
 							<script>
@@ -41,12 +41,12 @@
 							function countListOk() {
 								if(xhrList.readyState == 4 && xhrList.status == 200){
 									var data = xhrList.responseXML;
-									var mul = document.getElementById("mul");
+									var messageBadge = document.getElementById("messageBadge");
 									var result=data.getElementsByTagName("result")[0];
 									var comm = result.getElementsByTagName("comm")[0];
 									var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
 									if(c!=0){
-										mul.innerHTML=  c;
+										messageBadge.innerHTML=  c;
 								    }
 								}
 							}

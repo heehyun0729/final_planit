@@ -86,7 +86,8 @@ function dm(num){
 		var popUrl = "${pageContext.request.contextPath}/msg${type=='SEND'?'Send':'Receive'}Detail?msgNum="+num;
 		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
 			window.open(popUrl,"상세보기",popOption);
-			//	window.location.reload();	
+			opener.parent.location.reload();
+			window.close();
 }
 function ppp(){
 	var popUrl = "<c:url value='/msgSendfForm'/>";
@@ -95,6 +96,10 @@ function ppp(){
 		
 }
 </script>
+<div class="container">
+	<div class="row mt-5">
+		<div
+			class="col d-flex justify-content-start align-items-center text-center mt-5">
 <div id="myMsg">
 	<div class="myPageBtns">
 		<div id="errMsg" style="text-align: center;">
@@ -105,7 +110,7 @@ function ppp(){
 				href="${pageContext.request.contextPath}/msgReceiveList?memId=${mem_id }&msgType=RECEIVE">받은쪽지함</a>
 			<a 
 				href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND">보낸쪽지함</a>
-			<table  border=1 width:500>
+			<table  class="table">
 				<tr>
 					<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
 					<th>쪽지내용</th>
@@ -242,5 +247,8 @@ function ppp(){
 				type="button" value="쪽지보내기" onclick="ppp()" /><br/>
 			<br/> <a href="<c:url value='/'/>">메인 페이지</a>
 		</div>
+	</div>
+	</div>
+	</div>
 	</div>
 </div>
