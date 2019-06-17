@@ -18,13 +18,17 @@
 			<!-- 화면이 작을 때 표시되는 값 -->
 			<li class="nav-item dropdown d-sm-block d-md-none"><a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">메뉴</a>
 				<div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-					<a class="dropdown-item" href="#">광고</a>
-					<a class="dropdown-item" href="#">숙소/예약</a>
-					<a class="dropdown-item" href="#">회원</a>
-					<a class="dropdown-item" href="#">게시판</a>
-					<a class="dropdown-item" href="#">달력</a>
+					<c:if test="${mem_stat==1 }">
+						<a class="dropdown-item" href="#">숙소/예약</a>
+					</c:if>
+					<c:if test="${mem_stat==0 }">
+						<a class="dropdown-item" href="<c:url value='/admin/adminAdManagement/allAdList'/>">광고</a>
+						<a class="dropdown-item" href="#">숙소/예약</a>
+						<a class="dropdown-item" href="#">회원</a>
+						<a class="dropdown-item" href="#">게시판</a>
+					</c:if>
 					<a class="dropdown-item" href="#">쪽지</a>
-					<a class="dropdown-item" href="#">정보</a>
+					<a class="dropdown-item" href="<c:url value="/adminAnalytics"/>">통계</a>
 				</div>
 			</li>
 		</ul>

@@ -121,6 +121,22 @@ public class AdController {
 	public String adminLoginForm() {
 		return "/admin/adminLogin";
 	}
+	@RequestMapping(value="/adminLogin", method=RequestMethod.POST)//관리자 로그인 -> 홈
+	public String adminLoginOk(String mem_id, String mem_pwd, Model model, HttpSession session) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mem_id", mem_id);
+		map.put("mem_pwd", mem_pwd);
+		int result = mservice.login(map);
+		if (result == 0 || result== 1 ) {
+			session.setAttribute("mem_id", mem_id);
+			session.setAttribute("mem_stat", result);
+			return "redirect:/adminHome";
+		} else {
+			model.addAttribute("mem_id", mem_id);
+			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
+			return "/admin/adminLogin";
+		}
+	}
 	@RequestMapping(value="/adminLogout", method=RequestMethod.GET)//관리자 로그아웃
 	public String adminLogout(HttpSession session) {
 		session.invalidate();
@@ -165,22 +181,6 @@ public class AdController {
 	@RequestMapping(value="/adminAdCalendar", method=RequestMethod.GET)//광고 달력
 	public String adminAdCalendar() {
 		return "-admin-adminAdManagement-adCalendar";
-	}
-	@RequestMapping(value="/adminLogin", method=RequestMethod.POST)//관리자 로그인 -> 홈///기능추가하기
-	public String adminLoginOk(String mem_id, String mem_pwd, Model model, HttpSession session) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("mem_id", mem_id);
-		map.put("mem_pwd", mem_pwd);
-		int result = mservice.login(map);
-		if (result == 0 || result== 1 ) {
-			session.setAttribute("mem_id", mem_id);
-			session.setAttribute("mem_stat", result);
-			return "redirect:/adminHome";
-		} else {
-			model.addAttribute("mem_id", mem_id);
-			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
-			return "/admin/adminLogin";
-		}
 	}
 	@RequestMapping(value="/adminAdRequestInfo", method=RequestMethod.GET)//광고 신청페이지
 	public String adminAdRequestInfo() {

@@ -10,106 +10,128 @@
 		<li	class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
 			<small></small>
 		</li>
-		<a href="#ad" id="adBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-			<div class="d-flex w-100 justify-content-start align-items-center">
-				<span class="far fa-eye fa-fw mr-3"></span>
-				<span class="menu-collapsed">광고
-					<span id="adBadge" class="badge badge-pill badge-primary ml-2"></span>
-				</span>
-				<span class="fas fa-caret-down ml-auto"></span>
+		<c:if test="${mem_stat==0 }">
+			<a href="#ad" id="adBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-start align-items-center">
+					<span class="far fa-eye fa-fw mr-3"></span>
+					<span class="menu-collapsed">광고
+						<span id="adBadge" class="badge badge-pill badge-primary ml-2"></span>
+					</span>
+					<span class="fas fa-caret-down ml-auto"></span>
+				</div>
+			</a>
+			<div id='ad' class="collapse sidebar-submenu">
+				<a href="<c:url value='/admin/adminAdManagement/approvedAdList'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">승인 요청
+						<span id="approveAdBadge" class="badge badge-pill badge-primary ml-2"></span>
+					</span>
+				</a>
+				<a href="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">환불 요청
+						<span id="requestRefundAdBadge" class="badge badge-pill badge-primary ml-2"></span>
+					</span>
+				</a>
+				<a href="<c:url value='/admin/adminAdManagement/requestChangeAdImageList'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">이미지 수정요청
+						<span id="requestChangeAdImageBadge" class="badge badge-pill badge-primary ml-2"></span>
+					</span>
+				</a>
+				<a href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">모든 광고</span>
+				</a>
+				<a href="<c:url value='/adminAdCalendar'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">광고 달력</span>
+				</a>
 			</div>
-		</a>
-		<div id='ad' class="collapse sidebar-submenu">
-			<a href="<c:url value='/admin/adminAdManagement/approvedAdList'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">승인 요청
-					<span id="approveAdBadge" class="badge badge-pill badge-primary ml-2"></span>
-				</span>
-			</a>
-			<a href="<c:url value='/admin/adminAdManagement/requestRefundAdList'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">환불 요청
-					<span id="requestRefundAdBadge" class="badge badge-pill badge-primary ml-2"></span>
-				</span>
-			</a>
-			<a href="<c:url value='/admin/adminAdManagement/requestChangeAdImageList'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">이미지 수정요청
-					<span id="requestChangeAdImageBadge" class="badge badge-pill badge-primary ml-2"></span>
-				</span>
-			</a>
-			<a href="<c:url value='/admin/adminAdManagement/allAdList'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">모든 광고</span>
-			</a>
-			<a href="<c:url value='/adminAdCalendar'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">광고 달력</span>
-			</a>
-		</div>
-		<a href="#sell" id="sellBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-			<div class="d-flex w-100 justify-content-start align-items-center">
-				<span class="fas fa-bed fa-fw mr-3"></span>
-				<span class="menu-collapsed">숙소/예약
-					<span id="acBadge" class="badge badge-pill badge-primary ml-2"></span>
-				</span>
-				<span class="fas fa-caret-down ml-auto"></span>
+			<!-- 관리자 전용, 숙소/예약 -->
+			<a href="#sell" id="sellBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-start align-items-center">
+					<span class="fas fa-bed fa-fw mr-3"></span>
+					<span class="menu-collapsed">숙소/예약
+						<span id="acBadge" class="badge badge-pill badge-primary ml-2"></span>
+					</span>
+					<span class="fas fa-caret-down ml-auto"></span>
+				</div>
+			</a>	
+			<div id='sell' class="collapse sidebar-submenu">
+				<a href="<c:url value='/admin/sellerInsertListForm'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">숙소 목록</span>
+				</a>
+				<a href="<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">예약 목록</span>
+				</a>
 			</div>
-		</a>	
-		<div id='sell' class="collapse sidebar-submenu">
-			<a href="<c:url value='/admin/sellerInsertListForm'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">숙소 목록</span>
-			</a>
-			<a href="<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">예약 목록</span>
-			</a>
-		</div>
-		<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-			<small></small>
-		</li>
-		<a href="#member" id="memberBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-			<div class="d-flex w-100 justify-content-start align-items-center">
-				<span class="fa fa-user fa-fw mr-3"></span>
-				<span class="menu-collapsed">회원</span>
-				<span class="fas fa-caret-down ml-auto"></span>
+			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+				<small></small>
+			</li>
+		</c:if>
+		<!-- 판매자 전용, 숙소/예약 -->
+		<c:if test="${mem_stat==1 }">
+			<a href="#sell" id="sellBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-start align-items-center">
+					<span class="fas fa-bed fa-fw mr-3"></span>
+					<span class="menu-collapsed">숙소/예약
+						<span id="acBadge" class="badge badge-pill badge-primary ml-2"></span>
+					</span>
+					<span class="fas fa-caret-down ml-auto"></span>
+				</div>
+			</a>	
+			<div id='sell' class="collapse sidebar-submenu">
+				<a href="<c:url value='/admin/sellerInsertListForm'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">숙소 목록</span>
+				</a>
+				<a href="<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">예약 목록</span>
+				</a>
 			</div>
-		</a>
-		<div id='member' class="collapse sidebar-submenu">
-			<a href="<c:url value='/admin/user/userlist'/>"	class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">일반 회원</span>
+			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+				<small></small>
+			</li>
+		</c:if>
+		<c:if test="${mem_stat==0 }">
+			<a href="#member" id="memberBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-start align-items-center">
+					<span class="fa fa-user fa-fw mr-3"></span>
+					<span class="menu-collapsed">회원</span>
+					<span class="fas fa-caret-down ml-auto"></span>
+				</div>
 			</a>
-			<a href="<c:url value='/admin/user/sellerlist'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">사업자 회원</span>
-			</a>
-		</div>
-		<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-			<small></small>
-		</li>
-		<a href="#board" id="boardBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-			<div class="d-flex w-100 justify-content-start align-items-center">
-				<span class="fas fa-list fa-fw mr-3"></span>
-				<span class="menu-collapsed">게시판</span>
-				<span class="fas fa-caret-down ml-auto"></span>
+			<div id='member' class="collapse sidebar-submenu">
+				<a href="<c:url value='/admin/user/userlist'/>"	class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">일반 회원</span>
+				</a>
+				<a href="<c:url value='/admin/user/sellerlist'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">사업자 회원</span>
+				</a>
 			</div>
-		</a>
-		<div id='board' class="collapse sidebar-submenu">
-			<a href="#"	class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">질문 게시판</span>
+			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+				<small></small>
+			</li>
+			<a href="#board" id="boardBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-start align-items-center">
+					<span class="fas fa-list fa-fw mr-3"></span>
+					<span class="menu-collapsed">게시판</span>
+					<span class="fas fa-caret-down ml-auto"></span>
+				</div>
 			</a>
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">후기 게시판</span>
-			</a>
-			<a href="<c:url value = '/admin/plan/list'/>" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">일정 게시판</span>
-			</a>
-			<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-				<span class="menu-collapsed">동행 게시판</span>
-			</a>
-		</div>
-		<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-			<small></small>
-		</li>
-		<a href="#" class="bg-dark list-group-item list-group-item-action">
-			<div class="d-flex w-100 justify-content-start align-items-center">
-				<span class="fa fa-calendar fa-fw mr-3"></span>
-				<span class="menu-collapsed">달력</span>
+			<div id='board' class="collapse sidebar-submenu">
+				<a href="#"	class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">질문 게시판</span>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">후기 게시판</span>
+				</a>
+				<a href="<c:url value = '/admin/plan/list'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">일정 게시판</span>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">동행 게시판</span>
+				</a>
 			</div>
-		</a>
+			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+				<small></small>
+			</li>
+		</c:if>
 		<a href="<c:url value="/admin/msgReceiveList?memId=${mem_id }&msgType=RECEIVE"/>" class="bg-dark list-group-item list-group-item-action">
 			<div class="d-flex w-100 justify-content-start align-items-center">
 				<span class="fa fa-envelope fa-fw mr-3"></span>
@@ -147,12 +169,6 @@
 			<div class="d-flex w-100 justify-content-start align-items-center">
 				<span class="fas fa-chart-bar fa-fw mr-3"></span>
 				<span class="menu-collapsed">통계</span>
-			</div>
-		</a>
-		<a href="#" class="bg-dark list-group-item list-group-item-action">
-			<div class="d-flex w-100 justify-content-start align-items-center">
-				<span class="fa fa-question fa-fw mr-3"></span>
-				<span class="menu-collapsed">정보</span>
 			</div>
 		</a>
 		<a href="<c:url value='/admin/test'/>" class="bg-dark list-group-item list-group-item-action">
