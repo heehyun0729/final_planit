@@ -38,6 +38,10 @@
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/moment.min.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/fullcalendar.min.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/locale-all.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/resources/js/buddy/list.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/resources/js/buddy/insert.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/resources/js/buddy/buddyMg.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/resources/js/buddy/buddySg.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/list.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/detail.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/pay.js'/>"></script>
