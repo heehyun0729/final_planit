@@ -117,7 +117,7 @@ public class AccomInsertController {
 		FileReader fr = null;
 		String key = "";
 		try {
-			fr = new FileReader(new File("C:\\spring\\maven.1559001609549\\planit\\src\\main\\webapp\\resources\\apiKey2.txt"));
+			fr = new FileReader(new File("C:\\spring\\workspace\\maven.1559701823902\\planit\\src\\main\\webapp\\resources\\apiKey2.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;
@@ -142,6 +142,7 @@ public class AccomInsertController {
 	public String insert(String mem_id,int accom_num,String accomQna_title,String accomQna_content) {
 		ModelAndView mv=new ModelAndView("/accomQna/result");
 		HashMap<String, Object>map = new HashMap<String, Object>();
+		System.out.println(map);
 		map.put("mem_id",mem_id);
 		map.put("accom_num",accom_num);
 		map.put("accomQna_title",accomQna_title);

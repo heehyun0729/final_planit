@@ -154,13 +154,14 @@ DROP TABLE acommQna CASCADE CONSTRAINTS;
 drop sequence acommQna_num_seq;
 create table acommQna(
     acommQna_num number(7) NOT NULL,
-    accom_num number(7) REFERENCES accom(accom_num),
     mem_id varchar2(15) REFERENCES members(mem_id),
-    acommQna_content varchar2(2000),
+    accom_num number(7) REFERENCES accom(accom_num),
+    acommQna_title varchar2(100),
+    acommQna_content CLOB,
     acommQna_date date,
-    acommQna_ref number(7),
-    acommQna_step number(2),
-    PRIMARY KEY (acommQna_num)
+    PRIMARY KEY (acommQna_num),
+    CONSTRAINT ACCOM_NUM_FK FOREIGN KEY(ACCOM_NUM) 
+    REFERENCES ACCOM(ACCOM_NUM)ON DELETE CASCADE
 );
 create sequence acommQna_num_seq;
 

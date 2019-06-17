@@ -12,7 +12,7 @@ import com.jhta.planit.accomQna.vo.AccomQnaVo;
 @Repository
 public class AccomQnaDao {
 	@Autowired private SqlSession sqlSession;
-	public final String NAMESPACE="com.jhta.planit.accomQna.mybatis.AccomQnaMapper";
+	public final String NAMESPACE="com.jhta.planit.accomQna.mybatis.AccomMapper";
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}

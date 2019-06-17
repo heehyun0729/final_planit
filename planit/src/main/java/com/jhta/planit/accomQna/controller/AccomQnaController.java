@@ -1,4 +1,4 @@
-package com.jhta.planit.accomQna.controller;
+/*package com.jhta.planit.accomQna.controller;
 
 import java.util.HashMap;
 
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.planit.accomQna.service.AccomQnaService;
 import com.jhta.planit.accomQna.vo.AccomQnaVo;
-/*@Controller
+@Controller
 public class AccomQnaController {
 	@Autowired private AccomQnaService service;
 	@RequestMapping(value="/accomQna",method=RequestMethod.GET)

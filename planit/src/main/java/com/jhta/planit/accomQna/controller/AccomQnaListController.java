@@ -1,4 +1,4 @@
-package com.jhta.planit.accomQna.controller;
+/*package com.jhta.planit.accomQna.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,3 +27,4 @@ public class AccomQnaListController {
 		
 	}
 }
+*/

@@ -10,6 +10,7 @@ public class AccomQnaVo {
 	private String accomQna_content;
 	private Date accomQna_date;
 	public AccomQnaVo() {}
+	
 	public AccomQnaVo(int accomQna_num, String mem_id, int accom_num, String accomQna_title, String accomQna_content,
 			Date accomQna_date) {
 		super();

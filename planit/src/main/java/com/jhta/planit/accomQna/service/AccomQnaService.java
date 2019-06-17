@@ -1,4 +1,4 @@
-package com.jhta.planit.accomQna.service;
+/*package com.jhta.planit.accomQna.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +17,8 @@ public class AccomQnaService {
 	}
 	/*public int insert(HashMap<String, Object>map) {
 		return dao.insert(map);
-	}*/
+	}
 	public List<AccomQnaVo> list(HashMap<String, Object>map){
 		return dao.list(map);
 	}
-}
+}*/
