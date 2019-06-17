@@ -17,7 +17,7 @@
                     <li class="nav-item"><a class="nav-link" href="<c:url value='/buddyList'/>">동행찾기</a></li>
                     <li class="nav-item"><a class="nav-link" href="<c:url value='/reservation/accomList'/>">숙소예약</a></li>
                     <li class="nav-item submenu dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">커뮤니티 <i class="fas fa-angle-down"></i></a>
                         <ul class="dropdown-menu">
                             <li class="nav-item"><a class="nav-link" href="<c:url value='/review/reviewList'/>">여행후기</a></li>
                             <li class="nav-item"><a class="nav-link" href="<c:url value='/qnaList'/>">여행문의</a></li>

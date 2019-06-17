@@ -515,7 +515,7 @@ button:focus {
   position: relative;
   overflow: hidden;
   width: 100%;
-  min-height: 800px;
+  min-height: 600px;
 }
 
 .overlay {
@@ -530,7 +530,6 @@ button:focus {
 
 .banner_content {
   color: #fff;
-  margin-bottom: 94px;
 }
 
 .banner_content h6 {
@@ -824,27 +823,20 @@ button:focus {
 .facilities_area {
   position: relative;
   z-index: 1;
-  background: #04091e;
   overflow: hidden;
 }
 
-.facilities_area .bg-parallax {
-  background: url("../image/facilites_bg.jpg") no-repeat scroll center 0/cover;
-  opacity: 0.15;
-}
 
 .facilities_item {
   border: 1px solid #777777;
   border-radius: 10px;
   background-color: rgba(249, 249, 255, 0.102);
   padding: 31px 40px 37px;
-  color: #fff;
   margin-bottom: 30px;
 }
 
 .facilities_item .sec_h4 {
   padding-bottom: 18px;
-  color: #fff;
 }
 
 .facilities_item .sec_h4 i {
@@ -955,6 +947,11 @@ button:focus {
 }
 
 .testimonial_slider .testimonial_item .star a {
+  color: #ff5252;
+  font-size: 14px;
+}
+
+.star {
   color: #ff5252;
   font-size: 14px;
 }
@@ -3478,7 +3475,7 @@ h1, h2, h3, h4, h5, h6 {
 /*============== footer-area css ===============*/
 .footer-area {
   background: #04091e;
-  padding: 142px 0px;
+  padding: 0 0 100px 0;
 }
 
 .single-footer-widget ul li a {
