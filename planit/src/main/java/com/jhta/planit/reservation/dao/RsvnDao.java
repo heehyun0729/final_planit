@@ -40,4 +40,7 @@ public class RsvnDao {
 	public int sellCount(HashMap<String, Object> map) {
 		return sqlSession.selectOne(NAMESPACE + ".sellCount", map);
 	}
+	public int dateGap(int rsvn_num) {
+		return sqlSession.selectOne(NAMESPACE + ".dateGap", rsvn_num);
+	}
 }

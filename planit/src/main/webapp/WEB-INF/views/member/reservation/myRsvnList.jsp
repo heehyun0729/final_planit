@@ -6,7 +6,7 @@
 	<table border = "1">
 		<tr>
 			<th>등록일</th><th>예약 번호</th><th>숙소명/객실</th><th>인원</th>
-			<th>체크인/체크아웃</th><th>상태</th><th>취소 및 환불</th>
+			<th>체크인/체크아웃</th><th>상태</th><th>비고</th>
 		</tr>
 		<c:forEach var = "vo" items = "${list }">
 			<tr>
@@ -28,9 +28,17 @@
 				<td>${vo.rsvn_cnt }</td>
 				<td>${vo.rsvn_checkin } ~ ${vo.rsvn_checkout }</td>
 				<c:choose>
-					<c:when test="${vo.rsvnPay_stat == 0 }">
+					<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 0}">
 						<td>결제완료</td>
 						<td><input type = "button" value = "예약취소" onclick = "payRefund('${vo.rsvn_num}', '${vo.rsvnPay_id }')"></td>
+					</c:when>
+					<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 1}">
+						<td>이용완료</td>
+						<td><a href = "#" class = "btn">후기작성</a></td>
+					</c:when>
+					<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 2}">
+						<td>이용완료</td>
+						<td>이용완료</td>
 					</c:when>
 					<c:otherwise>
 						<td>취소완료</td>

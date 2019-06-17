@@ -109,8 +109,8 @@
 		(
 		    select aa.*, rownum rnum from
 		    (
-		        select r.rsvn_num rsvn_num, r.rsvn_checkin rsvn_checkin, r.rsvn_checkout rsvn_checkout, r.rsvn_cnt rsvn_cnt,
-		            p.rsvnPay_id rsvnPay_id, p.rsvnPay_stat rsvnPay_stat, p.rsvnPay_date rsvnPay_date,
+		        select r.rsvn_num rsvn_num, to_char(r.rsvn_checkin, 'yyyy-mm-dd') rsvn_checkin,  to_char(r.rsvn_checkout, 'yyyy-mm-dd') rsvn_checkout, r.rsvn_cnt rsvn_cnt,
+		            p.rsvnPay_id rsvnPay_id, p.rsvnPay_stat rsvnPay_stat, to_char(p.rsvnPay_date, 'yyyy-mm-dd') rsvnPay_date,
 		            a.accom_num accom_num, a.accom_name accom_name, 
 		            ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa
 		        from rsvn r, rsvnPay p, accom a, room ro
@@ -123,14 +123,15 @@
 	<select id="myCount" parameterType="String" resultType="int">
 		select NVL(count(*), 0) from 
 		(
-		    select r.rsvn_num rsvn_num, r.rsvn_checkin rsvn_checkin, r.rsvn_checkout rsvn_checkout, r.rsvn_cnt rsvn_cnt,
-		        p.rsvnPay_id rsvnPay_id, p.rsvnPay_stat rsvnPay_stat, p.rsvnPay_date rsvnPay_date,
-		        a.accom_num accom_num, a.accom_name accom_name, 
-		        ro.room_num room_num, ro.room_type room_type, ro.room_capa room_capa
+		    select *
 		    from rsvn r, rsvnPay p, accom a, room ro
 		    where r.rsvn_num = p.rsvn_num and r.room_num = ro.room_num and a.accom_num = ro.accom_num
 		        and r.mem_id = #{mem_id}
 		)
+	</select>
+	<select id="dateGap" parameterType="int" resultType="int">
+		select floor(sysdate - rsvn_checkout) dd from rsvn
+		where rsvn_num = #{rsvn_num}
 	</select>
 
 	<sql id="rsvnRoomSearch">

@@ -13,11 +13,12 @@ public class MyRsvnVo {
 	private int room_num;
 	private String room_type;
 	private int room_capa;
+	private int status;
 	
 	public MyRsvnVo() {}
 
 	public MyRsvnVo(int rsvn_num, String rsvn_checkin, String rsvn_checkout, int rsvn_cnt, String rsvnPay_id,
-			int rsvnPay_stat, String rsvnPay_date, int accom_num, String accom_name, int room_num, String room_type, int room_capa) {
+			int rsvnPay_stat, String rsvnPay_date, int accom_num, String accom_name, int room_num, String room_type, int room_capa, int status) {
 		super();
 		this.rsvn_num = rsvn_num;
 		this.rsvn_checkin = rsvn_checkin;
@@ -31,6 +32,7 @@ public class MyRsvnVo {
 		this.room_num = room_num;
 		this.room_type = room_type;
 		this.room_capa = room_capa;
+		this.status = status;
 	}
 
 	public int getRsvn_num() {
@@ -127,6 +129,14 @@ public class MyRsvnVo {
 
 	public void setRoom_capa(int room_capa) {
 		this.room_capa = room_capa;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

@@ -1,6 +1,10 @@
 package com.jhta.planit.user.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +33,7 @@ import com.jhta.planit.reservation.service.RsvnService;
 import com.jhta.planit.reservation.vo.MyRsvnVo;
 import com.jhta.planit.reservation.vo.RsvnPayVo;
 import com.jhta.planit.reservation.vo.RsvnVo;
+import com.jhta.planit.reservationReview.service.ReservationReviewService;
 import com.jhta.planit.user.service.MypageService;
 import com.jhta.util.PageUtil;
 
@@ -39,6 +44,7 @@ public class MypageController {
 	@Autowired private RsvnService rsvnService;
 	@Autowired private RsvnPayService rsvnPayService;
 	@Autowired private PlanService planService;
+	@Autowired private ReservationReviewService reservationReviewService;
 	
 	@RequestMapping("/member/mypage/{mem_id}/plan/list")
 	public String myPlanList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
@@ -85,7 +91,7 @@ public class MypageController {
 	
 	@RequestMapping("/member/mypage/{mem_id}/reservation/list")
 	public String myRsvnList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 
-			@PathVariable String mem_id, Model model) {
+			@PathVariable String mem_id, Model model) throws ParseException {
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		
 		int rowCnt = rsvnService.myCount(mem_id);
@@ -101,9 +107,18 @@ public class MypageController {
 		
 		List<MyRsvnVo> list = rsvnService.myList(map);
 		for(MyRsvnVo vo : list) {
-			vo.setRsvnPay_date(vo.getRsvnPay_date().substring(0, 10));
-			vo.setRsvn_checkin(vo.getRsvn_checkin().substring(0, 10));
-			vo.setRsvn_checkout(vo.getRsvn_checkout().substring(0, 10));
+			int rcnt = reservationReviewService.reviewCnt(vo.getRsvn_num());
+			// status ==> 0: 리뷰 없음(이용 전) / 1: 리뷰 없음(이용 후) / 2: 리뷰 있음
+			if(rcnt > 0) {
+				vo.setStatus(2);
+			}else {
+				vo.setStatus(0);
+			}
+			int n = rsvnService.dateGap(vo.getRsvn_num());
+			// 체크아웃날짜가 지났으면 status를 1로 변경
+			if(n >= 0) {
+				vo.setStatus(1);
+			}
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pageNum", pageNum);
