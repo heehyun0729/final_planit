@@ -35,10 +35,10 @@ public class AnalyticsDao {
 		return sqlSession.selectOne(NAMESPACE + "getAllExistRoomsCount");
 	}
 	public double getExistRoomsCount(String mem_id){//예약 가능한 방의 갯수 아이디로 구하기
-		return sqlSession.selectOne(NAMESPACE + "getAllExistRoomsCount", mem_id);
+		return sqlSession.selectOne(NAMESPACE + "getExistRoomsCount", mem_id);
 	}
 	public double getRoomsCount(String mem_id){//등록된 방의 갯수 아이디로 구하기
-		return sqlSession.selectOne(NAMESPACE + "getAllRoomsCount", mem_id);
+		return sqlSession.selectOne(NAMESPACE + "getRoomsCount", mem_id);
 	}
 	public int todaySellProfit(){//금일 예약 수익 구하기
 		return sqlSession.selectOne(NAMESPACE + "todaySellProfit");
