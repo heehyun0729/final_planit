@@ -89,9 +89,15 @@
 				today1.setDate(today.getDate()-lastDate[todayMonth]);
 				for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
 					today1.setDate(today1.getDate()+1);
-					todayYear=today1.getFullYear();//년
-					todayMonth=today1.getMonth()+1;//월
-					todayDate=today1.getDate();//일
+					let todayYear=today1.getFullYear();//년
+					let todayMonth=today1.getMonth()+1;//월
+					if(todayMonth.toString().length==1){
+						todayMonth="0"+todayMonth;
+					}
+					let todayDate=today1.getDate();//일
+					if(todayDate.toString().length==1){
+						todayDate="0"+todayDate;
+					}
 					const date=todayYear + "-" + todayMonth + "-" + todayDate;
 					days.push(date);
 				}
@@ -215,11 +221,17 @@
 				}
 				var today1=new Date();
 				today1.setDate(today.getDate()-lastDate[todayMonth]);
-				for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
+				for(var i=0;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
 					today1.setDate(today1.getDate()+1);
-					todayYear=today1.getFullYear();//년
-					todayMonth=today1.getMonth()+1;//월
-					todayDate=today1.getDate();//일
+					let todayYear=today1.getFullYear();//년
+					let todayMonth=today1.getMonth()+1;//월
+					if(todayMonth.toString().length==1){
+						todayMonth="0"+todayMonth;
+					}
+					let todayDate=today1.getDate();//일
+					if(todayDate.toString().length==1){
+						todayDate="0"+todayDate;
+					}
 					const date=todayYear + "-" + todayMonth + "-" + todayDate;
 					days.push(date);
 				}

@@ -65,7 +65,7 @@
 		select NVL(sum(rsvnPay_total), 0) from rsvnPay where to_char(rsvnPay_date, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd') and rsvnPay_stat=0
 	</select>
 	<select id="getDaySellProfit" parameterType="String" resultType="int">
-		select NVL(sum(rsvnPay_total), 0) from rsvnPay where rsvnPay_date=#{rsvnPay_date} and rsvnPay_stat=0
+		select NVL(sum(rsvnPay_total), 0) from rsvnPay where to_char(rsvnPay_date, 'yyyy-mm-dd')=#{rsvnPay_date} and rsvnPay_stat=0
 	</select>
 	<select id="todaySellerSellProfit" parameterType="String" resultType="int">
 		select NVL(sum(p.rsvnPay_total), 0)
@@ -84,7 +84,7 @@
         and r.room_num=rm.room_num
         and rm.accom_num=a.accom_num
         and a.sell_num=s.sell_num
-        and rsvnPay_date=#{rsvnPay_date} and rsvnPay_stat=0
+        and to_char(rsvnPay_date, 'yyyy-mm-dd')=#{rsvnPay_date} and rsvnPay_stat=0
         and s.mem_id=#{mem_id}
 	</select>
 	<select id="getRecent5Sell" resultType="com.jhta.planit.reservation.vo.RsvnPayVo">

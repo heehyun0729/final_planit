@@ -93,9 +93,15 @@
 			today1.setDate(today.getDate()-lastDate[todayMonth]);
 			for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
 				today1.setDate(today1.getDate()+1);
-				todayYear=today1.getFullYear();//년
-				todayMonth=today1.getMonth()+1;//월
-				todayDate=today1.getDate();//일
+				let todayYear=today1.getFullYear();//년
+				let todayMonth=today1.getMonth()+1;//월
+				if(todayMonth.toString().length==1){
+					todayMonth="0"+todayMonth;
+				}
+				let todayDate=today1.getDate();//일
+				if(todayDate.toString().length==1){
+					todayDate="0"+todayDate;
+				}
 				const date=todayYear + "-" + todayMonth + "-" + todayDate;
 				days.push(date);
 			}
@@ -214,9 +220,15 @@
 			today1.setDate(today.getDate()-lastDate[todayMonth]);
 			for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
 				today1.setDate(today1.getDate()+1);
-				todayYear=today1.getFullYear();//년
-				todayMonth=today1.getMonth()+1;//월
-				todayDate=today1.getDate();//일
+				let todayYear=today1.getFullYear();//년
+				let todayMonth=today1.getMonth()+1;//월
+				if(todayMonth.toString().length==1){
+					todayMonth="0"+todayMonth;
+				}
+				let todayDate=today1.getDate();//일
+				if(todayDate.toString().length==1){
+					todayDate="0"+todayDate;
+				}
 				const date=todayYear + "-" + todayMonth + "-" + todayDate;
 				days.push(date);
 			}
@@ -327,72 +339,78 @@
 			    }
 			});
 		}
-	function monthProfitChart(){//판매자 최근 한 달 차트
-		var ctx1 = $("#monthProfitChart");
-		var days=[];
-		var today=new Date();
-		var todayYear=today.getFullYear();//년
-		var todayMonth=today.getMonth()+1;//월
-		var todayDate=today.getDate();//일
-		var lastDate=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-		if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
-			lastDate[1]=29;
-		}
-		var today1=new Date();
-		today1.setDate(today.getDate()-lastDate[todayMonth]);
-		for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
-			today1.setDate(today1.getDate()+1);
-			todayYear=today1.getFullYear();//년
-			todayMonth=today1.getMonth()+1;//월
-			todayDate=today1.getDate();//일
-			const date=todayYear + "-" + todayMonth + "-" + todayDate;
-			days.push(date);
-		}
-		var sellProfit=[];
-		$.getJSON("<c:url value='/admin/adminAdManagement/getSellerDayProfit'/>", {stringDays:days.toString(), mem_id:"${mem_id}"}, function(data) {
-			if(data!=null){
-				for(var i=0;i<data.length;i++){//총수익
-					sellProfit.push(data[i].sellProfit);
-				}
-				var monthProfitChart = new Chart(ctx1, {
-				    type: 'line',
-				    data: {
-				        labels: days,
-				        datasets: [
-				       		{
-					            label: '# 숙박 예약 수익',
-					            data: sellProfit,
-					            fill: false,
-					            borderColor: [
-					                'rgba(29, 219, 22, 1)'
-					            ],
-					            borderWidth: 2
-				       		}
-					    ]
-				    },
-				    options: {
-				    	legend: {display: false},
-				    	maintainAspectRatio: false,
-				        scales: {
-				            yAxes: [{
-				            	gridLines:{display: false},
-				                ticks: {
-				                    beginAtZero: true
-				                }
-				            }],
-				            xAxes: [{
-				            	gridLines:{display: false},
-				                ticks: {
-				                    beginAtZero: true
-				                }
-				            }]
-				        }
-				    }
-				});
+		function monthProfitChart(){//판매자 최근 한 달 차트
+			var ctx1 = $("#monthProfitChart");
+			var days=[];
+			var today=new Date();
+			var todayYear=today.getFullYear();//년
+			var todayMonth=today.getMonth()+1;//월
+			var todayDate=today.getDate();//일
+			var lastDate=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+			if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
+				lastDate[1]=29;
 			}
-		});	
-	}
-</c:if>
+			var today1=new Date();
+			today1.setDate(today.getDate()-lastDate[todayMonth]);
+			for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
+				today1.setDate(today1.getDate()+1);
+				let todayYear=today1.getFullYear();//년
+				let todayMonth=today1.getMonth()+1;//월
+				if(todayMonth.toString().length==1){
+					todayMonth="0"+todayMonth;
+				}
+				let todayDate=today1.getDate();//일
+				if(todayDate.toString().length==1){
+					todayDate="0"+todayDate;
+				}
+				const date=todayYear + "-" + todayMonth + "-" + todayDate;
+				days.push(date);
+			}
+			var sellProfit=[];
+			$.getJSON("<c:url value='/admin/adminAdManagement/getSellerDayProfit'/>", {stringDays:days.toString(), mem_id:"${mem_id}"}, function(data) {
+				if(data!=null){
+					for(var i=0;i<data.length;i++){//총수익
+						sellProfit.push(data[i].sellProfit);
+					}
+					var monthProfitChart = new Chart(ctx1, {
+					    type: 'line',
+					    data: {
+					        labels: days,
+					        datasets: [
+					       		{
+						            label: '# 숙박 예약 수익',
+						            data: sellProfit,
+						            fill: false,
+						            borderColor: [
+						                'rgba(29, 219, 22, 1)'
+						            ],
+						            borderWidth: 2
+					       		}
+						    ]
+					    },
+					    options: {
+					    	legend: {display: false},
+					    	maintainAspectRatio: false,
+					        scales: {
+					            yAxes: [{
+					            	gridLines:{display: false},
+					                ticks: {
+					                    beginAtZero: true
+					                }
+					            }],
+					            xAxes: [{
+					            	gridLines:{display: false},
+					                ticks: {
+					                    beginAtZero: true
+					                }
+					            }]
+					        }
+					    }
+					});
+				}
+			});	
+		}
+	</c:if>
 	
 	function usersPlanCountry(){//플래너 국가 순위 차트
 		var ctx2 = $("#usersPlanCountry");
