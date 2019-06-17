@@ -31,11 +31,11 @@ public class AnalyticsDao {
 	public double getAllRoomsCount(){//총 등록된 방의 갯수 구하기
 		return sqlSession.selectOne(NAMESPACE + "getAllRoomsCount");
 	}
-	public double getAllExistRoomsCount(){//예약 가능한 모든 방의 갯수 구하기
-		return sqlSession.selectOne(NAMESPACE + "getAllExistRoomsCount");
+	public double getAllPaidRoomsCount(){//예약된 모든 방의 갯수 구하기
+		return sqlSession.selectOne(NAMESPACE + "getAllPaidRoomsCount");
 	}
-	public double getExistRoomsCount(String mem_id){//예약 가능한 방의 갯수 아이디로 구하기
-		return sqlSession.selectOne(NAMESPACE + "getExistRoomsCount", mem_id);
+	public double getPaidRoomsCount(String mem_id){//예약된 방의 갯수 아이디로 구하기
+		return sqlSession.selectOne(NAMESPACE + "getPaidRoomsCount", mem_id);
 	}
 	public double getRoomsCount(String mem_id){//등록된 방의 갯수 아이디로 구하기
 		return sqlSession.selectOne(NAMESPACE + "getRoomsCount", mem_id);

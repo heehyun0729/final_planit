@@ -233,8 +233,8 @@ public class AdService {
 	public double getPaidRoomsRate() {//모든 방 예약율 구하기
 		try {
 			double getAllRoomsCount=analyticsDao.getAllRoomsCount();
-			double getAllExistRoomsCount=analyticsDao.getAllExistRoomsCount();
-			double rate=(((getAllRoomsCount-getAllExistRoomsCount)/getAllRoomsCount)*100);
+			double getAllPaidRoomsCount=analyticsDao.getAllPaidRoomsCount();
+			double rate=((getAllPaidRoomsCount/getAllRoomsCount)*100);
 			return rate;
 		}catch(ArithmeticException ae) {
 			int rate=0;
@@ -244,8 +244,8 @@ public class AdService {
 	public double getPaidRoomsRate(String mem_id) {//판매자 방 예약율 구하기
 		try {
 			double getRoomsCount=analyticsDao.getRoomsCount(mem_id);
-			double getExistRoomsCount=analyticsDao.getExistRoomsCount(mem_id);
-			double rate=(((getRoomsCount-getExistRoomsCount)/getRoomsCount)*100);
+			double getPaidRoomsCount=analyticsDao.getPaidRoomsCount(mem_id);
+			double rate=((getPaidRoomsCount/getRoomsCount)*100);
 			return rate;
 		}catch(ArithmeticException ae) {
 			int rate=0;

@@ -15,45 +15,20 @@
 	<select id="getMembersBirthYear" resultType="hashmap">
 		select mem_birthYear, count(mem_birthYear) as cnt from members group by mem_birthYear order by mem_birthYear
 	</select>
-	<select id="getAllExistRoomsCount" resultType="double">
-		 select NVL(count(*),0) from (select distinct r.*, s.mem_id
-		from seller s, accom a, room r, ( select NVL(z.room_num, -1) room_num from
-		                (
-		                select rs.room_num room_num
+	<select id="getAllPaidRoomsCount" resultType="double">
+		select rs.room_num room_num
 		                from rsvn rs, rsvnPay rp
 		                where rs.rsvn_num = rp.rsvn_num
 		                    and rp.rsvnPay_stat = 0
-		                    and rs.rsvn_checkin between to_date(sysdate, 'yyyy-mm-dd') and (to_date(sysdate, 'yyyy-mm-dd') - 1)
-		                    or rs.rsvn_checkout - 1 between to_date(sysdate, 'yyyy-mm-dd') and (to_date(sysdate, 'yyyy-mm-dd') - 1)
-		                )z right outer join dual on 1 = 1
-		            )aa
-                    where s.sell_num= a.sell_num 
-            and a.accom_num= r.accom_num
-            and r.roomChk = 0
-		    and r.room_capa >= 1
-		    and r.room_num not in aa.room_num
-		    and r.room_num = 1)
+		                    and to_char(rs.rsvn_checkin, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd')
 	</select>
-	<select id="getExistRoomsCount" parameterType="String" resultType="double">
-		 select NVL(count(*),0) from (select distinct r.*, s.mem_id
-		from seller s, accom a, room r, ( select NVL(z.room_num, -1) room_num from
-		                (
-		                select rs.room_num room_num
+	<select id="getPaidRoomsCount" parameterType="String" resultType="double">
+		select rs.room_num room_num
 		                from rsvn rs, rsvnPay rp
 		                where rs.rsvn_num = rp.rsvn_num
 		                    and rp.rsvnPay_stat = 0
-		                    and rs.rsvn_checkin between to_date(sysdate, 'yyyy-mm-dd') and (to_date(sysdate, 'yyyy-mm-dd') - 1)
-		                    or rs.rsvn_checkout - 1 between to_date(sysdate, 'yyyy-mm-dd') and (to_date(sysdate, 'yyyy-mm-dd') - 1)
-		                )z right outer join dual on 1 = 1
-		            )aa
-                    where s.sell_num= a.sell_num 
-            and a.accom_num= r.accom_num
-            and r.roomChk = 0
-		    and r.room_capa >= 1
-		    and r.room_num not in aa.room_num
-		    and r.room_num = 1
-		    and mem_id=#{mem_id}
-		    )
+		                    and to_char(rs.rsvn_checkin, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd')
+                            and mem_id=#{mem_id}
 	</select>
 	<select id="getAllRoomsCount" resultType="double">
 		select NVL(count(*),0) from room
