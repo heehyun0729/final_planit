@@ -172,6 +172,9 @@ public class MypageController {
 		HashMap<String, String> parammap=new HashMap<String, String>();
 		parammap.put("mem_id", mem_id);
 		parammap.put("session_mem_id", (String) session.getAttribute("mem_id"));
+		if(parammap.get("session_mem_id")==null) {
+			parammap.put("session_mem_id", "");
+		}
 		HashMap<Object, Object> profilemap=service.profileInfo(parammap);
 		HashMap<String, Object> listpage=new HashMap<String, Object>();
 		List<HashMap<Object, Object>> contentlist;
