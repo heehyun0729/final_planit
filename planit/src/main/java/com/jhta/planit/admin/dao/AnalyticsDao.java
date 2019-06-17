@@ -1,6 +1,7 @@
 package com.jhta.planit.admin.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,20 +28,35 @@ public class AnalyticsDao {
 	public List<Object> getMembersBirthYear(){//회원 생일 분포 차트
 		return sqlSession.selectList(NAMESPACE + "getMembersBirthYear");
 	}
-	public double getRooms(){//총 등록된 방의 갯수 구하기
-		return sqlSession.selectOne(NAMESPACE + "getRooms");
+	public double getAllRoomsCount(){//총 등록된 방의 갯수 구하기
+		return sqlSession.selectOne(NAMESPACE + "getAllRoomsCount");
 	}
-	public double getPaidRooms(){//예약된 방의 갯수 구하기
-		return sqlSession.selectOne(NAMESPACE + "getPaidRooms");
+	public double getAllExistRoomsCount(){//예약 가능한 모든 방의 갯수 구하기
+		return sqlSession.selectOne(NAMESPACE + "getAllExistRoomsCount");
 	}
-	public int todaySellProfit(){//방의 갯수 구하기
+	public double getExistRoomsCount(String mem_id){//예약 가능한 방의 갯수 아이디로 구하기
+		return sqlSession.selectOne(NAMESPACE + "getAllExistRoomsCount", mem_id);
+	}
+	public double getRoomsCount(String mem_id){//등록된 방의 갯수 아이디로 구하기
+		return sqlSession.selectOne(NAMESPACE + "getAllRoomsCount", mem_id);
+	}
+	public int todaySellProfit(){//금일 예약 수익 구하기
 		return sqlSession.selectOne(NAMESPACE + "todaySellProfit");
 	}
 	public int getDaySellProfit(String rsvnPay_date) {//해당 일 예약수익 구하기
 		return sqlSession.selectOne(NAMESPACE + "getDaySellProfit", rsvnPay_date);
 	}
+	public int todaySellerSellProfit(String mem_id){//판매자 금일 예약 수익 구하기
+		return sqlSession.selectOne(NAMESPACE + "todaySellerSellProfit", mem_id);
+	}
+	public int getDaySellerSellProfit(HashMap<String, String> map) {//판매자 해당 일 예약수익 구하기
+		return sqlSession.selectOne(NAMESPACE + "getDaySellerSellProfit", map);
+	}
 	public List<RsvnPayVo> getRecent5Sell(){//최근 5건 예약 거래 내역 구하기
 		return sqlSession.selectList(NAMESPACE + "getRecent5Sell");
+	}
+	public List<Object> getSellerRecent5Sell(String mem_id){//판매자 최근 5건 예약 거래 내역 구하기
+		return sqlSession.selectList(NAMESPACE + "getSellerRecent5Sell", mem_id);
 	}
 	public RsvnVo getRsvnInfo(int rsvn_num){//예약 번호로 정보 구하기
 		return sqlSession.selectOne(NAMESPACE + "getRsvnInfo", rsvn_num);

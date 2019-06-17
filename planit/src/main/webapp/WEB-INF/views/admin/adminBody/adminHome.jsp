@@ -38,8 +38,8 @@
 			monthAdChart();
 		</c:if>
 		<c:if test="${mem_stat==1 }">
-			todaySellChart();
-			monthProfitChart();
+			todaySellerSellChart();
+			monthSellerProfitChart();
 		</c:if>
 		
 		<c:if test="${mem_stat==0 }">
@@ -171,7 +171,7 @@
 		</c:if>
 		
 		<c:if test="${mem_stat==1 }">
-			function todaySellChart(){//금일 예약율 차트
+			function todaySellerSellChart(){//판매자 금일 예약율 차트
 				let ctx = $("#todaySellChart");
 				let data = {
 					    datasets: [{
@@ -201,6 +201,71 @@
 				    	}
 				    }
 				});
+			}
+			function monthSellerProfitChart(){//판매자 최근 한 달 차트
+				var ctx1 = $("#monthProfitChart");
+				var days=[];
+				var today=new Date();
+				var todayYear=today.getFullYear();//년
+				var todayMonth=today.getMonth()+1;//월
+				var todayDate=today.getDate();//일
+				var lastDate=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+				if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
+					lastDate[1]=29;
+				}
+				var today1=new Date();
+				today1.setDate(today.getDate()-lastDate[todayMonth]);
+				for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
+					today1.setDate(today1.getDate()+1);
+					todayYear=today1.getFullYear();//년
+					todayMonth=today1.getMonth()+1;//월
+					todayDate=today1.getDate();//일
+					const date=todayYear + "-" + todayMonth + "-" + todayDate;
+					days.push(date);
+				}
+				var sellProfit=[];
+				$.getJSON("<c:url value='/admin/adminAdManagement/getSellerDayProfit'/>", {stringDays:days.toString(), mem_id:"${mem_id}"}, function(data) {
+					if(data!=null){
+						for(var i=0;i<data.length;i++){//총수익
+							sellProfit.push(data[i].sellProfit);
+						}
+						var monthProfitChart = new Chart(ctx1, {
+						    type: 'line',
+						    data: {
+						        labels: days,
+						        datasets: [
+						       		{
+							            label: '# 숙박 예약 수익',
+							            data: sellProfit,
+							            fill: false,
+							            borderColor: [
+							                'rgba(29, 219, 22, 1)'
+							            ],
+							            borderWidth: 2
+						       		}
+							    ]
+						    },
+						    options: {
+						    	legend: {display: false},
+						    	maintainAspectRatio: false,
+						        scales: {
+						            yAxes: [{
+						            	gridLines:{display: false},
+						                ticks: {
+						                    beginAtZero: true
+						                }
+						            }],
+						            xAxes: [{
+						            	gridLines:{display: false},
+						                ticks: {
+						                    beginAtZero: true
+						                }
+						            }]
+						        }
+						    }
+						});
+					}
+				});	
 			}
 		</c:if>
 	});
@@ -390,25 +455,23 @@
 									<table class="table table-hover ">
 										<thead>
 										<tr>
-											<th scope="col">번호</th><th scope="col">신청자</th><th scope="col">결제금액</th><th scope="col">진행상황</th>
+											<th scope="col">번호</th><th scope="col">신청자</th><th scope="col">결제금액</th><th scope="col">진행상황</th><th scope="col">결제일</th>
 										</tr>
 										</thead>
 										<tbody>
 										<c:choose>
-											<c:when test="${map.getRecent5Sell[0]!=null }">
-												<c:forEach var="vo" items="${map.getRecent5Sell}" varStatus="status">
+											<c:when test="${map.getSellerRecent5Sell[0]!=null }">
+												<c:forEach var="vo" items="${map.getSellerRecent5Sell}" varStatus="status">
 													<tr>
-														<td scope="row">${vo.rsvnPay_id }</td>
-														<c:forEach var="getId" begin="${status.index }" end="${status.index }" items="${map.getRecent5SellId }">
-															<td>${getId}</td>
-														</c:forEach>
-														<td><fmt:formatNumber value="${vo.rsvnPay_total }" pattern="#,###" /></td>
+														<td scope="row">${vo.RSVNPAY_ID }</td>
+														<td>${vo.MEM_ID}</td>
+														<td><fmt:formatNumber value="${vo.RSVNPAY_TOTAL }" pattern="#,###" /></td>
 														<td>
 															<c:choose>
-																<c:when test="${vo.rsvnPay_stat=='0' }">
+																<c:when test="${vo.RSVNPAY_STAT=='0' }">
 																	<div class="badge badge-success">예약됨</div><br>
 																</c:when>
-																<c:when test="${vo.rsvnPay_stat=='1' }">
+																<c:when test="${vo.RSVNPAY_STAT=='1' }">
 																	<div class="badge badge-dark">환불됨</div><br>
 																</c:when>
 																<c:otherwise>
@@ -416,12 +479,13 @@
 																</c:otherwise>
 															</c:choose>	
 														</td>
+														<td>${vo.RSVNPAY_DATE }</td>				
 													</tr>
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
 												<tr>
-													<td scope="row" colspan="4">최근 거래 내역이 없습니다.</td>
+													<td scope="row" colspan="5">최근 거래 내역이 없습니다.</td>
 												</tr>
 											</c:otherwise>
 										</c:choose>

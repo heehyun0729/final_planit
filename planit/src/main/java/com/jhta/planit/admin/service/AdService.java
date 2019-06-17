@@ -209,6 +209,9 @@ public class AdService {
 	public int getDaySellProfit(String rsvnPay_date) {//특정일 예약 총 수익 받기
 		return analyticsDao.getDaySellProfit(rsvnPay_date);
 	}
+	public int getDaySellerSellProfit(HashMap<String, String> map) {//판매자 특정일 예약 총 수익 받기
+		return analyticsDao.getDaySellerSellProfit(map);
+	}
 	public List<AdVo> getRecent5Ad(){//최근 5번 광고 거래 내역
 		return adDao.getRecent5Ad();
 	}
@@ -227,11 +230,22 @@ public class AdService {
 	public List<Object> getMembersBirthYear(){//회원 생일 분포 차트
 		return analyticsDao.getMembersBirthYear();
 	}
-	public double getPaidRoomsRate() {//방 예약율 구하기
+	public double getPaidRoomsRate() {//모든 방 예약율 구하기
 		try {
-			double tot=analyticsDao.getRooms();
-			double paid=analyticsDao.getPaidRooms();
-			double rate=((paid/tot)*100);
+			double getAllRoomsCount=analyticsDao.getAllRoomsCount();
+			double getAllExistRoomsCount=analyticsDao.getAllExistRoomsCount();
+			double rate=(((getAllRoomsCount-getAllExistRoomsCount)/getAllRoomsCount)*100);
+			return rate;
+		}catch(ArithmeticException ae) {
+			int rate=0;
+			return rate;
+		}		
+	}
+	public double getPaidRoomsRate(String mem_id) {//판매자 방 예약율 구하기
+		try {
+			double getRoomsCount=analyticsDao.getRoomsCount(mem_id);
+			double getExistRoomsCount=analyticsDao.getExistRoomsCount(mem_id);
+			double rate=(((getRoomsCount-getExistRoomsCount)/getRoomsCount)*100);
 			return rate;
 		}catch(ArithmeticException ae) {
 			int rate=0;
@@ -241,8 +255,14 @@ public class AdService {
 	public int todaySellProfit() {//금일 예약 수익 구하기
 		return analyticsDao.todaySellProfit();
 	}
+	public int todaySellerSellProfit(String mem_id) {//판매자 금일 예약 수익 구하기
+		return analyticsDao.todaySellerSellProfit(mem_id);
+	}
 	public List<RsvnPayVo> getRecent5Sell(){//최근 5건 예약 거래 내역 구하기
 		return analyticsDao.getRecent5Sell();
+	}
+	public List<Object> getSellerRecent5Sell(String mem_id){//판매자 최근 5건 예약 거래 내역 구하기
+		return analyticsDao.getSellerRecent5Sell(mem_id);
 	}
 	public RsvnVo getRsvnInfo(int rsvn_num) {
 		return analyticsDao.getRsvnInfo(rsvn_num);

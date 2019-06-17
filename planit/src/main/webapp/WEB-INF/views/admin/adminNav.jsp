@@ -21,6 +21,7 @@
 					<c:if test="${mem_stat==1 }">
 						<!-- 판매자 전용 -->
 						<a class="dropdown-item" href="#">숙소/예약</a>
+						<a class="dropdown-item" href="#">게시판</a>
 					</c:if>
 					<c:if test="${mem_stat==0 }">
 						<!-- 관리자 전용 -->

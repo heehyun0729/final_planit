@@ -85,6 +85,28 @@
 					<span class="menu-collapsed">예약 목록</span>
 				</a>
 			</div>
+			<!-- 판매자 전용, 게시판 -->
+			<a href="#board" id="boardBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-start align-items-center">
+					<span class="fas fa-list fa-fw mr-3"></span>
+					<span class="menu-collapsed">게시판</span>
+					<span class="fas fa-caret-down ml-auto"></span>
+				</div>
+			</a>
+			<div id='board' class="collapse sidebar-submenu">
+				<a href="#"	class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">질문 게시판</span>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">후기 게시판</span>
+				</a>
+				<a href="<c:url value = '/admin/plan/list'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">일정 게시판</span>
+				</a>
+				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">동행 게시판</span>
+				</a>
+			</div>
 			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
 				<small></small>
 			</li>
