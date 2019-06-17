@@ -93,12 +93,47 @@
 					<td>${buddy.buddy_msg}</td>
 					<td>${buddy.buddy_city}</td>
 					<td><input type="button" value="쪽지하기" onclick="msgPopup('${buddy.mem_id}')"></td>
-					<td><input type="button" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></td>
+					<c:choose>
+						<c:when test="${empty overlap_ck}">
+							<td><input type="button" value="동행요청하기1" onclick="apply_buddy('${buddy.buddy_num}')"></td>
+						</c:when>
+						<c:otherwise>
+							<c:set var="find" value="false" />
+							<c:forEach var="overlapck" items="${overlap_ck}">
+								<c:choose>
+									<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='0' }">
+										<td><input type="button" value="요청중" disabled="disabled"></td>
+										<c:set var="find" value="true" />
+									</c:when>
+									<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='1' }">
+										<td><input type="button" value="수락" disabled="disabled"></td>
+										<c:set var="find" value="true" />
+									</c:when>
+									<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='2' }">
+										<td><input type="button" value="동행요청하기-거절" onclick="apply_buddy('${buddy.buddy_num}')"></td>
+										<c:set var="find" value="true" />
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${not find}">
+								<td><input type="button" value="동행요청하기-없음" onclick="apply_buddy('${buddy.buddy_num}')"></td>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-	<div>
+	<div id="paging">
+		<c:choose>
+			<c:when test="${startPage > 1 }">
+				<a href = "<c:url value='/buddyList?pageNum=${startPage - 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>"><span style = "color:skyblue;">◀</span></a>
+			</c:when>
+			<c:otherwise>
+				<span style = "color:grey;">◀</span>
+			</c:otherwise>
+		</c:choose>
+		
 		<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 			<c:choose>
 				<c:when test="${pu.pageNum==i }"><%--현재 페이지 --%>
@@ -111,7 +146,17 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
+		
+		<c:choose>
+			<c:when test="${endPage < pageCnt }">
+				<a href = "<c:url value='/buddyList?pageNum=${startPage + 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>"><span style = "color:skyblue;">▶</span></a>
+			</c:when>
+			<c:otherwise>
+				<span style = "color:grey;">▶</span>
+			</c:otherwise>
+		</c:choose>
 	</div>
+	
 	<div id="button_div">
 		<input id="insert_buddy" type="button" value="동행찾는 글 등록하기">
 	</div>

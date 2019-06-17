@@ -98,4 +98,8 @@ public class BuddyDao {
 	public List<BuddyVo> mybuddy_ck(String mem_id) {
 		return sqlSession.selectList(NAMESPACE + ".mybuddy_ck",mem_id);
 	}
+	//중복 확인
+	public List<BuddyApplyVo> overlap_ck() {
+		return sqlSession.selectList(NAMESPACE + ".overlap_ck");
+	}
 }

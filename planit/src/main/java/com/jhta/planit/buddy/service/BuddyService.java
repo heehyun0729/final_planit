@@ -105,4 +105,8 @@ public class BuddyService {
 	public List<BuddyVo> mybuddy_ck(String mem_id) {
 		return dao.mybuddy_ck(mem_id);
 	}
+	//중복 확인
+	public List<BuddyApplyVo> overlap_ck() {
+		return dao.overlap_ck();
+	}
 }
