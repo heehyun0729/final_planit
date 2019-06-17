@@ -49,4 +49,5 @@ public class RsvnDao {
 	public int dateGap(int rsvn_num) {
 		return sqlSession.selectOne(NAMESPACE + ".dateGap", rsvn_num);
 	}
+	
 }
