@@ -84,7 +84,7 @@
         and r.room_num=rm.room_num
         and rm.accom_num=a.accom_num
         and a.sell_num=s.sell_num
-        and to_char(rsvnPay_date, 'yyyy-mm-dd')=#{rsvnPay_date} and rsvnPay_stat=0
+        and rsvnPay_date=#{rsvnPay_date} and rsvnPay_stat=0
         and s.mem_id=#{mem_id}
 	</select>
 	<select id="getRecent5Sell" resultType="com.jhta.planit.reservation.vo.RsvnPayVo">
