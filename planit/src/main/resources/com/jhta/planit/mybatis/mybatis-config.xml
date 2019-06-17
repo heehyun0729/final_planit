@@ -33,5 +33,6 @@
   	<mapper resource="com/jhta/planit/review/mybatis/ReviewCommMapper.xml"/>
   	<mapper resource="com/jhta/planit/reservation/mybatis/RsvnMapper.xml"/>
   	<mapper resource="com/jhta/planit/reservation/mybatis/RsvnPayMapper.xml"/>
+  	<mapper resource="com/jhta/planit/reservationReview/mybatis/ReservationReviewMapper.xml"/>
   </mappers>
 </configuration>

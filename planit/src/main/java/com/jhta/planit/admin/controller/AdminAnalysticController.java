@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jhta.planit.admin.service.AdService;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
+import com.jhta.planit.reservation.vo.RsvnPayVo;
 
 @Controller
 public class AdminAnalysticController {
@@ -24,24 +27,34 @@ public class AdminAnalysticController {
 	private AdService service;
 	
 	@RequestMapping(value="/adminAnalytics")//관리자 통계 페이지
-	public String adminAnalytics(Model model) {
+	public String adminAnalytics(Model model, HttpSession session) {
+		String mem_id=(String)session.getAttribute("mem_id");
+		int mem_stat=(Integer)session.getAttribute("mem_stat");
 		HashMap<String, Object> map=new HashMap<String, Object>();
-		Date getDate=new Date(System.currentTimeMillis());//금일 광고율, 수익 구하기
+		Date getDate=new Date(System.currentTimeMillis());
 		String date=getDate.toString();
 		map.put("startDate", date);
 		map.put("endDate", date);
-		List<AdInfoVo> list=service.getChance(map);
-		int chance=0;
-		for(int a=0;a<list.size();a++) {
-			chance+=list.get(a).getAdInfo_chance();
+		
+		if(mem_stat==0) {
+			List<AdInfoVo> list=service.getChance(map);//금일 광고율, 수익 구하기
+			int chance=0;
+			for(int a=0;a<list.size();a++) {
+				chance+=list.get(a).getAdInfo_chance();
+			}
+			int adProfit=service.getTodayAdProfit(date);
+			map.put("chance", chance);//금일 광고율 담기
+			map.put("adProfit", adProfit);//광고 수익 담기
+			int roomRate=(int)Math.floor(service.getPaidRoomsRate());//방 예약율 구하기
+			map.put("roomRate", roomRate);
+			int todaySellProfit=service.todaySellProfit();//금일 예약 수익 구하기
+			map.put("todaySellProfit", todaySellProfit);
+		}else if(mem_stat==1) {
+			int roomRate=(int)Math.floor(service.getPaidRoomsRate(mem_id));//방 예약율 구하기
+			map.put("roomRate", roomRate);
+			int todaySellerSellProfit=service.todaySellerSellProfit(mem_id);//금일 예약 수익 구하기
+			map.put("todaySellProfit", todaySellerSellProfit);
 		}
-		int adProfit=service.getTodayAdProfit(date);
-		map.put("chance", chance);//금일 광고율 담기
-		map.put("adProfit", adProfit);//광고 수익 담기
-		int roomRate=(int)Math.floor(service.getPaidRoomsRate());//방 예약율 구하기
-		map.put("roomRate", roomRate);
-		int todaySellProfit=service.todaySellProfit();//금일 예약 수익 구하기
-		map.put("todaySellProfit", todaySellProfit);
 		
 		List<Object> getPlanedCountry=service.getPlanedCountry();//플래너 국가 구하기
 		ArrayList<String> countryList=new ArrayList<String>();

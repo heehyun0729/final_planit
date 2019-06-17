@@ -92,4 +92,9 @@
  		 resReview_title=#{resReview_title},resReview_content=#{resReview_content}
  		 where resReview_num=#{resReview_num}
  	</update>
+ 	
+ 	<!-- 리뷰 썼는지 확인 -->
+ 	<select id="reviewCnt" parameterType="int" resultType="int">
+ 		select NVL(count(*), 0) from reservationReview where rsvn_num = #{rsvn_num}
+ 	</select>
    </mapper>

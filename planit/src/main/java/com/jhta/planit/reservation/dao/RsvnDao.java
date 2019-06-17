@@ -42,7 +42,11 @@ public class RsvnDao {
 	public int sellCount(HashMap<String, Object> map) {
 		return sqlSession.selectOne(NAMESPACE + ".sellCount", map);
 	}
+
 	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
 		return sqlSession.selectList(NAMESPACE2 + ".acqList",map);
+	}
+	public int dateGap(int rsvn_num) {
+		return sqlSession.selectOne(NAMESPACE + ".dateGap", rsvn_num);
 	}
 }

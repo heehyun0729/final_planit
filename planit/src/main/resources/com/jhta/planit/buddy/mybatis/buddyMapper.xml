@@ -307,4 +307,9 @@
 		where b.buddy_num=c.buddy_num and c.buddy_num=a.buddy_num and c.country_num=t.country_num and
 		b.buddy_state=0 and a.apply_state=1 and b.mem_id=#{mem_id}
 	</select>
+	
+	<!-- 중복확인 -->
+	<select id="overlap_ck" resultType="com.jhta.planit.buddy.vo.BuddyApplyVo">
+		select * from buddy_apply
+	</select>
 </mapper>

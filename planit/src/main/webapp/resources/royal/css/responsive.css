@@ -60,8 +60,6 @@
 	}
     .navbar .menu_nav .nav-item.dropdown:after{
         display: inline-block;
-        content: "\e874";
-        font-family: 'Linearicons-Free';
         font-size: 13px;
         color: #777777;
         top: 0px;

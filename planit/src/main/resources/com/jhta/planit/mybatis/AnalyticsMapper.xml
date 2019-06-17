@@ -15,20 +15,71 @@
 	<select id="getMembersBirthYear" resultType="hashmap">
 		select mem_birthYear, count(mem_birthYear) as cnt from members group by mem_birthYear order by mem_birthYear
 	</select>
-	<select id="getRooms" resultType="double">
-		select count(room_num) as cnt from room where roomChk=0
+	<select id="getAllPaidRoomsCount" resultType="double">
+		select NVL(count(rs.room_num),0)
+		                from rsvn rs, rsvnPay rp
+		                where rs.rsvn_num = rp.rsvn_num
+		                    and rp.rsvnPay_stat = 0
+		                    and to_char(rs.rsvn_checkin, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd')
 	</select>
-	<select id="getPaidRooms" resultType="double">
-		select count(rsvnPay_id) as cnt from rsvnPay where rsvnPay_stat=0
+	<select id="getPaidRoomsCount" parameterType="String" resultType="double">
+		select NVL(count(rs.room_num),0)
+		                from rsvn rs, rsvnPay rp
+		                where rs.rsvn_num = rp.rsvn_num
+		                    and rp.rsvnPay_stat = 0
+		                    and to_char(rs.rsvn_checkin, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd')
+                            and mem_id=#{mem_id}
+	</select>
+	<select id="getAllRoomsCount" resultType="double">
+		select NVL(count(*),0) from room
+	</select>
+	<select id="getRoomsCount" parameterType="String" resultType="double">
+		select NVL(count(*),0) from room r, seller s, accom a where a.sell_num=s.sell_num and a.accom_num=r.accom_num  and s.mem_id=#{mem_id}
 	</select>
 	<select id="todaySellProfit" resultType="int">
 		select NVL(sum(rsvnPay_total), 0) from rsvnPay where to_char(rsvnPay_date, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd') and rsvnPay_stat=0
 	</select>
 	<select id="getDaySellProfit" parameterType="String" resultType="int">
-		select NVL(sum(rsvnPay_total), 0) from rsvnPay where rsvnPay_date=#{rsvnPay_date} and rsvnPay_stat=0
+		select NVL(sum(rsvnPay_total), 0) from rsvnPay where to_char(rsvnPay_date, 'yyyy-mm-dd')=#{rsvnPay_date} and rsvnPay_stat=0
+	</select>
+	<select id="todaySellerSellProfit" parameterType="String" resultType="int">
+		select NVL(sum(p.rsvnPay_total), 0)
+    	from rsvn r, rsvnpay p, room rm, accom a, seller s 
+        where r.rsvn_num=p.rsvn_num
+        and r.room_num=rm.room_num
+        and rm.accom_num=a.accom_num
+        and a.sell_num=s.sell_num
+        and to_char(rsvnPay_date, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd') and rsvnPay_stat=0
+        and s.mem_id=#{mem_id}
+	</select>
+	<select id="getDaySellerSellProfit" parameterType="hashmap" resultType="int">
+		select NVL(sum(p.rsvnPay_total), 0)
+    	from rsvn r, rsvnpay p, room rm, accom a, seller s 
+        where r.rsvn_num=p.rsvn_num
+        and r.room_num=rm.room_num
+        and rm.accom_num=a.accom_num
+        and a.sell_num=s.sell_num
+        and to_char(rsvnPay_date, 'yyyy-mm-dd')=#{rsvnPay_date} and rsvnPay_stat=0
+        and s.mem_id=#{mem_id}
 	</select>
 	<select id="getRecent5Sell" resultType="com.jhta.planit.reservation.vo.RsvnPayVo">
 		select * from (select aa.*, rownum rnum from(select * from rsvnPay order by rsvnpay_date desc)aa) where <![CDATA[rnum<6]]>
+	</select>
+	<select id="getSellerRecent5Sell" parameterType="String" resultType="hashmap">
+		select * from 
+	    (
+	     select aa.*, rownum rnum from
+	        (
+		        select P.RSVNPAY_ID, R.mem_id, p.rsvnpay_total, p.rsvnpay_stat, to_char(P.RSVNPAY_DATE, 'yyyy-mm-dd') RSVNPAY_DATE from rsvnPay p, rsvn r, room rm, accom a, seller s
+		        where p.rsvn_num=r.rsvn_num
+		        and r.room_num=rm.room_num
+		        and rm.accom_num=a.accom_num
+		        and a.sell_num=s.sell_num
+		        and s.mem_id=#{mem_id}
+		        order by rsvnpay_date desc
+	        )aa
+	    )
+		where <![CDATA[rnum<6]]>
 	</select>
 	<select id="getRsvnInfo" parameterType="int" resultType="com.jhta.planit.reservation.vo.RsvnVo">
 		select * from rsvn where rsvn_num=#{rsvn_num}
@@ -39,4 +90,5 @@
 	<select id="getDayAdClick" parameterType="String" resultType="int">
 		select NVL(sum(adInfo_click), 0) from adInfo where adInfo_date=#{adInfo_date}
 	</select>
+	
 </mapper>

@@ -55,6 +55,7 @@ Table of Content:
 }
 
 a {
+	color: #777777;
   text-decoration: none;
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
@@ -64,6 +65,7 @@ a {
 a:hover, a:focus {
   text-decoration: none;
   outline: none;
+  color: #ff5252;
 }
 
 .row.m0 {
@@ -1015,10 +1017,10 @@ button:focus {
   font-weight: 400;
 }
 
-.single-recent-blog-post:hover img {
-  -webkit-transform: scale(1.23) rotate(10deg);
-  -ms-transform: scale(1.23) rotate(10deg);
-  transform: scale(1.23) rotate(10deg);
+.single-recent-blog-post:hover .thumb img {
+  -webkit-transform: scale(1.23);
+  -ms-transform: scale(1.23);
+  transform: scale(1.23);
 }
 
 .tags .tag_btn {
@@ -3599,3 +3601,11 @@ h1, h2, h3, h4, h5, h6 {
 /*---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */
+
+.avatar {
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+}

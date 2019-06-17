@@ -5,22 +5,24 @@
 <h1>후기</h1>
 <a href="<c:url value='/review/reviewInsert'/>">글등록</a>
 <div>
-	<table border="1" width="700">	
+	<table class="table table-bordered w-50">	
 		<tr>
 			<td>글번호</td>
 			<td>국가</td>
 			<td>도시</td>
 			<td>글제목</td>
+			<td>조회수</td>
 			<td>작성일</td>
 			<td>삭제</td>
 			
 		</tr>
 		<c:forEach var="vo" items="${list }">
 			<tr>
-				<td>${vo.review_num }</td>
+			<td>${vo.review_num }</td>
 				<td>${vo.review_country }</td>
 				<td>${vo.review_city }</td>
 				<td><a href="${pageContext.request.contextPath }/review/reviewDetail.do?review_num=${vo.review_num}&field=${field}&keyword=${keyword}&pageNum=${pageNum}">${vo.review_title }</a></td>
+				<td>${vo.review_hit }</td>
 				<td>${vo.review_date }</td> 
 				<td><a href="${pageContext.request.contextPath }/reviewDelete?review_num=${vo.review_num}">삭제</a></td>
 			</tr>

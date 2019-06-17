@@ -33,7 +33,7 @@ public class BuddyController {
 		
 		//세션에서 아이디 얻어오기
 		String mem_id=(String)session.getAttribute("mem_id");
-		System.out.println("/////////////////////////////////mem_id : "+mem_id);
+		
 		//날짜 지난 게시물 자동 업뎃
 		service.updateState();
 		
@@ -63,10 +63,26 @@ public class BuddyController {
 		//리스트 뽑기
 		int totalRowCount=service.count(find_map);
 		PageUtil pu=new PageUtil(pageNum,totalRowCount,5,5);
-		find_map.put("startRow",pu.getStartRow());
-		find_map.put("endRow", pu.getEndRow());
+		int startRow = pu.getStartRow();
+		int endRow = pu.getEndRow();
+		int pageCnt = pu.getTotalPageCount();
+		int startPage = pu.getStartPageNum();
+		int endPage = pu.getEndPageNum();
+		find_map.put("startRow", startRow);
+		find_map.put("endRow", endRow);
 		find_map.put("mem_id", mem_id);
 		List<BuddyListVo> buddyList=service.showAll(find_map);
+		
+		mv.addObject("pageNum", pageNum);
+		mv.addObject("startRow", startRow);
+		mv.addObject("endRow", endRow);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		
+		//요청 중복 방지
+		List<BuddyApplyVo>overlapck=service.overlap_ck();
+		mv.addObject("overlap_ck",overlapck);
 		
 		//동행추천
 		if(mem_id != null) {

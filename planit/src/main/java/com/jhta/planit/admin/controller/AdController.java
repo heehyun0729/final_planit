@@ -127,11 +127,15 @@ public class AdController {
 		map.put("mem_id", mem_id);
 		map.put("mem_pwd", mem_pwd);
 		int result = mservice.login(map);
-		if (result == 0 || result== 1 ) {
+		if (result == 0) {
 			session.setAttribute("mem_id", mem_id);
 			session.setAttribute("mem_stat", result);
 			return "redirect:/adminHome";
-		} else {
+		}else if(result == 1) {
+			session.setAttribute("mem_id", mem_id);
+			session.setAttribute("mem_stat", result);
+			return "redirect:/adminHome";
+		}else {
 			model.addAttribute("mem_id", mem_id);
 			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
 			return "/admin/adminLogin";
@@ -143,31 +147,42 @@ public class AdController {
 		return "/admin/adminLogin";
 	}
 	@RequestMapping(value="/adminHome", method=RequestMethod.GET)//관리자 홈
-	public String adminHome(Model model) {
+	public String adminHome(Model model, HttpSession session) {
+		String mem_id=(String)session.getAttribute("mem_id");
+		int mem_stat=(Integer)session.getAttribute("mem_stat");
 		HashMap<String, Object> map=new HashMap<String, Object>();
-		Date getDate=new Date(System.currentTimeMillis());//금일 광고율, 수익 구하기
+		Date getDate=new Date(System.currentTimeMillis());
 		String date=getDate.toString();
 		map.put("startDate", date);
 		map.put("endDate", date);
-		List<AdInfoVo> list=service.getChance(map);
-		int chance=0;
-		for(int a=0;a<list.size();a++) {
-			chance+=list.get(a).getAdInfo_chance();
-		}
-		int adProfit=service.getTodayAdProfit(date);
-		List<AdVo> getRecent5Ad=service.getRecent5Ad();//최근 5개 광고 거래내역 구하기
-		List<RsvnPayVo> getRecent5Sell=service.getRecent5Sell();//최근 5개 예약 거래내역 구하기
-		ArrayList<String> getRecent5SellId=new ArrayList<String>();
-		for(int i=0;i<getRecent5Sell.size();i++) {
-			String mem_id=service.getRsvnInfo(getRecent5Sell.get(i).getRsvn_num()).getMem_id();
-			getRecent5SellId.add(mem_id);
-		}
 		
-		map.put("chance", chance);//금일 광고율 담기
-		map.put("adProfit", adProfit);//광고 수익 담기
-		map.put("getRecent5Ad", getRecent5Ad);
-		map.put("getRecent5Sell", getRecent5Sell);
-		map.put("getRecent5SellId", getRecent5SellId);
+		if(mem_stat==0) {
+			List<AdInfoVo> list=service.getChance(map);//금일 광고율, 수익 구하기
+			int chance=0;
+			for(int a=0;a<list.size();a++) {
+				chance+=list.get(a).getAdInfo_chance();
+			}
+			int adProfit=service.getTodayAdProfit(date);
+			List<AdVo> getRecent5Ad=service.getRecent5Ad();//최근 5개 광고 거래내역 구하기
+			List<RsvnPayVo> getRecent5Sell=service.getRecent5Sell();//최근 5개 예약 거래내역 구하기
+			ArrayList<String> getRecent5SellId=new ArrayList<String>();
+			for(int i=0;i<getRecent5Sell.size();i++) {
+				String mem_id1=service.getRsvnInfo(getRecent5Sell.get(i).getRsvn_num()).getMem_id();
+				getRecent5SellId.add(mem_id1);
+			}		
+			map.put("chance", chance);//금일 광고율 담기
+			map.put("adProfit", adProfit);//광고 수익 담기
+			map.put("getRecent5Ad", getRecent5Ad);
+			map.put("getRecent5Sell", getRecent5Sell);
+			map.put("getRecent5SellId", getRecent5SellId);
+		}else if(mem_stat==1) {
+			int roomRate=(int)Math.floor(service.getPaidRoomsRate(mem_id));//방 예약율 구하기
+			map.put("roomRate", roomRate);
+			int todaySellerSellProfit=service.todaySellerSellProfit(mem_id);//금일 예약 수익 구하기
+			map.put("todaySellProfit", todaySellerSellProfit);
+			List<Object> getSellerRecent5Sell=service.getSellerRecent5Sell(mem_id);//판매자 최근 5개 예약 거래내역 구하기
+			map.put("getSellerRecent5Sell", getSellerRecent5Sell);
+		}
 		
 		model.addAttribute("map", map);
 		return "-admin-adminBody-adminHome";
@@ -503,5 +518,19 @@ public class AdController {
 		}
 		return jsonArray.toString();
 	}
-	
+	@RequestMapping(value="/admin/adminAdManagement/getSellerDayProfit", produces="application/json;charset=utf-8")//판매자 한달 예약 수익 출력
+	@ResponseBody
+	public String getSellerDayProfit(String stringDays, String mem_id) {
+		String days[]=stringDays.split(",");
+		JSONArray jsonArray=new JSONArray();
+		for(int i=0;i<days.length;i++) {
+			HashMap<String, String> map=new HashMap<String, String>();
+			map.put("rsvnPay_date", days[i]);
+			map.put("mem_id", mem_id);
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("sellProfit", service.getDaySellerSellProfit(map));
+			jsonArray.put(jsonObject);
+		}
+		return jsonArray.toString();
+	}
 }
