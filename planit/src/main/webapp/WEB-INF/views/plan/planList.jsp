@@ -37,7 +37,7 @@ function ppp(mem_id){
     </div>
 </section>
 
-<section class="latest_blog_area section_gap">
+<section class="latest_blog_area mb-30">
     <div class="container">
         <div class="section_title">
         	<div class = "row">
@@ -68,40 +68,38 @@ function ppp(mem_id){
 								<input type = "text" name = "keyword" value = "${keyword }" class = "form-control">
 							</div>
 							<div class = "col-sm-2" style = "padding: 0px;">
-								<input type = "submit" value = "검색" class = "genric-btn primary circle border">
+								<input type = "submit" value = "검색" class = "genric-btn success-border circle">
 							</div>
 						</div>
 					</form>
         		</div>
         	</div>
         </div>
+		<div class = "row mb-30 text-center">
         <c:if test="${empty list }">
-			<div class="row text-center">조회된 결과가 없습니다.</div>
+			<div class="col-lg-12 col-md-12 mb-30"><h5>조회된 결과가 없습니다.</h5></div>
 		</c:if>
 		<c:forEach var = "vo" items="${list }">
-			<div class = "row mb_30 text-center">
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-3 col-md-6 mb-30" style = "border: 1px solid #aaa; border-radius: 10px;padding-top: 15px;">
 					<div class="single-recent-blog-post">
 						<div class="thumb">
 							<a href = "<c:url value = '/plan/detail?pageNum=${pageNum }&field=${field }&keyword=${keyword }&plan_num=${vo.plan_num }'/>"><img src = "${vo.plan_img }" style = "height: 300px;"></a>
 						</div>
 						<div class = "details align-items-center">
 							<a href = "<c:url value = '/plan/detail?pageNum=${pageNum }&field=${field }&keyword=${keyword }&plan_num=${vo.plan_num }'/>"><h4 class="sec_h4">${vo.plan_title }</h4></a>
-							<img src = "<c:url value = '${vo.img_saveImg }'/>" class="img-circle avatar">
-					
-							<div class="nav navbar-nav menu_nav ml-auto">
-									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${vo.mem_id }</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item"><a href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a></li>
-										<li class="nav-item"><a href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a></li>
-									</ul>
+							<img src = "<c:url value = '${vo.img_saveImg }'/>" class="img-circle avatar" style = "margin-bottom: 5px;">
+							<div class="dropdown show">
+							  <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${vo.mem_id }</a>
+							  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							  	<a class="dropdown-item" href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a>
+								<a class="dropdown-item" href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a>
+							  </div>
 							</div>
-							
 						</div>
 					</div>
 				</div>
-			</div>
 		</c:forEach>
+	</div>
 	 <nav class="blog-pagination justify-content-center d-flex">
            <ul class="pagination">
                <li class="page-item">
