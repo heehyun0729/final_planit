@@ -32,47 +32,141 @@
 				}
 			}
 		});
-		todayAdChart();
+		<c:if test="${mem_stat==0 }">
+			todayAdChart();
+			monthAdChart();
+		</c:if>
 		todaySellChart();
 		monthProfitChart();
-		monthAdChart();
 		usersPlanCountry();
 		usersBuddyCountry();
 		usersGender();
 		usersAge();
 	});
 	
-	function todayAdChart(){//금일 광고율 차트
-		var ctx = $("#todayAdChart");
-		var data = {
-			    datasets: [{
-			        data: [${map.chance},(100-${map.chance})],
-			        backgroundColor: ['rgba(95, 0, 255, 0.6)','rgba(0, 0, 0, 0.2)'],
-			        borderWidth: 0
-			    }]
-			};
-		var todayAdChart = new Chart(ctx, {
-		    type: 'doughnut',
-		    data: data,
-		    options: {
-		    	maintainAspectRatio: false,
-		    	tooltips: {enabled: false},
-		    	hover: {mode: null},
-		    	elements: {
-					center: {
-						text: '${map.chance}%'
+	
+	<c:if test="${mem_stat==0 }">
+		function todayAdChart(){//금일 광고율 차트
+			var ctx = $("#todayAdChart");
+			var data = {
+				    datasets: [{
+				        data: [${map.chance},(100-${map.chance})],
+				        backgroundColor: ['rgba(95, 0, 255, 0.6)','rgba(0, 0, 0, 0.2)'],
+				        borderWidth: 0
+				    }]
+				};
+			var todayAdChart = new Chart(ctx, {
+			    type: 'doughnut',
+			    data: data,
+			    options: {
+			    	maintainAspectRatio: false,
+			    	tooltips: {enabled: false},
+			    	hover: {mode: null},
+			    	elements: {
+						center: {
+							text: '${map.chance}%'
+						}
+					},
+					plugins:{
+			    		labels: [
+			    		    {
+			    		      render: 'label'
+			    		    }
+			    		  ]
+			    	}
+			    }
+			});
+		}
+		function monthAdChart(){//최근 한 달 광고 클릭율
+			let ctx = $("#monthAdChart");
+			let days=[];
+			let today=new Date();
+			let todayYear=today.getFullYear();//년
+			let todayMonth=today.getMonth()+1;//월
+			let todayDate=today.getDate();//일
+			let lastDate=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+			if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
+				lastDate[1]=29;
+			}
+			var today1=new Date();
+			today1.setDate(today.getDate()-lastDate[todayMonth]);
+			for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
+				today1.setDate(today1.getDate()+1);
+				todayYear=today1.getFullYear();//년
+				todayMonth=today1.getMonth()+1;//월
+				todayDate=today1.getDate();//일
+				const date=todayYear + "-" + todayMonth + "-" + todayDate;
+				days.push(date);
+			}
+			let hit=[];
+			let click=[];
+			$.getJSON("<c:url value='/adminAnalytics/getDayAdInfo'/>", {stringDays:days.toString()}, function(data) {
+				if(data!=null){
+					for(var i=0;i<(data.length/2);i++){//조회 수
+						var getDayAdHit=data[i].getDayAdHit;
+						hit.push(getDayAdHit);
 					}
-				},
-				plugins:{
-		    		labels: [
-		    		    {
-		    		      render: 'label'
-		    		    }
-		    		  ]
-		    	}
-		    }
-		});
-	}
+					for(var i=(data.length/2);i<data.length;i++){//클릭 수
+						var getDayAdClick=data[i].getDayAdClick;
+						click.push(getDayAdClick);
+					}
+					
+					var monthAdChart = new Chart(ctx, {
+					    type: 'bar',
+					    data: {
+					        labels: days,
+					        datasets: [
+					        	{
+					        		label: '# 클릭 수',
+						            data: click,
+						            fill: false,
+						            borderColor: [
+						                ''
+						            ],
+						            borderWidth: 2
+						        },
+						        {
+						        	label: '# 조회 수',
+						            data: hit,
+						            fill: false,
+						            borderColor: [
+						                'rgba(95, 0, 255, 1)'
+						            ],
+						            borderWidth: 2,
+						            type: 'line'
+					       		}
+						    ]
+					    },
+					    options: {
+					    	legend: {display: false},
+					    	maintainAspectRatio: false,
+					        scales: {
+					            yAxes: [{
+					            	gridLines:{display: false},
+					                ticks: {
+					                    beginAtZero: true
+					                }
+					            }],
+					            xAxes: [{
+					            	gridLines:{display: false},
+					                ticks: {
+					                    beginAtZero: true
+					                }
+					            }]
+					        },
+					        plugins:{
+					    		labels: [
+					    		    {
+					    		      render: 'value'
+					    		    }
+					    		  ]
+					    	}
+					    }
+					});
+				}
+			});	
+		}
+	</c:if>
 	
 	function todaySellChart(){//금일 예약율 차트
 		let ctx = $("#todaySellChart");
@@ -195,96 +289,6 @@
 				                }
 				            }]
 				        }
-				    }
-				});
-			}
-		});	
-	}
-	
-	function monthAdChart(){//최근 한 달 광고 클릭율
-		let ctx = $("#monthAdChart");
-		let days=[];
-		let today=new Date();
-		let todayYear=today.getFullYear();//년
-		let todayMonth=today.getMonth()+1;//월
-		let todayDate=today.getDate();//일
-		let lastDate=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-		if(((todayYear.value%4==0 && todayYear.value%100!=0) || todayYear.value%400==0)&& todayMonth.value==2){//윤년 2월, 29일
-			lastDate[1]=29;
-		}
-		var today1=new Date();
-		today1.setDate(today.getDate()-lastDate[todayMonth]);
-		for(var i=1;i<lastDate[todayMonth];i++){//한달 전 날짜 보내기
-			today1.setDate(today1.getDate()+1);
-			todayYear=today1.getFullYear();//년
-			todayMonth=today1.getMonth()+1;//월
-			todayDate=today1.getDate();//일
-			const date=todayYear + "-" + todayMonth + "-" + todayDate;
-			days.push(date);
-		}
-		let hit=[];
-		let click=[];
-		$.getJSON("<c:url value='/adminAnalytics/getDayAdInfo'/>", {stringDays:days.toString()}, function(data) {
-			if(data!=null){
-				for(var i=0;i<(data.length/2);i++){//조회 수
-					var getDayAdHit=data[i].getDayAdHit;
-					hit.push(getDayAdHit);
-				}
-				for(var i=(data.length/2);i<data.length;i++){//클릭 수
-					var getDayAdClick=data[i].getDayAdClick;
-					click.push(getDayAdClick);
-				}
-				
-				var monthAdChart = new Chart(ctx, {
-				    type: 'bar',
-				    data: {
-				        labels: days,
-				        datasets: [
-				        	{
-				        		label: '# 클릭 수',
-					            data: click,
-					            fill: false,
-					            borderColor: [
-					                ''
-					            ],
-					            borderWidth: 2
-					        },
-					        {
-					        	label: '# 조회 수',
-					            data: hit,
-					            fill: false,
-					            borderColor: [
-					                'rgba(95, 0, 255, 1)'
-					            ],
-					            borderWidth: 2,
-					            type: 'line'
-				       		}
-					    ]
-				    },
-				    options: {
-				    	legend: {display: false},
-				    	maintainAspectRatio: false,
-				        scales: {
-				            yAxes: [{
-				            	gridLines:{display: false},
-				                ticks: {
-				                    beginAtZero: true
-				                }
-				            }],
-				            xAxes: [{
-				            	gridLines:{display: false},
-				                ticks: {
-				                    beginAtZero: true
-				                }
-				            }]
-				        },
-				        plugins:{
-				    		labels: [
-				    		    {
-				    		      render: 'value'
-				    		    }
-				    		  ]
-				    	}
 				    }
 				});
 			}
@@ -531,15 +535,17 @@
 					<div class="container">
 						<div class="row">
 							<div class="col col d-flex justify-content-start align-items-center">
-								<div class="card mr-5 w-50 h-100">
-									<h4 class="card-header">금일 광고율/수익</h4>
-									<div class="card-body text-center">
-										<div class="chart">
-											<canvas id="todayAdChart" ></canvas>
+								<c:if test="${mem_stat==0 }">
+									<div class="card mr-5 w-50 h-100">
+										<h4 class="card-header">금일 광고율/수익</h4>
+										<div class="card-body text-center">
+											<div class="chart">
+												<canvas id="todayAdChart" ></canvas>
+											</div>
+											<span><fmt:formatNumber value="${map.adProfit }" pattern="#,###" />&#8361;</span>
 										</div>
-										<span><fmt:formatNumber value="${map.adProfit }" pattern="#,###" />&#8361;</span>
 									</div>
-								</div>
+								</c:if>
 								<div class="card w-50 h-100">
 									<h4 class="card-header">숙소 예약율/수익</h4>
 									<div class="card-body text-center">
@@ -549,32 +555,44 @@
 										<span><fmt:formatNumber value="${map.todaySellProfit }" pattern="#,###" />&#8361;</span>
 									</div>
 								</div>
+								<c:if test="${mem_stat==1 }">
+									<div class="card ml-5 w-100 h-100">
+										<h4 class="card-header">최근 한 달 수익</h4>
+										<div class="card-body text-center">
+											<div class="chart">
+												<canvas id="monthProfitChart" width="100" height="200"></canvas>
+											</div>
+										</div>
+									</div>
+								</c:if>
 							</div>
 						</div>
-						<div class="row  mt-3">
-							<div class="col">
-								<div class="card">
-									<h4 class="card-header">최근 한 달 수익</h4>
-									<div class="card-body text-center">
-										<div class="chart">
-											<canvas id="monthProfitChart" width="100" height="200"></canvas>
+						<c:if test="${mem_stat==0 }">
+							<div class="row  mt-3">
+								<div class="col">
+									<div class="card">
+										<h4 class="card-header">최근 한 달 수익</h4>
+										<div class="card-body text-center">
+											<div class="chart">
+												<canvas id="monthProfitChart" width="100" height="200"></canvas>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row  mt-3">
-							<div class="col">
-								<div class="card">
-									<h4 class="card-header">최근 한 달 광고 정보</h4>
-									<div class="card-body text-center">
-										<div class="chart">
-											<canvas id="monthAdChart" width="100" height="200"></canvas>
+							<div class="row  mt-3">
+								<div class="col">
+									<div class="card">
+										<h4 class="card-header">최근 한 달 광고 정보</h4>
+										<div class="card-body text-center">
+											<div class="chart">
+												<canvas id="monthAdChart" width="100" height="200"></canvas>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</c:if>
 					</div>
 				</div>
 			</div>

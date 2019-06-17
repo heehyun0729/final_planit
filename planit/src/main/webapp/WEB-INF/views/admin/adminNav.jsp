@@ -19,9 +19,11 @@
 			<li class="nav-item dropdown d-sm-block d-md-none"><a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">메뉴</a>
 				<div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
 					<c:if test="${mem_stat==1 }">
+						<!-- 판매자 전용 -->
 						<a class="dropdown-item" href="#">숙소/예약</a>
 					</c:if>
 					<c:if test="${mem_stat==0 }">
+						<!-- 관리자 전용 -->
 						<a class="dropdown-item" href="<c:url value='/admin/adminAdManagement/allAdList'/>">광고</a>
 						<a class="dropdown-item" href="#">숙소/예약</a>
 						<a class="dropdown-item" href="#">회원</a>

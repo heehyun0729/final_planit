@@ -11,6 +11,7 @@
 			<small></small>
 		</li>
 		<c:if test="${mem_stat==0 }">
+		<!-- 관리자 전용 -->
 			<a href="#ad" id="adBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-start align-items-center">
 					<span class="far fa-eye fa-fw mr-3"></span>
@@ -65,8 +66,8 @@
 				<small></small>
 			</li>
 		</c:if>
-		<!-- 판매자 전용, 숙소/예약 -->
 		<c:if test="${mem_stat==1 }">
+			<!-- 판매자 전용, 숙소/예약 -->
 			<a href="#sell" id="sellBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-start align-items-center">
 					<span class="fas fa-bed fa-fw mr-3"></span>
