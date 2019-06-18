@@ -149,64 +149,49 @@ CREATE TABLE MsgTable
 
 );
 
---숙소문의 게시판
-DROP TABLE acommQna CASCADE CONSTRAINTS;
-drop sequence acommQna_num_seq;
-create table acommQna(
-    acommQna_num number(7) NOT NULL,
-    mem_id varchar2(15) REFERENCES members(mem_id),
-    accom_num number(7) REFERENCES accom(accom_num),
-    acommQna_title varchar2(100),
-    acommQna_content CLOB,
-    acommQna_date date,
-    PRIMARY KEY (acommQna_num),
+--숙소문의 게시판 수정(6/18)
+DROP TABLE ACCOMQNA CASCADE CONSTRAINTS;
+DROP SEQUENCE ACCOMQNA_NUM_SEQ;
+CREATE TABLE ACCOMQNA(
+    ACCOMQNA_NUM number(7) NOT NULL,
+    MEM_ID varchar2(15) REFERENCES MEMBERS(MEM_ID),
+    ACCOM_NUM number(7) REFERENCES ACCOM(ACCOM_NUM),
+    ACCOMQNA_TITLE varchar2(100),
+    ACCOMQNA_CONTENT CLOB,
+    ACCOMQNA_DATE date,
+    PRIMARY KEY (ACCOMQNA_NUM),
     CONSTRAINT ACCOM_NUM_FK FOREIGN KEY(ACCOM_NUM) 
     REFERENCES ACCOM(ACCOM_NUM)ON DELETE CASCADE
 );
-create sequence acommQna_num_seq;
+CREATE SEQUENCE ACCOMQNA_NUM_SEQ;
 
+-- 자유문의 게시판 수정(6/18)
 
--- 자유문의 게시판 --
-
-DROP TABLE qna CASCADE CONSTRAINTS;
-drop sequence qna_num_seq;
-create table qna(
-   qna_num number(7) NOT NULL,
-   mem_id varchar2(15) REFERENCES members(mem_id),
-   qna_cate varchar2(30),
-   qna_title varchar2(100),
-   qna_content clob,
-   PRIMARY KEY (qna_num)
+DROP TABLE QNA CASCADE CONSTRAINTS;
+DROP SEQUNECE QNA_NUM_SEQ;
+CREATE TABLE QNA(
+   QNA_NUM number(7) NOT NULL,
+   MEM_ID varchar2(15) REFERENCES MEMBERS(MEM_ID),
+   QNA_CATE varchar2(30),
+   QNA_TITLE varchar2(100),
+   QNA_CONTENT CLOB,
+   PRIMARY KEY (QNA_NUM)
 );
-create sequence qna_num_seq;
+CREATE SEQUENCE QNA_NUM_SEQ;
 
 --자유문의 게시판 댓글--
 
-create table qnacomm
+CREATE TABLE QNACOMM
 (
     QCOMM_NUM number(7) PRIMARY KEY, --댓글 번호
     MEM_ID VARCHAR2(15) REFERENCES MEMBERS(MEM_ID) NOT NULL, --멤버 아이디
-    QCOMM_CONTENT varchar(300), --댓글 내용
+    QCOMM_CONTENT varchar2(300), --댓글 내용
     QCOMM_DATE DATE NOT NULL, -- 댓글 작성 날짜
     QNA_NUM NUMBER(7) REFERENCES QNA(QNA_NUM) NOT NULL, -- 문의게시판번호
     CONSTRAINT QNA_NUM_FK FOREIGN KEY(QNA_NUM) 
     REFERENCES QNA(QNA_NUM)ON DELETE CASCADE
 );
 CREATE SEQUENCE QCOMM_NUM_SEQ;
-
-DROP TABLE qnaComm CASCADE CONSTRAINTS;
-drop sequence qcomm_num_seq;
-create table qnaComm(
-    qcomm_num number(7) NOT NULL,
-    rcomm_content varchar2(1000),
-    rcomm_date date,
-    rcomm_step number(3),
-    rcomm_ref number(7),
-    rcomm_lev number(3),
-    PRIMARY KEY (qcomm_num)
-);
-create sequence qcomm_num_seq;
-
 
 
 DROP TABLE ad CASCADE CONSTRAINTS;

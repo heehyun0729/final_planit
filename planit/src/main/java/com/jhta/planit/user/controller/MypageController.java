@@ -147,7 +147,7 @@ public class MypageController {
 		List<AdVo> getMyAdList=adService.getMyAdList(map);
 		model.addAttribute("map", map);
 		model.addAttribute("getMyAdList", getMyAdList);
-		return ".member.ad.myAdList";
+		return "^member^mypage^"+mem_id+"^myAdList";
 	}
 	@RequestMapping(value="/adAnalytics", method=RequestMethod.GET)//광고 통계 페이지
 	public String adAnalytics(int ad_num, Model model) {
