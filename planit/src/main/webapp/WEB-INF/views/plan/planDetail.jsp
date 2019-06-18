@@ -32,7 +32,7 @@
 <input type="hidden" id="plan_num" value="${vo.plan_num }">
  <section class="contact_area section_gap">
     <div class="container">
-        <div class="row">
+        <div class="row" style = "margin-bottom: 40px;">
         	<div class = "col-md-9">
         		<div class = "row">
 					<h2 style = "display:inline-block;float:left;">${vo.plan_title }</h2>
@@ -61,18 +61,53 @@
 				<a href = "<c:url value='/plan/list?pageNum=${param.pageNum }&field=${param.field }&keyword=${param.keyword }'/>" class="genric-btn success-border circle">목록</a>
 			</div>
         </div>
-        <div class="row">
-            <div class="col-md-7">
-                <div id="detailMap"></div>
+        <div class="row" style = "height: 500px;margin-bottom: 40px;">
+        	<!-- 지도 -->
+            <div class="col-md-7" style = "padding: 0px;">
+                <div id="detailMap" style = "height: 100%;"></div>
 				<div id="planStays">
 					<div>
 						<span>${vo.plan_stays }</span>일
 					</div>
 				</div>
             </div>
-            <div class="col-md-6">
-                
+            <div class="col-md-5">
+                <!-- 달력 -->
+				<div id="planCalendar"></div>
             </div>
+        </div>
+        <div class = "row text-center">
+        	<!-- 일정표 -->
+			<div id="planSchedule" class="progress-table-wrap" style = "width: 80%;margin-left:10%;margin-right:10%;">
+				<h2>일정표</h2>
+				<div>
+					<div class = "progress-table">
+						<div class="table-head">
+							<div style = "width: ">순서</div>
+							<div style = "width: ">도시</div>
+							<div style = "width: ">날짜</div>
+							<div style = "width: ">일정</div>
+						</div>
+						<c:forEach var="dvo" items="${dlist }">
+							<tr>
+								<td>${dvo.planDetail_order + 1}</td>
+								<td>${dvo.planDetail_city }, ${dvo.planDetail_country }</td>
+								<td>${dvo.planDetail_inDate } ~ ${dvo.planDetail_outDate } (${dvo.planDetail_stay }박)</td>
+								<td>
+									${dvo.planDetail_detail }
+									<c:if test="${sessionScope.mem_id == vo.mem_id }">
+										<br>
+										<a href="javascript:openScheduleDialog('${dvo.planDetail_num }')" title="수정"><span style = "color:gray;"><i class="fas fa-edit"></i></span></a>
+										<c:if test="${!empty dvo.planDetail_detail}">
+											<a href="javascript:deleteSchedule('${dvo.planDetail_num }')" title="삭제"><span style = "color:gray;"><i class="fas fa-trash-alt"></i></span></a>
+										</c:if>
+									</c:if>
+								</td>
+							</tr>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
         </div>
     </div>
 </section>
@@ -165,39 +200,7 @@
 			    </div>
 		    </div>
 		</div>
-	<div id = "goList"><a href = "<c:url value='/plan/list?pageNum=${param.pageNum }&field=${param.field }&keyword=${param.keyword }'/>">목록</a></div>
 	<!-- 지도 -->
-	<!-- 달력 -->
-	<div id="planCalendar"></div>
-	<!-- 일정표 -->
-	<div id="planSchedule">
-		<h2>일정표</h2>
-		<div>
-			<table border = "1">
-				<tr>
-					<th>순서</th>
-					<th>도시</th>
-					<th>날짜</th>
-					<th>일정</th>
-				</tr>
-				<c:forEach var="dvo" items="${dlist }">
-					<tr>
-						<td>${dvo.planDetail_order + 1}</td>
-						<td>${dvo.planDetail_city }, ${dvo.planDetail_country }</td>
-						<td>${dvo.planDetail_inDate }~${dvo.planDetail_outDate } (${dvo.planDetail_stay }박)</td>
-						<td>
-							${dvo.planDetail_detail }
-							<c:if test="${sessionScope.mem_id == vo.mem_id }">
-								<br>
-								<a href="javascript:openScheduleDialog('${dvo.planDetail_num }')" title="수정"><span style = "color:gray;"><i class="fas fa-edit"></i></span></a>
-								<c:if test="${!empty dvo.planDetail_detail}">
-									<a href="javascript:deleteSchedule('${dvo.planDetail_num }')" title="삭제"><span style = "color:gray;"><i class="fas fa-trash-alt"></i></span></a>
-								</c:if>
-							</c:if>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-	</div>
+	
+	
 </div>

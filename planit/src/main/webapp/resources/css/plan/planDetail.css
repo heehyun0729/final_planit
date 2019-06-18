@@ -18,36 +18,6 @@
 	text-align: left;
 	vertical-align: middle;
 }
-#planDetail {
-	width: 100%;
-	height: 100%;
-}
-
-#planTitle {
-	display: inline-block;
-	float: left;
-}
-
-#planMenu {
-	display: inline-block;
-	float: left;
-}
-
-#planMenu ul li {
-	text-decoration: none;
-	display: inline-block;
-	float: left;
-	margin-right: 10px;
-}
-
-#detailMap {
-	width: 100%;
-	margin-left: 1%;
-	height: 100%;
-	display: inline-block;
-	float: left;
-	clear: left;
-}
 
 #planStays {
 	width: 70px;
@@ -67,17 +37,4 @@
 
 #planStays div {
 	margin-top: 20px;
-}
-
-#planCalendar {
-	width: 38%;
-	margin-left: 1%;
-	margin-right: 1%;
-	height: 500px;
-	display: inline-block;
-	float: left;
-}
-
-#planSchedule {
-	clear: both;
 }
