@@ -58,13 +58,24 @@
 			const cancel_tax_free_amount="0";
 			$.getJSON("<c:url value='/admin/adminAdManagement/adminAdKakaoPayRefund'/>",{cid:cid, adInfo_num:adInfo_num, ad_tid:ad_tid, cancel_amount:cancel_amount, cancel_tax_free_amount:cancel_tax_free_amount},
 					function(data) {
-						$(event.target).prop("src","<c:url value='/resources/adminImages/refunded.png'/>")
 						if(length==refunded){
 							$.getJSON("<c:url value='/admin/adminAdManagement/allRefundedAd'/>", {ad_num:ad_num}, function(){});
 						}else{
 							$.getJSON("<c:url value='/admin/adminAdManagement/partRefundedAd'/>", {ad_num:ad_num}, function(){});
 						}
 						location.reload();
+			});
+		});
+		$(".decline-box a").on("click", function(event){//게재중단
+			event.preventDefault();
+			const ad_num=$(event.target).prev().val();
+			const adInfo_num=$(event.target).next().val();
+			$.ajax({
+				url:"<c:url value='/requestDeclineAd'/>",
+				dataType:'json',
+				data:{ad_num:ad_num, adInfo_num:adInfo_num}
+			}).done(function(){
+				location.reload();
 			});
 		});
 		var ctx = $("#myChart");//차트
@@ -194,7 +205,9 @@
 							 		<div class="d-inline-block refund-box">
 							 			<a href="#"><input type="hidden" value="${vo.adInfo_num }"><span class="badge badge-warning">환불</span><input type="hidden" value="${vo.adInfo_price }"></a>
 							 		</div>
-							 			<a href="<c:url value='requestDeclineAd?ad_num=${vo.ad_num }&adInfo_num=${vo.adInfo_num }'/>"><span class="badge badge-danger">게재 중단</span></a>
+							 		<div class="d-inline-block decline-box">
+							 			<a href="#"><input type="hidden" value="${vo.ad_num }"><span class="badge badge-danger">게재 중단</span><input type="hidden" value="${vo.adInfo_num }"></a>
+							 		</div>
 							 	</c:otherwise>
 							 </c:choose>
 						</div><br>

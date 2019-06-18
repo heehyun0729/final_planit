@@ -35,7 +35,6 @@
 		<c:if test="${mem_stat==0 }">
 			todayAdChart();
 			monthProfitChart();
-			monthAdChart();
 		</c:if>
 		<c:if test="${mem_stat==1 }">
 			todaySellerSellChart();
@@ -117,7 +116,7 @@
 						for(var i=0;i<data.length;i++){//총수익
 							totalProfit.push(adProfit[i]+sellProfit[i]);
 						}
-						
+						console.log(adProfit);
 						var monthProfitChart = new Chart(ctx1, {
 						    type: 'line',
 						    data: {

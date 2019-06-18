@@ -255,7 +255,7 @@ public class AdController {
 			System.out.println("파일 삭제 완료");
 		}		
 		goWithData(ad_num, model);
-		return "/admin/adminAdManagement/adAnalytics";
+		return "/admin/adminAdManagement/closeModal";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/requestChangeAdImageInfo")//광고 이미지 변경 상세정보
 	public String requestChangeAdImageInfo(int adImg_num, Model model) {
@@ -466,11 +466,15 @@ public class AdController {
 		goWithData(ad_num, model);
 		return "/admin/adminAdManagement/adAnalytics";
 	}
-	@RequestMapping(value="/requestDeclineAd")//개제 중단
-	public String requestDeclineAd(int ad_num, int adInfo_num, Model model) {
+	
+	@RequestMapping(value="/requestDeclineAd", produces="application/json;charset=utf-8")//개제 중단
+	@ResponseBody
+	public HashMap<String, String> requestDeclineAd(int ad_num, int adInfo_num, Model model) {
 		service.adInfoDeclined(adInfo_num);
 		goWithData(ad_num, model);
-		return "/admin/adminAdManagement/adAnalytics";
+		HashMap<String, String> map=new HashMap<String, String>();
+		map.put("code", "success");
+		return map;
 	}
 	@RequestMapping(value="/admin/adminAdManagement/requestRefundAdInfo")//환불 요청된 광고 상세정보
 	public String adminAdManagementRequestRefundAdInfo(int ad_num, Model model) {
