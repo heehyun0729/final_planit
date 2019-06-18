@@ -13,7 +13,7 @@
 				$("#searchinput").html("<input class='form-control mr-sm-2' name='keyword' type='search' placeholder='검색' aria-label='Search'>");
 				$("#searchsubmit").prop("disabled", false);
 			}else{
-				$("#searchinput").html("<label>남성<input class='form-control mr-sm-2' value='m' name='keyword' type='radio'></label><label>여성<input class='form-control mr-sm-2' value='f' name='keyword' type='radio'></label>");
+				$("#searchinput").html("<div class='form-check-inline'><label class='form-check-label'>남성<input class='form-check-input mr-sm-2' type='radio' name='keyword' value='m'></label><label class='form-check-label'>여성<input class='form-check-input mr-sm-2' type='radio' name='keyword' value='f'></label></div>");
 				$("#searchsubmit").prop("disabled", true);
 			}
 		});
@@ -139,8 +139,10 @@
 							<div id="searchinput">
 								<c:choose>
 									<c:when test="${param.field=='mem_gender' }">
-										<label class='radio-inline'>남성<input class='form-control mr-sm-2' type='radio' name="keyword" value="m" <c:if test="${param.keyword == 'm' }">checked="checked"</c:if>></label>
-										<label class='radio-inline'>여성<input class='form-control mr-sm-2' type='radio' name="keyword" value="f" <c:if test="${param.keyword == 'f' }">checked="checked"</c:if>></label>
+										<div class='custom-control custom-radio custom-control-inline'>
+											<label class='form-check-label'>남성<input class='form-check-input mr-sm-2' type='radio' name="keyword" value="m" <c:if test="${param.keyword == 'm' }">checked="checked"</c:if>></label>
+											<label class='form-check-label'>여성<input class='form-check-input mr-sm-2' type='radio' name="keyword" value="f" <c:if test="${param.keyword == 'f' }">checked="checked"</c:if>></label>
+										</div>
 									</c:when>
 									<c:otherwise>
 										<input class="form-control mr-sm-2" value="${param.keyword }" name="keyword" type="search" placeholder="검색" aria-label="Search">
