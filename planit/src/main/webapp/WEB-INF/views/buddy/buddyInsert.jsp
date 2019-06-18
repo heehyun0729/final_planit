@@ -13,8 +13,8 @@
 </style>
 
 <!--================Breadcrumb Area =================-->
-<section class="breadcrumb_area blog_banner_two">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" style = "background: url(resources/images/map.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle f_48">동행 등록</h2>
@@ -23,55 +23,58 @@
     </div>
 </section>
 
-<div id="insert_buddy">
-	<form method="post" action="<c:url value='/buddyInsert' />" onsubmit="return check()">
-		<div id="id">
-			<input name="mem_id" type="text" value="${mem_id}" readonly="readonly">
-		</div>
-		
-		<div id="choice_date">
-			여행 시작 날짜 : <input name="buddy_indate" type="text" id="buddy_indate" readonly="readonly">
-			여행 종료 날짜 : <input name="buddy_outdate" type="text" id="buddy_outdate" readonly="readonly">
-		</div>
-		
-		<div id="choice">
-			<input type="button" id="add_cc" value="여행지 추가하기">
-			<input type="button" id="del_cc" value="여행지 삭제하기"><br>
-			<p> 1 번째 국가</p><input type="text" id="buddy_country" name="buddy_country">
-			<p> 1 번째 도시</p><input type="text" id="buddy_city" name="buddy_city">
-			
-			<div id="add_opt">
-			
+<!--================body Area =================-->
+<br>
+<div class="container">
+	<div id="insert_buddy">
+		<form method="post" action="<c:url value='/buddyInsert' />" onsubmit="return check()">
+			<div id="id">
+				<input name="mem_id" type="text" value="${mem_id}" readonly="readonly">
 			</div>
-		</div>
-		
-		<div>
-			성별 :
-			<input type="radio" name="buddy_gender" value="X" checked="checked"> 상관없음
-			<input type="radio" name="buddy_gender" value="M"> 남 
-			<input type="radio" name="buddy_gender" value="W"> 여
 			
-		</div>
-		
-		<div>
-			나이대 : <select name="buddy_birthYear">
-				<option value="0">상관없음</option>
-				<option value="20">20대</option>
-				<option value="30">30대</option>
-				<option value="40">40대</option>
-				<option value="50">50대</option>
-				<option value="60">60대 이상</option>
-			</select>
-		</div>
-		
-		<div id="buddy_msg">
-			<p>내 여행 소개</p>
-			<textarea id="buddy_msg" name="buddy_msg" rows="10" cols="40"></textarea>	
-		</div>
-		<input id="buddy_insert" type="submit" value="등록하기"><input type="button" id="cancle" value="취소하기">
-	</form>
+			<div id="choice_date">
+				여행 시작 날짜 : <input name="buddy_indate" type="text" id="buddy_indate" readonly="readonly">
+				여행 종료 날짜 : <input name="buddy_outdate" type="text" id="buddy_outdate" readonly="readonly">
+			</div>
+			
+			<div id="choice">
+				<input type="button" id="add_cc" value="여행지 추가하기">
+				<input type="button" id="del_cc" value="여행지 삭제하기"><br>
+				<p> 1 번째 국가</p><input type="text" id="buddy_country" name="buddy_country">
+				<p> 1 번째 도시</p><input type="text" id="buddy_city" name="buddy_city">
+				
+				<div id="add_opt">
+				
+				</div>
+			</div>
+			
+			<div>
+				성별 :
+				<input type="radio" name="buddy_gender" value="X" checked="checked"> 상관없음
+				<input type="radio" name="buddy_gender" value="M"> 남 
+				<input type="radio" name="buddy_gender" value="W"> 여
+				
+			</div>
+			
+			<div>
+				나이대 : <select name="buddy_birthYear">
+					<option value="0">상관없음</option>
+					<option value="20">20대</option>
+					<option value="30">30대</option>
+					<option value="40">40대</option>
+					<option value="50">50대</option>
+					<option value="60">60대 이상</option>
+				</select>
+			</div>
+			
+			<div id="buddy_msg">
+				<p>내 여행 소개</p>
+				<textarea id="buddy_msg" name="buddy_msg" rows="10" cols="40"></textarea>	
+			</div>
+			<input id="buddy_insert" type="submit" value="등록하기"><input type="button" id="cancle" value="취소하기">
+		</form>
+	</div>
 </div>
-
 <input type="hidden" id="localurl" value="<c:url value='/'/>">
 
 <!--================ script =================-->

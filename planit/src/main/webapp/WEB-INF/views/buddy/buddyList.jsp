@@ -13,12 +13,12 @@
 </style>
 
 <!--================Breadcrumb Area =================-->
-<section class="breadcrumb_area blog_banner_two">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" style="background : url(resources/images/buddy01.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle f_48">동행 찾기</h2>
-            <p>나와 함께 여행할 동행을 찾아보세요!2</p>
+            <p>나와 함께 여행할 동행을 찾아보세요!!</p>
         </div>
     </div>
 </section>
