@@ -1,5 +1,7 @@
 //insert script
 
+var cnt=1;
+var localurl=$('#localurl').val();
 $(function() {
 	$.datepicker.regional['calendar'] = {
 			closeText: '닫기',
@@ -53,10 +55,25 @@ function check(){
 		return true;
 	}
 }
+//취소하기
 $("#cancle").click(function(){
-	window.location.href="<c:url value='/buddyList' />";
+	window.location.href=localurl+"buddyList";
 });
+
+//여행지 추가
 $("#add_cc").click(function(){
-	$("#add_opt").append("추가 할 국가 : <input type='text' id='buddy_country' name='buddy_country'><br>");
-	$("#add_opt").append("추가 할 도시 : <input type='text' id='buddy_city' name='buddy_city'><br>");
+	cnt++;
+	$("#add_opt").append("<p>"+cnt+"번째 국가</p><input type='text' id='buddy_country' name='buddy_country'>");
+	$("#add_opt").append("<p>"+cnt+"번째 도시</p><input type='text' id='buddy_city' name='buddy_city'>");
+});
+
+//여행지 삭제
+$("#del_cc").click(function(){
+	if(cnt>=2){
+		cnt--;
+	}
+	$("#add_opt").children().last().remove();
+	$("#add_opt").children().last().remove();
+	$("#add_opt").children().last().remove();
+	$("#add_opt").children().last().remove();
 });

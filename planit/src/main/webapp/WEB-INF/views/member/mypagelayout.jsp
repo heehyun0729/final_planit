@@ -38,6 +38,10 @@
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/moment.min.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/fullcalendar.min.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/plan/locale-all.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/resources/js/buddy/list.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/resources/js/buddy/insert.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/resources/js/buddy/buddyMg.js'/>"></script>
+<script type="text/javascript" src = "<c:url value='/resources/js/buddy/buddySg.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/list.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/detail.js'/>"></script>
 <script type="text/javascript" src = "<c:url value = '/resources/js/reservation/pay.js'/>"></script>
@@ -48,10 +52,12 @@
 <script type="text/javascript" src = "<c:url value = '/resources/js/members/myRsvn.js'/>"></script> 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/members/mypageScript.js'/>"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="profile" />
+	<tiles:insertAttribute name="profiletopmenu" />
 	<tiles:insertAttribute name="profilecontent" />
 	<tiles:insertAttribute name="footer" />
 	<script src="<c:url value='/resources/royal/vendors/owl-carousel/owl.carousel.min.js'/>"></script>

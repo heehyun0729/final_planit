@@ -31,6 +31,8 @@
 			value="/WEB-INF/views/header.jsp" />
 		<put-attribute name="profile"
 			value="/WEB-INF/views/member/mypage.jsp" />
+		<put-attribute name="profiletopmenu"
+			value="/WEB-INF/views/member/mypagetopmenu.jsp" />
 		<put-attribute name="profilecontent"
 			value="/WEB-INF/views/member/mypagemain.jsp" />
 		<put-attribute name="footer"
@@ -39,14 +41,17 @@
 	<definition name="^*^*^*^*" extends="mypage">
 		<put-attribute name="profilecontent"
 			value="/WEB-INF/views/member/mypagecontent/{4}.jsp" />
+		<put-attribute name="current" value="{4}" cascade="true"/>
 	</definition>
 	<definition name="^*^*^*" extends="mypage">
 		<put-attribute name="profilecontent"
 			value="/WEB-INF/views/member/mypagecontent/{3}.jsp" />
+		<put-attribute name="current" value="{3}" cascade="true"/>
 	</definition>
 	<definition name="^*^*" extends="mypage">
 		<put-attribute name="profilecontent"
 			value="/WEB-INF/views/member/mypagecontent/mypagemain.jsp" />
+		<put-attribute name="current" value="0" cascade="true"/>
 	</definition>
 	
 	<definition name="admin"

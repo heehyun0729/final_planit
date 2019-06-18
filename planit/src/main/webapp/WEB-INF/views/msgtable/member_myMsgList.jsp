@@ -96,27 +96,27 @@ function ppp(){
 		
 }
 </script>
+<body>
 <div class="container">
 	<div class="row mt-5">
-		<div
-			class="col d-flex justify-content-start align-items-center text-center mt-5">
-<div id="myMsg">
-	<div class="myPageBtns">
-		<div id="errMsg" style="text-align: center;">
-			<p>${param.errMsg }</p>
-		</div>
+		<div class="col d-flex justify-content-start align-items-center text-center mt-5">
+			<div id="myMsg">
+				<div class="myPageBtns">
+					<div id="errMsg" style="text-align: center;">
+						<p>${param.errMsg }</p>
+					</div>
 		<div>
 			<a 
-				href="${pageContext.request.contextPath}/msgReceiveList?memId=${mem_id }&msgType=RECEIVE">받은쪽지함</a>
+				 href="${pageContext.request.contextPath}/msgReceiveList?memId=${mem_id }&msgType=RECEIVE">받은쪽지함</a>
 			<a 
-				href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND">보낸쪽지함</a>
+				 href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND">보낸쪽지함</a>
 			<table  class="table">
 				<tr>
 					<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
 					<th>쪽지내용</th>
 					<th>작성일</th>
 					<c:if test="${type=='SEND'}">
-						<th>읽기여부</th>
+						<th style="font-style: nano;">읽기여부</th>
 					</c:if>
 					<th>삭제</th>
 				</tr>
@@ -136,20 +136,18 @@ function ppp(){
 							<tr>
 								<td>${type=="SEND" ? vo.receiveMemId : vo.sendMemId}</td>
 								<td onclick="dm('${vo.msgNum}')"><a
-									style="color: black;" href="#"><nobr>${vo.msgContent.replace("<br/>","")}</nobr></a>
+									style="color: pink;" href="#"><nobr>${vo.msgContent.replace("<br/>","")}</nobr></a>
 								</td>
 								<td>${vo.msgWdate}</td>
 								<c:if test="${type=='SEND'}">
 									<td>${vo.msgCheck > 0 ? "읽음" : "안읽음"}</td>
 								</c:if>
 								<c:if test="${type=='SEND'}">
-								<td><input type="button" value="삭제"
-									onclick="javascript:location.href='${pageContext.request.contextPath}/msgDelete?msgNum=${vo.msgNum}'">
+								<td><a href="#"	onclick="javascript:location.href='${pageContext.request.contextPath}/msgDelete?msgNum=${vo.msgNum}'"><i class="fas fa-trash" style="color: #339af0;"></i></a>
 								</td>
 								</c:if>
 								<c:if test="${type=='RECEIVE'}">
-								<td><input type="button" value="삭제"
-									onclick="javascript:location.href='${pageContext.request.contextPath}/msgDeletee?msgNum=${vo.msgNum}'">
+								<td><a href="#"	onclick="javascript:location.href='${pageContext.request.contextPath}/msgDeletee?msgNum=${vo.msgNum}'"><i class="fas fa-trash" style="color: #339af0;"></i></a>
 								</td>
 								</c:if>
 							</tr>
@@ -188,12 +186,12 @@ function ppp(){
 					</c:choose>
 					<br/>
 					<div>
-		<form method="post" action="<c:url value='/msgReceiveList?memId=${mem_id }&msgType=RECEIVE'/>">
+		<form method="post" id="form1" action="<c:url value='/msgReceiveList?memId=${mem_id }&msgType=RECEIVE'/>">
 			<select name="field">
 				<option value="sendMemId"
 					<c:if test="${field=='sendMemId'}">selected="selected"</c:if>>보낸아이디</option>
-			</select> <input type="text" name="keyword" value="${keyword }"> <input
-				type="submit" value="검색">
+			</select> <input type="text" name="keyword" value="${keyword }">
+			<a href="#" onclick="$('#form1').submit();"><i class="fas fa-search" style="color: #339af0;"></i></a>
 		</form>
 	</div>
 				</c:if>
@@ -223,18 +221,19 @@ function ppp(){
 					</c:forEach>
 					<c:choose>
 						<c:when test="${pu.endPageNum < pu.totalPageCount}">
-							<a
+						<a
 								href="${pageContext.request.contextPath }/msgSendList?pageNum=${pu.endPageNum + 1}&field=${field}&keyword=${keyword}&memId=${mem_id}&msgType=SEND">[다음]</a>
 						</c:when>
 					</c:choose>
 					<br/>
 					<div>
-		<form method="post" action="<c:url value='/msgSendList?memId=${mem_id }&msgType=SEND'/>">
+		<form method="post" id="form1" action="<c:url value='/msgSendList?memId=${mem_id }&msgType=SEND'/>">
 			<select name="field">
 				<option value="receiveMemId"
 					<c:if test="${field=='receiveMemId'}">selected="selected"</c:if>>받은아이디</option>
-			</select> <input type="text" name="keyword" value="${keyword }"> <input
-				type="submit" value="검색">
+			</select> <input type="text" name="keyword" value="${keyword }"> 
+				<a href="#" onclick="$('#form1').submit();"><i class="fas fa-search" style="color: #339af0;"></i></a>
+				
 		</form>
 	</div>
 				</c:if>
@@ -243,8 +242,8 @@ function ppp(){
 		<br/>
 		<div id="msg_detail"></div>
 		<div>
-			<br/><input id="msgSendBtn" class="userMypageUpdateBtn"
-				type="button" value="쪽지보내기" onclick="ppp()" /><br/>
+			<br/>
+				<a href="#"	onclick="ppp()"><i class="fas fa-paper-plane" style="color: #339af0;"> 쪽지보내기</i></a><br/>
 			<br/> <a href="<c:url value='/'/>">메인 페이지</a>
 		</div>
 	</div>
@@ -252,3 +251,4 @@ function ppp(){
 	</div>
 	</div>
 </div>
+</body>

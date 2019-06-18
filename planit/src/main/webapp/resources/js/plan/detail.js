@@ -6,7 +6,6 @@ var events = [];
 var arrow, line;
 var map;
 var scheduleDialog, startDateDialog, infoDialog;
-var startDatepicker;
 var planDetail_num;
 var bgcolors = ['#113f67', '#34699a', '#408ab4', '#65c6c4', '#35477d', '#6c5b7b', '#c06c84', '#f67280'];
 
@@ -150,15 +149,16 @@ function initDetailMap() {
 			infoDialog = $( "#infoDialog" ).on('shown.bs.modal');
 			scheduleDialog = $( "#scheduleDialog" ).on('shown.bs.modal');
 			
-			$( "#startDatepicker" ).datepicker({
+			$( "#detailStartDatepicker" ).datepicker({
 				dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
 				monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
 		                        "8월", "9월", "10월", "11월", "12월"],	
 				yearSuffix: "년",	
 				showMonthAfterYear: true,	
 				dateFormat: "yy-mm-dd",
+				minDate: -9999,
 				defaultDate: routelist[0].date_in
-			});  
+			});   
 		}
 	});
 }
@@ -209,7 +209,7 @@ function openScheduleDialog(num) {
 		}
 	}
 	$("#scheduleCity").html(route.city + ", " + route.country);
-	$("#scheduleDate").html(formatDate(new Date(route.date_in)) + "~" + formatDate(new Date(route.date_out)));
+	$("#scheduleDate").html(formatDate(new Date(route.date_in)) + " ~ " + formatDate(new Date(route.date_out)));
 	var detail = route.detail.replace(/<br>/g, '\n');
 	$("#scheduleDetail").val(detail);
 	scheduleDialog.modal( "show" ); 
@@ -217,7 +217,7 @@ function openScheduleDialog(num) {
 // 출발일  DB 수정하는 함수
 function updateStartDate() {
 	// routelist의 각 루트 날짜 수정
-	var startdate = new Date($( "#startDatepicker" ).datepicker("getDate"));
+	var startdate = new Date($( "#detailStartDatepicker" ).datepicker("getDate"));
 	var date_in, date_out;
 	for(var i = 0 ; i < routelist.length ; i++){
 		if(routelist.length == 1){

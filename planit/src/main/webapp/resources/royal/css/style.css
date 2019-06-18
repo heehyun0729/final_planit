@@ -1726,7 +1726,7 @@ button:focus {
   color: #222222;
   border: 1px solid #eee;
   padding: 2px 18px;
-  font-size: 12px;
+  font-size: 14px;
   display: block;
   font-weight: 600;
   -webkit-transition: all 300ms linear 0s;
@@ -1828,7 +1828,7 @@ button:focus {
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
-  background: #52C5FD;
+  background: #ff5252;
   display: inline-block;
   padding: 7px 44px;
   -webkit-transition: all 0.2s linear;
@@ -1841,7 +1841,7 @@ button:focus {
 }
 
 .comment-form .primary-btn:hover {
-  border-color: #ff5252 !important;
+  border-color: #52C5FD !important;
   color: #fff  !important;
 }
 
@@ -2081,19 +2081,19 @@ button:focus {
 }
 
 .primary {
-  background: #52c5fd;
+  background: #ff5252;
 }
 
 .primary:before {
-  background: #2faae6;
+  background: #ff5252;
 }
 
 .success {
-  background: #4cd3e3;
+  background: #52C5FD;
 }
 
 .success:before {
-  background: #2ebccd;
+  background: #52C5FD;
 }
 
 .info {
@@ -2122,22 +2122,22 @@ button:focus {
 
 .primary-border {
   background: transparent;
-  border: 1px solid #52c5fd;
+  border: 1px solid #ff5252;
   color: #52c5fd;
 }
 
 .primary-border:before {
-  background: #52c5fd;
+  background: #ff5252;
 }
 
 .success-border {
   background: transparent;
-  border: 1px solid #4cd3e3;
-  color: #4cd3e3;
+  border: 1px solid #52C5FD;
+  color: #52C5FD;
 }
 
 .success-border:before {
-  background: #4cd3e3;
+  background: #52C5FD;
 }
 
 .info-border {
@@ -2233,7 +2233,7 @@ button:focus {
 
 .generic-banner {
   margin-top: 60px;
-  background-color: #52C5FD;
+  background-color: #ff5252;
   text-align: center;
 }
 
@@ -2392,7 +2392,7 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
   line-height: 40px;
   padding: 0 30px;
-  font-size: .8em;
+  font-size: 14px;
   text-align: center;
   text-decoration: none;
   font-weight: 500;
@@ -2469,49 +2469,49 @@ h1, h2, h3, h4, h5, h6 {
 
 .genric-btn.primary {
   color: #fff;
-  background: #52C5FD;
+  background: #ff5252;
   border: 1px solid transparent;
 }
 
 .genric-btn.primary:hover {
-  color: #52C5FD;
-  border: 1px solid #52C5FD;
+  color: #ff5252;
+  border: 1px solid #ff5252;
   background: #fff;
 }
 
 .genric-btn.primary-border {
-  color: #52C5FD;
-  border: 1px solid #52C5FD;
+  color: #ff5252;
+  border: 1px solid #ff5252;
   background: #fff;
 }
 
 .genric-btn.primary-border:hover {
   color: #fff;
-  background: #52C5FD;
+  background: #ff5252;
   border: 1px solid transparent;
 }
 
 .genric-btn.success {
   color: #fff;
-  background: #4cd3e3;
+  background: #52C5FD;
   border: 1px solid transparent;
 }
 
 .genric-btn.success:hover {
-  color: #4cd3e3;
-  border: 1px solid #4cd3e3;
+  color: #52C5FD;
+  border: 1px solid #52C5FD;
   background: #fff;
 }
 
 .genric-btn.success-border {
-  color: #4cd3e3;
-  border: 1px solid #4cd3e3;
+  color: #52C5FD;
+  border: 1px solid #52C5FD;
   background: #fff;
 }
 
 .genric-btn.success-border:hover {
   color: #fff;
-  background: #4cd3e3;
+  background: #52C5FD;
   border: 1px solid transparent;
 }
 
@@ -2623,7 +2623,7 @@ h1, h2, h3, h4, h5, h6 {
 .generic-blockquote {
   padding: 30px 50px 30px 30px;
   background: #fff;
-  border-left: 2px solid #52C5FD;
+  border-left: 2px solid #ff5252;
 }
 
 @media (max-width: 991px) {
@@ -2818,7 +2818,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 100%;
   line-height: 40px;
-  border: none;
+  border: 1px solid #eee;
   outline: none;
   background: #fff;
   padding: 0 20px;
@@ -2876,7 +2876,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .single-input-primary:focus {
   outline: none;
-  border: 1px solid #52C5FD;
+  border: 1px solid #ff5252;
 }
 
 .single-input-accent {
@@ -3026,7 +3026,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .primary-switch input:checked + label:before {
-  background: #52C5FD;
+  background: #ff5252;
 }
 
 .confirm-switch {
@@ -3100,7 +3100,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .confirm-switch input:checked + label:before {
-  background: #4cd3e3;
+  background: #52C5FD;
 }
 
 .primary-checkbox {
@@ -3383,7 +3383,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease 0s;
   line-height: 28px;
   min-height: 28px;
-  font-size: 12px;
+  font-size: 14px;
   padding-left: 20px;
 }
 
@@ -3449,7 +3449,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease 0s;
   line-height: 28px;
   min-height: 28px;
-  font-size: 12px;
+  font-size: 14px;
   padding-left: 45px;
 }
 

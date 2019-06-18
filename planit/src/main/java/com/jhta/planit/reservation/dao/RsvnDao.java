@@ -43,11 +43,15 @@ public class RsvnDao {
 		return sqlSession.selectOne(NAMESPACE + ".sellCount", map);
 	}
 
+	public int chkCheckout(int rsvn_num) {
+		return sqlSession.selectOne(NAMESPACE + ".chkCheckout", rsvn_num);
+	}
+	public int chkCheckin(int rsvn_num) {
+		return sqlSession.selectOne(NAMESPACE + ".chkCheckin", rsvn_num);
+	}
+
 	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
 		return sqlSession.selectList(NAMESPACE2 + ".acqList",map);
-	}
-	public int dateGap(int rsvn_num) {
-		return sqlSession.selectOne(NAMESPACE + ".dateGap", rsvn_num);
 	}
 	
 }

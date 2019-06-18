@@ -33,10 +33,14 @@
 						<td><input type = "button" value = "예약취소" onclick = "payRefund('${vo.rsvn_num}', '${vo.rsvnPay_id }')"></td>
 					</c:when>
 					<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 1}">
+						<td>이용중</td>
+						<td>이용중</td>
+					</c:when>
+					<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 2}">
 						<td>이용완료</td>
 						<td><a href = "#" class = "btn">후기작성</a></td>
 					</c:when>
-					<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 2}">
+					<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 3}">
 						<td>이용완료</td>
 						<td>이용완료</td>
 					</c:when>

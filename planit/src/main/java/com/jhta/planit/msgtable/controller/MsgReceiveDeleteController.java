@@ -30,4 +30,17 @@ public class MsgReceiveDeleteController {
 			return null;
 		}
 	}
+	@RequestMapping("/admin/msgDeletee")
+	public String delete1(int msgNum,HttpServletRequest req,HttpServletResponse resp,String receiveMemId) {
+		String memId=(String)req.getSession().getAttribute("mem_id");
+		msgNum = Integer.parseInt(req.getParameter("msgNum"));
+		receiveMemId = req.getParameter("receiveMemId");
+		MsgTableVo vo = new MsgTableVo(msgNum, null, null, receiveMemId, null, 0, null,memId);
+		int n =service.update2(vo);
+		if(n>0) {
+			return "redirect:/admin/msgReceiveList?memId="+ memId +"&msgType=RECEIVE";
+		}else {
+			return null;
+		}
+	}
 }

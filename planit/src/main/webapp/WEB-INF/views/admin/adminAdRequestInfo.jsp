@@ -16,7 +16,7 @@
 <body>
 <div class="container-fuid">
 	<div class="row ml-1 mr-1 mb-5 d-relative">
-		<div class="col">
+		<div class="col pr-0 pl-0">
 			<div id="adSlide" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
@@ -27,7 +27,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row ml-5 mr-5 justify-content-md-center">
+	<div class="row ml-5 mr-5 mb-5 justify-content-md-center">
 		<div class="col ml-5 mr-5">
 			<div class="card h-100 hover">
 				<h5 class="card-header text-center bg-olive text-white">광고 신청</h5>

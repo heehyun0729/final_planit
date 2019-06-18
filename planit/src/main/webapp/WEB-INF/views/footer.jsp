@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-3  col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <h1>Plan it!</h1>
+                    <a href = "<c:url value = '/'/>"><img src = "<c:url value = '/resources/images/logo3-1.png'/>" style = "height: 50px;"></a>
                 </div>
             </div>
             <div class="col-lg-9 col-md-6 col-sm-6">

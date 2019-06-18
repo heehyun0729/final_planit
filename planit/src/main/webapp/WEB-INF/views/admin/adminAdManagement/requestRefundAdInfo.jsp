@@ -27,7 +27,7 @@
 			const cancel_tax_free_amount=$("#refundCancel_tax_free_amount").val();
 			$.getJSON("<c:url value='/admin/adminAdManagement/requestRefundAllAdInfo'/>",{cid:cid, ad_num:ad_num, ad_tid:ad_tid, cancel_amount:cancel_amount, cancel_tax_free_amount:cancel_tax_free_amount},
 				function(data) {
-					$('#myModal').modal('hide');
+					parent.$('#exampleModal').modal('hide');
 					window.location.reload();
 			});
 		});

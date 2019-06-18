@@ -129,8 +129,12 @@
 		        and r.mem_id = #{mem_id}
 		)
 	</select>
-	<select id="dateGap" parameterType="int" resultType="int">
+	<select id="chkCheckout" parameterType="int" resultType="int">
 		select floor(sysdate - rsvn_checkout) dd from rsvn
+		where rsvn_num = #{rsvn_num}
+	</select>
+	<select id="chkCheckin" parameterType="int" resultType="int">
+		select floor(sysdate - rsvn_checkin) dd from rsvn
 		where rsvn_num = #{rsvn_num}
 	</select>
 

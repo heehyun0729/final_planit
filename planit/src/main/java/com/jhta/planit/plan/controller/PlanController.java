@@ -319,6 +319,9 @@ public class PlanController {
 		}
 		String mem_id = vo.getMem_id();
 		String session_mem_id = (String)session.getAttribute("mem_id");
+		if(session_mem_id == null || session_mem_id == "") {
+			session_mem_id = "temp_id";
+		}
 		HashMap<String, String> parammap = new HashMap<String, String>();
 		parammap.put("mem_id", mem_id);
 		parammap.put("session_mem_id", session_mem_id);

@@ -22,7 +22,7 @@
 		select * from adInfo where adInfo_num=#{adInfo_num}
 	</select>
 	<select id="getDayAdProfit" parameterType="String" resultType="int">
-		select NVL(sum(adInfo_price), 0) from adInfo where adInfo_date=#{adInfo_date} and adinfo_status=1
+		select NVL(sum(adInfo_price), 0) from adInfo where adInfo_date=#{adInfo_date} and (adinfo_status=1 or adinfo_status=2)
 	</select>
 	<update id="adInfoApproved" parameterType="int">
 		update adInfo set adInfo_status=1 where adInfo_num=#{adInfo_num}
