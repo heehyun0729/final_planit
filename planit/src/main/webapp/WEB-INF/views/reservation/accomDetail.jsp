@@ -150,32 +150,42 @@
 			<p>후기</p>
 		</div>
 		<div id="accomQna">
-			<form method="post" action="<c:url value="/reservation/accomDetail"/>">
+			<form method="post" action="<c:url value="/reservation/acqInsert"/>">
+			<input type="hidden" name="tab" value="1">
 				<input type="hidden" name="accom_num" value="${avo.accom_num }">
-				<input type="hidden" name="mem_id" value="${mem_id }">
-				제목<input type="text" name="accomQna_title"><br>
-			 	내용<textarea rows="10" cols="50" name="accomQna_content"></textarea><br>
+				<input type="hidden" name="mem_id" value="${sessionScope.mem_id }">
+				제목<input type="text" name="accomqna_title"><br>
+			 	내용<textarea rows="10" cols="50" name="accomqna_content"></textarea><br>
 				<input type="submit" value="등록">
 			</form>
-			<c:forEach var="vo" items="${list }">
-			<div id="accomList">
-				<div class="acq_writer">
-					작성자:<p>${vo.mem_id}</p>
+			<c:forEach var="vo" items="${acqList }">
+				<div id="accomList">
+					<div class="acq_writer">
+						작성자:<p>${vo.mem_id}</p>
+					</div>
+					<div class="acq_title">
+						제목:<p>${vo.accomQna_title}</p>
+					</div>
+					<div class="acq_content">
+						내용:<p>${vo.accomQna_content }</p>
+					</div>
+					<div class="acq_date">
+						날짜:<p>${vo.accomQna_date}</p>
+					</div>
+					<div class="accom_num">
+						<input type="hidden" value="${avo.accom_num }">
+					</div>
 				</div>
-				<div class="acq_title">
-					제목:<p>${vo.accomQna_title}</p>
-				</div>
-				<div class="acq_content">
-					내용:<p>${vo.accomQna_content }</p>
-				</div>
-				<div class="acq_date">
-					날짜:<p>${vo.accomQna_date}</p>
-				</div>
-				<div class="accom_num">
-					<input type="hidden" value="${avo.accom_num }">
-				</div>
-			</div>
 			</c:forEach>
 		</div>
 	</div>
 </div>
+<c:set var="tab" value="${param.tab }"></c:set>
+<c:if test="${empty param.tab }">
+	<c:set var="tab" value="${0 }"></c:set>
+</c:if>
+<script>
+$("#accomTabs").tabs({
+	active: ${tab}
+});
+</script>

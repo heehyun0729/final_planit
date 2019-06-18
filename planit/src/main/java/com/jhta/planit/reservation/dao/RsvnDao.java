@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.planit.accomQna.vo.AccomQnaVo;
 import com.jhta.planit.reservation.vo.MyRsvnVo;
 import com.jhta.planit.reservation.vo.RsvnVo;
 import com.jhta.planit.reservation.vo.SellerRsvnVo;
@@ -15,6 +16,7 @@ import com.jhta.planit.reservation.vo.SellerRsvnVo;
 public class RsvnDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jhta.planit.reservation.mybatis.RsvnMapper";
+	private final String NAMESPACE2 = "com.jhta.planit.accom.mybatis.AccomMapper";
 	
 	public int insert(HashMap<String, Object> map) {
 		return sqlSession.insert(NAMESPACE + ".insert", map);
@@ -40,10 +42,16 @@ public class RsvnDao {
 	public int sellCount(HashMap<String, Object> map) {
 		return sqlSession.selectOne(NAMESPACE + ".sellCount", map);
 	}
+
 	public int chkCheckout(int rsvn_num) {
 		return sqlSession.selectOne(NAMESPACE + ".chkCheckout", rsvn_num);
 	}
 	public int chkCheckin(int rsvn_num) {
 		return sqlSession.selectOne(NAMESPACE + ".chkCheckin", rsvn_num);
 	}
+
+	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
+		return sqlSession.selectList(NAMESPACE2 + ".acqList",map);
+	}
+	
 }
