@@ -30,7 +30,7 @@ function ppp(mem_id){
 <section class="about_history_area section_gap">
     <div class="container">
         <div class="page-cover text-center">
-           <h2 class="title title_color"><span style = "color:#ff5252;">Plan it!</span>과 함께 여행을 즐겨보세요.</h2>
+           <h2 class="title title_color"><img src = "<c:url value='/resources/images/logo3-1.png'/>" style = "height:40px;padding-bottom: 8px;"> 과 함께 여행을 즐겨보세요.</h2>
            <a href="<c:url value = '/plan/planner'/>" class="button_hover theme_btn" style = "margin: 30px 0 50px 0;">플래너 시작</a>
         </div>
         <hr>

@@ -28,8 +28,8 @@
     </div>
     <div class="container">
         <div class="section_title text-center">
-            <h2 class="title_color">Plan it!</h2>
-            <p>플랜잇과 함께하면 여행이 더 즐거워집니다.</p>
+            <img src = "<c:url value='/resources/images/logo1.png'/>" style = "width: 250px;">
+            <p style = "margin-top:20px;">플랜잇과 함께하면 여행이 더 즐거워집니다.</p>
         </div>
         <div class="row mb_30 text-center">
             <div class="col-lg-3">

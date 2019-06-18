@@ -4,7 +4,7 @@
 <header class="header_area">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <h1><a class="navbar-brand logo_h" href="<c:url value='/'/>">Plan it!</a></h1>
+            <h1><a class="navbar-brand logo_h" href="<c:url value='/'/>"><img src = "<c:url value='/resources/images/logo3-1.png'/>" style = "width: 80px;"></a></h1>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
