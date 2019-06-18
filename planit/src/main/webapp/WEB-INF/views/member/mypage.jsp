@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row d-flex justify-content-start">
 			<div class="col-sm-3" id="mypage">
-				<input type="hidden" value="${profilemap.FOLLOW_GRADE }" id="hidden_fg"> <input type="hidden" value="${sessionScope.mem_id }" id="hidden_id"> <input type="hidden" value="${profilemap.PROFILE_OPEN }" id="hidden_po">
+				<input type="hidden" value="${profilemap.FOLLOW_GRADE }" id="hidden_fg"><input type="hidden" value="${sessionScope.mem_id }" id="hidden_id"> <input type="hidden" value="${profilemap.PROFILE_OPEN }" id="hidden_po">
 				<div id="mypage_profile">
 						<div class="mypage_profile_imagediv2">
 							<span class="mypage_profile_imagspan"><img class="card-img-top rounded-circle" src="<c:url value='${profilemap.IMG_SAVEIMG }'/>" alt="${profilemap.MEM_NICKNAME }님의 프로필 사진"></span>
