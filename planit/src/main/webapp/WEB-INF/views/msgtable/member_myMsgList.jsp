@@ -97,7 +97,7 @@ function ppp(){
 }
 </script>
 <body>
-<div class="container">
+<div class="container" style="width:500px; margin: auto;">
 	<div class="row mt-5">
 		<div class="col d-flex justify-content-start align-items-center text-center mt-5">
 			<div id="myMsg">
@@ -106,10 +106,10 @@ function ppp(){
 						<p>${param.errMsg }</p>
 					</div>
 		<div>
-			<a 
-				 href="${pageContext.request.contextPath}/msgReceiveList?memId=${mem_id }&msgType=RECEIVE">받은쪽지함</a>
-			<a 
-				 href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND">보낸쪽지함</a>
+			<a href="${pageContext.request.contextPath}/msgReceiveList?memId=${mem_id }&msgType=RECEIVE" class="genric-btn info circle">받은 쪽지함</a>
+			&nbsp;&nbsp;&nbsp;
+			<a href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND" class="genric-btn info circle">보낸쪽지함</a>
+			<br/><br/>
 			<table  class="table">
 				<tr>
 					<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
@@ -191,7 +191,7 @@ function ppp(){
 				<option value="sendMemId"
 					<c:if test="${field=='sendMemId'}">selected="selected"</c:if>>보낸아이디</option>
 			</select> <input type="text" name="keyword" value="${keyword }">
-			<a href="#" onclick="$('#form1').submit();"><i class="fas fa-search" style="color: #339af0;"></i></a>
+			<a href="#" style="margin-right: 100px;"onclick="$('#form1').submit();"><i class="fas fa-search" style="color: #339af0;"></i></a>
 		</form>
 	</div>
 				</c:if>
@@ -232,7 +232,7 @@ function ppp(){
 				<option value="receiveMemId"
 					<c:if test="${field=='receiveMemId'}">selected="selected"</c:if>>받은아이디</option>
 			</select> <input type="text" name="keyword" value="${keyword }"> 
-				<a href="#" onclick="$('#form1').submit();"><i class="fas fa-search" style="color: #339af0;"></i></a>
+				<a href="#" style="margin-right: 100px;"onclick="$('#form1').submit();"><i class="fas fa-search" style="color: #339af0;"></i></a>
 				
 		</form>
 	</div>

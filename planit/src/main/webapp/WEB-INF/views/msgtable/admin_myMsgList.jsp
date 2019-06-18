@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0">
+<meta charset="UTF-8">
+<link rel="stylesheet" href= "<c:url value='/resources/royal/css/style.css'/>">
+<link rel="stylesheet" href= "<c:url value='/resources/royal/css/responsive.css'/>">
+<link rel="stylesheet" href= "<c:url value='/resources/royal/vendors/nice-select/css/nice-select.css'/>">
+</head>
 <script>
 var memChkId = "";
 function checkId() {
@@ -96,7 +105,7 @@ function ppp(){
 }
 </script>
 <body>
-<div class="container">
+<div class="container" style="width:500px;margin: auto">
 	<div class="row mt-5">
 		<div class="col d-flex justify-content-start align-items-center text-center mt-5">
 <div id="myMsg">
@@ -105,10 +114,10 @@ function ppp(){
 			<p>${param.errMsg }</p>
 		</div>
 		<div>
-			<a 
-				href="${pageContext.request.contextPath}/admin/msgReceiveList?memId=${mem_id }&msgType=RECEIVE">받은쪽지함</a>
-			<a 
-				href="${pageContext.request.contextPath}/admin/msgSendList?memId=${mem_id }&msgType=SEND">보낸쪽지함</a>
+		    <a href="${pageContext.request.contextPath}/admin/msgReceiveList?memId=${mem_id }&msgType=RECEIVE" class="genric-btn info circle">받은 쪽지함</a>
+			&nbsp;&nbsp;&nbsp;
+			<a href="${pageContext.request.contextPath}/admin/msgSendList?memId=${mem_id }&msgType=SEND" class="genric-btn info circle">보낸쪽지함</a>
+			<br/><br/>
 			<table class="table">
 				<tr>
 					<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
@@ -185,8 +194,8 @@ function ppp(){
 					</c:choose>
 					<br/>
 					<div>
-		<form method="post" id="form1" action="<c:url value='/admin/msgReceiveList?memId=${mem_id }&msgType=RECEIVE'/>">
-			<select name="field">
+		<form method="post" id="form1" class="form-inline d-flex justify-content-center" action="<c:url value='/admin/msgReceiveList?memId=${mem_id }&msgType=RECEIVE'/>">
+			<select name="field" class="custom-select">
 				<option value="sendMemId"
 					<c:if test="${field=='sendMemId'}">selected="selected"</c:if>>보낸아이디</option>
 			</select> <input type="text" name="keyword" value="${keyword }"> 
@@ -226,8 +235,8 @@ function ppp(){
 					</c:choose>
 					<br/>
 					<div>
-		<form method="post" id="form1" action="<c:url value='/admin/msgSendList?memId=${mem_id }&msgType=SEND'/>">
-			<select name="field">
+		<form method="post" id="form1" class="form-inline d-flex justify-content-center" action="<c:url value='/admin/msgSendList?memId=${mem_id }&msgType=SEND'/>">
+			<select name="field" class="custom-select">
 				<option value="receiveMemId"
 					<c:if test="${field=='receiveMemId'}">selected="selected"</c:if>>받은아이디</option>
 			</select> <input type="text" name="keyword" value="${keyword }">
@@ -249,3 +258,4 @@ function ppp(){
 </div>
 </div>
 </body>
+</html>

@@ -95,13 +95,13 @@ function detailClose() {
 
 <table class="table">
 	<tr>
-		<th style = "color:blue;">받을사람</th>
+		<th >받을사람</th>
 		<td>
 			<input type="text" id="memId" name="memId"/><a href="#"	onclick="checkId()"> <i class="fas fa-user-check" style="color: #339af0;"></i></a><span id="memChk_res"></span>	
 		</td>
 	</tr>
 	<tr>
-		<th style = "color:blue;">쪽지내용</th>
+		<th >쪽지내용</th>
 		<td>
 			<textarea rows="5" cols="70%" id="content" name="content"></textarea>
 		</td>

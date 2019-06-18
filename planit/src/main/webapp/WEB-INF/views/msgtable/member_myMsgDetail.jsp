@@ -5,7 +5,7 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0">
 <meta charset="UTF-8">
-<title>쪽지보내기</title>
+<title>쪽지상세보기</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/planner.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/planList.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/planDetail.css'/>">
