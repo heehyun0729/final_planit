@@ -34,5 +34,6 @@
   	<mapper resource="com/jhta/planit/reservation/mybatis/RsvnMapper.xml"/>
   	<mapper resource="com/jhta/planit/reservation/mybatis/RsvnPayMapper.xml"/>
   	<mapper resource="com/jhta/planit/reservationReview/mybatis/ReservationReviewMapper.xml"/>
+  	<mapper resource="com/jhta/planit/accomQna/mybatis/AccomQnaMapper.xml"/>
   </mappers>
 </configuration>

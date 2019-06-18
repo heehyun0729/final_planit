@@ -3,29 +3,28 @@ package com.jhta.planit.accomQna.vo;
 import java.sql.Date;
 
 public class AccomQnaVo {
-	private int accomQna_num;
+	private int accomqna_num;
 	private String mem_id;
 	private int accom_num;
-	private String accomQna_title;
-	private String accomQna_content;
-	private Date accomQna_date;
+	private String accomqna_title;
+	private String accomqna_content;
+	private Date accomqna_date;
 	public AccomQnaVo() {}
-	
-	public AccomQnaVo(int accomQna_num, String mem_id, int accom_num, String accomQna_title, String accomQna_content,
-			Date accomQna_date) {
+	public AccomQnaVo(int accomqna_num, String mem_id, int accom_num, String accomqna_title, String accomqna_content,
+			Date accomqna_date) {
 		super();
-		this.accomQna_num = accomQna_num;
+		this.accomqna_num = accomqna_num;
 		this.mem_id = mem_id;
 		this.accom_num = accom_num;
-		this.accomQna_title = accomQna_title;
-		this.accomQna_content = accomQna_content;
-		this.accomQna_date = accomQna_date;
+		this.accomqna_title = accomqna_title;
+		this.accomqna_content = accomqna_content;
+		this.accomqna_date = accomqna_date;
 	}
-	public int getAccomQna_num() {
-		return accomQna_num;
+	public int getAccomqna_num() {
+		return accomqna_num;
 	}
-	public void setAccomQna_num(int accomQna_num) {
-		this.accomQna_num = accomQna_num;
+	public void setAccomqna_num(int accomqna_num) {
+		this.accomqna_num = accomqna_num;
 	}
 	public String getMem_id() {
 		return mem_id;
@@ -39,22 +38,22 @@ public class AccomQnaVo {
 	public void setAccom_num(int accom_num) {
 		this.accom_num = accom_num;
 	}
-	public String getAccomQna_title() {
-		return accomQna_title;
+	public String getAccomqna_title() {
+		return accomqna_title;
 	}
-	public void setAccomQna_title(String accomQna_title) {
-		this.accomQna_title = accomQna_title;
+	public void setAccomqna_title(String accomqna_title) {
+		this.accomqna_title = accomqna_title;
 	}
-	public String getAccomQna_content() {
-		return accomQna_content;
+	public String getAccomqna_content() {
+		return accomqna_content;
 	}
-	public void setAccomQna_content(String accomQna_content) {
-		this.accomQna_content = accomQna_content;
+	public void setAccomqna_content(String accomqna_content) {
+		this.accomqna_content = accomqna_content;
 	}
-	public Date getAccomQna_date() {
-		return accomQna_date;
+	public Date getAccomqna_date() {
+		return accomqna_date;
 	}
-	public void setAccomQna_date(Date accomQna_date) {
-		this.accomQna_date = accomQna_date;
+	public void setAccomqna_date(Date accomqna_date) {
+		this.accomqna_date = accomqna_date;
 	}
 }

@@ -45,11 +45,4 @@ public class AccomDao {
 	public int update(AccomVo vo) {
 		return sqlSession.update(NAMESPACE +".update",vo);
 	}
-	public int insertAcq(HashMap<String, Object>map) {
-		System.out.println("dao:"+ map);
-		return sqlSession.insert(NAMESPACE + ".acqInsert",map);
-	}
-	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
-		return sqlSession.selectList(NAMESPACE + ".acqList",map); 
-	}
 }

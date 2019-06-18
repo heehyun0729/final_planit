@@ -138,19 +138,6 @@ public class AccomInsertController {
 		json.put("apiKey", apiKey);
 		return json.toString();
 	}
-	@RequestMapping(value="/reservation/acqInsert", method=RequestMethod.POST)
-	public String insert(int tab,String mem_id,int accom_num,String accomqna_title,String accomqna_content) {
-		ModelAndView mv=new ModelAndView(".accomQna.result");
-		HashMap<String, Object>map = new HashMap<String, Object>();
-		System.out.println(map);
-		map.put("mem_id",mem_id);
-		map.put("accom_num",accom_num);
-		map.put("accomqna_title",accomqna_title);
-		map.put("accomqna_content",accomqna_content);
-		mv.addObject("accom_num", accom_num);
-		mv.addObject("tab", tab);
-		service.insertAcq(map);
-		return ".reservation.acqInsert?accom_num=" + accom_num +"&tab=" + tab;
-	}
+
 }
 

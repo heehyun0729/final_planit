@@ -19,7 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
+import com.jhta.planit.accomQna.service.AccomQnaService;
 import com.jhta.planit.accomQna.vo.AccomQnaVo;
 import com.jhta.planit.reservation.service.RsvnAccomService;
 import com.jhta.planit.reservation.service.RsvnPayService;
@@ -51,7 +54,7 @@ public class RsvnController {
 	@Autowired private RsvnService rsvnService;
 	@Autowired private RsvnPayService rsvnPayService;
 	@Autowired private MembersService membersService;
-	
+	@Autowired private AccomQnaService acqService;
 	@RequestMapping("/reservation/insert")
 	public String insert(int room_num, String checkin, String checkout, int cnt, 
 			String name, String email, String phone, String tid, int total, HttpSession session) {
@@ -239,6 +242,7 @@ public class RsvnController {
 	
 	@RequestMapping("/reservation/accomDetail")
 	public String detail(int accom_num, String checkin, String checkout, 
+			@RequestParam(value = "pageNum" , defaultValue = "1")int pageNum,
 			@RequestParam(value = "cnt", defaultValue = "1") int cnt, Model model, HttpSession session) throws IOException {
 		String key = getApi();
 		session.setAttribute("key", key);
@@ -267,36 +271,23 @@ public class RsvnController {
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);
 		
-	/*	HashMap<String, Object> map2=new HashMap<String, Object>();
-		List<AccomQnaVo> list =rsvnService.acqList(map2);
-		ModelAndView mv=new ModelAndView();
-		mv.addObject("list", list);*/
+		//¼÷¼Ò¹®ÀÇ ´ñ±Û¸ñ·Ï
+		HashMap<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("pageNum", pageNum);
+		int totalRowCount = acqService.count(map2);
+		PageUtil pu = new PageUtil(pageNum, totalRowCount, 5, 5);
+		map2.put("startRow", pu.getStartRow());
+		map2.put("endRow", pu.getEndRow());
+		List<AccomQnaVo> list=acqService.acqList(map2);
+		model.addAttribute("list", list);
+		model.addAttribute("pu", pu);
+
+		
 		return ".reservation.accomDetail";
-				//"redirect:/reservation/accomDetail?accom_num=" + 
+
 	}
-	/*
-	@RequestMapping("/reservation/accomDetail")
-	public ModelAndView acpList(//@RequestParam(value="pageNum", defaultValue = "1") int pageNum,
-			/*String field,String keyword,HttpSession session) {
-		
-		
-		map.put("field", field);
-		map.put("keyword", keyword);
-		int totalRowCount=rsvnService.count(map);
-		PageUtil pu=new PageUtil(pageNum,totalRowCount,5,5);
-		map.put("startRow", pu.getStartRow());
-		map.put("endRow", pu.getEndPageNum());
-		
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		List<AccomQnaVo> list =rsvnService.acqList(map);
-		ModelAndView mv=new ModelAndView();
-		mv.addObject("list", list);
-		//mv.addObject("pu", pu);
-		//mv.addObject("field", field);
-		//mv.addObject("keyword", keyword);
-		return mv;
-	}*/
 	
+
 	@RequestMapping("/reservation/accomList")
 	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 
 			String keyword, String checkin, String checkout, 
@@ -332,4 +323,38 @@ public class RsvnController {
 		System.out.println(pu.getStartRow() + ", " + pu.getEndRow());
 		return ".reservation.accomList";
 	}
+	//¼÷¼Ò ´ñ±Û µî·Ï
+	@RequestMapping(value="/reservation/acqInsert", method=RequestMethod.POST)
+	public String insert(int tab,String mem_id,int accom_num,String accomqna_title,String accomqna_content) {
+		ModelAndView mv=new ModelAndView();
+		HashMap<String, Object>map = new HashMap<String, Object>();
+		//System.out.println(map);
+		map.put("mem_id",mem_id);
+		map.put("accom_num",accom_num);
+		map.put("accomqna_title",accomqna_title);
+		map.put("accomqna_content",accomqna_content);
+		mv.addObject("accom_num", accom_num);
+		mv.addObject("tab", tab);
+		acqService.insertAcq(map);
+		return "redirect:/reservation/accomDetail?accom_num=" + accom_num +"&tab=" + tab;
+	}
+//	@RequestMapping("/reservation/accomDetail")
+//	public ModelAndView list(int accomQna_num) {
+//		//@RequestParam(value="pageNum",defaultValue="1")int pageNum,String field,String keyword,
+//		HashMap<String, Object> map=new HashMap<String, Object>();
+//		List<AccomQnaVo> list=acqService.acqList(map);
+//		ModelAndView mv=new ModelAndView();
+//		mv.addObject("list", list);
+//		System.out.println("aaaaaaaaaaaaaaaaaaa" +list);
+//		return mv;
+////		map.put("field", field);
+////		map.put("keyword", keyword);
+////		int totalRowCount=acqService.count(accomQna_num);
+////		PageUtil pu=new PageUtil(pageNum,totalRowCount,5,5);
+////		map.put("startRow",pu.getStartRow());
+////		map.put("endRow",pu.getEndRow());
+////		map.put("accomQna_num",accomQna_num);
+////		
+//		
+//	}
 }

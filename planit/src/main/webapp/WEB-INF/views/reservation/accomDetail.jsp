@@ -158,19 +158,19 @@
 			 	내용<textarea rows="10" cols="50" name="accomqna_content"></textarea><br>
 				<input type="submit" value="등록">
 			</form>
-			<c:forEach var="vo" items="${acqList }">
+			<c:forEach var="vo" items="${list }">
 				<div id="accomList">
 					<div class="acq_writer">
 						작성자:<p>${vo.mem_id}</p>
 					</div>
 					<div class="acq_title">
-						제목:<p>${vo.accomQna_title}</p>
+						제목:<p>${vo.accomqna_title}</p>
 					</div>
 					<div class="acq_content">
-						내용:<p>${vo.accomQna_content }</p>
+						내용:<p>${vo.accomqna_content }</p>
 					</div>
 					<div class="acq_date">
-						날짜:<p>${vo.accomQna_date}</p>
+						날짜:<p>${vo.accomqna_date}</p>
 					</div>
 					<div class="accom_num">
 						<input type="hidden" value="${avo.accom_num }">

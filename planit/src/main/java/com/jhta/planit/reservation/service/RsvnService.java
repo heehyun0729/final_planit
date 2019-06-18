@@ -17,7 +17,6 @@ import com.jhta.planit.reservation.vo.SellerRsvnVo;
 @Service
 public class RsvnService {
 	@Autowired private RsvnDao rsvnDao;
-	@Autowired private AccomDao accomDao;
 	
 	public int insert(HashMap<String, Object> map) {
 		return rsvnDao.insert(map);
@@ -43,15 +42,7 @@ public class RsvnService {
 	public int sellCount(HashMap<String, Object> map) {
 		return rsvnDao.sellCount(map);
 	}
-
-	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
-		return accomDao.acqList(map);
-	}
-	public int count(HashMap<String, Object>map) {
-		return accomDao.count(map);
-	}
 	public int dateGap(int rsvn_num) {
 		return rsvnDao.dateGap(rsvn_num);
-
 	}
 }

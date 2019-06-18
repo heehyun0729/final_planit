@@ -51,10 +51,4 @@ public class AccomService {
 	public int update(AccomVo vo) {
 		return dao.update(vo);
 	}
-	public int insertAcq(HashMap<String, Object>map) {
-		return dao.insertAcq(map);
-	}
-	/*public List<AccomQnaVo> acqList(HashMap<String, Object>map){
-		return dao.acqList(map);
-	}*/
 }
