@@ -155,7 +155,7 @@
 				<input type="hidden" name="accom_num" value="${avo.accom_num }">
 				<input type="hidden" name="mem_id" value="${sessionScope.mem_id }">
 				제목<input type="text" name="accomqna_title"><br>
-			 	내용<textarea rows="10" cols="50" name="accomqna_content"></textarea><br>
+			 	내용<textarea rows="5" cols="60" name="accomqna_content"></textarea><br>
 				<input type="submit" value="등록">
 			</form>
 			<c:forEach var="vo" items="${list }">

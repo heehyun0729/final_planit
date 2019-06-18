@@ -8,7 +8,6 @@
 	<div id = "rsvnMenu">
 		<ul>
 			<li><a href="<c:url value=''/>">숙소예약후기</a></li>
-			<li><a href="<c:url value='/acommQna'/>">숙소문의</a></li>
 			<li><a href="<c:url value='/sellerInsertListForm'/>">판매자 등록 리스트</a></li>
 		</ul>
 	</div>
