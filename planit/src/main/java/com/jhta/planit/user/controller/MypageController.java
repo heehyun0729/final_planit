@@ -1,10 +1,7 @@
 package com.jhta.planit.user.controller;
 
-import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,16 +105,17 @@ public class MypageController {
 		List<MyRsvnVo> list = rsvnService.myList(map);
 		for(MyRsvnVo vo : list) {
 			int rcnt = reservationReviewService.reviewCnt(vo.getRsvn_num());
-			// status ==> 0: 리뷰 없음(이용 전) / 1: 리뷰 없음(이용 후) / 2: 리뷰 있음
+			int n = rsvnService.chkCheckin(vo.getRsvn_num());
+			int n1 = rsvnService.chkCheckout(vo.getRsvn_num());
+			// status ==> 0: 리뷰 없음(이용 전) / 1: 리뷰 없음(이용 중) / 2: 리뷰 없음(이용 후) / 3: 리뷰 있음
 			if(rcnt > 0) {
+				vo.setStatus(3);
+			}else if(n >= 0){	// 체크인 날짜가 지났으면 status를 1로 변경
+				vo.setStatus(1);	// 체크아웃날짜가 지났으면 status를 2로 변경
+			}else if(n1 >= 0){
 				vo.setStatus(2);
 			}else {
 				vo.setStatus(0);
-			}
-			int n = rsvnService.dateGap(vo.getRsvn_num());
-			// 체크아웃날짜가 지났으면 status를 1로 변경
-			if(n >= 0) {
-				vo.setStatus(1);
 			}
 		}
 		model.addAttribute("list", list);
