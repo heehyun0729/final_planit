@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+.{
+	margin:0px;
+	padding:0px;
+}
 .login-form {
 	width: 400px;
 	margin: 100px auto;
@@ -28,23 +31,78 @@
 .login-btn {
 	font-size: 15px;
 	font-weight: bold;
-	margin: auto;
 }
 
-#logintop{
+.userstop{
 	width: 100%;
 	text-align: center;
 	margin-bottom: 20px;
 }
 
-#logintop #logoimg{
+.userstop .logoimg{
 	width: 150px;
 }
+
 #loginbottom{
 	width: 100%;
 	text-align: center;
 	margin-top: 10px;
 }
+
+.termscheck{
+	width: 70%;
+	margin:50px auto;
+}
+
+.termscheck form {
+	margin-bottom: 20px;
+	background: #f7f7f7;
+	padding: 20px;
+}
+
+.termscheck form .terms {
+	width:90%;
+	height:500px;
+	margin:auto;
+	overflow-y: scroll;
+	background: white;
+	border:1px solid gray;
+	padding: 20px;
+}
+
+.termscheck form .terms .terms_title_maintitle {
+	color: black;
+	text-align: center;
+	font-size: 40px;
+	font-weight: bold;
+	margin-top: 15px;
+	margin-bottom: 100px;
+}
+
+.termscheck form .terms .terms_subtitle {
+	color: black;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.termscheck form .terms .terms_title_contenttitle {
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.termscheck form .terms .terms_content {
+	color: black;
+	font-size: 15px;
+	margin-top: 3px;
+	margin-bottom: 40px;
+}
+
 .errMsg{
 	color:red;
 	text-align: center;
