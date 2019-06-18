@@ -55,9 +55,34 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
-	<tiles:insertAttribute name="profile" />
-	<tiles:insertAttribute name="profiletopmenu" />
-	<tiles:insertAttribute name="profilecontent" />
+	<section class="breadcrumb_area">
+	<div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+	<div class="container">
+		<div class="page-cover text-center">
+			<h2 class="page-cover-tittle">마이페이지</h2>
+		</div>
+	</div>
+</section>
+	<section class="mypage">
+		<div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+		<div class="container">
+			<div class="row d-flex justify-content-start">
+				<tiles:insertAttribute name="profile" />
+				<div id="mypage_menu" class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-12">
+							<tiles:insertAttribute name="profiletopmenu" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<tiles:insertAttribute name="profilecontent" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 	<tiles:insertAttribute name="footer" />
 <script src="<c:url value='/resources/royal/vendors/owl-carousel/owl.carousel.min.js'/>"></script>
 <script src= "<c:url value='/resources/royal/js/jquery.ajaxchimp.min.js'/>"></script>

@@ -129,7 +129,8 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/member/mypage/ad/{mem_id}/myAdList")//내 광고 리스트
-	public String myAdList(@PathVariable String mem_id, @RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model) {
+	public String myAdList(@PathVariable String mem_id, @RequestParam(value = "pageNum", defaultValue = "1")int pageNum, String field, String keyword, Model model
+			,HttpSession session) {
 		String ad_progress="-1";
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("field", field);
@@ -147,6 +148,8 @@ public class MypageController {
 		List<AdVo> getMyAdList=adService.getMyAdList(map);
 		model.addAttribute("map", map);
 		model.addAttribute("getMyAdList", getMyAdList);
+		model.addAttribute("mem_tf", acc_member(mem_id, (String) session.getAttribute("mem_id")));
+		model.addAttribute("profilemap", profilemap(mem_id, (String) session.getAttribute("mem_id")));
 		return "^member^mypage^"+mem_id+"^myAdList";
 	}
 	@RequestMapping(value="/adAnalytics", method=RequestMethod.GET)//광고 통계 페이지
@@ -167,29 +170,15 @@ public class MypageController {
 	
 	@RequestMapping(value = "/member/mypage/{mem_id}", method = RequestMethod.GET)
 	public ModelAndView mypageMain(@PathVariable String mem_id, HttpSession session) {
-		HashMap<String, String> parammap=new HashMap<String, String>();
-		parammap.put("mem_id", mem_id);
-		parammap.put("session_mem_id", (String) session.getAttribute("mem_id"));
-		if(parammap.get("session_mem_id")==null) {
-			parammap.put("session_mem_id", "");
-		}
-		HashMap<Object, Object> profilemap=service.profileInfo(parammap);
 		ModelAndView mv=new ModelAndView("^member^mypage");
 		mv.addObject("mem_tf", acc_member(mem_id, (String) session.getAttribute("mem_id")));
-		mv.addObject("profilemap", profilemap);
+		mv.addObject("profilemap", profilemap(mem_id, (String) session.getAttribute("mem_id")));
 		return mv;
 	}
 
 	@RequestMapping(value = "/member/mypage/{mem_id}/{content}")
 	public ModelAndView mypageContent(@PathVariable("mem_id") String mem_id, @PathVariable("content") String content,
 			HttpSession session) {
-		HashMap<String, String> parammap=new HashMap<String, String>();
-		parammap.put("mem_id", mem_id);
-		parammap.put("session_mem_id", (String) session.getAttribute("mem_id"));
-		if(parammap.get("session_mem_id")==null) {
-			parammap.put("session_mem_id", "");
-		}
-		HashMap<Object, Object> profilemap=service.profileInfo(parammap);
 		HashMap<String, Object> listpage=new HashMap<String, Object>();
 		List<HashMap<Object, Object>> contentlist;
 		ModelAndView mv = new ModelAndView();
@@ -217,7 +206,7 @@ public class MypageController {
 		}
 		mv.addObject("content", content);
 		mv.addObject("mem_tf", acc_member(mem_id, (String) session.getAttribute("mem_id")));
-		mv.addObject("profilemap", profilemap);
+		mv.addObject("profilemap", profilemap(mem_id, (String) session.getAttribute("mem_id")));
 		return mv;
 	}
 
@@ -250,5 +239,15 @@ public class MypageController {
 		} else {
 			return false;
 		}
+	}
+	
+	public HashMap<Object, Object> profilemap(String mem_id, String session_mem_id) {
+		HashMap<String, String> parammap=new HashMap<String, String>();
+		parammap.put("mem_id", mem_id);
+		parammap.put("session_mem_id", session_mem_id);
+		if(parammap.get("session_mem_id")==null) {
+			parammap.put("session_mem_id", "");
+		}
+		return service.profileInfo(parammap);
 	}
 }
