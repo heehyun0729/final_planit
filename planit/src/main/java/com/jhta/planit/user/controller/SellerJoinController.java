@@ -23,7 +23,7 @@ public class SellerJoinController {
 	@RequestMapping(value = "/user/sellerapply", method = RequestMethod.GET)
 	public String sellJoinForm(HttpSession session, RedirectAttributes attributes) {
 		if (session.getAttribute("mem_id") != null) {
-			return "/user/sellerapply";
+			return "!user!sellerapply";
 		} else {
 			attributes.addFlashAttribute("errMsg", "로그인이 되어야 사용할 수 있는 기능입니다.");
 			return "redirect:/login";
@@ -44,12 +44,12 @@ public class SellerJoinController {
 			} else {
 				model.addAttribute("vo", vo);
 				model.addAttribute("submitError", "작업중 오류로 인해 취소되었습니다.");
-				return "/user/sellerapply";
+				return "!user!sellerapply";
 			}
 		}else {
 			model.addAttribute("vo", vo);
 			model.addAttribute("errMsg", "비밀번호가 올바르지 않습니다.");
-			return "/user/sellerapply";
+			return "!user!sellerapply";
 		}
 		
 	}

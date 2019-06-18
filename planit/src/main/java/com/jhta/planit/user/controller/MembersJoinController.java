@@ -20,12 +20,12 @@ public class MembersJoinController {
 	@Autowired private MembersService service;
 	@RequestMapping(value = "/user/join", method = RequestMethod.GET)
 	public String joinchoiceForm() {
-		return "user/joinchoice";
+		return "!user!joinchoice";
 	}
 	
 	@RequestMapping(value = "/user/nomaljoin", method = RequestMethod.GET)
 	public String joinForm() {
-		return "user/join";
+		return "!user!join";
 	}
 
 	@RequestMapping(value = "/user/nomaljoin", method = RequestMethod.POST)
@@ -36,7 +36,7 @@ public class MembersJoinController {
 			return "redirect:/member/result";
 		}else {
 			model.addAttribute("vo", vo);
-			return "user/join";
+			return "!user!join";
 		}
 	}
 	
