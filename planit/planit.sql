@@ -98,7 +98,7 @@ create table accom(
     sell_num number(5) references seller(sell_num),
     accom_name varchar2(100),
     accom_addr varchar2(200),
-    accom_comm varchar2(300),
+    accom_comm CLOB, 
     accom_country varchar2(50),
     accom_city varchar2(50),
     accommImg_orgImg varchar(500),
