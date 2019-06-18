@@ -16,7 +16,6 @@ import com.jhta.planit.reservation.vo.SellerRsvnVo;
 public class RsvnDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jhta.planit.reservation.mybatis.RsvnMapper";
-	private final String NAMESPACE2 = "com.jhta.planit.accom.mybatis.AccomMapper";
 	
 	public int insert(HashMap<String, Object> map) {
 		return sqlSession.insert(NAMESPACE + ".insert", map);
@@ -48,10 +47,6 @@ public class RsvnDao {
 	}
 	public int chkCheckin(int rsvn_num) {
 		return sqlSession.selectOne(NAMESPACE + ".chkCheckin", rsvn_num);
-	}
-
-	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
-		return sqlSession.selectList(NAMESPACE2 + ".acqList",map);
 	}
 	
 }

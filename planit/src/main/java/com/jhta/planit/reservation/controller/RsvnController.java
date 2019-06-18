@@ -338,23 +338,4 @@ public class RsvnController {
 		acqService.insertAcq(map);
 		return "redirect:/reservation/accomDetail?accom_num=" + accom_num +"&tab=" + tab;
 	}
-//	@RequestMapping("/reservation/accomDetail")
-//	public ModelAndView list(int accomQna_num) {
-//		//@RequestParam(value="pageNum",defaultValue="1")int pageNum,String field,String keyword,
-//		HashMap<String, Object> map=new HashMap<String, Object>();
-//		List<AccomQnaVo> list=acqService.acqList(map);
-//		ModelAndView mv=new ModelAndView();
-//		mv.addObject("list", list);
-//		System.out.println("aaaaaaaaaaaaaaaaaaa" +list);
-//		return mv;
-////		map.put("field", field);
-////		map.put("keyword", keyword);
-////		int totalRowCount=acqService.count(accomQna_num);
-////		PageUtil pu=new PageUtil(pageNum,totalRowCount,5,5);
-////		map.put("startRow",pu.getStartRow());
-////		map.put("endRow",pu.getEndRow());
-////		map.put("accomQna_num",accomQna_num);
-////		
-//		
-//	}
 }

@@ -42,22 +42,10 @@ public class RsvnService {
 	public int sellCount(HashMap<String, Object> map) {
 		return rsvnDao.sellCount(map);
 	}
-	public int dateGap(int rsvn_num) {
-		return rsvnDao.dateGap(rsvn_num);
-	}
-
 	public int chkCheckout(int rsvn_num) {
 		return rsvnDao.chkCheckout(rsvn_num);
 	}
 	public int chkCheckin(int rsvn_num) {
 		return rsvnDao.chkCheckin(rsvn_num);
-	}
-
-	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
-		return accomDao.acqList(map);
-	}
-	public int count(HashMap<String, Object>map) {
-		return accomDao.count(map);
->>>>>>> branch 'master' of https://github.com/heehyun0729/final_planit.git
 	}
 }
