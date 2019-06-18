@@ -499,7 +499,7 @@ public class AdController {
 	@RequestMapping(value="/adClick")//광고 클릭
 	public String adClick(int adInfo_num, Model model) {
 		service.clickAd(adInfo_num, model);
-		return "-admin-adminAdManagement-adClick";
+		return "/admin/adminAdManagement/adClick";
 	}
 	@RequestMapping(value="/admin/adminAdManagement/getDayAdProfit", produces="application/json;charset=utf-8")//일자별 광고 수익 출력
 	@ResponseBody
