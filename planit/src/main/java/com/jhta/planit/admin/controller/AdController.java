@@ -88,6 +88,7 @@ public class AdController {
 		map.put("endPageNum", pu.getEndPageNum()); 
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
+		map.put("totalPageCount", pu.getTotalPageCount());
 		List<AdImageVo> getAdImageList=service.getAdImageList(map);
 		model.addAttribute("getAdImageList", getAdImageList);
 		model.addAttribute("map", map);

@@ -61,20 +61,20 @@
 					<div class="d-flex justify-content-center">
 						<ul class="pagination">
 							<c:if test="${map.startPageNum!=1 }">
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${map.startPageNum-1}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">◀</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${map.startPageNum-1}&field=${param.field}&keyword=${param.keyword}">◀</a></li>
 							</c:if>
 							<c:forEach var="i" begin="${map.startPageNum }" end="${map.endPageNum }">
 								<c:choose>
 									<c:when test="${map.pageNum==i }">
-										<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">${i }</a></li>
+										<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}">${i }</a></li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">${i }</a></li>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${i}&field=${param.field}&keyword=${param.keyword}">${i }</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 							<c:if test="${map.totalPageCount!=map.endPageNum }">
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${map.endPageNum+1}&field=${param.field}&keyword=${param.keyword}&progress=${map.ad_progress}">▶</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/admin/adminAdManagement/requestChangeAdImageList?pageNum=${map.endPageNum+1}&field=${param.field}&keyword=${param.keyword}">▶</a></li>
 							</c:if>
 						</ul>
 					</div>

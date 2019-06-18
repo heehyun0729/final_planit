@@ -142,7 +142,8 @@ public class MypageController {
 		map.put("startPageNum", pu.getStartPageNum());
 		map.put("endPageNum", pu.getEndPageNum()); 
 		map.put("startRow", pu.getStartRow());
-		map.put("endRow", pu.getEndRow());		
+		map.put("endRow", pu.getEndRow());
+		map.put("totalPageCount", pu.getTotalPageCount());
 		List<AdVo> getMyAdList=adService.getMyAdList(map);
 		model.addAttribute("map", map);
 		model.addAttribute("getMyAdList", getMyAdList);

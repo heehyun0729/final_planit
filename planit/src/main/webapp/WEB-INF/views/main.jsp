@@ -23,10 +23,8 @@
 	$(document).ready(function(){
 		$('.carousel').carousel({
 			pause: false,
-			interval: 3000
+			interval: ${chanceList.get(0)}
 		});
-		console.log(${fn:length(imageList)});
-		console.log(${imageList[0]});
 	});	
 </script>
 <c:choose>
