@@ -90,7 +90,6 @@ CREATE TABLE SELLER(
 );
 CREATE SEQUENCE SELLER_SEQ;
 
-
 --숙소테이블
 drop table accom CASCADE CONSTRAINTS;
 create table accom(
