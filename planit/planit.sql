@@ -110,7 +110,7 @@ create table room(
     accom_num number(7,0) references accom(accom_num),
     room_type varchar2(100),
     room_price number(10,0),
-    room_comm varchar2(1000),
+    room_comm CLOB,
     roomChk number(1),
     room_capa number(2)
 );
