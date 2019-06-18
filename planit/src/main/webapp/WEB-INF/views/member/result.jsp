@@ -4,7 +4,7 @@
 	<div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
 	<div class="container">
 		<div class="page-cover text-center">
-			<h2 class="page-cover-tittle">마이페이지</h2>
+			<h2 class="page-cover-tittle">결과</h2>
 		</div>
 	</div>
 </section>
