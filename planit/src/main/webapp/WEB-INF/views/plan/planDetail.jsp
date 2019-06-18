@@ -61,7 +61,7 @@
 				<a href = "<c:url value='/plan/list?pageNum=${param.pageNum }&field=${param.field }&keyword=${param.keyword }'/>" class="genric-btn success-border circle">목록</a>
 			</div>
         </div>
-        <div class="row" style = "height: 500px;margin-bottom: 40px;">
+        <div class="row" style = "height: 500px;margin-bottom: 50px;">
         	<!-- 지도 -->
             <div class="col-md-7" style = "padding: 0px;">
                 <div id="detailMap" style = "height: 100%;"></div>
@@ -75,19 +75,20 @@
                 <!-- 달력 -->
 				<div id="planCalendar"></div>
             </div>
+            <hr>
         </div>
         <div class = "row text-center">
         	<!-- 일정표 -->
-			<div id="planSchedule" class="progress-table-wrap" style = "width: 80%;margin-left:10%;margin-right:10%;">
+			<div id="planSchedule" style = "width: 80%;margin-left:10%;margin-right:10%;">
 				<h2>일정표</h2>
 				<div>
-					<div class = "progress-table">
-						<div class="table-head">
-							<div style = "width: ">순서</div>
-							<div style = "width: ">도시</div>
-							<div style = "width: ">날짜</div>
-							<div style = "width: ">일정</div>
-						</div>
+					<table class="table">
+						<tr>
+							<th>순서</th>
+							<th>도시</th>
+							<th>날짜</th>
+							<th>일정</th>
+						</tr>
 						<c:forEach var="dvo" items="${dlist }">
 							<tr>
 								<td>${dvo.planDetail_order + 1}</td>
@@ -105,102 +106,100 @@
 								</td>
 							</tr>
 						</c:forEach>
-					</div>
+					</table>
 				</div>
 			</div>
         </div>
     </div>
 </section>
-
-
-
-<div id="planDetail">
-		<!-- 출발일 변경 dialog -->
-		<div id = "startDateDialog" class="modal fade" role="dialog">
-			<div class="modal-dialog ">
-				<div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title">출발일 변경</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        <div id="startDatepicker"></div>
-			      </div>
-			      <div class="modal-footer">
-			      	<button type="button" class="btn btn-primary" onclick="javascript:updateStartDate()">저장</button>
-			        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-			      </div>
-			    </div>
-		    </div>
-		</div>
-		<!-- 정보수정 dialog -->
-		<div id = "infoDialog" class="modal fade " tabindex="-1" role="dialog">
-			<div class="modal-dialog ">
-				<div class="modal-content ">
-			      <div class="modal-header">
-			        <h5 class="modal-title">플래너 정보 수정</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        <div>
-					<p>
-						<label for="infoTitle">제목</label><br>
-						<input type = "text" value="${vo.plan_title }" id = "infoTitle">
-					</p>
-					<p>
-						<label for="infoTitle">공개여부</label><br>
-						<input type = "radio" name = "infoPublic" value = "0"
+<!-- 출발일 변경 dialog -->
+<div id = "startDateDialog" class="modal fade" role="dialog">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">출발일 변경</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div id="detailStartDatepicker"></div>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="genric-btn primary circle" onclick="javascript:updateStartDate()">저장</button>
+	        <button type="button" class="genric-btn default circle" data-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+    </div>
+</div>
+<!-- 정보수정 dialog -->
+<div id = "infoDialog" class="modal fade " tabindex="-1" role="dialog">
+	<div class="modal-dialog ">
+		<div class="modal-content ">
+	      <div class="modal-header">
+	        <h5 class="modal-title">플래너 정보 수정</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div style = "margin-bottom: 20px;">
+				<h6><label for="infoTitle">제목</label></h6>
+				<input type = "text" value="${vo.plan_title }" id = "infoTitle" class = "form-control single-input">
+			</div>
+			<div>
+				<h6>공개여부</h6>
+				<div class = "form-check-inline" style = "height: 40px;">
+					<span>공개&nbsp;</span>
+					<div class="primary-radio ">
+						<input type="radio" id = "public" name = "infoPublic" value = "0" class = "form-check-input"
 							<c:if test = "${vo.plan_public == 0 }"> checked = "checked" </c:if>
-						>공개
-						<input type = "radio" name = "infoPublic" value = "1"
-							<c:if test = "${vo.plan_public == 1 }"> checked = "checked" </c:if>
-						>비공개
-					</p>
-				</div>
-			      </div>
-			      <div class="modal-footer">
-			      	<button type="button" class="btn btn-primary" onclick="javascript:updateInfo()">저장</button>
-			        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-			      </div>
-			    </div>
-		    </div>
-		</div>
-		<!-- 세부일정 수정 dialog -->
-		<div id = "scheduleDialog" class="modal fade" role="dialog">
-			<div class="modal-dialog ">
-				<div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title">세부일정 수정</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        <div>
-						<div>도시</div>
-						<div id = "scheduleCity">
-						
-						</div>
-						<div>날짜</div>
-						<div id = "scheduleDate"></div>
-						<label for="scheduleDetail">세부일정</label>
-						<div>
-							<textarea rows="10" cols="40" id = "scheduleDetail"></textarea>
-						</div>
+						>
+						<label for="public" class="form-check-label"></label>
 					</div>
-			      </div>
-			      <div class="modal-footer">
-			      	<button type="button" class="btn btn-primary" onclick="javascript:updateSchedule()">저장</button>
-			        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-			      </div>
-			    </div>
-		    </div>
-		</div>
-	<!-- 지도 -->
-	
-	
+					<span>&nbsp;&nbsp;비공개&nbsp;</span>
+					<div class="primary-radio">
+						<input type="radio" id = "private" name = "infoPublic" value = "1" class = "form-check-input"
+							<c:if test = "${vo.plan_public == 1 }"> checked = "checked" </c:if>
+						>
+						<label for="private" class="form-check-label"></label>
+					</div>
+				</div>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="genric-btn primary circle" onclick="javascript:updateInfo()">저장</button>
+	        <button type="button" class="genric-btn default circle" data-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+    </div>
+</div>
+<!-- 세부일정 수정 dialog -->
+<div id = "scheduleDialog" class="modal fade" role="dialog">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">세부일정 수정</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div>
+				<h6>도시</h6>
+				<div id = "scheduleCity" style = "margin-bottom: 20px;">
+				
+				</div>
+				<h6>날짜</h6>
+				<div id = "scheduleDate" style = "margin-bottom: 20px;"></div>
+				<h6><label for="scheduleDetail">세부일정</label></h6>
+				<textarea rows="10" cols="40" id = "scheduleDetail" class = "form-control"></textarea>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="genric-btn primary circle" onclick="javascript:updateSchedule()">저장</button>
+	        <button type="button" class="genric-btn default circle" data-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+    </div>
 </div>

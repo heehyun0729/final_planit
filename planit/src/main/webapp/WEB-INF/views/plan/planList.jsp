@@ -65,7 +65,7 @@ function ppp(mem_id){
 								</select>
 							</div>
 							<div class = "col-sm-7">
-								<input type = "text" name = "keyword" value = "${keyword }" class = "form-control">
+								<input type = "text" name = "keyword" value = "${keyword }" class = "form-control single-input">
 							</div>
 							<div class = "col-sm-2" style = "padding: 0px;">
 								<input type = "submit" value = "검색" class = "genric-btn success-border circle">
