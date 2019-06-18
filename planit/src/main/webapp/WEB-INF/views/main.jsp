@@ -23,7 +23,9 @@
 	$(document).ready(function(){
 		$('.carousel').carousel({
 			pause: false,
-			interval: ${chanceList.get(0)}
+			<c:if test="${fn:length(chanceList)!=0}">
+				interval: ${chanceList.get(0)}		
+			</c:if>
 		});
 	});	
 </script>
