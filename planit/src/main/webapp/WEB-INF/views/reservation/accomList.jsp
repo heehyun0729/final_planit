@@ -14,18 +14,27 @@
 	</div>
 </section>
 <!--================Breadcrumb Area =================-->
-<section class="section_gap">
+<section style = "margin: 60px 0;">
 	<div class="container" style = "border:1px solid #aaa;border-radius: 5px;padding:30px 20px 30px 20px;">
 		<form method="post" action="<c:url value = '/reservation/accomList'/>">
 			<div class="row">
 				<div class="col-lg-3">
-					<input type="text" id="rsvnKeyword" name="keyword" value="${keyword }" class = "form-control single-input" placeholder="도시 혹은 숙소명">
+					<div class="input-group has-feedback">
+						<input type="text" id="rsvnKeyword" name="keyword" value="${keyword }" class = "form-control single-input " placeholder="도시 혹은 숙소명">
+						<span class="form-control single-input form-control-feedback border-0"><i class="fas fa-map-marker-alt"></i></span>
+					</div>
 				</div>
 				<div class="col-lg-6" style = "padding-right: 0;padding-left: 30px;">
 					<div class="form-inline">
-						<input type="text" id="checkin" name="checkin" value="${checkin }" class = "form-control single-input" placeholder="체크인">
+						<span class="input-group has-feedback">
+							<input type="text" id="checkin" name="checkin" value="${checkin }" class = "form-control single-input" placeholder="체크인">
+							<span class="form-control single-input form-control-feedback border-0"><i class="fas fa-calendar-day"></i></span>
+						</span>
 						<span>&nbsp;~&nbsp;</span> 
-						<input type="text" id="checkout" name="checkout" value="${checkout }" class = "form-control single-input" placeholder="체크아웃">
+						<span class="input-group has-feedback">
+							<input type="text" id="checkout" name="checkout" value="${checkout }" class = "form-control single-input" placeholder="체크아웃">
+							<span class="form-control single-input form-control-feedback border-0"><i class="fas fa-calendar-day"></i></span>
+						</span>
 					</div>
 				</div>
 				<div class="col-lg-2" style = "padding-left: 0;">
@@ -55,3 +64,66 @@
 		</form>
 	</div>
 </section>
+<!-- ======================================= -->
+<section class="accomodation_area" style = "margin-bottom: 60px;">
+    <div class="container">
+        <div class="row mb_30 text-center">
+        	<c:if test="${empty list }">
+				<div class="col-lg-12 col-md-12 mb-30"><h5>조회된 결과가 없습니다.</h5></div>
+			</c:if>
+			<c:forEach var="vo" items="${list }">
+				<div class="col-lg-3 col-sm-6">
+	                <div class="accomodation_item text-center">
+	                    <div class="hotel_img">
+							<a href="<c:url value='/reservation/accomDetail?accom_num=${vo.accom_num }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>"><img src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>" style = "height: 270px;"></a>
+						</div>
+	                    <h4><a href="<c:url value='/reservation/accomDetail?accom_num=${vo.accom_num }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>">${vo.accom_name }</a></h4>
+	                    <p><i class="fas fa-map-marker-alt"></i> ${vo.accom_city }, ${vo.accom_country }</p>
+	                    <h5>${vo.room_price }원 ~</h5>
+	                    <div class = "star">
+	                    	<i class = "fa fa-star"></i>
+	                    	<i class = "fa fa-star"></i>
+	                    	<i class = "fa fa-star"></i>
+	                    	<i class = "fa fa-star"></i>
+	                    	<i class = "fa fa-star"></i>
+	                    </div>
+	                </div>
+	            </div>
+			</c:forEach>
+        </div>
+    </div>
+</section>
+
+<nav class="blog-pagination justify-content-center d-flex">
+   <ul class="pagination">
+      <li class="page-item">
+         <c:if test="${startPage > 1 }">
+			<a class="page-link" aria-label="이전" href = "<c:url value = '/reservation/accomList?pageNum=${startPage - 1 }&keyword=${keyword }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>">
+				<span aria-hidden="true">
+	            	<span class="lnr lnr-chevron-left"></span>
+	            </span>
+			</a>
+		</c:if>
+      </li>
+      <c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
+		<c:choose>
+			<c:when test="${i == pageNum }">
+				<li class="page-item active"><a class="page-link" href = "<c:url value = '/reservation/accomList?pageNum=${i }&keyword=${keyword }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>">${i }</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item"><a class="page-link" href = "<c:url value = '/reservation/accomList?pageNum=${i }&keyword=${keyword }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>">${i }</a></li>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+    <li class="page-item">
+        <c:if test="${endPage < pageCnt }">
+			<a class="page-link" aria-label="다음" href = "<c:url value = '/reservation/accomList?pageNum=${endPage + 1 }&keyword=${keyword }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>">
+				<span aria-hidden="true">
+                   <span class="lnr lnr-chevron-right"></span>
+                </span>
+			</a>
+		</c:if>
+     </li>
+   </ul>
+</nav>
+<!-- ============================================= -->

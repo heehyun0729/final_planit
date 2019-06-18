@@ -759,13 +759,15 @@ button:focus {
 /*----------------------------------------------------*/
 .accomodation_item {
   margin-bottom: 30px;
+  border: 1px solid #aaa;
+  border-radius: 0 0 10px 10px;
+  padding: 5px 5px 15px 5px;
 }
 
 .accomodation_item .hotel_img {
   position: relative;
   margin-bottom: 10px;
   overflow: hidden;
-  border-radius: 10px;
 }
 
 .accomodation_item .hotel_img img {
@@ -3607,4 +3609,15 @@ h1, h2, h3, h4, h5, h6 {
   height: 35px;
   border: 1px solid #aaa;
   border-radius: 50%;
+}
+.has-feedback .form-control-feedback {
+    position: absolute;
+    top:1px;
+    right: 1px;
+    display: block;
+    width: 34px;
+    height: 35px;
+    line-height: 34px;
+    text-align: center;
+    z-index:2;
 }

@@ -171,9 +171,9 @@
 	<select id="accomList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
 		select * from
 		(
-		    select aa.accom_num accom_num, aa.sell_num sell_num, aa.accom_name accom_name, aa.accom_addr accom_addr, 
-		        aa.accom_comm accom_comm, aa.accom_country accom_country, aa.accom_city accom_city, 
-		        aa.accommImg_orgImg accommImg_orgImg, aa.accommImg_saveImg accommImg_saveImg, aa.accomchk accomchk,
+		    select acc.accom_num accom_num, acc.sell_num sell_num, acc.accom_name accom_name, acc.accom_addr accom_addr, 
+		        acc.accom_comm accom_comm, acc.accom_country accom_country, acc.accom_city accom_city, 
+		        acc.accommImg_orgImg accommImg_orgImg, acc.accommImg_saveImg accommImg_saveImg, acc.accomchk accomchk,
 		        rr.room_price room_price, rownum rnum 
 		    from (select accom_num, NVL(min(room_price), 0) room_price
 		                from room
@@ -191,8 +191,8 @@
 			            and a.accom_name like '%'||#{keyword}||'%' or a.accom_city like '%'||#{keyword}||'%'
 			            </if>
 		            order by a.accom_num desc
-		        )bb, accom aa 
-		        where bb.accom_num = rr.accom_num and bb.accom_num = aa.accom_num
+		        )bb, accom acc 
+		        where bb.accom_num = rr.accom_num and bb.accom_num = acc.accom_num
 			)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
 	</select>
 	<select id="accomCount" parameterType="hashmap" resultType="int">

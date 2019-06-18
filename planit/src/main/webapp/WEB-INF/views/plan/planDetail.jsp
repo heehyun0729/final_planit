@@ -93,9 +93,9 @@
 									${dvo.planDetail_detail }
 									<c:if test="${sessionScope.mem_id == vo.mem_id }">
 										<br>
-										<a href="javascript:openScheduleDialog('${dvo.planDetail_num }')" title="수정"><span style = "color:gray;"><i class="fas fa-edit"></i></span></a>
+										<a href="javascript:openScheduleDialog('${dvo.planDetail_num }')" title="수정"><span style = "color:#52C5FD;"><i class="fas fa-edit"></i></span></a>
 										<c:if test="${!empty dvo.planDetail_detail}">
-											<a href="javascript:deleteSchedule('${dvo.planDetail_num }')" title="삭제"><span style = "color:gray;"><i class="fas fa-trash-alt"></i></span></a>
+											<a href="javascript:deleteSchedule('${dvo.planDetail_num }')" title="삭제"><span><i class="fas fa-trash-alt"></i></span></a>
 										</c:if>
 									</c:if>
 								</td>
