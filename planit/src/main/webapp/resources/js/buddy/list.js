@@ -1,5 +1,6 @@
 //list script
 
+var localurl=$('#localurl').val();
 $(function() {
 		$.datepicker.regional['calendar'] = {
 			closeText: '닫기',
@@ -35,7 +36,7 @@ $(function() {
 //동행 글 추가
 $("#insert_buddy").click(function(){
 	if('${mem_id}'!=null && '${mem_id}'!=""){
-		window.location.href="<c:url value='/buddyInsert' />";
+		window.location.href=localurl+'buddyInsert';
 	}else{
 		alert("로그인이 필요한 서비스 입니다.");
 	}
@@ -43,7 +44,7 @@ $("#insert_buddy").click(function(){
 
 //리스트 전체보기
 $("#list_all").click(function(){
-	window.location.href="<c:url value='/buddyList' />";
+	window.location.href=localurl+"buddyList";
 });
 
 //자동추천
@@ -57,6 +58,7 @@ $("#sg_buddy").click(function(){
 				for(var i=0;i<param.length;i++){
 					str=str+"buddy_num="+param[i]+"&";
 				}
+				alert(str);
 				popupOpen(str);
 			}else{
 				
@@ -71,14 +73,14 @@ $("#sg_buddy").click(function(){
 
 //동행추천 팝업
 function popupOpen(str){
-	var popUrl = "<c:url value='/buddySg?"+str+"'/>";
+	var popUrl = localurl+"buddySg?"+str;
 	var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
 		window.open(popUrl,"동행추천",popOption);
 }
 //쪽지보내기 팝업
 function msgPopup(id){
 	if('${mem_id}'!=null && '${mem_id}'!=""){
-		var popUrl = "<c:url value='/msgSendPopupForm?id="+id+"'/>";
+		var popUrl = localurl+"msgSendPopupForm?id="+id;
 		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
 			window.open(popUrl,"쪽지보내기",popOption);
 	}else{
@@ -99,7 +101,7 @@ function apply_buddy(buddy_num){
 	var result = confirm('동행을 요청하시겠습니까?');
 	if(result) {
 		alert("신청되었습니다.");
-		window.location.href="<c:url value='/buddyApplyBuddy?buddy_num="+buddy_num+"' />";
+		window.location.href=localurl+"buddyApplyBuddy?buddy_num="+buddy_num;
 	}else{
 		
 	}
