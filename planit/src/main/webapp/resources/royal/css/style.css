@@ -340,7 +340,7 @@ button:focus {
 }
 
 .navbar .menu_nav .nav-item .nav-link {
-  font: 500 12px/80px "Poppins", sans-serif;
+  font: 500 14px/80px "Poppins", sans-serif;
   color: #222222;
   text-transform: uppercase;
   padding: 0px;
@@ -557,7 +557,6 @@ button:focus {
 
 /*============= End banner_area css =============*/
 .hotel_booking_table {
-  background: #04091e;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -570,7 +569,7 @@ button:focus {
 .hotel_booking_table h2 {
   font-size: 24px;
   line-height: 30px;
-  color: #fff;
+  color: #777;
   text-transform: uppercase;
 }
 
