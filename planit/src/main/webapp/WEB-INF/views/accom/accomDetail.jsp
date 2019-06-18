@@ -52,6 +52,7 @@
 								href="<c:url value='/roomList?accom_num=${vo.accom_num }'/>"><i
 									class="fas fa-door-open" style="color: #339af0;"></i></a></td>
 						</tr>
+						
 					</table>
 				</div>
 			</div>

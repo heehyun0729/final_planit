@@ -20,6 +20,7 @@
 				<div class="text-center">
 					<h1>숙소리스트</h1>
 					<table class="table">
+					
 						<tr>
 							<th>숙소번호</th>
 							<th>판매자번호</th>

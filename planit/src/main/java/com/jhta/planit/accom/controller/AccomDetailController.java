@@ -24,7 +24,6 @@ public class AccomDetailController {
 	@RequestMapping("/accomDetail")
 	public ModelAndView list( int accom_num) {
 		
-		//전체 글의갯수
 		AccomVo vo=service.detail1(accom_num);
 		ModelAndView mv=new ModelAndView("-accom-accomDetail");
 		mv.addObject("vo",vo);

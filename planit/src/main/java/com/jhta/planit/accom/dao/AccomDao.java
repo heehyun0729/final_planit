@@ -45,6 +45,7 @@ public class AccomDao {
 	public AccomVo detail1(int accom_num) {
 		return sqlSession.selectOne(NAMESPACE + ".detail1", accom_num);
 	}
+	
 	public int update(AccomVo vo) {
 		return sqlSession.update(NAMESPACE +".update",vo);
 	}

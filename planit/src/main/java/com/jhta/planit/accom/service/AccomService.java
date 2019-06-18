@@ -39,6 +39,7 @@ public class AccomService {
 	public AccomVo next(int accom_num) {
 		return dao.next(accom_num);
 	}
+	
 	public AccomVo prev(int accom_num) {
 		return dao.prev(accom_num);
 	}
