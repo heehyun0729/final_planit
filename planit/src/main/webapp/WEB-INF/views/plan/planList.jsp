@@ -45,7 +45,7 @@ function ppp(mem_id){
 						<input type = "hidden" value = "${pageNum }" name = "pageNum">
 						<div class = "row">
 							<div class = "col-sm-2">
-								<select name = "field" class = "nice-select">
+								<select name = "field" class = "nice-select" style = "height: 39px;">
 									<option value = "country"
 										<c:if test = "${field == 'country' }">selected = "selected"</c:if>
 									>국가</option>

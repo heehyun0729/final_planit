@@ -41,15 +41,15 @@ public class EditUserInfoController {
 			return "redirect:/login";
 		} else {
 			if (editInfo.equals("sellerapply")) {
-				return "/user/sellerapply";
+				return "!user!sellerapply";
 			} else if (editInfo.equals("editprofile")) {
-				return "/user/editUserChk";
+				return "!user!editUserChk";
 			} else if (editInfo.equals("pwdChange")) {
 				model.addAttribute("forgot", false);
 				model.addAttribute("mem_id", mem_id);
-				return "/user/pwdChange";
+				return "!user!pwdChange";
 			} else if (editInfo.equals("withdrawal")) {
-				return "/user/withdrawal";
+				return "!user!withdrawal";
 			} else {
 				return "redirect: /member/mypage/" + mem_id;
 			}
@@ -66,10 +66,10 @@ public class EditUserInfoController {
 		if (membersService.userCheck(map)) {
 			HashMap<String, Object> profilemap = mypageService.editprofileinfo(mem_id);
 			mv.addObject("map", profilemap);
-			mv.setViewName("/user/editprofile");
+			mv.setViewName("!user!editprofile");
 		} else {
 			mv.addObject("errMsg", "정보가 올바르지 않습니다.");
-			mv.setViewName("/user/editUserChk");
+			mv.setViewName("!user!editUserChk");
 		}
 		return mv;
 	}
@@ -133,7 +133,7 @@ public class EditUserInfoController {
 			} else {
 				HashMap<String, Object> profilemap = mypageService.editprofileinfo(mem_id);
 				model.addAttribute("map", profilemap);
-				return "/user/editprofile";
+				return "!user!editprofile";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,7 +144,7 @@ public class EditUserInfoController {
 
 	@RequestMapping(value = "/user/idsearch", method = RequestMethod.GET)
 	public String idsearchForm() {
-		return "/user/idsearch";
+		return "!user!idsearch";
 	}
 
 	@RequestMapping(value = "/user/idsearch", method = RequestMethod.POST)
@@ -156,7 +156,7 @@ public class EditUserInfoController {
 			return "redirect:/member/result";
 		} else {
 			model.addAttribute("errMsg", "입력하신 정보가 올바르지 않습니다.");
-			return "/user/idsearch";
+			return "!user!idsearch";
 		}
 	}
 
@@ -176,7 +176,7 @@ public class EditUserInfoController {
 			return "redirect:/member/result";
 		} else {
 			model.addAttribute("errMsg", "입력하신 정보가 올바르지 않습니다.");
-			return "/user/pwdsearch";
+			return "!user!pwdsearch";
 		}
 	}
 
@@ -189,7 +189,7 @@ public class EditUserInfoController {
 		if (membersService.pwdemail(map)) {
 			model.addAttribute("forgot", true);
 			model.addAttribute("mem_id", membersService.getId(mem_email));
-			return "/user/pwdChange";
+			return "!user!pwdChange";
 		} else {
 			attributes.addFlashAttribute("authMsg", "인증 정보가 올바르지 않습니다.");
 		}
@@ -212,12 +212,12 @@ public class EditUserInfoController {
 			model.addAttribute("errMsg", "비밀번호가 잘못되었습니다.");
 			model.addAttribute("mem_id", mem_id);
 			model.addAttribute("forgot", forgot);
-			return "/user/pwdChange";
+			return "!user!pwdChange";
 		} else {
 			model.addAttribute("errMsg", "오류로 인해 수정되지 않았습니다.");
 			model.addAttribute("mem_id", mem_id);
 			model.addAttribute("forgot", forgot);
-			return "/user/pwdChange";
+			return "!user!pwdChange";
 		}
 	}
 
@@ -235,10 +235,10 @@ public class EditUserInfoController {
 			return "redirect:/member/result";
 		} else if (n < -9) {
 			model.addAttribute("errMsg", "비밀번호가 틀렸습니다.");
-			return "/user/withdrawal";
+			return "!user!withdrawal";
 		} else {
 			model.addAttribute("errMsg", "오류로 인해 탈퇴가 되지 않았습니다. 다시 시도해 주십시오");
-			return "/user/withdrawal";
+			return "!user!withdrawal";
 		}
 
 	}

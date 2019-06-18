@@ -54,6 +54,16 @@
 		<put-attribute name="current" value="0" cascade="true"/>
 	</definition>
 	
+	<definition name="user"
+		template="/WEB-INF/views/user/userlayout.jsp">
+		<put-attribute name="content"
+			value="/WEB-INF/views/user/login.jsp" />
+	</definition>
+	<definition name="!*!*" extends="user">
+		<put-attribute name="content"
+			value="/WEB-INF/views/user/{2}.jsp" />
+	</definition>
+	
 	<definition name="admin"
 		template="/WEB-INF/views/admin/adminLayout.jsp">
 		<put-attribute name="adminNav"

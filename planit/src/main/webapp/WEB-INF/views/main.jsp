@@ -184,6 +184,7 @@
                          <a href="#"><img src="<c:url value='/resources/royal/image/room1.jpg'/>" alt=""></a>
                     </div>
                     <h4><a href="#" class="sec_h4">숙소이름</a></h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 도시, 국가</p>
                     <h5>00000원 ~</h5>
                     <div class = "star">
                     	<i class = "fa fa-star"></i>

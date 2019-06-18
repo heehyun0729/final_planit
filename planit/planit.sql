@@ -8,10 +8,6 @@ grant resource, connect to planit;
 grant create view to planit;
 conn planit/admin1234;
 
-
-
-
-
 -- 테이블 생성(sqlplus)
 DROP TABLE MEMBERS CASCADE CONSTRAINTS;
 CREATE TABLE members(
@@ -90,15 +86,14 @@ CREATE TABLE SELLER(
 );
 CREATE SEQUENCE SELLER_SEQ;
 
-
---숙소테이블
+--숙소테이블 수정(6/18)
 drop table accom CASCADE CONSTRAINTS;
 create table accom(
     accom_num number(7,0) primary key,
     sell_num number(5) references seller(sell_num),
     accom_name varchar2(100),
     accom_addr varchar2(200),
-    accom_comm varchar2(300),
+    accom_comm CLOB,
     accom_country varchar2(50),
     accom_city varchar2(50),
     accommImg_orgImg varchar(500),
@@ -115,7 +110,7 @@ create table room(
     accom_num number(7,0) references accom(accom_num),
     room_type varchar2(100),
     room_price number(10,0),
-    room_comm varchar2(1000),
+    room_comm CLOB,
     roomChk number(1),
     room_capa number(2)
 );

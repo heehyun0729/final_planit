@@ -7,18 +7,18 @@
 	.mg_p { margin:20px 0px; }
 	.page-liner{padding-bottom: 9px;margin: 20px 0 20px;border-bottom: 1px solid #eee;}
 	
-	.ui-datepicker{ font-size: 20px; width: 400px; }
-	.ui-datepicker select.ui-datepicker-month{ width:80px; font-size: 20px; }
+	.ui-datepicker{ font-size: 20px; width: 350px; }
+	.ui-datepicker select.ui-datepicker-month{ width:60px; font-size: 20px; }
 	.ui-datepicker select.ui-datepicker-year{ width:80px; font-size: 20px; }
 </style>
 
 <!--================Breadcrumb Area =================-->
-<section class="breadcrumb_area blog_banner_two">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" style="background : url(resources/images/buddy01.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle f_48">동행 찾기</h2>
-            <p>나와 함께 여행할 동행을 찾아보세요!2</p>
+            <p style="color:#D8D8D8">나와 함께 여행할 동행을 찾아보세요!!</p>
         </div>
     </div>
 </section>
@@ -46,13 +46,13 @@
 			
 			<c:forEach var="country" items="${countryList}">
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<h4 class="typo-list">${country }</h4>
 					</div>
 					
 					<c:forEach var="city" items="${cityList}">
 						<c:if test="${city.key==country }">
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<div class="btn-group-toggle" data-toggle="buttons">
 									<c:forEach var="cityVal" items="${city.value}">
 										<label class="btn btn default">

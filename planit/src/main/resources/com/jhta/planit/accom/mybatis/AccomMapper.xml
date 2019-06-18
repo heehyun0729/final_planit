@@ -69,6 +69,10 @@
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.accom.vo.AccomVo">
 		select * from accom where accom_num = #{accom_num} and accomChk = 0
 	</select>
+	
+	<select id="detail1" parameterType="int" resultType="com.jhta.planit.accom.vo.AccomVo">
+		select * from accom where accom_num = #{accom_num}
+	</select>
 	<update id="update" parameterType="com.jhta.planit.accom.vo.AccomVo">
 		update accom set
 		accom_name=#{accom_name},accom_comm=#{accom_comm}

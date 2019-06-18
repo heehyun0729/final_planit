@@ -340,7 +340,7 @@ button:focus {
 }
 
 .navbar .menu_nav .nav-item .nav-link {
-  font: 500 12px/80px "Poppins", sans-serif;
+  font: 500 14px/80px "Poppins", sans-serif;
   color: #222222;
   text-transform: uppercase;
   padding: 0px;
@@ -557,7 +557,6 @@ button:focus {
 
 /*============= End banner_area css =============*/
 .hotel_booking_table {
-  background: #04091e;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -570,7 +569,7 @@ button:focus {
 .hotel_booking_table h2 {
   font-size: 24px;
   line-height: 30px;
-  color: #fff;
+  color: #777;
   text-transform: uppercase;
 }
 
@@ -760,13 +759,15 @@ button:focus {
 /*----------------------------------------------------*/
 .accomodation_item {
   margin-bottom: 30px;
+  border: 1px solid #aaa;
+  border-radius: 0 0 10px 10px;
+  padding: 5px 5px 15px 5px;
 }
 
 .accomodation_item .hotel_img {
   position: relative;
   margin-bottom: 10px;
   overflow: hidden;
-  border-radius: 10px;
 }
 
 .accomodation_item .hotel_img img {
@@ -3608,4 +3609,15 @@ h1, h2, h3, h4, h5, h6 {
   height: 35px;
   border: 1px solid #aaa;
   border-radius: 50%;
+}
+.has-feedback .form-control-feedback {
+    position: absolute;
+    top:1px;
+    right: 1px;
+    display: block;
+    width: 34px;
+    height: 35px;
+    line-height: 34px;
+    text-align: center;
+    z-index:2;
 }

@@ -7,71 +7,113 @@
 	.mg_p { margin:20px 0px; }
 	.page-liner{padding-bottom: 9px;margin: 20px 0 20px;border-bottom: 1px solid #eee;}
 	
-	.ui-datepicker{ font-size: 15px; width: 20%; }
-	.ui-datepicker select.ui-datepicker-month{ width:20%; font-size: 15px; }
-	.ui-datepicker select.ui-datepicker-year{ width:20%; font-size: 15px; }
+	.ui-datepicker{ font-size: 20px; width: 350px; }
+	.ui-datepicker select.ui-datepicker-month{ width:60px; font-size: 20px; }
+	.ui-datepicker select.ui-datepicker-year{ width:80px; font-size: 20px; }
 </style>
 
 <!--================Breadcrumb Area =================-->
-<section class="breadcrumb_area blog_banner_two">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" style = "background: url(resources/images/buddy02.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle f_48">동행 등록</h2>
-            <p>나와 함께 여행할 동행을 찾기 위해 글을 등록해 보세요!!</p>
+            <p style="color:#D8D8D8">나와 함께 여행할 동행을 찾기 위해 글을 등록해 보세요!!</p>
         </div>
     </div>
 </section>
 
-<div id="insert_buddy">
-	<form method="post" action="<c:url value='/buddyInsert' />" onsubmit="return check()">
-		<div id="id">
-			<input name="mem_id" type="text" value="${mem_id}" readonly="readonly">
-		</div>
-		
-		<div id="choice_date">
-			여행 시작 날짜 : <input name="buddy_indate" type="text" id="buddy_indate" readonly="readonly">
-			여행 종료 날짜 : <input name="buddy_outdate" type="text" id="buddy_outdate" readonly="readonly">
-		</div>
-		
-		<div id="choice">
-			<input type="button" id="add_cc" value="여행지 추가하기">
-			<input type="button" id="del_cc" value="여행지 삭제하기"><br>
-			<p> 1 번째 국가</p><input type="text" id="buddy_country" name="buddy_country">
-			<p> 1 번째 도시</p><input type="text" id="buddy_city" name="buddy_city">
-			
-			<div id="add_opt">
-			
+<!--================body Area =================-->
+<br>
+<div class="container">
+	<div id="insert_buddy">
+		<form method="post" action="<c:url value='/buddyInsert' />" onsubmit="return check()">
+			<div class="mt-10">
+				<input type="hidden" name="mem_id" value="${mem_id}">
 			</div>
-		</div>
-		
-		<div>
-			성별 :
-			<input type="radio" name="buddy_gender" value="X" checked="checked"> 상관없음
-			<input type="radio" name="buddy_gender" value="M"> 남 
-			<input type="radio" name="buddy_gender" value="W"> 여
 			
-		</div>
-		
-		<div>
-			나이대 : <select name="buddy_birthYear">
-				<option value="0">상관없음</option>
-				<option value="20">20대</option>
-				<option value="30">30대</option>
-				<option value="40">40대</option>
-				<option value="50">50대</option>
-				<option value="60">60대 이상</option>
-			</select>
-		</div>
-		
-		<div id="buddy_msg">
-			<p>내 여행 소개</p>
-			<textarea id="buddy_msg" name="buddy_msg" rows="10" cols="40"></textarea>	
-		</div>
-		<input id="buddy_insert" type="submit" value="등록하기"><input type="button" id="cancle" value="취소하기">
-	</form>
-</div>
+			<div class="row">
+				<div class="col-md-6">
+					<h3 class="typo-list">여행 시작</h3>
+		            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="buddy_indate">
+	            </div>
+	 			<div class="col-md-6">
+	 				<h3 class="typo-list">여행 끝</h3>
+		            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="buddy_outdate">
+	 			</div>
+	        </div>
+	        
+			<div class="page-liner"></div>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+					<div class="col-md-6"><p>1 번째</p></div>
+					<div class="col-md-6"><p class="text-right">국가</p></div>
+					</div>
+				</div>
+				<div class="col-md-3"><input type="text" id="buddy_country" name="buddy_country"></div>
+				<div class="col-md-3"><p class="text-right">도시</p></div>
+				<div class="col-md-3"><input type="text" id="buddy_city" name="buddy_city"></div>
+			</div>
+			<div id="add_opt" class="row">
+			</div>
+			<div class="text-right">
+				<input type="button" class="genric-btn primary circle small" id="add_cc" value="여행지 추가하기">
+				<input type="button" class="genric-btn primary circle small" id="del_cc" value="여행지 삭제하기">
+			</div>
+			
+			<div class="page-liner"></div>
+			
+			<div>
+				<label>성별</label>
+			</div>
+			<div class="form-group">
+				<select name="buddy_gender" class="nice-select wide">
+					<option value="X">상관없음</option>
+					<option value="M">남자</option>
+					<option value="W">여자</option>
+				</select>
+			</div>
+			
+			<br>
+			<div class="page-liner"></div>
+			
+			<div>
+				<label>연령대</label>
+			</div>
+			<div class="form-group">
+				<select name="buddy_birthYear" class="nice-select wide">
+					<option value="0">상관없음</option>
+					<option value="20">20대</option>
+					<option value="30">30대</option>
+					<option value="40">40대</option>
+					<option value="50">50대</option>
+					<option value="60">60대 이상</option>
+				</select>
+			</div>
+			
+			<br>
+			<div class="page-liner"></div>
+			
+			<div>
+				<label>내 여행 소개</label>
+			</div>
+			<div class="facilities_item">
+				<div class="mt-10">
+					<textarea id="buddy_msg" name="buddy_msg" class="single-textarea" placeholder="Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'" required></textarea>
+				</div>
+			</div>
+			<div class="text-center">
+				<input id="buddy_insert" class="genric-btn primary circle" type="submit" value="등록하기">
+				<input type="button" class="btn btn default" id="cancle" value="취소하기">
+			</div>
+			
+			
 
+		</form>
+	</div>
+</div>
 <input type="hidden" id="localurl" value="<c:url value='/'/>">
 
 <!--================ script =================-->
@@ -140,8 +182,11 @@
 	//여행지 추가
 	$("#add_cc").click(function(){
 		cnt++;
-		$("#add_opt").append("<p>"+cnt+"번째 국가</p><input type='text' id='buddy_country' name='buddy_country'>");
-		$("#add_opt").append("<p>"+cnt+"번째 도시</p><input type='text' id='buddy_city' name='buddy_city'>");
+		$("#add_opt").append("<div class='col-md-3'><div class='row'><div class='col-md-6'><p>"+cnt+"번째</p></div>"+
+				"<div class='col-md-6'><p class='text-right'>국가</p></div></div></div>"+
+				"<div class='col-md-3'><input type='text' id='buddy_country' name='buddy_country'></div>");
+		$("#add_opt").append("<div class='col-md-3'><p class='text-right'>도시</p></div>"+
+				"<div class='col-md-3'><input type='text' id='buddy_city' name='buddy_city'></div>");
 	});
 	
 	//여행지 삭제

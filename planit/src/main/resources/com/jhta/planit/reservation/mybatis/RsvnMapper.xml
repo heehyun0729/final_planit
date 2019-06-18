@@ -171,16 +171,16 @@
 	<select id="accomList" parameterType="hashmap" resultType="com.jhta.planit.reservation.vo.RsvnAccomVo">
 		select * from
 		(
-		    select bb.accom_num accom_num, bb.sell_num sell_num, bb.accom_name accom_name, bb.accom_addr accom_addr, 
-		        bb.accom_comm accom_comm, bb.accom_country accom_country, bb.accom_city accom_city, 
-		        bb.accommImg_orgImg accommImg_orgImg, bb.accommImg_saveImg accommImg_saveImg, bb.accomchk accomchk,
+		    select acc.accom_num accom_num, acc.sell_num sell_num, acc.accom_name accom_name, acc.accom_addr accom_addr, 
+		        acc.accom_comm accom_comm, acc.accom_country accom_country, acc.accom_city accom_city, 
+		        acc.accommImg_orgImg accommImg_orgImg, acc.accommImg_saveImg accommImg_saveImg, acc.accomchk accomchk,
 		        rr.room_price room_price, rownum rnum 
 		    from (select accom_num, NVL(min(room_price), 0) room_price
 		                from room
 		                where roomchk = 0
 		                group by accom_num) rr,
 		         (
-			         select distinct a.*
+			         select distinct a.accom_num accom_num
 			        from accom a, 
 			        (
 		            <include refid="rsvnRoomSearch"/>
@@ -191,14 +191,14 @@
 			            and a.accom_name like '%'||#{keyword}||'%' or a.accom_city like '%'||#{keyword}||'%'
 			            </if>
 		            order by a.accom_num desc
-		        )bb
-		        where bb.accom_num = rr.accom_num
+		        )bb, accom acc 
+		        where bb.accom_num = rr.accom_num and bb.accom_num = acc.accom_num
 			)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
 	</select>
 	<select id="accomCount" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from
 		(
-		   select distinct a.*
+		   select distinct a.accom_num
 	        from accom a, 
 	        (
             <include refid="rsvnRoomSearch"/>
@@ -215,7 +215,7 @@
 		and ro.accom_num = #{accom_num}
 	</select>
 	<select id="roomCheck" parameterType="hashmap" resultType="com.jhta.planit.room.vo.RoomVo">
-		select distinct r.*
+		select distinct r.room_num
 		from room r, ( select NVL(z.room_num, -1) room_num from
 		                (
 		                select rs.room_num room_num
