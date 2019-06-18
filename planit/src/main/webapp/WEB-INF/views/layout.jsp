@@ -10,7 +10,6 @@
 <meta name="viewport" content="initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Plan it!</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/planner.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/planDetail.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/jquery.qtip.css'/>">

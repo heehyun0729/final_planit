@@ -322,9 +322,9 @@ function initMap() {
 		        // 마커 위치에 인포윈도우 만들고 도시명, 국가명 띄우기
 		        var params = "\"" + city + "\",\"" + country + "\",\"" + lat + "\",\"" + lng + "\"";
 		        var content = "<div>" +
-		        		"<img style = 'float:left;margin-right:5px;' src = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&maxheight=75&photoreference="+ photoreference + "&key=" + key + "'>" + 
-		        		"<div style='display:inline-block'><h3>" + city + "</h3><p>" + country + "</p></div>" +
-		        		"<a href = 'javascript:addCity(" + params + ")'><span style='color:skyblue;margin:5px;'><i class='fas fa-plus-square fa-3x'></i></span></a>"
+		        		"<img style = 'float:left;margin-right:10px;' src = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=75&maxheight=75&photoreference="+ photoreference + "&key=" + key + "'>" + 
+		        		"<div style='display:inline-block;float:left;'><h3 style = 'margin-bottom:0px;'>" + city + "</h3><span>" + country + "</span></div>" +
+		        		"<div style='display:inline-block;float:left;margin:10px 0 0 10px;'><a href = 'javascript:addCity(" + params + ")'><span style='color:#52C5FD;'><i class='fas fa-plus-square fa-3x'></i></span></a></div>"
 		        		"</div>";
 		        infowindow = new google.maps.InfoWindow({
 		       	 content: content
@@ -436,9 +436,9 @@ function setRouteDiv() {
 	var str = "";
 	for(var i = 0 ; i < routelist.length ; i++){
 		str += "<div class = 'routelist' style = 'padding-left: 5px;cursor:pointer;'>" +
-				"<div style='width:33px;height:7pt;border-right:3px solid skyblue'></div>" +
-					"<div style = 'width:60px;height:60px;display:inline-block;float:left;margin-right:15px;border:3px solid skyblue;border-radius:33px;'>" +
-						"<select id = 'stay" + i + "' style = 'margin-top:15px;margin-left:2px;' onchange = 'javascript:changeStay(" + i + ")'>";
+				"<div style='width:37px;height:7pt;border-right:3px solid #ff5252'></div>" +
+					"<div style = 'width:70px;height:70px;display:inline-block;float:left;margin-right:15px;border:3px solid #ff5252;border-radius:50%;'>" +
+						"<select id = 'stay" + i + "' class = 'nice-select' style = 'width:55px;height:30px;margin-top:17px;margin-left:5px;padding:0 8px 0 8px;' onchange = 'javascript:changeStay(" + i + ")'>";
 							for(var j = 0 ; j < 10 ; j++){
 								str += "<option value = '" + j + "' ";
 								if(j == routelist[i].stay){
@@ -448,7 +448,7 @@ function setRouteDiv() {
 							}
 				str += "</select>" +
 					"</div>" +
-					"<div style = 'width:200px;float:left;'>" +
+					"<div style = 'float:left;margin-top:10px;'>" +
 						"<div>" +
 							"<span style = 'font-size:20px;font-weight:bold;'>" + routelist[i].city + "</span>" +
 							"<span> " + routelist[i].country + " </span>" +
@@ -456,7 +456,7 @@ function setRouteDiv() {
 						"</div>" +
 						"<div><span style = 'font-size:12px;color:gray;margin-top: 5px;'>" + routelist[i].date_in + "~" + routelist[i].date_out + "</span></div>" +
 					"</div>" +
-					"<div style='width:33px;height:7pt;border-right:3px solid skyblue;clear:both;'></div>" +
+					"<div style='width:37px;height:7pt;border-right:3px solid #ff5252;clear:both;'></div>" +
 				"</div>";
 		$('#route').html(str);
 	}

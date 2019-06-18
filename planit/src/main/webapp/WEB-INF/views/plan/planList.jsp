@@ -19,10 +19,6 @@ function ppp(mem_id){
     <div class="container">
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle">계획짜기</h2>
-            <ol class="breadcrumb">
-                <li><a href="<c:url value = '/'/>">홈</a></li>
-                <li class="active">계획짜기</li>
-            </ol>
         </div>
     </div>
 </section>

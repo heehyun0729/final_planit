@@ -21,10 +21,6 @@
     <div class="container">
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle">계획짜기</h2>
-            <ol class="breadcrumb">
-                <li><a href="<c:url value = '/'/>">홈</a></li>
-                <li class="active">계획짜기</li>
-            </ol>
         </div>
     </div>
 </section>
@@ -61,7 +57,7 @@
 				<a href = "<c:url value='/plan/list?pageNum=${param.pageNum }&field=${param.field }&keyword=${param.keyword }'/>" class="genric-btn success-border circle">목록</a>
 			</div>
         </div>
-        <div class="row" style = "height: 500px;margin-bottom: 50px;">
+        <div class="row" style = "height: 500px;margin-bottom: 60px;">
         	<!-- 지도 -->
             <div class="col-md-7" style = "padding: 0px;">
                 <div id="detailMap" style = "height: 100%;"></div>
@@ -75,7 +71,6 @@
                 <!-- 달력 -->
 				<div id="planCalendar"></div>
             </div>
-            <hr>
         </div>
         <div class = "row text-center">
         	<!-- 일정표 -->
