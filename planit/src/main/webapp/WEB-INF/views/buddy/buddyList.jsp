@@ -7,9 +7,10 @@
 	.mg_p { margin:20px 0px; }
 	.page-liner{padding-bottom: 9px;margin: 20px 0 20px;border-bottom: 1px solid #eee;}
 	
-	.ui-datepicker{ font-size: 20px; width: 350px; }
-	.ui-datepicker select.ui-datepicker-month{ width:60px; font-size: 20px; }
+	.ui-datepicker{ font-size: 20px; width: 320px; }
+	.ui-datepicker select.ui-datepicker-month{ width:70px; font-size: 20px; }
 	.ui-datepicker select.ui-datepicker-year{ width:80px; font-size: 20px; }
+	
 </style>
 
 <!--================Breadcrumb Area =================-->
@@ -26,102 +27,231 @@
 <!--================body Area =================-->
 <br>
 <div class="container">
-	<div class="row">
-		<div class="col-lg-8">
-			<div class="facilities_item">
-				<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
-					<div class="row">
-						<div class="col-md-6">
-							<h3 class="typo-list">여행 시작</h3>
-				            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="kw_indate">
-			            </div>
-			 			<div class="col-md-6">
-			 				<h3 class="typo-list">여행 끝</h3>
-				            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
-			 			</div>
-			        </div>
+	<c:if test="${empty sglist}">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="facilities_item">
+					<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
+						<div class="row">
+							<div class="col-md-6">
+								<h3 class="typo-list">여행 시작</h3>
+					            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="kw_indate">
+				            </div>
+				 			<div class="col-md-6">
+				 				<h3 class="typo-list">여행 끝</h3>
+					            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
+				 			</div>
+				        </div>
+						
+						<br>
+						
+						<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
+						<div class="page-liner"></div>
+						
+						<c:if test="${empty countryList}">
+							<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
+						</c:if>
+						<c:forEach var="country" items="${countryList}">
+							<div class="row">
+								<div class="col-md-3">
+									<h4 class="typo-list">${country }</h4>
+								</div>
+								
+								<c:forEach var="city" items="${cityList}">
+									<c:if test="${city.key==country }">
+										<div class="col-md-9">
+											<div class="btn-group-toggle" data-toggle="buttons">
+												<c:forEach var="cityVal" items="${city.value}">
+													<label class="btn btn default">
+														<input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city"> ${cityVal }
+													</label>
+												</c:forEach>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+							<div class="page-liner"></div>
+						</c:forEach>
+						
+						<div class="page-liner"></div>
+						
+						<div>
+							<label>성별</label>
+						</div>
+						<div class="form-group">
+							<select name="kw_gender" class="nice-select wide">
+								<option value="X">상관없음</option>
+								<option value="M">남자</option>
+								<option value="W">여자</option>
+							</select>
+						</div>
+						
+						<br>
+						<div class="page-liner"></div>
+						
+						<div>
+							<label>연령대</label>
+						</div>
+						<div class="form-group">
+							<select name="kw_birthYear" class="nice-select wide">
+								<option value="0">상관없음</option>
+								<option value="20">20대</option>
+								<option value="30">30대</option>
+								<option value="40">40대</option>
+								<option value="50">50대</option>
+								<option value="60">60대 이상</option>
+							</select>
+						</div>
+						
+						<div class="page-liner"></div>
+						
+						<div class="text-center">
+							<input type="submit" class="genric-btn primary circle arrow" value="검색">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${!empty sglist}">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="facilities_item">
+					<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
+						<div class="row">
+							<div class="col-md-6">
+								<h3 class="typo-list">여행 시작</h3>
+					            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="kw_indate">
+				            </div>
+				 			<div class="col-md-6">
+				 				<h3 class="typo-list">여행 끝</h3>
+					            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
+				 			</div>
+				        </div>
+						
+						<br>
+						
+						<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
+						<div class="page-liner"></div>
+						
+						<c:if test="${empty countryList}">
+							<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
+						</c:if>
+						<c:forEach var="country" items="${countryList}">
+							<div class="row">
+								<div class="col-md-3">
+									<h4 class="typo-list">${country }</h4>
+								</div>
+								
+								<c:forEach var="city" items="${cityList}">
+									<c:if test="${city.key==country }">
+										<div class="col-md-9">
+											<div class="btn-group-toggle" data-toggle="buttons">
+												<c:forEach var="cityVal" items="${city.value}">
+													<label class="btn btn default">
+														<input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city"> ${cityVal }
+													</label>
+												</c:forEach>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+							<div class="page-liner"></div>
+						</c:forEach>
+						
+						<div class="page-liner"></div>
+						
+						<div>
+							<label>성별</label>
+						</div>
+						<div class="form-group">
+							<select name="kw_gender" class="nice-select wide">
+								<option value="X">상관없음</option>
+								<option value="M">남자</option>
+								<option value="W">여자</option>
+							</select>
+						</div>
+						
+						<br>
+						<div class="page-liner"></div>
+						
+						<div>
+							<label>연령대</label>
+						</div>
+						<div class="form-group">
+							<select name="kw_birthYear" class="nice-select wide">
+								<option value="0">상관없음</option>
+								<option value="20">20대</option>
+								<option value="30">30대</option>
+								<option value="40">40대</option>
+								<option value="50">50대</option>
+								<option value="60">60대 이상</option>
+							</select>
+						</div>
+						
+						<div class="page-liner"></div>
+						
+						<div class="text-center">
+							<input type="submit" class="genric-btn primary circle arrow" value="검색">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="text-center">
+					<div class="blog_right_sidebar">
+						<p class="text-left">동행추천 :</p>
+						<p>※ 나와 비슷한 일정에 같은 도시를 여행하는 사람</p>
+					</div>
 					
-					<br>
-					
-					<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
 					<div class="page-liner"></div>
 					
-					<c:if test="${empty countryList}">
-						<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
-					</c:if>
-					<c:forEach var="country" items="${countryList}">
-						<div class="row">
-							<div class="col-md-3">
-								<h4 class="typo-list">${country }</h4>
+					<c:forEach var="sglist" items="${sglist}">
+						<div class="blog_right_sidebar">
+							<div class="row">
+								<div class="col-md-4">
+									아이디 : 
+								</div>
+								<div class="col-md-8">
+									${sglist.mem_id }
+								</div>
 							</div>
-							
-							<c:forEach var="city" items="${cityList}">
-								<c:if test="${city.key==country }">
-									<div class="col-md-9">
-										<div class="btn-group-toggle" data-toggle="buttons">
-											<c:forEach var="cityVal" items="${city.value}">
-												<label class="btn btn default">
-													<input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city"> ${cityVal }
-												</label>
-											</c:forEach>
-										</div>
-									</div>
-								</c:if>
-							</c:forEach>
+							<div class="row">
+								<div class="col-md-4">
+									출발 날짜 :
+								</div>
+								<div class="col-md-8">
+									${sglist.buddy_indate }
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									도착 날짜 :  
+								</div>
+								<div class="col-md-8">
+									${sglist.buddy_outdate }
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									여행 도시 :  
+								</div>
+								<div class="col-md-8">
+									${sglist.buddy_city }
+								</div>
+							</div>
+							<br>
+							<a href="<c:url value='/msgSendPopupForm?id=${list.mem_id }'/>" class="btn btn-success small">쪽지하기</a> 
+							<input type="button" value="동행요청하기" onclick="apply_buddy('${list.buddy_num}')" class="btn btn-success small">
 						</div>
 						<div class="page-liner"></div>
 					</c:forEach>
-					
-					<div class="page-liner"></div>
-					
-					<div>
-						<label>성별</label>
-					</div>
-					<div class="form-group">
-						<select name="kw_gender" class="nice-select wide">
-							<option value="X">상관없음</option>
-							<option value="M">남자</option>
-							<option value="W">여자</option>
-						</select>
-					</div>
-					
-					<br>
-					<div class="page-liner"></div>
-					
-					<div>
-						<label>연령대</label>
-					</div>
-					<div class="form-group">
-						<select name="kw_birthYear" class="nice-select wide">
-							<option value="0">상관없음</option>
-							<option value="20">20대</option>
-							<option value="30">30대</option>
-							<option value="40">40대</option>
-							<option value="50">50대</option>
-							<option value="60">60대 이상</option>
-						</select>
-					</div>
-					
-					<div class="page-liner"></div>
-					
-					<div class="text-center">
-						<input type="submit" class="genric-btn primary circle arrow" value="검색">
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
-		<div class="col-lg-4">
-		동행추천 작업중
-		</div>
-	</div>
-	
-	<div class="btn_group">
-		<input id="list_all" class="genric-btn primary circle" type="button" value="전체 글 목록">
-		<input id="sg_buddy" class="genric-btn primary circle" type="button" value="동행추천받기">
-	</div>
-	
-	<br>
-	
+	</c:if>
 	<div class="facilities_item">
 		<c:if test="${empty buddyList}">
 			<br><p class="text-center">※ 조회 된 동행이 없습니다.</p>
@@ -199,6 +329,10 @@
 			</div>
 		</c:if>
 	</div>
+	<div class="text-center">
+		<input id="list_all" class="genric-btn primary circle" type="button" value="전체 글 목록">
+		<a href="#" onclick="insert_buddy()" class="genric-btn success circle arrow">동행 등록하기<span class="lnr lnr-arrow-right"></span></a>
+	</div>
 	<c:if test="${!empty buddyList}">
 		<nav class="blog-pagination justify-content-center d-flex">
 			<ul class="pagination">
@@ -243,8 +377,15 @@
 			                    </span>
 			                </a>
 		                </c:when>
+		                <c:when test="${pageNum == pageCnt}">
+			                <a href="<c:url value='/buddyList?pageNum=${pageNum}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
+			                    <span aria-hidden="true">
+			                        <span class="lnr lnr-chevron-right"></span>
+			                    </span>
+			                </a>
+		                </c:when>
 		                <c:otherwise>
-			                <a href="<c:url value='/buddyList?pageNum=${startPage}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
+		                	<a href="<c:url value='/buddyList?pageNum=${startPage + 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
 			                    <span aria-hidden="true">
 			                        <span class="lnr lnr-chevron-right"></span>
 			                    </span>
@@ -255,10 +396,6 @@
 			</ul>
 		</nav>
 	</c:if>
-	<div id="button_div">
-		<a href="#" onclick="insert_buddy()" class="genric-btn success circle arrow">등록하기<span class="lnr lnr-arrow-right"></span></a>
-	</div>
-	<br>
 </div>
 
 <input type="hidden" id="localurl" value="<c:url value='/'/>">
@@ -312,36 +449,7 @@
 	$("#list_all").click(function(){
 		window.location.href=localurl+"buddyList";
 	});
-	
-	//자동추천
-	$("#sg_buddy").click(function(){
-		if('${mem_id}'!=null && '${mem_id}'!=""){
-			if('${sgId}' != ''){
-				var result = confirm('같은 일정에 같은 도시를 여행하는 사람이 있습니다. 추천받으시겠습니까?');
-				if(result) { 
-					var param=eval('${sgId}');
-					var str="";
-					for(var i=0;i<param.length;i++){
-						str=str+"buddy_num="+param[i]+"&";
-					}
-					popupOpen(str);
-				}else{
-					
-				}
-			}else{
-				alert('같은 일정에 같은 도시를 여행하는 사람이 없습니다.ㅠㅠ');
-			}
-		}else{
-			alert("로그인이 필요한 서비스 입니다.");
-		}
-	});
-	
-	//동행추천 팝업
-	function popupOpen(str){
-		var popUrl = localurl+"buddySg?"+str;
-		var popOption = "width=1600, height=700, resizable=no, scrollbars=no, status=no;";
-			window.open(popUrl,"동행추천",popOption);
-	}
+
 	//쪽지보내기 팝업
 	function msgPopup(id){
 		if('${mem_id}'!=null && '${mem_id}'!=""){
