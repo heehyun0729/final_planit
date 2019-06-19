@@ -36,7 +36,10 @@
 		select * from(
 		    select aa.*,rownum rnum from(
 		    	select * from accom 
-		    	<include refid="search"/>
+		    	where accomChk=0
+		<if test="field!=null and field!=''">
+		    and ${field} like '%'||#{keyword}||'%'
+		</if>
 		    	order by accom_num desc
 		    )aa 
 		)

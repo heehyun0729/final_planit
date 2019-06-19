@@ -19,7 +19,7 @@
 			<div class="col mt-5 d-flex justify-content-center">
 				<div class="text-left">
 					<h1>방리스트</h1>
-					<table border="1">
+					<table class="table">
 						<tr>
 							<td>번호</td>
 							<td>타입</td>

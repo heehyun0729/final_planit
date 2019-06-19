@@ -46,4 +46,14 @@ public class RoomDetailController {
 		mv.addObject("accom_num",accom_num);
 		return mv;
 	}
+	@RequestMapping(value = "/admin/roomDetail")
+	public ModelAndView roomList1(int accom_num,int room_num) {
+		RoomVo vo = service.detail1(room_num);
+		List<RoomImageVo> vo1= service1.list1(room_num);
+		ModelAndView mv = new ModelAndView("-room-admin_roomDetail");
+		mv.addObject("vo", vo);
+		mv.addObject("vo1", vo1);
+		mv.addObject("accom_num",accom_num);
+		return mv;
+	}
 }

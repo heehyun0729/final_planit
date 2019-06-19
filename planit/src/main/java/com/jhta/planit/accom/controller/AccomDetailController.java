@@ -29,6 +29,14 @@ public class AccomDetailController {
 		mv.addObject("vo",vo);
 		return mv;
 	}
+	@RequestMapping("/admin/accomDetail")
+	public ModelAndView list1( int accom_num) {
+		
+		AccomVo vo=service.detail1(accom_num);
+		ModelAndView mv=new ModelAndView("-accom-admin_accomDetail");
+		mv.addObject("vo",vo);
+		return mv;
+	}
 
 }
 
