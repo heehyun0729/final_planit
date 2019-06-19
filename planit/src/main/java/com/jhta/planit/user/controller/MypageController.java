@@ -23,6 +23,10 @@ import com.jhta.planit.admin.service.AdService;
 import com.jhta.planit.admin.vo.AdImageVo;
 import com.jhta.planit.admin.vo.AdInfoVo;
 import com.jhta.planit.admin.vo.AdVo;
+import com.jhta.planit.buddy.service.BuddyService;
+import com.jhta.planit.buddy.vo.BuddyApplyVo;
+import com.jhta.planit.buddy.vo.BuddyListVo;
+import com.jhta.planit.buddy.vo.BuddyVo;
 import com.jhta.planit.plan.service.PlanService;
 import com.jhta.planit.plan.vo.PlanListVo;
 import com.jhta.planit.reservation.service.RsvnPayService;
@@ -36,12 +40,35 @@ import com.jhta.util.PageUtil;
 
 @Controller
 public class MypageController {
+	@Autowired private BuddyService buddysevice;
 	@Autowired private MypageService service;
 	@Autowired private AdService adService;
 	@Autowired private RsvnService rsvnService;
 	@Autowired private RsvnPayService rsvnPayService;
 	@Autowired private PlanService planService;
 	@Autowired private ReservationReviewService reservationReviewService;
+	
+	//마이페이지 - 버디
+	@RequestMapping(value="/member/mypage/{mem_id}/buddyMg", method=RequestMethod.GET)
+	public ModelAndView buddyManager(@PathVariable String mem_id,HttpSession session) {
+		//모델앤뷰 생성
+		ModelAndView mv=new ModelAndView("^member^mypage^"+mem_id+"^buddyMg");
+
+		//날짜 지난 게시물 자동 업뎃
+		buddysevice.updateState();
+		
+		//리스트 뽑기
+		List<BuddyListVo> buddyList=buddysevice.showMgList(mem_id);
+		List<BuddyApplyVo> applyList=buddysevice.buddy_applyList(mem_id);
+		List<BuddyListVo> applyCk=buddysevice.apply_ck(mem_id);
+		List<BuddyVo> mybuddy=buddysevice.mybuddy_ck(mem_id);
+		
+		mv.addObject("mybuddy",mybuddy);
+		mv.addObject("applyCk",applyCk);
+		mv.addObject("applyList",applyList);
+		mv.addObject("buddyList",buddyList);
+		return mv;
+	}
 	
 	@RequestMapping("/member/mypage/{mem_id}/plan/list")
 	public String myPlanList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,

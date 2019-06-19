@@ -8,6 +8,9 @@
 						<a class="nav-link ${current == 'a' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/plan/list'/>">플래너</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link ${current == 'a' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/buddyMg'/>">동행관리</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link ${current == 'a' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/postslist'/>">글목록</a>
 					</li>
 					<li class="nav-item">

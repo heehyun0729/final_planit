@@ -44,6 +44,9 @@
 			<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
 			<div class="page-liner"></div>
 			
+			<c:if test="${empty countryList}">
+				<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
+			</c:if>
 			<c:forEach var="country" items="${countryList}">
 				<div class="row">
 					<div class="col-md-3">
@@ -109,137 +112,146 @@
 		<input id="list_all" class="genric-btn primary circle" type="button" value="전체 글 목록">
 		<input id="sg_buddy" class="genric-btn primary circle" type="button" value="동행추천받기">
 	</div>
-	<br>
-	<div class="progress-table-wrap">
-		<div class="progress-table">
-			<div class="table-head">
-				<div class="serial">여행자</div>
-				<div class="serial">여행날짜</div>
-				<div class="serial">희망성별</div>
-				<div class="serial">희망나이</div>
-				<div class="serial">여행 소개</div>
-				<div class="serial">여행할 도시</div>
-				<div class="serial">쪽지하기</div>
-				<div class="serial">동행요청하기</div>
-			</div>
-			
-			<c:forEach var="buddy" items="${buddyList}">	
-				<div class="table-row">
-					<div class="serial">${buddy.mem_id}</div>
-					<div class="serial">${buddy.buddy_indate} ~ ${buddy.buddy_outdate}</div>
-					<c:choose>
-						<c:when test="${buddy.buddy_gender =='X'}">
-							<div class="serial">상관없음</div>
-						</c:when>
-						<c:when test="${buddy.buddy_gender =='M'}">
-							<div class="serial">남자</div>
-						</c:when>
-						<c:when test="${buddy.buddy_gender =='W'}">
-							<div class="serial">여자</div>
-						</c:when>
-					</c:choose>
-					<c:choose>
-						<c:when test="${buddy.buddy_birthyear==0}">
-							<div class="serial">상관없음</div>
-						</c:when>
-						<c:otherwise>
-							<div class="serial">${buddy.buddy_birthyear}대</div>
-						</c:otherwise>
-					</c:choose>
-					<div class="serial">${buddy.buddy_msg}</div>
-					<div class="serial">${buddy.buddy_city}</div>
-					<div class="serial"><input type="button" class="btn btn-success msgBtn" value="쪽지하기" onclick="msgPopup('${buddy.mem_id}')"></div>
-					<c:choose>
-						<c:when test="${empty overlap_ck}">
-							<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
-						</c:when>
-						<c:otherwise>
-							<c:set var="find" value="false" />
-							<c:forEach var="overlapck" items="${overlap_ck}">
-								<c:choose>
-									<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='0' }">
-										<div class="serial"><input type="button" class="btn btn-success msgBtn" value="요청중" disabled="disabled"></div>
-										<c:set var="find" value="true" />
-									</c:when>
-									<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='1' }">
-										<div class="serial"><input type="button" class="btn btn-success msgBtn" value="수락" disabled="disabled"></div>
-										<c:set var="find" value="true" />
-									</c:when>
-									<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='2' }">
-										<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
-										<c:set var="find" value="true" />
-									</c:when>
-								</c:choose>
-							</c:forEach>
-							<c:if test="${not find}">
-								<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
-							</c:if>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
-	<nav class="blog-pagination justify-content-center d-flex">
-		<ul class="pagination">
-			<li class="page-item">
-				<c:choose>
-					<c:when test="${startPage > 1 }">
-		                <a href="<c:url value='/buddyList?pageNum=${startPage - 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Previous">
-		                    <span aria-hidden="true">
-		                        <span class="lnr lnr-chevron-left"></span>
-		                    </span>
-		                </a>
-	                </c:when>
-	                <c:otherwise>
-		                <a href="<c:url value='/buddyList?pageNum=1${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Previous">
-		                    <span aria-hidden="true">
-		                        <span class="lnr lnr-chevron-left"></span>
-		                    </span>
-		                </a>
-	                </c:otherwise>
-                </c:choose>
-            </li>
-			
-			<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
-				<c:choose>
-					<c:when test="${pu.pageNum==i }"><%--현재 페이지 --%>
-						<li class="page-item active"><a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link">
-						${i}</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link">
-						${i}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			
-			<li class="page-item">
-				<c:choose>
-					<c:when test="${endPage < pageCnt}">
-		                <a href="<c:url value='/buddyList?pageNum=${startPage + 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
-		                    <span aria-hidden="true">
-		                        <span class="lnr lnr-chevron-right"></span>
-		                    </span>
-		                </a>
-	                </c:when>
-	                <c:otherwise>
-		                <a href="<c:url value='/buddyList?pageNum=${startPage}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
-		                    <span aria-hidden="true">
-		                        <span class="lnr lnr-chevron-right"></span>
-		                    </span>
-		                </a>
-	                </c:otherwise>
-                </c:choose>
-            </li>
-		</ul>
-	</nav>
 	
+	<br>
+	
+	<div class="facilities_item">
+		<c:if test="${empty buddyList}">
+			<br><p class="text-center">※ 조회 된 동행이 없습니다.</p>
+		</c:if>
+		<c:if test="${!empty buddyList}">
+			<div class="progress-table-wrap">
+				<div class="progress-table">
+					<div class="table-head">
+						<div class="serial">여행자</div>
+						<div class="serial">여행날짜</div>
+						<div class="serial">희망성별</div>
+						<div class="serial">희망나이</div>
+						<div class="serial">여행 소개</div>
+						<div class="serial">여행할 도시</div>
+						<div class="serial">쪽지하기</div>
+						<div class="serial">동행요청하기</div>
+					</div>
+					
+					<c:forEach var="buddy" items="${buddyList}">	
+						<div class="table-row">
+							<div class="serial">${buddy.mem_id}</div>
+							<div class="serial">${buddy.buddy_indate} ~ ${buddy.buddy_outdate}</div>
+							<c:choose>
+								<c:when test="${buddy.buddy_gender =='X'}">
+									<div class="serial">상관없음</div>
+								</c:when>
+								<c:when test="${buddy.buddy_gender =='M'}">
+									<div class="serial">남자</div>
+								</c:when>
+								<c:when test="${buddy.buddy_gender =='W'}">
+									<div class="serial">여자</div>
+								</c:when>
+							</c:choose>
+							<c:choose>
+								<c:when test="${buddy.buddy_birthyear==0}">
+									<div class="serial">상관없음</div>
+								</c:when>
+								<c:otherwise>
+									<div class="serial">${buddy.buddy_birthyear}대</div>
+								</c:otherwise>
+							</c:choose>
+							<div class="serial">${buddy.buddy_msg}</div>
+							<div class="serial">${buddy.buddy_city}</div>
+							<div class="serial"><input type="button" class="btn btn-success msgBtn" value="쪽지하기" onclick="msgPopup('${buddy.mem_id}')"></div>
+							<c:choose>
+								<c:when test="${empty overlap_ck}">
+									<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
+								</c:when>
+								<c:otherwise>
+									<c:set var="find" value="false" />
+									<c:forEach var="overlapck" items="${overlap_ck}">
+										<c:choose>
+											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='0' }">
+												<div class="serial"><input type="button" class="btn btn-success msgBtn" value="요청중" disabled="disabled"></div>
+												<c:set var="find" value="true" />
+											</c:when>
+											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='1' }">
+												<div class="serial"><input type="button" class="btn btn-success msgBtn" value="수락" disabled="disabled"></div>
+												<c:set var="find" value="true" />
+											</c:when>
+											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='2' }">
+												<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
+												<c:set var="find" value="true" />
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${not find}">
+										<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</c:if>
+	</div>
+	<c:if test="${!empty buddyList}">
+		<nav class="blog-pagination justify-content-center d-flex">
+			<ul class="pagination">
+				<li class="page-item">
+					<c:choose>
+						<c:when test="${startPage > 1 }">
+			                <a href="<c:url value='/buddyList?pageNum=${startPage - 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Previous">
+			                    <span aria-hidden="true">
+			                        <span class="lnr lnr-chevron-left"></span>
+			                    </span>
+			                </a>
+		                </c:when>
+		                <c:otherwise>
+			                <a href="<c:url value='/buddyList?pageNum=1${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Previous">
+			                    <span aria-hidden="true">
+			                        <span class="lnr lnr-chevron-left"></span>
+			                    </span>
+			                </a>
+		                </c:otherwise>
+	                </c:choose>
+	            </li>
+				
+				<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+					<c:choose>
+						<c:when test="${pu.pageNum==i }"><%--현재 페이지 --%>
+							<li class="page-item active"><a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link">
+							${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link">
+							${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				
+				<li class="page-item">
+					<c:choose>
+						<c:when test="${endPage < pageCnt}">
+			                <a href="<c:url value='/buddyList?pageNum=${startPage + 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
+			                    <span aria-hidden="true">
+			                        <span class="lnr lnr-chevron-right"></span>
+			                    </span>
+			                </a>
+		                </c:when>
+		                <c:otherwise>
+			                <a href="<c:url value='/buddyList?pageNum=${startPage}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
+			                    <span aria-hidden="true">
+			                        <span class="lnr lnr-chevron-right"></span>
+			                    </span>
+			                </a>
+		                </c:otherwise>
+	                </c:choose>
+	            </li>
+			</ul>
+		</nav>
+	</c:if>
 	<div id="button_div">
 		<a href="#" onclick="insert_buddy()" class="genric-btn success circle arrow">등록하기<span class="lnr lnr-arrow-right"></span></a>
 	</div>
-
-	<a href="<c:url value='/buddyMg' />">동행관리</a>
+	<br>
 </div>
 
 <input type="hidden" id="localurl" value="<c:url value='/'/>">
@@ -344,12 +356,16 @@
 	}
 	//동행요청
 	function apply_buddy(buddy_num){
-		var result = confirm('동행을 요청하시겠습니까?');
-		if(result) {
-			alert("신청되었습니다.");
-			window.location.href=localurl+"buddyApplyBuddy?buddy_num="+buddy_num;
+		if('${mem_id}'!=null && '${mem_id}'!=""){
+			var result = confirm('동행을 요청하시겠습니까?');
+			if(result) {
+				alert("신청되었습니다.");
+				window.location.href=localurl+"buddyApplyBuddy?buddy_num="+buddy_num;
+			}else{
+				
+			}
 		}else{
-			
+			alert("로그인이 필요한 서비스 입니다.");
 		}
 	}
 </script>
