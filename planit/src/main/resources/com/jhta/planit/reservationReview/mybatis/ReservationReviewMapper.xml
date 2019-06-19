@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    <mapper namespace="com.jhta.planit.reservationReview.mybatis.ReservationReviewMapper">
-   <!-- 리뷰글작성 -->
+  
   	<insert id="insert" parameterType="hashmap">
   		insert into ReservationReview values(rrew.nextval,#{mem_id},#{rsvn_num},#{resReview_title},#{resReview_content},sysdate,#{resReview_star},0)
   	</insert>
@@ -12,32 +12,20 @@
   		select  max(resReview_num) from ReservationReview
   	</select>
    
-   <!-- 전체 글의 갯수 -->
+  
   	<sql id="search">
   		<if test="field!=null and field!=''">
   			and ${field} like '%'||#{keyword}||'%'
   		</if>
   	</sql>
   	
-  		<!-- 페이지에 해당하는 글목록 -->
+  	
   	<select id="count" resultType="int" parameterType="hashmap">
   		select NVL(count(*),0) cnt from ReservationReview
   		<include refid="search"/>	
   	</select>
    
-   <!-- 글목록 -->
-  	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
-  		select *from(
-  			select aa.*,rownum rnum from(
-  				select *from ReservationReview where resReview_Chk=0
-  				<include refid="search"/>
-  				order by resReview_num desc
-  			)aa
-  		)
-  			<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
-  	</select>
-   
-    	<!-- 다음글 -->
+    	
   	<select id="next" parameterType="int" resultType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
   	select * from
   	(
@@ -47,7 +35,7 @@
   	)
   		where rownum=1
   	</select>
-  	<!-- 이전글 -->
+ 
   	<select id="prev" parameterType="int" resultType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
   	select * from
   	(
@@ -63,38 +51,32 @@
   		select * from ReservationReview where resReview_num=#{resReview_num}
   	</select>
    
-   <!-- 좋아요기능 -->
-  	<select id="resReview_likeNum" parameterType="int" resultType="int">
-  		select NVL(count(*),0) from resReviewLike where resReview_num=#{resReview_num} and resReview_like=1
-  	</select>
-  	
-  	<insert id="insertlike" parameterType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
-  		insert into resReviewLike values(rewlik_SEQ.nextval,#{mem_id},#{resReview_num},#{resreview_like})
-  	</insert>
 	
-	<update id="resReview_likeNumd" parameterType="int">
-		update resReviewLike set resreview_like=#{resreview_like} where resReview_num=#{resReview_num}
-	</update>
-	 
-	<select id="likeList" parameterType="hashmap" resultType="com.jhta.planit.reservationReview.vo.ReservationReviewLikeVo">
-	select * from resReviewLike where mem_id=#{mem_id} and resReview_num=#{resReview_num}
-	</select>
 	
-	<!-- 삭제 -->
 	<update id="updateResReviewChk" parameterType="int">
 		update ReservationReview set
-		resReviewChk=1 where review_num=#{resReview_num}
+		resReview_chk=1 where resReview_num=#{resReview_num}
 	</update>
 	
-	<!-- 수정 -->
- 	<update id="reviewUpdate" parameterType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
+	
+ 	<update id="resReviewUpdate" parameterType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
  		update ReservationReview set
  		 resReview_title=#{resReview_title},resReview_content=#{resReview_content}
  		 where resReview_num=#{resReview_num}
  	</update>
  	
- 	<!-- 리뷰 썼는지 확인 -->
+ 	
  	<select id="reviewCnt" parameterType="int" resultType="int">
  		select NVL(count(*), 0) from reservationReview where rsvn_num = #{rsvn_num}
  	</select>
+ 	
+ 	<select id="list"  resultType="com.jhta.planit.reservationReview.vo.ReservationReviewVo"  parameterType="int">
+ 	select r.resReview_num,r.resReview_title, r.resReview_content , r.resReview_data, r.resReview_star,r.mem_id
+ from reservationReview r , rsvn s, room o , accom a
+ where s.rsvn_num =r.rsvn_num and o.room_num=s.room_num and o.accom_num= a.accom_num
+ and r.resreview_chk!=1 and o.accom_num=#{accom_num}
+ 	</select>
+ 	<select id="reslist" parameterType="int" resultType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
+   select * from ReservationReview where accom_num=#{accom_num}
+   </select>
    </mapper>
