@@ -94,7 +94,7 @@ public class BuddyController {
 				BuddyListVo blv=new BuddyListVo();
 				blv=service.detail(sgNum.get(i));
 				sglist.add(blv);
-				if(i>=1) {
+				if(i>=4) {
 					break;
 				}
 			}

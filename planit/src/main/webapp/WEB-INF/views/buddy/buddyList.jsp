@@ -243,8 +243,8 @@
 								</div>
 							</div>
 							<br>
-							<a href="<c:url value='/msgSendPopupForm?id=${list.mem_id }'/>" class="btn btn-success small">쪽지하기</a> 
-							<input type="button" value="동행요청하기" onclick="apply_buddy('${list.buddy_num}')" class="btn btn-success small">
+							<input type="button" class="btn btn-success msgBtn" value="쪽지하기" onclick="messagePopupFunc('${sglist.mem_id}')"> 
+							<input type="button" value="동행요청하기" onclick="apply_buddy('${list.buddy_num}')" class="btn btn-success">
 						</div>
 						<div class="page-liner"></div>
 					</c:forEach>
@@ -295,7 +295,7 @@
 							</c:choose>
 							<div class="serial">${buddy.buddy_msg}</div>
 							<div class="serial">${buddy.buddy_city}</div>
-							<div class="serial"><input type="button" class="btn btn-success msgBtn" value="쪽지하기" onclick="msgPopup('${buddy.mem_id}')"></div>
+							<div class="serial"><input type="button" class="btn btn-success msgBtn" value="쪽지하기" onclick="messagePopupFunc('${buddy.mem_id}')"></div>
 							<c:choose>
 								<c:when test="${empty overlap_ck}">
 									<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
@@ -398,6 +398,41 @@
 	</c:if>
 </div>
 
+
+<!-- 
+	*******************************************
+	modal  : 쪽지하기
+	*******************************************	
+-->
+<div class="modal fade" id="msgModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"></h4>
+			</div>
+			
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="recipient-name" class="control-label">받는사람 :</label>
+						<input type="text" class="form-control" value="" id="recipient-name" disabled="disabled">
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="control-label">메세지 :</label>
+						<textarea class="form-control" id="message-text" style="height: 150px;"></textarea>
+					</div>
+				</form>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="sendMessage()">보내기</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <input type="hidden" id="localurl" value="<c:url value='/'/>">
 
 <!--================ script =================-->
@@ -405,7 +440,7 @@
 	
 	var localurl=$('#localurl').val();
 	$(function() {
-			$.datepicker.regional['calendar'] = {
+		$.datepicker.regional['calendar'] = {
 				closeText: '닫기',
 		        prevText: '이전달',
 		        nextText: '다음달',
@@ -434,7 +469,36 @@
 	    	$("#buddy_outdate").datepicker();
 	    	$("#buddy_outdate").datepicker( "option", "minDate", selectedDate );
 	    });
+	    
+	    messagePopupFunc();
 	});
+	
+	/*
+		쪽지하기 팝업 클릭 이벤트
+		- .msgBtn : 버튼 class 명
+		- #msgModal : 팝업 id 명
+	*/
+	function messagePopupFunc(msg_id) {
+			if('${mem_id}'!=null && '${mem_id}'!=""){
+			$(".msgBtn").click(function(){
+				$("#recipient-name").val(msg_id);
+				$("#msgModal").modal();
+			});
+		}else{
+			alert("로그인이 필요한 서비스 입니다.");
+		}
+	}
+	
+	//쪽지보내기 팝업
+	function msgPopup(id){
+		if('${mem_id}'!=null && '${mem_id}'!=""){
+			var popUrl = localurl+"msgSendPopupForm?id="+id;
+			var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+				window.open(popUrl,"쪽지보내기",popOption);
+		}else{
+			alert("로그인이 필요한 서비스 입니다.");
+		}
+	}
 	
 	//동행 글 추가
 	function insert_buddy(){
@@ -449,17 +513,7 @@
 	$("#list_all").click(function(){
 		window.location.href=localurl+"buddyList";
 	});
-
-	//쪽지보내기 팝업
-	function msgPopup(id){
-		if('${mem_id}'!=null && '${mem_id}'!=""){
-			var popUrl = localurl+"msgSendPopupForm?id="+id;
-			var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
-				window.open(popUrl,"쪽지보내기",popOption);
-		}else{
-			alert("로그인이 필요한 서비스 입니다.");
-		}
-	}
+	
 	//유효성체크
 	function check(){
 		if($('input:checkbox[name="kw_city"]').is(":checked")){
@@ -481,6 +535,30 @@
 			}
 		}else{
 			alert("로그인이 필요한 서비스 입니다.");
+		}
+	}
+	//메세지 보내기
+	function sendMessage() {
+		var memId = document.getElementById("recipient-name").value;
+		var content = document.getElementById("message-text").value;
+		xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=sendMessageResult;
+		xhr.open("post","${pageContext.request.contextPath}/msgSendForm",true);	
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		xhr.send("receiveMemId=${mem_id}&sendMemId=" + memId+"&msgContent="+content);
+	}
+	//메세지 대기
+	function sendMessageResult() {
+		if(xhr.readyState==4 && xhr.status==200){
+			var data=xhr.responseText;
+			var result=eval("(" + data +")");
+			if (result.code == "success") {			
+				$('#msgModal').modal('hide');
+				$("#recipient-name").val("");
+				$("#message-text").val("");
+			} else {
+				document.location="${pageContext.request.contextPath}/msgSendList?memId=${sessionScope.mem_id }&msgType=SEND&errMsg=오류가 발생했습니다.";
+			}
 		}
 	}
 </script>
