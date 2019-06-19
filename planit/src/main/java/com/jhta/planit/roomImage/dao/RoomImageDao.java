@@ -28,6 +28,9 @@ public class RoomImageDao {
 	public List<RoomImageVo> list(int room_num) {
 		return sqlSession.selectList(NAMESPACE + ".list",room_num);
 	}
+	public List<RoomImageVo> list1(int room_num) {
+		return sqlSession.selectList(NAMESPACE + ".list1",room_num);
+	}
 	public int updateImgCheck(int roomImg_num) {
 		return sqlSession.update(NAMESPACE+".updateImgCheck",roomImg_num);
 	}
@@ -37,6 +40,7 @@ public class RoomImageDao {
 	public List<RoomImageVo> detail(int room_num) {
 		return sqlSession.selectList(NAMESPACE + ".detail", room_num);
 	}
+	
 	public int delete(int room_num) {
 		return sqlSession.delete(NAMESPACE +".delete",room_num);
 	}

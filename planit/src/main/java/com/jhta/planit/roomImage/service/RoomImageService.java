@@ -35,6 +35,9 @@ public class RoomImageService {
 	public List<RoomImageVo> list(int room_num) {
 		return imdao.list(room_num);
 	}
+	public List<RoomImageVo> list1(int room_num) {
+		return imdao.list1(room_num);
+	}
 	public int updateImgCheck(int roomImg_num){
 		return imdao.updateImgCheck(roomImg_num);
 	}

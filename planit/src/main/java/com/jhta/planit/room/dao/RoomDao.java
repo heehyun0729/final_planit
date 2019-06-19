@@ -45,4 +45,7 @@ public class RoomDao {
 	public RoomVo detail(int room_num) {
 		return sqlSession.selectOne(NAMESPACE + ".detail", room_num);
 	}
+	public RoomVo detail1(int room_num) {
+		return sqlSession.selectOne(NAMESPACE + ".detail1", room_num);
+	}
 }

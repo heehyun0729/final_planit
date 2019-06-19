@@ -67,7 +67,7 @@ public class AccomUpdateController {
 				AccomVo vo2=new AccomVo(accom_num, 0, accom_name, accom_addr, accom_comm, accom_country, accom_city, null, null, 0);
 				service.update(vo2);
 			}
-			return "-accom-success";
+			return "-accom-success1";
 		}catch(Exception e) {
 			e.printStackTrace();
 			return "fail";

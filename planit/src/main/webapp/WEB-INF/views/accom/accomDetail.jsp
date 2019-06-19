@@ -18,14 +18,18 @@
 		<div class="row ">
 			<div class="col mt-5 d-flex justify-content-center">
 				<div class="text-center">
-				<h1> 숙소 상세 보기 </h1>
+				<h1> 숙소 상세</h1>
 				<br/><br/>
 					<table class="table">
 						<tr>
 							<th>숙소이름</th>
 							<td>${vo.accom_name }</td>
 						</tr>
-
+						<tr>
+							<th>숙소이미지</th>
+							<td><img style="width: 150px; height: 100px"
+							src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>"></td>
+						</tr>
 						<tr>
 							<th>숙소주소</th>
 							<td>${vo.accom_addr }</td>
@@ -52,8 +56,8 @@
 								href="<c:url value='/roomList?accom_num=${vo.accom_num }'/>"><i
 									class="fas fa-door-open" style="color: #339af0;"></i></a></td>
 						</tr>
-						
 					</table>
+					<a href="<c:url value='/accommList'/>" class="genric-btn info circle">숙소리스트</a>
 				</div>
 			</div>
 		</div>

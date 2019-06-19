@@ -52,6 +52,18 @@ public class RoomService {
 		return dao.count(map);
 	}
 	
+	public List<RoomVo> list1(HashMap<String,Object> map) {
+		List<RoomVo> list = dao.list(map);
+		if (list != null && list.size() > 0) {
+			for (RoomVo room : list) {
+				List<RoomImageVo> images = imdao.list1(room.getRoom_num());
+				if (images != null && images.size() > 0) {
+					room.setRoom_images(images);
+				}
+			}
+		}
+		return list;
+	}
 	public List<RoomVo> list(HashMap<String,Object> map) {
 		List<RoomVo> list = dao.list(map);
 		if (list != null && list.size() > 0) {
@@ -78,5 +90,8 @@ public class RoomService {
 	}
 	public RoomVo detail(int room_num) {
 		return dao.detail(room_num);
+	}
+	public RoomVo detail1(int room_num) {
+		return dao.detail1(room_num);
 	}
 }
