@@ -162,7 +162,7 @@ public class EditUserInfoController {
 
 	@RequestMapping(value = "/user/pwdsearch", method = RequestMethod.GET)
 	public String pwdsearchForm() {
-		return "/user/pwdsearch";
+		return "!user!pwdsearch";
 	}
 
 	@RequestMapping(value = "/user/pwdsearch", method = RequestMethod.POST)

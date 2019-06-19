@@ -3,8 +3,8 @@
 <section class="breadcrumb_area">
 	<div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
 </section>
-<section class="user_result_area">
-	<div id="userResult" class="row">
+<section class="user_result_area" style="width: 100%; font-size: 25px; font-weight: bold; text-align:center;">
+	<div id="userResult" class="row" style="width: 100%; margin: 50px auto;">
 		<c:choose>
 			<c:when test="${empty authMsg }">
 			요청이 만료되었습니다.

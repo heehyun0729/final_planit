@@ -1,28 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.4.0.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/members/ChangeMemberScript.js'/>"></script>
-</head>
-<body>
-	<h1>비밀번호 찾기</h1>
-	<h1>
-		<a href="<c:url value='/'/>">홈페이지</a>
-	</h1>
-	<h1>
-		<a href="<c:url value='/user/idsearch'/>">아이디 찾기</a>/<a href="<c:url value='/login'/>">로그인</a>
-	</h1>
-	<h2>등록하신 아이디와 이메일을 입력해 주세요</h2>
+<div class="userinfosearch">
 	<form method="post" action="<c:url value=''/>" id="pwdsearch">
-		<label for="mem_id">아이디</label><input type="text" id="mem_id" name="mem_id"><br>
-		<label for="mem_email">이메일</label><input type="email" id="mem_email" name="mem_email"><br>
-		<input type="submit" value="아이디 찾기">
+		<div class="userstop">
+			<a href="<c:url value='/'/>"><img class="logoimg" src="<c:url value='/resources/images/logo1.png'/>"></a>
+		</div>
+		<ul class="nav nav-pills nav-justified">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/user/idsearch'/>">아이디 찾기</a></li>
+			<li class="nav-item"><a class="nav-link active" href="<c:url value='/user/pwdsearch'/>">비밀번호 찾기</a></li>
+		</ul>
+		<div class="input-group mb-3 form-group form-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><span class="fa fa-user-circle"></span></span>
+			</div>
+			<input type="text" id="mem_id" name="mem_id" class="form-control" placeholder="아이디를 입력해 주세요" required>
+		</div>
+		<div class="input-group mb-3 form-group form-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><i class="material-icons" style="font-size:20px">email</i></span>
+			</div>
+			<input type="text" id="mem_email" name="mem_email" class="form-control" placeholder="등록하신 이메일을 입력해 주세요" required>
+		</div>
+		<input type="submit" value="비밀번호 찾기" class="btn btn-primary btn-block">
 	</form>
-	<div id="errMsg">${errMsg }</div>
-
-</body>
-</html>
+	<div class="errMsg">${errMsg }</div>
+</div>

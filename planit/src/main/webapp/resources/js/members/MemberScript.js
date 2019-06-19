@@ -56,22 +56,24 @@ $(document).ready(function() {
 	
 	//비밀번호 유효성 체크
 	$("#mem_pwd").on("propertychange change keyup paste input", function() {
-		chkpwd=false;
-		chkpwdck=false;
-		$("#pwdckresult").text("");
-		let mem_pwdval=$("#mem_pwd").val();
-		let mem_pwdcheckval=$("#mem_pwdck").val();
-		if(mem_pwdcheckval !== ""){
-			checkPwdCk(mem_pwdval,mem_pwdcheckval);
-		} 
-		let mem_id=$('#mem_id').val();
-		if (typeof mem_id === "undefined") {
-			mem_id="";
-		}
-		chkpwd=checkPassword($('#mem_pwd').val(),mem_id);
-		if (chkpwd) {
-			$("#pwdresult").text("높음");
-			$("#pwdresult").attr("style", "color:blue");
+		if(localurl !== undefined){
+			chkpwd=false;
+			chkpwdck=false;
+			$("#pwdckresult").text("");
+			let mem_pwdval=$("#mem_pwd").val();
+			let mem_pwdcheckval=$("#mem_pwdck").val();
+			if(mem_pwdcheckval !== ""){
+				checkPwdCk(mem_pwdval,mem_pwdcheckval);
+			} 
+			let mem_id=$('#mem_id').val();
+			if (typeof mem_id === "undefined") {
+				mem_id="";
+			}
+			chkpwd=checkPassword($('#mem_pwd').val(),mem_id);
+			if (chkpwd) {
+				$("#pwdresult").text("높음");
+				$("#pwdresult").attr("style", "color:blue");
+			}
 		}
 	});
 	function checkPassword(password,id){

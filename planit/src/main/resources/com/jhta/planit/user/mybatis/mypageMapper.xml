@@ -10,11 +10,9 @@
 			nvl((select follow_grade from follow_list where mem_id=#{session_mem_id} and profile_no=( select profile_no from profile where mem_id=#{mem_id})),0) follow_grade,
 			(select sum(write.cnt) from (
 				select nvl(count(*),0) cnt from review where mem_id=#{mem_id}
+				union all 
+				select nvl(count(*),0) cnt from reservationReview where mem_id=#{mem_id}
 				union all
-				<!-- 
-					select nvl(count(*),0) cnt from reservationReview where mem_id=#{mem_id}
-					union all
-				 -->
 				select nvl(count(*),0) cnt from qna where mem_id=#{mem_id}
 				union all
 				select nvl(count(*),0) cnt from acommQna where mem_id='idest01'
