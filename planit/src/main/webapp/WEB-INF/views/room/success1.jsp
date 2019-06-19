@@ -15,7 +15,8 @@
 </head>
 <body>
 	<h1>요청작업 완료!</h1>
-	<a href="${pageContext.request.contextPath}/admin/accommList"
-		class="genric-btn info circle">숙소리스트</a>
+	<a href="${pageContext.request.contextPath}/roomList?accom_num=${param.accom_num}"
+		class="genric-btn info circle">방리스트</a>
 </body>
 </html>
+

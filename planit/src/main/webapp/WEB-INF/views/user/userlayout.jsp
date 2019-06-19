@@ -20,6 +20,7 @@
 <link rel="stylesheet" href= "<c:url value='/resources/royal/vendors/owl-carousel/owl.carousel.min.css'/>">
 <link rel="stylesheet" href= "<c:url value='/resources/royal/css/style.css'/>">
 <link rel="stylesheet" href= "<c:url value='/resources/royal/css/responsive.css'/>">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="<c:url value='/resources/css/user/planit_user.css'/>">
 
 <script type="text/javascript" src = "<c:url value = '/resources/js/jquery-3.4.0.min.js'/>"></script>
@@ -28,16 +29,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/members/MemberScript.js'/>"></script>
 </head>
 <body>
 	<tiles:insertAttribute name = "content"/>
-<script src="<c:url value='/resources/royal/vendors/owl-carousel/owl.carousel.min.js'/>"></script>
-<script src= "<c:url value='/resources/royal/js/jquery.ajaxchimp.min.js'/>"></script>
-<script src= "<c:url value='/resources/royal/js/mail-script.js'/>"></script>
-<script src="<c:url value='/resources/royal/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js'/>"></script>
-<script src= "<c:url value='/resources/royal/vendors/nice-select/js/jquery.nice-select.js'/>"></script>
-<script src= "<c:url value='/resources/royal/js/stellar.js'/>"></script>
-<script src= "<c:url value='/resources/royal/vendors/lightbox/simpleLightbox.min.js'/>"></script>
-<script src= "<c:url value='/resources/royal/js/custom.js'/>"></script>
 </body>
 </html>

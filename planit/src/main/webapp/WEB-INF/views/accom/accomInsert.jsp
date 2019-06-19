@@ -24,16 +24,14 @@
 							국가<br/> <input type="text" name="accom_country"><br/>
 							도시<br/> <input type="text" name="accom_city"><br/>
 							첨부파일<br/> 
-							<label class="btn btn-primary btn-file">
-        					파일추가 <input type="file" name="file1" style="display: none;">
-    						</label><br/><br/>
+							<input type="file" name="file1" class="genric-btn info circle"><br/><br/>
     						<a href="#" style="margin-right: 100px;"onclick="$('#form3').submit();"><i class="fas fa-thumbs-up" style="color: #339af0;">등록하기</i></a>
 						</form>
 					</div>
 				</div>
 			</div>
-</div>
-</body>
+		</div>
+	</body>
 </html>
 
 

@@ -13,6 +13,9 @@
 	<select id="list" parameterType="int" resultType="com.jhta.planit.roomImage.vo.RoomImageVo">
   		select * from roomImage where room_num=#{room_num} and  roomImageChk=0
   	</select>
+  	<select id="list1" parameterType="int" resultType="com.jhta.planit.roomImage.vo.RoomImageVo">
+  		select roomImg_saveImg from roomImage where room_num=#{room_num}  and  roomImageChk=0
+  	</select>
   	<select id="detail" parameterType="int" resultType="com.jhta.planit.roomImage.vo.RoomImageVo">
 		select * from roomImage where room_num = #{room_num} and roomImageChk = 0
 	</select>

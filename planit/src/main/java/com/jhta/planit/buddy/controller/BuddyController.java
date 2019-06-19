@@ -86,14 +86,22 @@ public class BuddyController {
 		
 		//동행추천
 		if(mem_id != null) {
-			List<String> sgId=service.sameDateCity(mem_id);
-			if(sgId!=null && sgId.size()>0) {
-				mv.addObject("sgId",sgId);
-			}else {
-				mv.addObject("sgId",""); 
+			List<String> sgNum=service.sameDateCity(mem_id);
+
+			List<BuddyListVo> sglist = new ArrayList<BuddyListVo>();
+			
+			for(int i=0;i<sgNum.size();i++) {
+				BuddyListVo blv=new BuddyListVo();
+				blv=service.detail(sgNum.get(i));
+				sglist.add(blv);
+				if(i>=4) {
+					break;
+				}
 			}
+			mv.addObject("sglist",sglist);
 		}
 		
+			
 		//뷰 페이지로 이동
 		mv.addObject("pu",pu);
 		mv.addObject("buddyList",buddyList);
@@ -131,22 +139,6 @@ public class BuddyController {
 	public String buddyInsert(BuddyVo vo,BuddyCountryVo countryVo,BuddyCityVo cityVo) {
 		int n=service.buddyInsert(vo,countryVo,cityVo);
 		return "redirect:/buddyList";
-	}
-	
-	//동행추천
-	@RequestMapping(value="/buddySg", method=RequestMethod.GET)
-	public ModelAndView popBuddySg(String buddy_num) {
-		ModelAndView mv=new ModelAndView("/buddy/buddySg");
-		List<BuddyListVo> list = new ArrayList<BuddyListVo>();
-		
-		String idList[]=buddy_num.split(",");
-		for(int i=0;i<idList.length;i++) {
-		BuddyListVo blv=service.detail(idList[i]);
-		list.add(blv);
-		}
-		mv.addObject("buddy_num",buddy_num);
-		mv.addObject("list",list);
-		return mv;
 	}
 	
 	//마이페이지 - 버디

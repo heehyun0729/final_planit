@@ -8,8 +8,9 @@ $(document).ready(function() {
 	var chkpwdck=false;
 	var chknick=false;
 	var chkemail=false;
-	var RegexEmail = /^[a-z0-9]{1,20}$/;
-	var RegexEmailDomain = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	//var RegexEmail = /^[a-zA-Z0-9]{1,20}$/;
+	//var RegexEmailDomain = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var RegexEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var RegexId =  /^[a-z0-9]{5,13}$/;
 	var RegexPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 	var RegxNickname1 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]{3,10}$/;
@@ -23,11 +24,17 @@ $(document).ready(function() {
 		$("#idcheckresult").text("");
 		let ckid=$.trim($("#mem_id").val());
 		
-		if(RegexId.test(ckid) && (/[0-9]+/.test(ckid) && /[a-z]+/.test(ckid))){
-			$("#idcheck").prop("disabled", false);
-		}else{
+		if (ckid!=null||ckid!='') {
+			if(RegexId.test(ckid) && (/[0-9]+/.test(ckid) && /[a-z]+/.test(ckid))){
+				$("#idcheck").prop("disabled", false);
+			}else{
+				$("#idcheck").prop("disabled", true);
+			}
+		} else{
+			$("#idcheckresult").text("");
 			$("#idcheck").prop("disabled", true);
 		}
+		
 	});
 	$("#idcheck").click(function() {
 		$.ajax({
@@ -56,7 +63,7 @@ $(document).ready(function() {
 		let mem_pwdcheckval=$("#mem_pwdck").val();
 		if(mem_pwdcheckval !== ""){
 			checkPwdCk(mem_pwdval,mem_pwdcheckval);
-		}
+		} 
 		let mem_id=$('#mem_id').val();
 		if (typeof mem_id === "undefined") {
 			mem_id="";
@@ -70,7 +77,10 @@ $(document).ready(function() {
 	function checkPassword(password,id){
 	    let checkNumber = password.search(/[0-9]/g);
 	    let checkEnglish = password.search(/[a-z]/ig);
-	    if(password.length<8){
+	    if(password.length==0){
+	    	$("#pwdresult").text("");
+	        return false;
+	    }else if(password.length<8){
 	    	$("#pwdresult").text("낮음(비밀번호는 8자리 이상 20자리 이하여야 합니다.)");
 			$("#pwdresult").attr("style", "color:red");
 	        return false;
@@ -110,13 +120,17 @@ $(document).ready(function() {
 		
 	});
 	function checkPwdCk(mem_pwdval,mem_pwdcheckval){
-		if (mem_pwdcheckval === mem_pwdval) {
+		if(mem_pwdcheckval.length==0){
+			$("#pwdckresult").text("");
+			chkpwdck=false;
+		}else if (mem_pwdcheckval === mem_pwdval) {
 			$("#pwdckresult").text("일치");
 			$("#pwdckresult").attr("style", "color:blue");
 			chkpwdck=true;
 		} else {
 			$("#pwdckresult").text("비밀번호와 일치하지 않습니다.");
 			$("#pwdckresult").attr("style", "color:red");
+			chkpwdck=false;
 		}
 	}
 	
@@ -155,9 +169,9 @@ $(document).ready(function() {
 	});
 	
 	//이메일 유효성 체크
-	$("#mem_email1").on("propertychange change keyup paste input", function() {
+	$("#mem_email").on("propertychange change keyup paste input", function() {
 		chkemail=false;
-		if (RegexEmail.test($("#mem_email1").val())) {
+		if (RegexEmail.test($("#mem_email").val())) {
 			$("#emailcheck").prop("disabled", false);
 		}else{
 			$("#emailcheck").prop("disabled", true);
@@ -180,68 +194,70 @@ $(document).ready(function() {
 		});
 	});
 	$("#emailcheck").click(function() {
-		if(RegexEmailDomain.test($("#mem_email2").val())){
-			let mem_email=$("#mem_email1").val()+"@"+$("#mem_email2").val();
-			$.ajax({
-				url : localurl+"user/emailcheck",
-				type : "post",
-				data :{'mem_email': mem_email},
-				success : function(data) {
-					if (data >0) {
-						$("#emailcheckresult").text("등록되어 있는 이메일 입니다.");
-						$("#emailcheckresult").attr("style", "color:red");
-					} else {
-						$("#emailcheckresult").text("등록이 안되어 있는 이메일 입니다.");
-						$("#emailcheckresult").attr("style", "color:blue");
-						$("#mem_email").val(mem_email);
-						chkemail=true;
-					}
+		$.ajax({
+			url : localurl+"user/emailcheck",
+			type : "post",
+			data :{'mem_email': $("#mem_email").val()},
+			success : function(data) {
+				if (data >0) {
+					$("#emailcheckresult").text("등록되어 있는 이메일 입니다.");
+					$("#emailcheckresult").attr("style", "color:red");
+				} else {
+					$("#emailcheckresult").text("등록이 안되어 있는 이메일 입니다.");
+					$("#emailcheckresult").attr("style", "color:blue");
+					chkemail=true;
 				}
-			});
-		} else{
-			$("#emailcheckresult").text("이메일을 올바르게 입력하세요.");
-			$("#emailcheckresult").attr("style", "color:red");
-			$("#emailcheckresult").focus();
-		}
+			}
+		});
 	});
 	
 	//최종 입력 확인
 	$("#joinForm").submit(function(event) {
 		let formresult=true;
 		if (!chkid) {
-			$("#submitError").text("아이디 중복검사 해주시기 바랍니다.");
+			$(".errMsg").text("아이디 중복검사 해주시기 바랍니다.");
 			formresult=false;
 			$("#mem_id").focus();
 		} else if(!chkpwd) {
-			$("#submitError").text("비밀번호를 올바르게 입력해 주시기 바랍니다.");
+			$(".errMsg").text("비밀번호를 올바르게 입력해 주시기 바랍니다.");
 			formresult=false;
 			$("#mem_pwd").focus();
 		}else if(!chkpwdck) {
-			$("#submitError").text("비밀번호 중복체크가 올바르지 않습니다.");
+			$(".errMsg").text("비밀번호 중복체크가 올바르지 않습니다.");
 			formresult=false;
 			$("#mem_pwdck").focus();
 		}else if(!chknick) {
-			$("#submitError").text("닉네임 중복검사 해주시기 바랍니다");
+			$(".errMsg").text("닉네임 중복검사 해주시기 바랍니다");
 			formresult=false;
 			$("#mem_nickname").focus();
 		}else if(!chkemail) {
-			$("#submitError").text("이메일 중복검사 해주시기 바랍니다");
+			$(".errMsg").text("이메일 중복검사 해주시기 바랍니다");
 			formresult=false;
 			$("#mem_email1").focus();
 		}
-		$("#submitError").attr("style", "color:red");
+		$(".errMsg").attr("style", "color:red");
 		if (!formresult) {
 			event.preventDefault();
 		}
 	});
 	
-	$(".joinhref").click(function(event){
+	/*$(".joinhref").click(function(event){
 		let picheck=$("#personal_information_terms_agree").prop("checked");
 		let termscheck=$("#terms_agree").prop("checked");
 		if (!picheck||!termscheck) {
 			$("#plzcheckMsg").text("약관에 동의해 주십시오");
 			$("#plzcheckMsg").attr("style", "color:red");
 			event.preventDefault();
+		}
+	});*/
+	
+	$(".termsform").submit(function(event) {
+		let chk1=$("input[type='checkbox']").length;
+		let chk2=$("input[type='checkbox']:checked").length;
+		if (chk1!=chk2) {
+			$(".errMsg").text("약관에 동의해 주십시오");
+			event.preventDefault();
+			event.stopPropagation();
 		}
 	});
 	

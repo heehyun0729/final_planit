@@ -75,7 +75,7 @@ public class AccomInsertController {
 			System.out.println(uploadPath +" 경로에 파일업로드 완료!");
 			AccomVo vo=new AccomVo(0, sell_num, accom_name, accom_addr, accom_comm, accom_country, accom_city, accommImg_orgImg, accommImg_saveImg,0);
 			service.insert(vo);
-			return "-accom-success";			
+			return "-accom-success1";			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 			return "error";

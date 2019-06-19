@@ -23,9 +23,14 @@ public class MembersJoinController {
 		return "!user!joinchoice";
 	}
 	
-	@RequestMapping(value = "/user/nomaljoin", method = RequestMethod.GET)
-	public String joinForm() {
-		return "!user!join";
+	@RequestMapping(value = "/user/join", method = RequestMethod.POST)
+	public String joinForm(String terms_agree,String personal_information_terms_agree,Model model) {
+		if (terms_agree==null || personal_information_terms_agree==null) {
+			model.addAttribute("errMsg", "약관에 동의해 주십시오");
+			return "!user!joinchoice";
+		}else {
+			return "!user!join";	
+		}
 	}
 
 	@RequestMapping(value = "/user/nomaljoin", method = RequestMethod.POST)

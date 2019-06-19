@@ -2,11 +2,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <section class="breadcrumb_area">
 	<div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-	<div class="container">
-		<div class="page-cover text-center">
-			<h2 class="page-cover-tittle">결과</h2>
-		</div>
-	</div>
 </section>
 <section class="user_result_area">
 	<div id="userResult" class="row">

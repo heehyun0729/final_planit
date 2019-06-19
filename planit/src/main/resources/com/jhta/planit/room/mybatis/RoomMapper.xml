@@ -64,4 +64,7 @@
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.room.vo.RoomVo">
 		select * from room where room_num = #{room_num} and roomChk = 0
 	</select>
+	<select id="detail1" parameterType="int" resultType="com.jhta.planit.room.vo.RoomVo">
+		select * from room where room_num = #{room_num} 
+	</select>
 </mapper>
