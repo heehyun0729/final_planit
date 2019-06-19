@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -202,7 +201,7 @@ public class RsvnController {
 		FileReader fr = null;
 		String key = "";
 		try {
-			fr = new FileReader(new File("C:\\spring\\maven.1559001609549\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
+			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;
@@ -256,17 +255,21 @@ public class RsvnController {
 		map.put("checkin", checkin);
 		map.put("checkout", checkout);
 		map.put("cnt", cnt);
-		//숙소문의 리스트
 		
 		List<RoomVo> rlist = rsvnRoomService.list(map);
+		List<String> imgList = new ArrayList<String>();
 		for(RoomVo vo : rlist) {
 			String str1 = vo.getRoom_comm().replaceAll("\n", "<br>");
 			vo.setRoom_comm(str1);
 			List<RoomImageVo> ilist = roomImageService.list(vo.getRoom_num());
 			vo.setRoom_images(ilist);
+			for(RoomImageVo ivo : ilist) {
+				imgList.add(ivo.getRoomImg_saveImg());
+			}
 		} 
 		model.addAttribute("avo", avo);
 		model.addAttribute("rlist", rlist);
+		model.addAttribute("imgList", imgList);
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);
