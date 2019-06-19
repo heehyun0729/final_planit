@@ -45,6 +45,7 @@ $(function() {
 	});
 	
 	$("#rsvnDialogCnt").on('change', function() {
+		cnt = $("#rsvnDialogCnt").val();
 		roomCheck();
 		setRsvnMsg();
 		setPayBtn();
@@ -168,26 +169,23 @@ function setPayBtn() {
 		btn.attr("class", "genric-btn disable");
 		btn.attr("type", "button");
 		btn.disabled = true;
-		console.log(111);
 	}else if(cnt == -1){
 		btn.val("예약이 불가능한 날짜입니다.");
 		btn.attr("class", "genric-btn disable");
 		btn.attr("type", "button");
 		btn.disabled = true;
-		console.log(222);
 	}else{
 		btn.val("결제하기")
 		btn.attr("class", "genric-btn primary circle");
 		btn.attr("type", "submit");
 		btn.disabled = false;
-		console.log(333);
 	}
 }
 
 function roomCheck() {
 	checkin = $("#rsvnCheckinDatepicker").val();
 	checkout = $("#rsvnCheckoutDatepicker").val();
-	cnt = $("#hiddenCnt").val();
+	cnt = $("#rsvnDialogCnt").val();
 	if(checkin != null && checkin != ""
 		&& checkout != null && checkout != ""){
 		$.ajax({

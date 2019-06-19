@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!--================Breadcrumb Area =================-->
+<section class="breadcrumb_area">
+	<div class="overlay bg-parallax"style="background: url(../resources/images/room.jpg)"></div>
+	<div class="container">
+		<div class="page-cover text-center">
+			<h2 class="page-cover-tittle">숙소예약</h2>
+		</div>
+	</div>
+</section>
+<!--================Breadcrumb Area =================-->
 <div>
 	<h1>예약</h1>
 	<div>
