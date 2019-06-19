@@ -215,27 +215,27 @@ $(document).ready(function() {
 	$("#joinForm").submit(function(event) {
 		let formresult=true;
 		if (!chkid) {
-			$("#submitError").text("아이디 중복검사 해주시기 바랍니다.");
+			$(".errMsg").text("아이디 중복검사 해주시기 바랍니다.");
 			formresult=false;
 			$("#mem_id").focus();
 		} else if(!chkpwd) {
-			$("#submitError").text("비밀번호를 올바르게 입력해 주시기 바랍니다.");
+			$(".errMsg").text("비밀번호를 올바르게 입력해 주시기 바랍니다.");
 			formresult=false;
 			$("#mem_pwd").focus();
 		}else if(!chkpwdck) {
-			$("#submitError").text("비밀번호 중복체크가 올바르지 않습니다.");
+			$(".errMsg").text("비밀번호 중복체크가 올바르지 않습니다.");
 			formresult=false;
 			$("#mem_pwdck").focus();
 		}else if(!chknick) {
-			$("#submitError").text("닉네임 중복검사 해주시기 바랍니다");
+			$(".errMsg").text("닉네임 중복검사 해주시기 바랍니다");
 			formresult=false;
 			$("#mem_nickname").focus();
 		}else if(!chkemail) {
-			$("#submitError").text("이메일 중복검사 해주시기 바랍니다");
+			$(".errMsg").text("이메일 중복검사 해주시기 바랍니다");
 			formresult=false;
 			$("#mem_email1").focus();
 		}
-		$("#submitError").attr("style", "color:red");
+		$(".errMsg").attr("style", "color:red");
 		if (!formresult) {
 			event.preventDefault();
 		}
