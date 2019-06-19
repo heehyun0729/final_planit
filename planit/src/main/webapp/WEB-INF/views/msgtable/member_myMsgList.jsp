@@ -1,6 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!--================style Area =================-->
+<style>
+	.active { color: #fff !important; background-color: #337ab7 !important; border-color: #2e6da4 !important;}
+	.mg_p { margin:20px 0px; }
+	.page-liner{padding-bottom: 9px;margin: 20px 0 20px;border-bottom: 1px solid #eee;}
+</style>
+
+<!--================Breadcrumb Area =================-->
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" style="background : url(resources/images/x.png)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="" ></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle f_48">쪽지</h2>
+            <p style="color:#D8D8D8"></p>
+        </div>
+    </div>
+</section>
+
+<!--================body Area =================-->
 <script>
 	var memChkId = "";
 	function checkId() {
@@ -112,7 +131,6 @@
 			<div
 				class="col d-flex justify-content-start align-items-center text-center mt-5">
 				<div id="myMsg">
-				<h1>쪽지함</h1>
 					<div class="myPageBtns">
 						<div id="errMsg" style="text-align: center;">
 							<p>${param.errMsg }</p>
@@ -196,7 +214,7 @@
 															class="page-link"> ${i}</a></li>
 													</c:when>
 													<c:otherwise>
-														<li class="page-item active"><a
+														<li class="page-item"><a
 															href="${pageContext.request.contextPath }/msgReceiveList?pageNum=${i}&memId=${mem_id}&msgType=RECEIVE"
 															class="page-link"> ${i}</a></li>
 													</c:otherwise>

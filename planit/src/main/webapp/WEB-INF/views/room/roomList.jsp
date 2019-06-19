@@ -75,7 +75,7 @@
 												class="page-link"> ${i}</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="page-item active"><a
+											<li class="page-item"><a
 												href="${pageContext.request.contextPath }/roomList?pageNum=${i}&accom_num=${param.accom_num}"
 												class="page-link"> ${i}</a></li>
 										</c:otherwise>
@@ -91,7 +91,9 @@
 											</span>
 											</a>
 										</c:when>
-									</c:choose>
+									</c:choose></li>
+							</ul>
+						</nav>
 					</div>
 					<div>
 						<form method="post" id="form9"
