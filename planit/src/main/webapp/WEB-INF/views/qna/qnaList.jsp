@@ -62,7 +62,7 @@
 		<c:choose>
 			<c:when test="${sessionScope.mem_id!=null }">
 			<div class="button">
-				<a class="genric-btn danger circle" href="<c:url value='/qna/insertQna'/>">글쓰기</a>
+				<a class="genric-btn danger radius" href="<c:url value='/qna/insertQna'/>">글쓰기</a>
 			</div>
 			</c:when>
 		</c:choose>		

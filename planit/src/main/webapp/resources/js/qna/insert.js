@@ -1,8 +1,8 @@
 $(document).ready(function(){
 	$("#summernote").summernote({
-		  height: 200,
-		  width: 300,
+		  height: 300,
 		  minHeight: null,
-		  maxHeight: null
+		  maxHeight: null,
+		  focus: true
 	});
-});	
+});
