@@ -38,7 +38,7 @@
   				order by review_num desc
   			)aa
   		)
-  			<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+  			<![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}  and reviewChk=0]]>
   	</select>
   	 
   	<!-- 다음글 -->
@@ -46,7 +46,7 @@
   	select * from
   	(
   		select * from review
-  		<![CDATA[where review_num<#{review_num}]]>
+  		<![CDATA[where review_num<#{review_num} and reviewChk=0]]>
   		order by review_num desc
   	)
   		where rownum=1
