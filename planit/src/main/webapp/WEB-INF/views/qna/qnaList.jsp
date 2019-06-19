@@ -9,6 +9,15 @@
 	.tag{color:#EE4141}
 	.button{text-align:center;}
 </style>
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" style="background : url(resources/images/qna1.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle f_48">여행 문의</h2>
+            <p style="color:#D8D8D8">자유롭게 의견을 나눌 수 있는 공간</p>
+        </div>
+    </div>
+</section>
 <div id="list">
 	<h1>자유문의게시판</h1>
 	<div class="container">
