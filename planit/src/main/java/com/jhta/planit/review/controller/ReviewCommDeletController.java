@@ -19,8 +19,7 @@ public class ReviewCommDeletController {
 		System.out.println("eee");
 		int n=service.updateCommChk(rcomm_num);
 		if(n>0) {
-			return "redirect:/review/reviewDetail.do?review_num=" +review_num;
-			//return "success";
+			return "success";
 		}else {
 			return "error";
 		}

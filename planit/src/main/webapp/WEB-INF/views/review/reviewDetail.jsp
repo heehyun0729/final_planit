@@ -4,6 +4,7 @@
 <div>
 <script>
 	$(document).ready(function(){
+		getList(1);
 		$("#btn1").click(function(){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/review/reviewLike.do?mem_id=${vo.mem_id}&review_num=${vo.review_num }",
@@ -43,16 +44,12 @@
 		if(confirm("해당 댓글을 삭제 하시겠습니까?")){
 			console.log("?????1111111111");
 			$.ajax({
-				dataType:"xml",
+				dataType:"text",
 				data:{rcomm_num:rcomm_num ,review_num:'${vo.review_num}'},
 				url:"${pageContext.request.contextPath}/reviewCommDelete",
 				success: function(data){
 					console.log("?????2222222222222");
-					consol.log(data)
-					if(result=="success"){
 						getList(pageNum);
-						alert(rcomm_num,pageNum);
-					}
 				}
 			});
 		}
