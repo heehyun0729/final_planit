@@ -1,7 +1,7 @@
 var rsvnDialog;
 var num;
 var addr, name;
-
+var checkin, checkout, cnt;
 $(function() {
 
 		var from = $( "#rsvnCheckinDatepicker" ).datepicker({
@@ -16,7 +16,10 @@ $(function() {
 		onSelect: function(date) {
 			var d = new Date(date);
 			$("#rsvnCheckoutDatepicker").datepicker("option", "minDate", new Date(d.getFullYear(),d.getMonth(), d.getDate() + eval(1)));
+			checkin = $("#rsvnCheckinDatepicker").val();
 			roomCheck();
+			setRsvnMsg();
+			setPayBtn();
 		}
 	});
 	var to = $( "#rsvnCheckoutDatepicker" ).datepicker({
@@ -28,7 +31,10 @@ $(function() {
 		dateFormat: "yy-mm-dd",
 		numberOfMonths: 2,
 		onSelect: function() {
+			checkout = $("#rsvnCheckoutDatepicker").val();
 			roomCheck();
+			setRsvnMsg();
+			setPayBtn();
 		}
     });	
 
@@ -36,6 +42,12 @@ $(function() {
 		var map = setMap();
 		var geocoder = new google.maps.Geocoder();
 		geocodeAddress(geocoder, map);
+	});
+	
+	$("#rsvnDialogCnt").on('change', function() {
+		roomCheck();
+		setRsvnMsg();
+		setPayBtn();
 	});
 });
 
@@ -49,17 +61,35 @@ function openRoomDialog(room_num) {
 			var images = data.room_images;
 			var title = data.room_type + "(" + data.room_capa + "인실)";
 			$("#modal-title").html(title);
-			var str = "";
-			for(var i = 0 ; i < images.length ; i++){
-				var img = images[i].roomImg_saveImg;
-				str += "<div><img src = '/planit/resources/uploadRoom/" + img + "'></div>";
+			var str = "<div id='roomCarousel' class='carousel' data-ride='carousel'>" +
+						"<ol class='carousel-indicators'>" +
+							"<li data-target='#roomCarousel' data-slide-to='0' class='active'></li>";
+			for(var i = 1 ; i < images.length ; i++){
+				str += "<li data-target='#roomCarousel' data-slide-to='" + i+ "'></li>";
 			}
+			str += "</ol>" +
+					"<div class='carousel-inner'>" +
+						"<div class='carousel-item active'>" +
+							"<img class=d-block w-100' src='/planit/resources/uploadRoom/" + images[0].roomImg_saveImg + "' style = 'height: 400px;'>" +
+						"</div>";
+			for(var i = 1 ; i < images.length ; i++){
+				var img = images[i].roomImg_saveImg;
+				str += "<div class='carousel-item'>" +
+							"<img class=d-block w-100' src='/planit/resources/uploadRoom/" + img + "' style = 'height: 400px;'>" +
+						"</div>";
+			}
+			str += "</div>" +
+					"<a class='carousel-control-prev' href='#roomCarousel' role='button' data-slide='prev'>" +
+						"<span class='carousel-control-prev-icon' aria-hidden='true'></span>" +
+						"<span class='sr-only'>Previous</span>" +
+					"</a>" +
+					"<a class='carousel-control-next' href='#roomCarousel' role='button' data-slide='next'>" +
+						"<span class='carousel-control-next-icon' aria-hidden='true'></span>" +
+						"<span class='sr-only'>Next</span>" +
+					"</a>" +
+					"</div>";
 			$("#roomImages").empty();
 			$("#roomImages").append(str);
-			$("#roomImages img").css({
-				width: 300,
-				height: 300
-			});
 		}
 	});
 	$("#roomDialog").modal( "show" ); 
@@ -68,10 +98,9 @@ function openRoomDialog(room_num) {
 function openRsvnDialog(room_num) {
 	num = room_num;
 	$("#room_num").val(num);
-	var checkin = $("#rsvnCheckinDatepicker").val();
-	var checkout = $("#rsvnCheckoutDatepicker").val();
-	var cnt = $("#hiddenCnt").val();
-	
+	checkin = $("#rsvnCheckinDatepicker").val();
+	checkout = $("#rsvnCheckoutDatepicker").val();
+	cnt = $("#hiddenCnt").val();
 	$.ajax({
 		url: "/planit/reservation/roomDetail",
 		dataType: "json",
@@ -87,38 +116,39 @@ function openRsvnDialog(room_num) {
 					str += "selected = 'selected'";
 				}
 				str += ">" + i + "명</option>";
-				$("#rsvnDialogCnt").html(str);
 			}
+			$("#rsvnDialogCnt").html(str);
+			$('select').niceSelect('update');
 			roomCheck();
+			setRsvnMsg();
+			setPayBtn();
 		}
 	});
 	$("#rsvnDialog").modal( "show" ); 
 }
 
-function setRsvnDialog(checkin, checkout, cnt, price) {
-	var stay = getStay(checkin, checkout);
-	setRsvnMsg(checkin, checkout, cnt);
-	setPayBtn(checkin, checkout, cnt);
+function setRsvnDialog(price) {
+	var stay = getStay();
 	if(cnt == -1 || stay == -1){
-		$("#roomPrice").html("0원");
+		$("#roomPrice").html("0");
 	}else{
-		$("#roomPrice").html((stay * price) + "원");
+		$("#roomPrice").html(stay * price);
 	}
 }
 
-function setRsvnMsg(checkin, checkout, cnt) {
+function setRsvnMsg() {
 	if(checkin == null || checkin == ""
 		|| checkout == null || checkout == ""){
 		$("#rsvnMsg").html("날짜를 선택해주세요.");
 	}else if(cnt == -1){
 		$("#rsvnMsg").html("예약이 불가능한 날짜입니다.");
 	}else{
-		var stay = getStay(checkin, checkout);
+		var stay = getStay();
 		$("#rsvnMsg").html(cnt + "명 " + stay + "박 가격");
 	}
 }
 
-function getStay(checkin, checkout) {
+function getStay() {
 	var ci = new Date(checkin).getTime();
 	var co = new Date(checkout).getTime();
 	var stay = (co - ci) / (1000 * 60 * 60 * 24);
@@ -130,25 +160,34 @@ function getStay(checkin, checkout) {
 	return stay;
 }
 
-function setPayBtn(checkin, checkout, cnt) {
+function setPayBtn() {
 	var btn = $("#btnPay");
 	if(checkin == null || checkin == ""
 		|| checkout == null || checkout == ""){
 		btn.val("날짜를 선택해주세요.");
-		btn.prop("disabled", true);
+		btn.attr("class", "genric-btn disable");
+		btn.attr("type", "button");
+		btn.disabled = true;
+		console.log(111);
 	}else if(cnt == -1){
 		btn.val("예약이 불가능한 날짜입니다.");
-		btn.prop("disabled", true);
+		btn.attr("class", "genric-btn disable");
+		btn.attr("type", "button");
+		btn.disabled = true;
+		console.log(222);
 	}else{
 		btn.val("결제하기")
-		btn.prop("disabled", false);
+		btn.attr("class", "genric-btn primary circle");
+		btn.attr("type", "submit");
+		btn.disabled = false;
+		console.log(333);
 	}
 }
 
 function roomCheck() {
-	var checkin = $("#rsvnCheckinDatepicker").val();
-	var checkout = $("#rsvnCheckoutDatepicker").val();
-	var cnt = $("#rsvnDialogCnt option:selected").val();
+	checkin = $("#rsvnCheckinDatepicker").val();
+	checkout = $("#rsvnCheckoutDatepicker").val();
+	cnt = $("#hiddenCnt").val();
 	if(checkin != null && checkin != ""
 		&& checkout != null && checkout != ""){
 		$.ajax({
@@ -162,9 +201,10 @@ function roomCheck() {
 			},
 			success: function(data) {
 				if(data.room_num == -1){
-					setRsvnDialog(checkin, checkout, -1, 0);
+					cnt = -1;
+					setRsvnDialog(0);
 				}else{
-					setRsvnDialog(checkin, checkout, cnt, data.room_price);
+					setRsvnDialog(data.room_price);
 				}
 			}
 		});

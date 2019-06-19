@@ -28,23 +28,13 @@
 <input type="hidden" id="plan_num" value="${vo.plan_num }">
  <section class="contact_area section_gap">
     <div class="container">
-        <div class="row" style = "margin-bottom: 40px;">
-        	<div class = "col-md-9">
-        		<div class = "row">
-					<h2 style = "display:inline-block;float:left;">${vo.plan_title }</h2>
-					<img src = "<c:url value = '${img }'/>" class="img-circle avatar" style = "display: inline-block;float:left;margin-right: 10px;margin-top:5px;margin-left:50px;">
-					<div class="dropdown show" style = "display: inline-block;float:left;padding-top: 10px;">
-					  <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${vo.mem_id }</a>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					  	<a class="dropdown-item" href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a>
-						<a class="dropdown-item" href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a>
-					  </div>
-					</div>
-				</div>
+        <div class="row d-flex">
+       		<div class = "p-2">
+				<h2>${vo.plan_title }</h2>
 			</div>
-			<div class = "col-md-3" style = "text-align: right;">
+			<div class = "p-2" style = "margin-left: 50px;">
 				<c:if test="${sessionScope.mem_id == vo.mem_id }">
-					<div class="dropdown show" style = "display: inline-block;margin-right:20px;">
+					<div class="dropdown show">
 					  <a href="#" class = "genric-btn primary circle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class = "lnr lnr-cog"></i>&nbsp;&nbsp; 관리&nbsp; <i class="fas fa-angle-down"></i></a>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					  	<a href = "#" class="dropdown-item" data-toggle="modal" data-target="#startDateDialog">출발일변경</a>
@@ -54,7 +44,21 @@
 					  </div>
 					</div>
 				</c:if>
+			</div>
+			<div class = "p-2 ml-auto">
 				<a href = "<c:url value='/plan/list?pageNum=${param.pageNum }&field=${param.field }&keyword=${param.keyword }'/>" class="genric-btn success-border circle">목록</a>
+			</div>
+        </div>
+        <div class = "row d-flex" style = "margin-bottom: 20px;">
+			<div class = "p-2">
+				<img src = "<c:url value = '${img }'/>" class="img-circle avatar" style = "display: inline-block;float:left;margin-right: 10px;margin-top:5px;">
+				<div class="dropdown show" style = "display: inline-block;float:left;padding-top: 10px;">
+				  <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${vo.mem_id }</a>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				  	<a class="dropdown-item" href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a>
+					<a class="dropdown-item" href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a>
+				  </div>
+				</div>
 			</div>
         </div>
         <div class="row" style = "height: 500px;margin-bottom: 60px;">

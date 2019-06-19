@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
-
-
 <!--================Breadcrumb Area =================-->
 <section class="breadcrumb_area">
-	<div class="overlay bg-parallax"
-		style="background: url(../resources/images/room.jpg)"
-		data-stellar-ratio="0.8" data-stellar-vertical-offset="0"
-		data-background=""></div>
+	<div class="overlay bg-parallax"style="background: url(../resources/images/room.jpg)"></div>
 	<div class="container">
 		<div class="page-cover text-center">
 			<h2 class="page-cover-tittle">숙소예약</h2>
@@ -44,16 +37,16 @@
 				<div class="col-lg-2" style = "padding-left: 0;">
 					<div class="input-group">
                         <div id="mc_embed_signup">
-                           <div class="input-group d-flex flex-row">
+                           <div class="input-group">
 		                        <span class="input-group-btn">
 		                            <button type="button" class="btn" onclick="decreaseCnt()">
 		                              <span style = "color: #52C5FD"><i class="fas fa-minus"></i></span>
 		                            </button>
 		                        </span>
                        			<input type="number" id="rsvnCnt" min="1" name="cnt" value="${cnt }" class="form-control single-input">
-                               <span class="btn sub-btn disabled">명</span>
+                               <span class="btn sub-btn disabled" style = "padding-right:0;">명</span>
 		                        <span class="input-group-btn">
-		                            <button type="button" class="btn" onclick="increaseCnt()" style = "padding-right:0;">
+		                            <button type="button" class="btn" onclick="increaseCnt()">
 		                                <span style = "color: #52C5FD"><i class="fas fa-plus"></i></span>
 		                            </button>
 		                        </span>
@@ -71,31 +64,39 @@
 <!-- ======================================= -->
 <section class="accomodation_area" style = "margin-bottom: 60px;">
     <div class="container">
-        <div class="row mb_30 text-center">
-        	<c:if test="${empty list }">
+       	<c:if test="${empty list }">
+       		 <div class="row mb-30 text-center">
 				<div class="col-lg-12 col-md-12 mb-30"><h5>조회된 결과가 없습니다.</h5></div>
+			</div>
+		</c:if>
+		<c:set var = "n" value = "0"/>
+		<div class = "row mb-30 text-center">
+		<c:forEach var="vo" items="${list }">
+			<c:if test="${n % 4 == 0 }">
+				</div>
+				<div class = "row mb-30 text-center">
 			</c:if>
-			<c:forEach var="vo" items="${list }">
-				<div class="col-lg-3 col-sm-6">
-	                <div class="accomodation_item text-center">
-	                    <div class="hotel_img">
-							<a href="<c:url value='/reservation/accomDetail?accom_num=${vo.accom_num }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>"><img src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>" style = "height: 270px;"></a>
-						</div>
-	                    <h4><a href="<c:url value='/reservation/accomDetail?accom_num=${vo.accom_num }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>">${vo.accom_name }</a></h4>
-	                    <p><i class="fas fa-map-marker-alt"></i> ${vo.accom_city }, ${vo.accom_country }</p>
-	                    <h5>${vo.room_price }원 ~</h5>
-	                    <div class = "star">
-	                    	<i class = "fa fa-star"></i>
-	                    	<i class = "fa fa-star"></i>
-	                    	<i class = "fa fa-star"></i>
-	                    	<i class = "fa fa-star"></i>
-	                    	<i class = "fa fa-star"></i>
-	                    </div>
-	                </div>
-	            </div>
-			</c:forEach>
-        </div>
-    </div>
+			<div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+						<a href="<c:url value='/reservation/accomDetail?pageNum=${param.pageNum }&accom_num=${vo.accom_num }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>"><img src="<c:url value='/resources/uploadAccom/${vo.accommImg_saveImg }'/>" style = "height: 270px;"></a>
+					</div>
+                    <h4><a class = "sec_h4" href="<c:url value='/reservation/accomDetail?pageNum=${param.pageNum }&accom_num=${vo.accom_num }&checkin=${checkin}&checkout=${checkout }&cnt=${cnt }'/>">${vo.accom_name }</a></h4>
+                    <p><i class="fas fa-map-marker-alt"></i> ${vo.accom_city }, ${vo.accom_country }</p>
+                    <h5>${vo.room_price }원 ~</h5>
+                    <div class = "star">
+                    	<i class = "fa fa-star"></i>
+                    	<i class = "fa fa-star"></i>
+                    	<i class = "fa fa-star"></i>
+                    	<i class = "fa fa-star"></i>
+                    	<i class = "fa fa-star"></i>
+                    </div>
+                </div>
+            </div>
+			<c:set var = "n" value = "${n + 1 }"/>
+		</c:forEach>
+		</div>
+       </div>
 </section>
 
 <nav class="blog-pagination justify-content-center d-flex">

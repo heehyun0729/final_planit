@@ -2625,6 +2625,9 @@ h1, h2, h3, h4, h5, h6 {
   padding: 30px 50px 30px 30px;
   background: #fff;
   border-left: 2px solid #ff5252;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
 }
 
 @media (max-width: 991px) {

@@ -71,31 +71,41 @@ function ppp(mem_id){
         		</div>
         	</div>
         </div>
-		<div class = "row mb-30 text-center">
         <c:if test="${empty list }">
-			<div class="col-lg-12 col-md-12 mb-30"><h5>조회된 결과가 없습니다.</h5></div>
+        	<div class = "row mb-30 text-center">
+				<div class="col-lg-12 mb-30">
+					<h5>조회된 결과가 없습니다.</h5>
+				</div>
+			</div>
 		</c:if>
+		<c:set var = "n" value = "0"/>
+		<div class = "row mb-30 text-center">
 		<c:forEach var = "vo" items="${list }">
-				<div class="col-lg-3 col-md-6 mb-30" style = "border: 1px solid #aaa; border-radius: 10px;padding-top: 15px;">
-					<div class="single-recent-blog-post">
-						<div class="thumb">
-							<a href = "<c:url value = '/plan/detail?pageNum=${pageNum }&field=${field }&keyword=${keyword }&plan_num=${vo.plan_num }'/>"><img src = "${vo.plan_img }" style = "height: 300px;"></a>
-						</div>
-						<div class = "details align-items-center">
-							<a href = "<c:url value = '/plan/detail?pageNum=${pageNum }&field=${field }&keyword=${keyword }&plan_num=${vo.plan_num }'/>"><h4 class="sec_h4">${vo.plan_title }</h4></a>
-							<img src = "<c:url value = '${vo.img_saveImg }'/>" class="img-circle avatar" style = "margin-bottom: 5px;">
-							<div class="dropdown show">
-							  <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${vo.mem_id }</a>
-							  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							  	<a class="dropdown-item" href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a>
-								<a class="dropdown-item" href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a>
-							  </div>
-							</div>
+			<c:if test="${n % 4 == 0 }">
+				</div>
+				<div class = "row mb-30 text-center">
+			</c:if>
+			<div class="col-lg-3 col-md-6 mb-30">
+				<div class="single-recent-blog-post" style = "border: 1px solid #ddd; border-radius: 0 0 10px 10px;padding-bottom: 15px;">
+					<div class="thumb" >
+						<a href = "<c:url value = '/plan/detail?pageNum=${pageNum }&field=${field }&keyword=${keyword }&plan_num=${vo.plan_num }'/>"><img src = "${vo.plan_img }" style = "height: 300px;"></a>
+					</div>
+					<div class = "details align-items-center">
+						<a href = "<c:url value = '/plan/detail?pageNum=${pageNum }&field=${field }&keyword=${keyword }&plan_num=${vo.plan_num }'/>"><h4 class="sec_h4">${vo.plan_title }</h4></a>
+						<img src = "<c:url value = '${vo.img_saveImg }'/>" class="img-circle avatar" style = "margin-bottom: 5px;">
+						<div class="dropdown show">
+						  <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${vo.mem_id }</a>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						  	<a class="dropdown-item" href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a>
+							<a class="dropdown-item" href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a>
+						  </div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<c:set var = "n" value = "${n + 1 }"/>
 		</c:forEach>
-	</div>
+		</div>
 	 <nav class="blog-pagination justify-content-center d-flex">
            <ul class="pagination">
                <li class="page-item">
@@ -128,5 +138,4 @@ function ppp(mem_id){
                </li>
            </ul>
        </nav>
-    </div>
 </section>
