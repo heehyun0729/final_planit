@@ -26,86 +26,93 @@
 <!--================body Area =================-->
 <br>
 <div class="container">
-	<div class="facilities_item">
-		<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
-			<div class="row">
-				<div class="col-md-6">
-					<h3 class="typo-list">여행 시작</h3>
-		            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="kw_indate">
-	            </div>
-	 			<div class="col-md-6">
-	 				<h3 class="typo-list">여행 끝</h3>
-		            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
-	 			</div>
-	        </div>
-			
-			<br>
-			
-			<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
-			<div class="page-liner"></div>
-			
-			<c:if test="${empty countryList}">
-				<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
-			</c:if>
-			<c:forEach var="country" items="${countryList}">
-				<div class="row">
-					<div class="col-md-3">
-						<h4 class="typo-list">${country }</h4>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="facilities_item">
+				<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
+					<div class="row">
+						<div class="col-md-6">
+							<h3 class="typo-list">여행 시작</h3>
+				            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="kw_indate">
+			            </div>
+			 			<div class="col-md-6">
+			 				<h3 class="typo-list">여행 끝</h3>
+				            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
+			 			</div>
+			        </div>
+					
+					<br>
+					
+					<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
+					<div class="page-liner"></div>
+					
+					<c:if test="${empty countryList}">
+						<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
+					</c:if>
+					<c:forEach var="country" items="${countryList}">
+						<div class="row">
+							<div class="col-md-3">
+								<h4 class="typo-list">${country }</h4>
+							</div>
+							
+							<c:forEach var="city" items="${cityList}">
+								<c:if test="${city.key==country }">
+									<div class="col-md-9">
+										<div class="btn-group-toggle" data-toggle="buttons">
+											<c:forEach var="cityVal" items="${city.value}">
+												<label class="btn btn default">
+													<input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city"> ${cityVal }
+												</label>
+											</c:forEach>
+										</div>
+									</div>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div class="page-liner"></div>
+					</c:forEach>
+					
+					<div class="page-liner"></div>
+					
+					<div>
+						<label>성별</label>
+					</div>
+					<div class="form-group">
+						<select name="kw_gender" class="nice-select wide">
+							<option value="X">상관없음</option>
+							<option value="M">남자</option>
+							<option value="W">여자</option>
+						</select>
 					</div>
 					
-					<c:forEach var="city" items="${cityList}">
-						<c:if test="${city.key==country }">
-							<div class="col-md-9">
-								<div class="btn-group-toggle" data-toggle="buttons">
-									<c:forEach var="cityVal" items="${city.value}">
-										<label class="btn btn default">
-											<input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city"> ${cityVal }
-										</label>
-									</c:forEach>
-								</div>
-							</div>
-						</c:if>
-					</c:forEach>
-				</div>
-				<div class="page-liner"></div>
-			</c:forEach>
-			
-			<div class="page-liner"></div>
-			
-			<div>
-				<label>성별</label>
+					<br>
+					<div class="page-liner"></div>
+					
+					<div>
+						<label>연령대</label>
+					</div>
+					<div class="form-group">
+						<select name="kw_birthYear" class="nice-select wide">
+							<option value="0">상관없음</option>
+							<option value="20">20대</option>
+							<option value="30">30대</option>
+							<option value="40">40대</option>
+							<option value="50">50대</option>
+							<option value="60">60대 이상</option>
+						</select>
+					</div>
+					
+					<div class="page-liner"></div>
+					
+					<div class="text-center">
+						<input type="submit" class="genric-btn primary circle arrow" value="검색">
+					</div>
+				</form>
 			</div>
-			<div class="form-group">
-				<select name="kw_gender" class="nice-select wide">
-					<option value="X">상관없음</option>
-					<option value="M">남자</option>
-					<option value="W">여자</option>
-				</select>
-			</div>
-			
-			<br>
-			<div class="page-liner"></div>
-			
-			<div>
-				<label>연령대</label>
-			</div>
-			<div class="form-group">
-				<select name="kw_birthYear" class="nice-select wide">
-					<option value="0">상관없음</option>
-					<option value="20">20대</option>
-					<option value="30">30대</option>
-					<option value="40">40대</option>
-					<option value="50">50대</option>
-					<option value="60">60대 이상</option>
-				</select>
-			</div>
-			
-			<div class="page-liner"></div>
-			
-			<div class="text-center">
-				<input type="submit" class="genric-btn primary circle arrow" value="검색">
-			</div>
-		</form>
+		</div>
+		<div class="col-lg-4">
+		동행추천 작업중
+		</div>
 	</div>
 	
 	<div class="btn_group">
@@ -332,7 +339,7 @@
 	//동행추천 팝업
 	function popupOpen(str){
 		var popUrl = localurl+"buddySg?"+str;
-		var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
+		var popOption = "width=1600, height=700, resizable=no, scrollbars=no, status=no;";
 			window.open(popUrl,"동행추천",popOption);
 	}
 	//쪽지보내기 팝업

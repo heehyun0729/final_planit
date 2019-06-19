@@ -69,6 +69,10 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="text-center">
+		<input type="button" value="닫기" onclick="close()" class="btn btn-danger msgBtn">
+	</div>
 </div>
 
 <input type="hidden" id="localurl" value="<c:url value='/'/>">
@@ -86,6 +90,9 @@
 		}else{
 			
 		}
+	}
+	function close(){
+		window.close();
 	}
 </script>
 <script src="<c:url value='/resources/royal/vendors/owl-carousel/owl.carousel.min.js'/>"></script>
