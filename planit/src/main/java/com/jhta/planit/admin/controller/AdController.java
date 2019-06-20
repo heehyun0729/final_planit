@@ -3,6 +3,7 @@ package com.jhta.planit.admin.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.lang.ProcessBuilder.Redirect;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -118,10 +119,22 @@ public class AdController {
 	public String adminAdRequestFormGetOk() {
 		return ".admin.adminAdRequestFormOk";
 	}
-	@RequestMapping(value="/adminLogin", method=RequestMethod.GET)//관리자 로그인
-	public String adminLoginForm() {
-		return "/admin/adminLogin";
+
+	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET) // 관리자 로그인
+	public String adminLoginForm(HttpSession session) {
+		if (session.getAttribute("mem_stat") == null) {
+			return "/admin/adminLogin";
+		} else {
+			int mem_stat = (Integer) session.getAttribute("mem_stat");
+			if (mem_stat == 0 || mem_stat == 1) {
+				return "redirect:/adminHome";
+			} else {
+				return "redirect:/";
+			}
+		}
+
 	}
+	
 	@RequestMapping(value="/adminLogin", method=RequestMethod.POST)//관리자 로그인 -> 홈
 	public String adminLoginOk(String mem_id, String mem_pwd, Model model, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();

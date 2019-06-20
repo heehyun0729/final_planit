@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.planit.user.mybatis.mypageMapper">
 	<select id="profileInfo" resultType="hashmap" parameterType="hashmap">
-		select m.mem_nickname, mi.img_saveImg, p.profile_open, p.profile_comm, 
+		select m.mem_nickname, m.mem_stat, mi.img_saveImg, p.profile_open, p.profile_comm, 
 			(select nvl(count(*),0) from follow_list f where f.mem_id=#{mem_id}) follow, 
 			(select nvl(count(*),0) from follow_list f where f.profile_no=( select profile_no from profile where mem_id=#{mem_id})) follower, 
 			nvl((select follow_grade from follow_list where mem_id=#{session_mem_id} and profile_no=( select profile_no from profile where mem_id=#{mem_id})),0) follow_grade,

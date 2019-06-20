@@ -17,6 +17,7 @@ $(document).ready(function() {
 			success : function(data) {
 				if (data >0) {
 					alert("승인성공!");
+					location.replace($('#localurl').val()+"admin/user/sellerlist?info=list");
 				} else {
 					alert("승인실패!");
 				}
@@ -31,9 +32,10 @@ $(document).ready(function() {
 			data : {'mem_id':$("#mem_id2").val()},
 			success : function(data) {
 				if (data >0) {
-					alert("승인성공!");
+					alert("반려성공!");
+					location.replace($('#localurl').val()+"admin/user/sellerlist?info=list");
 				} else {
-					alert("승인실패!");
+					alert("반려실패!");
 				}
 			}
 		});

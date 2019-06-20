@@ -46,22 +46,26 @@
 			<input type="text" id="mem_email" name="mem_email" class="form-control" placeholder="email@email.com (변경불가! 등록된 이메일로 인증코드가 갑니다.)" required><input type="button" id="emailcheck" name="emailcheck" value="중복검사" disabled="disabled">
 			<div id="emailcheckresult" class="resultMsg"></div>
 		</div>
-		<div class="input-group mb-4 form-group form-group">
-			<div class="input-group-prepend">
-				<span class="input-group-text"><span class="fa fa-venus-mars"></span></span>
+		<div class="form-row">
+			<div class="input-group col-md-6 mb-4 form-group form-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><span class="fa fa-venus-mars"></span></span>
+				</div>
+				<select class="form-control" id="mem_gender" name="mem_gender">
+					<option value="m">남(Male)</option>
+					<option value="f">녀(Female)</option>
+				</select>
 			</div>
-			<select class="form-control" id="mem_gender" name="mem_gender">
-				<option value="m">남(Male)</option>
-				<option value="f">녀(Female)</option>
-			</select>
-			<div class="input-group-prepend">
-				<span class="input-group-text"><span class="fas fa-birthday-cake"></span></span>
+			<div class="input-group col-md-6 mb-4 form-group form-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><span class="fas fa-birthday-cake"></span></span>
+				</div>
+				<select id="mem_birthyear" name="mem_birthyear" class="form-control">
+					<c:forEach var="i" begin="0" end="${sysYear-1900 }">
+						<option value="${sysYear-i }">${sysYear-i }</option>
+					</c:forEach>
+				</select>
 			</div>
-			<select id="mem_birthyear" name="mem_birthyear" class="form-control">
-				<c:forEach var="i" begin="0" end="${sysYear-1900 }">
-					<option value="${sysYear-i }">${sysYear-i }</option>
-				</c:forEach>
-			</select>
 		</div>
 		<input type="submit" class="btn btn-primary btn-block" value="가입">
 		<div class="errMsg">${errMsg }</div>

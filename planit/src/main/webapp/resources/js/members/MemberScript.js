@@ -372,40 +372,36 @@ $(document).ready(function() {
 				+ 'px';
 	}
 	
-	$(".sell_tels").on("propertychange change keyup paste input", function() {
+	$("#sell_tel2").on("propertychange change keyup paste input", function() {
 	    $(this).val($(this).val().replace(/[^0-9]/g,""));
 	});
 	
 	$("#sellJoin").submit(function(event) {
 		let formresult=true;
 		let agreecheck=$("#electronic_agree").prop("checked");
-		$("#submitError").text("");
+		$(".errMsg").text("");
 		if(!agreecheck){
-			$("#submitError").text("전자상거래 이용약관에 동의해 주세요.");
+			$(".errMsg").text("전자상거래 이용약관에 동의해 주세요.");
 			formresult=false;
 		}else if($("#mem_pwd").val()=="") {
-			$("#submitError").text("비밀번호를 입력해 주세요");
+			$(".errMsg").text("비밀번호를 입력해 주세요");
 			formresult=false;
 			$("#mem_pwd").focus();
 		}else if($("#sell_company").val()=="") {
-			$("#submitError").text("회사명을 입력해 주세요");
+			$(".errMsg").text("회사명을 입력해 주세요");
 			formresult=false;
 			$("#sell_company").focus();
 		}else if(!sel_addrchk){
-			$("#submitError").text("주소를 확인해 주세요");
+			$(".errMsg").text("주소를 확인해 주세요");
 			formresult=false;
 		}else if($("#sell_tel2").val()==""){
-			$("#submitError").text("전화번호를 입력해 주세요");
+			$(".errMsg").text("전화번호를 입력해 주세요");
 			formresult=false;
 			$("#sell_tel2").focus();
-		}else if($("#sell_tel3").val()==""){
-			$("#submitError").text("전화번호를 입력해 주세요");
-			formresult=false;
-			$("#sell_tel3").focus();
 		}
 		$("#submitError").attr("style", "color:red");
-		$("#sell_tel").val($("#sell_tel1").val()+$("#sell_tel2").val()+$("#sell_tel3").val());
-		$("#sell_addr").val($("#sell_addr1").val()+$("#sell_addr2").val()+$("#sell_addr3").val());
+		$("#sell_tel").val($("#sell_tel1").val()+$("#sell_tel2").val());
+		$("#sell_addr").val($("#sell_addr1").val()+" "+$("#sell_addr2").val()+$("#sell_addr3").val());
 		if (!formresult) {
 			event.preventDefault();
 		}

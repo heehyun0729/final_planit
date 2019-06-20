@@ -41,7 +41,11 @@ public class EditUserInfoController {
 			return "redirect:/login";
 		} else {
 			if (editInfo.equals("sellerapply")) {
-				return "!user!sellerapply";
+				if (membersService.idCheck(mem_id).getMem_stat()<=1) {
+					return "redirect:/";
+				}else {
+					return "!user!sellerapply";
+				}
 			} else if (editInfo.equals("editprofile")) {
 				return "!user!editUserChk";
 			} else if (editInfo.equals("pwdChange")) {
@@ -51,7 +55,7 @@ public class EditUserInfoController {
 			} else if (editInfo.equals("withdrawal")) {
 				return "!user!withdrawal";
 			} else {
-				return "redirect: /member/mypage/" + mem_id;
+				return "redirect:/member/mypage/" + mem_id;
 			}
 		}
 	}
