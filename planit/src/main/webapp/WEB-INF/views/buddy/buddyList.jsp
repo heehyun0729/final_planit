@@ -298,28 +298,28 @@
 							<div class="serial"><input type="button" class="btn btn-success msgBtn" value="쪽지하기" onclick="messagePopupFunc('${buddy.mem_id}')"></div>
 							<c:choose>
 								<c:when test="${empty overlap_ck}">
-									<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
+									<div class="serial"><input type="button" class="btn btn-success" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
 								</c:when>
 								<c:otherwise>
 									<c:set var="find" value="false" />
 									<c:forEach var="overlapck" items="${overlap_ck}">
 										<c:choose>
 											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='0' }">
-												<div class="serial"><input type="button" class="btn btn-success msgBtn" value="요청중" disabled="disabled"></div>
+												<div class="serial"><input type="button" class="btn btn-success" value="요청중" disabled="disabled"></div>
 												<c:set var="find" value="true" />
 											</c:when>
 											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='1' }">
-												<div class="serial"><input type="button" class="btn btn-success msgBtn" value="수락" disabled="disabled"></div>
+												<div class="serial"><input type="button" class="btn btn-success" value="수락" disabled="disabled"></div>
 												<c:set var="find" value="true" />
 											</c:when>
 											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='2' }">
-												<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
+												<div class="serial"><input type="button" class="btn btn-success" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
 												<c:set var="find" value="true" />
 											</c:when>
 										</c:choose>
 									</c:forEach>
 									<c:if test="${not find}">
-										<div class="serial"><input type="button" class="btn btn-success msgBtn" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
+										<div class="serial"><input type="button" class="btn btn-success" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
 									</c:if>
 								</c:otherwise>
 							</c:choose>
@@ -426,8 +426,8 @@
 			</div>
 			
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onclick="sendMessage()">보내기</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+				<button type="button" class="genric-btn primary circle" onclick="sendMessage()">보내기</button>
+				<button type="button" class="genric-btn primary circle" data-dismiss="modal">취소</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -440,6 +440,7 @@
 	
 	var localurl=$('#localurl').val();
 	$(function() {
+		//달력
 		$.datepicker.regional['calendar'] = {
 				closeText: '닫기',
 		        prevText: '이전달',
@@ -469,8 +470,6 @@
 	    	$("#buddy_outdate").datepicker();
 	    	$("#buddy_outdate").datepicker( "option", "minDate", selectedDate );
 	    });
-	    
-	    messagePopupFunc();
 	});
 	
 	/*
@@ -484,17 +483,6 @@
 				$("#recipient-name").val(msg_id);
 				$("#msgModal").modal();
 			});
-		}else{
-			alert("로그인이 필요한 서비스 입니다.");
-		}
-	}
-	
-	//쪽지보내기 팝업
-	function msgPopup(id){
-		if('${mem_id}'!=null && '${mem_id}'!=""){
-			var popUrl = localurl+"msgSendPopupForm?id="+id;
-			var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
-				window.open(popUrl,"쪽지보내기",popOption);
 		}else{
 			alert("로그인이 필요한 서비스 입니다.");
 		}

@@ -12,6 +12,13 @@
 	href="<c:url value='/resources/royal/css/responsive.css'/>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/royal/vendors/nice-select/css/nice-select.css'/>">
+<style type="text/css">
+.btn-info {
+	color: #fff;
+	background-color: #339af0;
+	border-color: #17a2b8;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -28,7 +35,7 @@
 						<c:forEach var="vo" items="${list}" varStatus="status">
 							<tr>
 								<td>${status.index+1}</td>
-								<td><a
+								<td><a style="color: #339af0;"
 									href="${pageContext.request.contextPath }/roomDetail?accom_num=${accom_num }&room_num=${vo.room_num}">${vo.room_type}</a></td>
 								<td><c:forEach var="img" items="${vo.room_images}">
 										<c:if test="${not empty img.roomImg_orgImg}">
@@ -44,13 +51,13 @@
 										action="<c:url value='/roomImageInsert'/>?accom_num=${accom_num}"
 										enctype="multipart/form-data">
 										<input type="hidden" name="room_num" value="${vo.room_num}">
-										<br /> <input type="file" name="file1"
-											class="genric-btn info circle"> <a href="#"
-											style="margin-right: 100px;" onclick="$('#form12').submit();"><i
+										<br /> <label>방 이미지 추가</label>
+						<input type="file" name="file1" class="BSbtninfo"><a href="#"
+											style="margin-right: 100px;" onclick="javascript:$(this).parent().submit();"><i
 											class="fas fa-thumbs-up" style="color: #339af0;">등록</i></a>
 									</form></td>
 							</tr>
-						</c:forEach>
+						</c:forEach>	
 					</table>
 					<div>
 						<nav class="blog-pagination justify-content-center d-flex">
@@ -114,6 +121,12 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$('.BSbtninfo').filestyle({
+			buttonName : 'btn-info',
+			buttonText : 'File selection'
+		});
+	</script>
 </body>
 </html>
 

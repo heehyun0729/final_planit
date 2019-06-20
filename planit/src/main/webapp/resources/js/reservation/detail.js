@@ -201,8 +201,12 @@ function roomCheck() {
 				if(data.room_num == -1){
 					cnt = -1;
 					setRsvnDialog(0);
+					setRsvnMsg();
+					setPayBtn();
 				}else{
 					setRsvnDialog(data.room_price);
+					setRsvnMsg();
+					setPayBtn();
 				}
 			}
 		});

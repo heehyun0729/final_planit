@@ -6,7 +6,8 @@
 	<div class="overlay bg-parallax"style="background: url(../resources/images/room.jpg)"></div>
 	<div class="container">
 		<div class="page-cover text-center">
-			<h2 class="page-cover-tittle">숙소예약</h2>
+			<h2 class="page-cover-tittle f_48">숙소예약</h2>
+			<p style="color:#D8D8D8">전세계 숙소를 최저가로 만나보세요!</p>
 		</div>
 	</div>
 </section>
@@ -85,11 +86,24 @@
                     <p><i class="fas fa-map-marker-alt"></i> ${vo.accom_city }, ${vo.accom_country }</p>
                     <h5>${vo.room_price }원 ~</h5>
                     <div class = "star">
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
+                    	<c:choose>
+                    		<c:when test="${vo.star == 0 }">
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<c:forEach begin = "0" end = "${vo.star - 1 }">
+		                    		<i class="fas fa-star"></i>
+		                    	</c:forEach>
+		                    	<c:forEach begin = "0" end = "${4 - vo.star }">
+		                    		<i class="far fa-star"></i>
+		                    	</c:forEach>
+                    		</c:otherwise>
+                    	</c:choose>
+                    	<span style = "color: #777;">&nbsp;(${vo.reviewCnt })</span>
                     </div>
                 </div>
             </div>

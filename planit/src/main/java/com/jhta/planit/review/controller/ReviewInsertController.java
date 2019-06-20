@@ -50,7 +50,7 @@ public class ReviewInsertController {
 			map.put("reviewImge_saveImg",reviewImg_saveImg );
 			service.insert(map);
 			
-			return "/review/result";
+			return ".review.result";
 	}
 }
 

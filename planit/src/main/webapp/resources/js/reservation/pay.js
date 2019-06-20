@@ -1,3 +1,9 @@
+$(function() {
+	$("#payBtn").click(function(e) {
+		e.preventDefault();
+		rsvnPay();
+	})
+});
 function rsvnPay() {
 	var name = $("#rsvnName").val();
 	var email = $("#rsvnEmail").val();

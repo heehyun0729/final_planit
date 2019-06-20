@@ -12,12 +12,14 @@ public class RsvnAccomVo {
 	private String accommImg_saveImg;
 	private int accomChk;
 	private int room_price;	// 최저가
+	private int star;	// 별점평균
+	private int reviewCnt;	// 리뷰개수
 	
 	public RsvnAccomVo() {}
 
 	public RsvnAccomVo(int accom_num, int sell_num, String accom_name, String accom_addr, String accom_comm,
 			String accom_country, String accom_city, String accommImg_orgImg, String accommImg_saveImg, int accomChk,
-			int room_price) {
+			int room_price, int star, int reviewCnt) {
 		super();
 		this.accom_num = accom_num;
 		this.sell_num = sell_num;
@@ -30,6 +32,8 @@ public class RsvnAccomVo {
 		this.accommImg_saveImg = accommImg_saveImg;
 		this.accomChk = accomChk;
 		this.room_price = room_price;
+		this.star = star;
+		this.reviewCnt = reviewCnt;
 	}
 
 	public int getAccom_num() {
@@ -118,6 +122,22 @@ public class RsvnAccomVo {
 
 	public void setRoom_price(int room_price) {
 		this.room_price = room_price;
+	}
+
+	public int getStar() {
+		return star;
+	}
+
+	public void setStar(int star) {
+		this.star = star;
+	}
+
+	public int getReviewCnt() {
+		return reviewCnt;
+	}
+
+	public void setReviewCnt(int reviewCnt) {
+		this.reviewCnt = reviewCnt;
 	}
 	
 }

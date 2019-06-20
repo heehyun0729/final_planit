@@ -174,11 +174,35 @@
 		    select acc.accom_num accom_num, acc.sell_num sell_num, acc.accom_name accom_name, acc.accom_addr accom_addr, 
 		        acc.accom_comm accom_comm, acc.accom_country accom_country, acc.accom_city accom_city, 
 		        acc.accommImg_orgImg accommImg_orgImg, acc.accommImg_saveImg accommImg_saveImg, acc.accomchk accomchk,
-		        rr.room_price room_price, rownum rnum 
+		        rr.room_price room_price, y.star star, w.cnt reviewCnt, rownum rnum 
 		    from (select accom_num, NVL(min(room_price), 0) room_price
 		                from room
 		                where roomchk = 0
 		                group by accom_num) rr,
+		         (
+		            select yy.accom_num accom_num, NVL(yyy.star, 0) star from accom yy left outer join
+		            (
+		            select acco.accom_num accom_num, NVL(ceil(avg(rrv.resReview_star)), 0) star
+		            from rsvn rsv, reservationReview rrv, room roo, accom acco
+		            where rsv.rsvn_num = rrv.rsvn_num
+		                and rsv.room_num = roo.room_num
+		                and roo.accom_num = acco.accom_num
+		            group by acco.accom_num
+		            )yyy
+		            on yy.accom_num = yyy.accom_num
+		        )y,
+		        (
+		            select ww.accom_num accom_num, NVL(www.cnt, 0) cnt from accom ww left outer join
+		                (
+		                select acco.accom_num accom_num, NVL(count(*),0) cnt
+		                from rsvn rsv, reservationReview rrv, room roo, accom acco
+		                where rsv.rsvn_num = rrv.rsvn_num
+		                    and rsv.room_num = roo.room_num
+		                    and roo.accom_num = acco.accom_num
+		                group by acco.accom_num
+		                )www
+		                on ww.accom_num = www.accom_num
+		        )w,
 		         (
 			         select distinct a.accom_num accom_num
 			        from accom a, 
@@ -193,7 +217,33 @@
 		            order by a.accom_num desc
 		        )bb, accom acc 
 		        where bb.accom_num = rr.accom_num and bb.accom_num = acc.accom_num
+		        	and y.accom_num = bb.accom_num and w.accom_num = bb.accom_num
 			)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
+			order by star desc, reviewCnt desc
+	</select>
+	<select id="avgStar" parameterType="int" resultType="int">
+		select NVL(ceil(avg(aa.resReview_star)), 0) from
+		(
+		    select acco.accom_num accom_num, rrv.resReview_star resReview_star
+		    from rsvn rsv, reservationReview rrv, room roo, accom acco
+		    where rsv.rsvn_num = rrv.rsvn_num
+		        and rsv.room_num = roo.room_num
+		        and roo.accom_num = acco.accom_num
+		        and acco.accom_num = #{accom_num}
+		)aa right outer join dual on 1 = 1
+		group by aa.accom_num
+	</select>
+	<select id="reviewCount" parameterType="int" resultType="int">
+		select NVL(count(aa.resReview_star), 0) from
+		(
+		    select acco.accom_num accom_num, rrv.resReview_star resReview_star
+		    from rsvn rsv, reservationReview rrv, room roo, accom acco
+		    where rsv.rsvn_num = rrv.rsvn_num
+		        and rsv.room_num = roo.room_num
+		        and roo.accom_num = acco.accom_num
+		        and acco.accom_num = #{accom_num}
+		)aa right outer join dual on 1 = 1
+		group by aa.accom_num
 	</select>
 	<select id="accomCount" parameterType="hashmap" resultType="int">
 		select NVL(count(*), 0) from

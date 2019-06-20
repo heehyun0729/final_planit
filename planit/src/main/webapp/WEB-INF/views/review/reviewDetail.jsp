@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+.comm{width:300px;height: 200px; text-align: center; }
+</style>
 <div>
 <script>
 	$(document).ready(function(){
 		getList(1);
-		$("#btn1").click(function(){
+		$("#btn1").click(function(e){
+			e.preventDefault();
 			$.ajax({
 				url:"${pageContext.request.contextPath}/review/reviewLike.do?mem_id=${vo.mem_id}&review_num=${vo.review_num }",
 				dataType:"xml",
@@ -49,7 +53,9 @@
 				url:"${pageContext.request.contextPath}/reviewCommDelete",
 				success: function(data){
 					console.log("?????2222222222222");
-						getList(pageNum);
+		             getList(pageNum);
+
+				
 				}
 			});
 		}
@@ -68,15 +74,15 @@
 					var rcomm_content=$(this).find("rcomm_content").text();
 					var rcomm_date=$(this).find("rcomm_date").text();
 					
-					var str="<div class='comm'>[작성자] " +mem_id + "<br>" + "[내용]" + rcomm_content +  "[날짜]" +rcomm_date+
-					"<input type='button' value='댓글삭제' onclick='del(" + rcomm_num+","+pageNum + ")'>"
+					var str="<div class='comm' >[작성자] <br>" +mem_id + "<br>" + "[내용]<br>" + rcomm_content +"<br>" + "[날짜]<br>" +rcomm_date+
+					"<br>"+"<input type='button'  value='삭제' onclick='del(" + rcomm_num+","+pageNum + ")'>"
 					"</div>";
 					
 					
 					$("#commList").append(str);
 					
 				});
-				var pageHTML="";
+				var pageHTML="<div style='text-align:center'>";
 				var startPageNum=parseInt($(data).find("startPageNum").text());
 				var endPageNum=parseInt($(data).find("endPageNum").text());
 				var pageCount=parseInt($(data).find("pageCount").text());
@@ -97,97 +103,113 @@
 				if(endPageNum<pageCount){
 					pageHTML +="<a href='javascript:getList("+(endPageNum+1)+")'>[다음]</a>";
 				}
+				pageHTML +="</div>";
 				$("#page").html(pageHTML);
 				}
 		});
 	}
 </script>
-<h1>상세 화면</h1>
-<table border="1" style="width:700px;">
+<!--================Breadcrumb Area =================-->
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" style = "background: url(../resources/images/map.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">여행후기</h2>
+        </div>
+    </div>
+</section>
+
+
+<div class="container">
+<h1>여행후기 글</h1>
+
+<a href="${pageContext.request.contextPath }/review/reviewList.do"><span style="color: #339af0;">여행후기 리스트</span></a> /
+<a href="${pageContext.request.contextPath }/review/reviewUpdate?review_num=${vo.review_num}"><span style="color:#FA58F4">여행 글수정</span></a>
+<table class="table">
+
+	
 	<tr>
-		<td>글번호</td>
-		<td>${vo.review_num }</td>
+		<th>글번호</th>
+		<td style="text-align: center;">${vo.review_num }</td>
 	</tr>
 	
 	<tr>
-		<td>아이디</td>
-		<td>${vo.mem_id }</td>
+		<th>아이디</th>
+		<td style="text-align: center;">${vo.mem_id }</td>
 	</tr>
 	
 	<tr>
-		<td>국가</td>
-		<td>${vo.review_country }</td>
+		<th>국가</th>
+		<td style="text-align: center;">${vo.review_country }</td>
 	</tr>
 	
 	<tr>
-		<td>도시</td>
-		<td>${vo.review_city }</td>
+		<th>도시</th>
+		<td style="text-align: center;">${vo.review_city }</td>
 	</tr>
 	
 	<tr>
-		<td>글제목</td>
-		<td>${vo.review_title }</td>
+		<th>글제목</th>
+		<td style="text-align: center;">${vo.review_title }</td>
 	</tr>
 	
 	<tr>
-		<td>대표이미지</td>
-		<td>
+		<th>대표이미지</th>
+		<td style="text-align: center;">
 		<img src="<c:url value='/resources/uploadReview/${vo2.reviewImge_saveImg }'/>">
 		</td>
 	</tr>
 	
 	<tr>
-		<td>사진/글 내용</td>
-		<td><div>${vo.review_content }</div></td>
+		<th>사진/글 내용</th>
+		<td style="text-align: center;"><div>${vo.review_content }</div></td>
 		<!--  <td><textarea rows="3" cols="40" readonly="readonly"><div>${vo.review_content }</div></textarea>-->
 	</tr>
 	
 	<tr>
-		<td>조회수</td>
-		<td>${vo.review_hit }</td>
+		<th>조회수</th>
+		<td style="text-align: center;">${vo.review_hit }</td>
 	</tr>
 	
 	<tr>
-		<td>작성일</td>
-		<td>${vo.review_date }</td>
+		<th>작성일</th>
+		<td style="text-align: center;">${vo.review_date }</td>
 	</tr>
 	<tr>
-	<td><input type="button" value="좋아요" id="btn1">
+	<td>
+	<a id="btn1" href="#" style="margin-right: 100px;"><i class="fas fa-thumbs-up" style="color: #339af0;">좋아요</i></a>
 	<%-- <a href="<c:url value='/review/reviewLike.do?mem_id=test123&review_num=${vo.review_num }'/>"><input type="button" value="좋아요"></a></td> --%>
 	<%-- <td><a href="<c:url value='/review/reviewLike.do?mem_id=${sessionScope.mem_id }&review_num=${vo.review_num }'/>"><input type="button" value="좋아요"></a></td>--%>
 		
-		<td><span id="review_like" name="review_like">${review_like }</span></td>
+		<td style="text-align: center;"><span id="review_like" name="review_like">${review_like }</span></td>
 	</tr>
 	<tr>
-		<td>이전글</td>
-		<td><a href="<c:url value='/review/reviewDetail.do?review_num=${prev.review_num }'/>">${prev.review_title }</a></td>
+		<th>이전글</th>
+		<td style="text-align: center;"><a style="color: #339af0;" href="<c:url value='/review/reviewDetail.do?review_num=${prev.review_num }'/>">${prev.review_title }</a></td>
 	</tr>
 	
 	<tr>
-		<td>다음글</td>
-		<td><a href="<c:url value='/review/reviewDetail.do?review_num=${next.review_num }'/>">${next.review_title }</a></td>
+		<th>다음글</th>
+		<td style="text-align: center;"><a style="color: #FA58F4;" href="<c:url value='/review/reviewDetail.do?review_num=${next.review_num }'/>">${next.review_title }</a></td>
 	</tr>
 	
 	<%-- <tr>
 	<td><a href="${pageContext.request.contextPath }/review/reviewDelete?reviewNum=${vo.reviewNum }">삭제</a></td>
 	</tr>--%>
 </table>
-<a href="${pageContext.request.contextPath }/review/reviewList.do">전체글보기</a>
-<a href="${pageContext.request.contextPath }/review/reviewUpdate?review_num=${vo.review_num}">글수정</a>
+
+
 <div id="movieComment">
 	<div id="commAdd">
-<table border="1" style="width:700px;">
+<table class="table">
 	<tr>
-		<td>아이디</td>
-		<td>${vo.mem_id }</td>
-	</tr>
-	<tr>
-		<td>댓글입력 </td>
-		<td><textarea rows="3" cols="40" id="rcomm_content"></textarea>
+		<th>댓글입력 </th>
+		<td style="text-align: center;"><textarea rows="3" cols="40" id="rcomm_content"></textarea><br>
 		<input type="button" value="등록" id="addBtn">
 		</td>
 	</tr>
 </table>
+
 	<div id="commList"><!-- 댓글목록 -->
 	</div>
 		<div id="pageList"><!-- 페이징 div -->
@@ -195,4 +217,6 @@
 		</div>
 	</div>
 </div>
+</div>
+
 </div>

@@ -119,12 +119,23 @@
 					t.buddy_city=#{list}
 	 			</foreach>
 			</when>
+			<when test="kw_city!=null and kw_city!='' and mem_id !=null and mem_id!=''">
+				b, buddy_country c, buddy_city t 
+				where b.buddy_num=c.buddy_num and c.country_num=t.country_num and 
+				<foreach collection="kw_city" item="list"  open="(" close=")" separator="or">
+					t.buddy_city=#{list}
+	 			</foreach>
+	 			and mem_id not in(#{mem_id})
+			</when>
+			<when test="mem_id !=null and mem_id!=''">
+				where buddy_state=0 and mem_id not in(#{mem_id})
+			</when>
 			<otherwise>
 				where buddy_state=0
 			</otherwise>
 		</choose>
 	</sql>
-	
+
 	<!-- 리스트 -->
 	<select id="buddy_showAll" resultMap="buddylistvo" parameterType="hashmap">
 		select * from
@@ -171,17 +182,21 @@
 	</insert>
 
 	<!-- 국가 체크박스 생성 -->
-	<select id="buddy_showCountry" resultType="String">
-		select distinct buddy_country from buddy_country where buddy_num in (select buddy_num from buddy where buddy_state=0)
+	<select id="buddy_showCountry" resultType="String" parameterType="hashmap">
+		select distinct buddy_country from buddy_country where buddy_num in (
+		select buddy_num from buddy where buddy_state=0 
+		<if test="mem_id !=null and mem_id !=''">
+			and mem_id not in (#{mem_id})
+		</if>
+		)
 	</select>
 	<!-- 도시 체크박스 생성 -->
 	<select id="buddy_showCity" parameterType="String" resultType="com.jhta.planit.buddy.vo.BuddyCityVo">
 		select distinct buddy_city from buddy_city where country_num in 
 		(
 		select country_num from buddy_country where buddy_num in (select buddy_num from buddy where buddy_state=0) and buddy_country=#{country}
-		)	
+		)
 	</select>
-	
 	<!-- 날짜 지난 게시물 자동 업뎃 -->
 	<update id="buddy_stateUpt">
 		update buddy set buddy_state=1 

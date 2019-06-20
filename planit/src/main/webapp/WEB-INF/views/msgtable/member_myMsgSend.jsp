@@ -57,7 +57,7 @@ function detailClose() {
 }
 </script>
 <body>
-<h1>답장하기</h1>
+<h1 style="padding-left: 10px; margin-top: 10px;">답장하기</h1>
 <table class="table">
 	<tr>
 		<td>받을사람</td>

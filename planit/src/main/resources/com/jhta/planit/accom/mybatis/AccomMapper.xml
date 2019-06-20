@@ -40,7 +40,7 @@
 		<if test="field!=null and field!=''">
 		    and ${field} like '%'||#{keyword}||'%'
 		</if>
-		    	order by accom_num desc
+		    	order by sell_num asc,accom_num desc
 		    )aa 
 		)
 		<![CDATA[ where rnum >=#{startRow} and rnum <= #{endRow} ]]>

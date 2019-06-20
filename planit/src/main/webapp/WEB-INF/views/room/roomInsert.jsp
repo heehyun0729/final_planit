@@ -12,6 +12,13 @@
 	href="<c:url value='/resources/royal/css/responsive.css'/>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/royal/vendors/nice-select/css/nice-select.css'/>">
+<style type="text/css">
+.btn-info {
+	color: #fff;
+	background-color: #339af0;
+	border-color: #17a2b8;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -30,8 +37,9 @@
 						<textarea rows="5" cols="50" name="room_comm"></textarea>
 						<br /> 
 						방인원<br /> <input type="text" name="room_capa">명<br />
-						방이미지<br /> <input type="file" name="file1" class="genric-btn info circle"><br />
-						<br /> <a href="#" style="margin-right: 100px;"
+						<label>방이미지</label>
+						<input type="file" name="file1" id="BSbtninfo"> 
+						<a href="#" style="margin-right: 100px;"
 							onclick="$('#form10').submit();"><i class="fas fa-thumbs-up"
 							style="color: #339af0;">등록하기</i></a>
 					</form>
@@ -39,6 +47,12 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$('#BSbtninfo').filestyle({
+			buttonName : 'btn-info',
+			buttonText : 'File selection'
+		});
+	</script>
 </body>
 </html>
 

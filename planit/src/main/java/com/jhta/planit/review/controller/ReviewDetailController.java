@@ -25,7 +25,9 @@ public class ReviewDetailController {
 	}
 	ReviewVo vo=service.detail(review_num);
 	String review_content=vo.getReview_content();
-	review_content=review_content.replaceAll("\n", "<br>");
+	if(review_content!=null) {
+		review_content=review_content.replaceAll("\n", "<br>");
+	}
 	vo.setReview_content(review_content);
 	 
 	int likenum=service3.like(review_num);

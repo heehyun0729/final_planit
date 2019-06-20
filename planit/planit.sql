@@ -348,6 +348,7 @@ create SEQUENCE rewlik_SEQ;
 create SEQUENCE rewcom_SEQ;
 CREATE SEQUENCE rewie_SEQ;
 
+DROP TABLE Review
 create table Review
 (
     review_num number(7) primary key,
@@ -357,12 +358,14 @@ create table Review
     review_title varchar2(500),
     review_content CLOB,
     review_date Date,
-    review_hit number(7), 
+    review_hit number(7),
+    review_star number(2),  
     review_like number(7),
     reviewChk number(1)
 );
 
 //여행 후기 이미지 테이블
+DROP TABLE ReviewImage;
 create table ReviewImage(
     reviewImge_num number(7) primary key,
     review_num number(7) REFERENCES review(review_num),
@@ -372,6 +375,7 @@ create table ReviewImage(
 );
 
 //여행 후기 좋아요 테이블
+DROP TABLE ReviewLike;
 CREATE TABLE ReviewLike
 (
     review_likenum number(7) primary key,
@@ -381,6 +385,7 @@ CREATE TABLE ReviewLike
 );
 
 //여행 후기 댓글 테이블
+DROP TABLE ReviewComm;
 CREATE TABLE ReviewComm
 (
     rcomm_num number(7) primary key,
@@ -395,6 +400,7 @@ CREATE TABLE ReviewComm
 );
 
 CREATE SEQUENCE rrew;
+DROP TABLE reservationReview;
 create table reservationReview
 (
     resReview_num number(7) primary key,
@@ -408,6 +414,7 @@ create table reservationReview
 );
 
 CREATE SEQUENCE rrewl;
+DROP TABLE resReviewLike;
 create table resReviewLike
 (
     resReview_likenum number(7) primary key,

@@ -272,7 +272,7 @@
 															class="page-link"> ${i}</a></li>
 													</c:when>
 													<c:otherwise>
-														<li class="page-item active"><a
+														<li class="page-item"><a
 															href="${pageContext.request.contextPath }/msgSendList?pageNum=${i}&memId=${mem_id}&msgType=SEND"
 															class="page-link"> ${i}</a></li>
 													</c:otherwise>

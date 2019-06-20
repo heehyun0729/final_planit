@@ -20,9 +20,9 @@
 				<div class="text-center">
 					<h1>판매자 등록양식</h1>
 					<ul>
-						<li><a
+						<li><a style="color: #339af0;"
 							href="${pageContext.request.contextPath}/admin/accommInsert">숙소추가</a></li>
-						<li><a
+						<li><a style="color: #339af0;"
 							href="${pageContext.request.contextPath}/admin/accommList">방추가</a></li>
 					</ul>
 				</div>
