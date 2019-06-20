@@ -80,7 +80,7 @@ public class MypageController {
 		map.put("keyword", keyword);
 		int cnt = planService.count(map);
 		
-		PageUtil pu = new PageUtil(pageNum, cnt, 8, 5);
+		PageUtil pu = new PageUtil(pageNum, cnt, 6, 5);
 		int startRow = pu.getStartRow();
 		int endRow = pu.getEndRow();
 		int pageCnt = pu.getTotalPageCount();
@@ -99,6 +99,7 @@ public class MypageController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("field", field);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("id", mem_id);
 		model.addAttribute("mem_tf", acc_member(mem_id, (String) session.getAttribute("mem_id")));
 		model.addAttribute("profilemap", profilemap(mem_id, (String) session.getAttribute("mem_id")));
 		return "^member^mypage^" + mem_id + "^myPlanList";

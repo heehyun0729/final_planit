@@ -11,14 +11,10 @@
 <meta charset="UTF-8">
 <link rel="icon" href="<c:url value = '/resources/images/logo1.png'/>" type="image/png">
 <title>Plan it!</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/planner.css'/>">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/planDetail.css'/>">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/jQueryUi/jquery-ui.min.css'/>">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/jquery.qtip.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/jquery.qtip.css'/>">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/plan/fullcalendar.css'/>">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/reservation/rsvnList.css'/>">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/reservation/rsvnDetail.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/fullcalendar.css'/>">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href= "<c:url value='/resources/royal/vendors/linericon/style.css'/>">
 <link rel="stylesheet" href= "<c:url value='/resources/royal/vendors/owl-carousel/owl.carousel.min.css'/>">

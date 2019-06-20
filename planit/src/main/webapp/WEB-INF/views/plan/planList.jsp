@@ -36,36 +36,30 @@ function ppp(mem_id){
 <section class="latest_blog_area mb-30">
     <div class="container">
         <div class="section_title">
-        	<div class = "row">
-        		<div class = "col-lg-7">
+        	<div class = "row d-flex">
+        		<div class = "p-2">
         			<h2>다른 여행자들의 플래너</h2>
         		</div>
-        		<div class = "col-lg-5">
+        		<div class = "row ml-auto p-2">
         			<form method="post" action="<c:url value = '/plan/list'/>">
 						<input type = "hidden" value = "${pageNum }" name = "pageNum">
-						<div class = "row">
-							<div class = "col-sm-2">
-								<select name = "field" class = "nice-select" style = "height: 39px;">
-									<option value = "country"
-										<c:if test = "${field == 'country' }">selected = "selected"</c:if>
-									>국가</option>
-									<option value = "city"
-										<c:if test = "${field == 'city' }">selected = "selected"</c:if>
-									>도시</option>
-									<option value = "plan_title"
-										<c:if test = "${field == 'plan_title' }">selected = "selected"</c:if>
-									>제목</option>
-									<option value = "mem_id"
-										<c:if test = "${field == 'mem_id' }">selected = "selected"</c:if>
-									>작성자</option>
-								</select>
-							</div>
-							<div class = "col-sm-7">
-								<input type = "text" name = "keyword" value = "${keyword }" class = "form-control single-input">
-							</div>
-							<div class = "col-sm-2" style = "padding: 0px;">
-								<input type = "submit" value = "검색" class = "genric-btn success-border circle">
-							</div>
+						<div class = "form-inline">
+							<select name = "field" class = "nice-select" style = "height: 39px;">
+								<option value = "country"
+									<c:if test = "${field == 'country' }">selected = "selected"</c:if>
+								>국가</option>
+								<option value = "city"
+									<c:if test = "${field == 'city' }">selected = "selected"</c:if>
+								>도시</option>
+								<option value = "plan_title"
+									<c:if test = "${field == 'plan_title' }">selected = "selected"</c:if>
+								>제목</option>
+								<option value = "mem_id"
+									<c:if test = "${field == 'mem_id' }">selected = "selected"</c:if>
+								>작성자</option>
+							</select>
+							<input type = "text" style = "margin:0 10px;" name = "keyword" value = "${keyword }" class = "form-control single-input">
+							<input type = "submit" value = "검색" class = "genric-btn success-border circle">
 						</div>
 					</form>
         		</div>
