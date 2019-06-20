@@ -18,7 +18,8 @@ function ppp(mem_id){
     <div class="overlay bg-parallax" style = "background: url(../resources/images/map.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">계획짜기</h2>
+            <h2 class="page-cover-tittle f_48">계획짜기</h2>
+            <p style="color:#D8D8D8">플래너를 만들고 다른 여행자들과 공유해보세요!</p>
         </div>
     </div>
 </section>

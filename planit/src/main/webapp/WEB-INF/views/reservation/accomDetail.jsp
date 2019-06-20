@@ -8,7 +8,8 @@
 	<div class="overlay bg-parallax"style="background: url(../resources/images/room.jpg)"></div>
 	<div class="container">
 		<div class="page-cover text-center">
-			<h2 class="page-cover-tittle">숙소예약</h2>
+			<h2 class="page-cover-tittle f_48">숙소예약</h2>
+			<p style="color:#D8D8D8">전세계 숙소를 최저가로 만나보세요!</p>
 		</div>
 	</div>
 </section>
