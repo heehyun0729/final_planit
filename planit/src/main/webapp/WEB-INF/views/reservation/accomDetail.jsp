@@ -46,14 +46,26 @@
       	</div>
       	<div class = "row d-flex" style = 'margin-bottom: 15px;'>
       		<div class = "star p-2">
-	           	<i class = "fa fa-star"></i>
-	           	<i class = "fa fa-star"></i>
-	           	<i class = "fa fa-star"></i>
-	           	<i class = "fa fa-star"></i>
-	           	<i class = "fa fa-star"></i>
-            </div>
+             	<c:choose>
+             		<c:when test="${star == 0 }">
+             			<i class="far fa-star"></i>
+             			<i class="far fa-star"></i>
+             			<i class="far fa-star"></i>
+             			<i class="far fa-star"></i>
+             			<i class="far fa-star"></i>
+             		</c:when>
+             		<c:otherwise>
+             			<c:forEach begin = "0" end = "${star - 1 }">
+               		<i class="fas fa-star"></i>
+               	</c:forEach>
+               	<c:forEach begin = "0" end = "${4 - star }">
+               		<i class="far fa-star"></i>
+               	</c:forEach>
+             		</c:otherwise>
+             	</c:choose>
+             </div>
             <div class = "p-2">
-            	<span style = "color:#52C5FD;font-size: 24px;font-weight: bold;">10</span><span>/10 (</span><span style = "color:#ff5252">12</span><span>개의 후기)</span>
+            	<span style = "color:#52C5FD;font-size: 24px;font-weight: bold;">${star }</span><span>/10 (</span><span style = "color:#ff5252">${reviewCnt }</span><span>개의 후기)</span>
             </div>
       	</div>
         <hr>

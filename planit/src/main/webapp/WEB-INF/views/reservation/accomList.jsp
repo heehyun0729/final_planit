@@ -86,11 +86,24 @@
                     <p><i class="fas fa-map-marker-alt"></i> ${vo.accom_city }, ${vo.accom_country }</p>
                     <h5>${vo.room_price }원 ~</h5>
                     <div class = "star">
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
+                    	<c:choose>
+                    		<c:when test="${vo.star == 0 }">
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<c:forEach begin = "0" end = "${vo.star - 1 }">
+		                    		<i class="fas fa-star"></i>
+		                    	</c:forEach>
+		                    	<c:forEach begin = "0" end = "${4 - vo.star }">
+		                    		<i class="far fa-star"></i>
+		                    	</c:forEach>
+                    		</c:otherwise>
+                    	</c:choose>
+                    	<span style = "color: #777;">&nbsp;(${vo.reviewCnt })</span>
                     </div>
                 </div>
             </div>

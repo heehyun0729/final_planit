@@ -19,4 +19,11 @@ public class RsvnAccomService {
 	public int count(HashMap<String, Object> map) {
 		return rsvnAccommDao.count(map);
 	}
+
+	public int avgStar(int accom_num) {
+		return rsvnAccommDao.avgStar(accom_num);
+	}
+	public int reviewCount(int accom_num) {
+		return rsvnAccommDao.reviewCount(accom_num);
+	}
 }

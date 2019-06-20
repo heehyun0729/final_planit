@@ -20,4 +20,11 @@ public class RsvnAccomDao {
 	public int count(HashMap<String, Object> map) {
 		return sqlSession.selectOne(NAMESPACE + ".accomCount", map);
 	}
+
+	public int avgStar(int accom_num) {
+		return sqlSession.selectOne(NAMESPACE + ".avgStar", accom_num);
+	}
+	public int reviewCount(int accom_num) {
+		return sqlSession.selectOne(NAMESPACE + ".reviewCount", accom_num);
+	}
 }
