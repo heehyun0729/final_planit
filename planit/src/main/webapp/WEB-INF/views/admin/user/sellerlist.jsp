@@ -37,7 +37,7 @@
 										<td>${map.SELL_ADDR }</td>
 										<td>${map.SELL_TEL }</td>
 										<td>
-											<button type="button"  onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerinfo?mem_id=${map.MEM_ID }'">상세보기</button>
+											<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerinfo?mem_id=${map.MEM_ID }'">상세보기</button>
 										</td>
 									</tr>
 								</c:forEach>

@@ -125,6 +125,9 @@
 				</a>
 				<a href="<c:url value='/admin/user/sellerlist'/>" class="list-group-item list-group-item-action bg-dark text-white">
 					<span class="menu-collapsed">사업자 회원</span>
+					<c:if test="">
+						<span class="badge badge-primary badge-pill" id="postcnt">0</span>
+					</c:if>
 				</a>
 			</div>
 			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
