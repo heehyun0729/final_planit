@@ -219,7 +219,9 @@
 		        where bb.accom_num = rr.accom_num and bb.accom_num = acc.accom_num
 		        	and y.accom_num = bb.accom_num and w.accom_num = bb.accom_num
 			)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
-			order by star desc, reviewCnt desc
+			<if test="popular != null and popular != ''">
+				order by star desc, reviewCnt desc
+			 </if>
 	</select>
 	<select id="avgStar" parameterType="int" resultType="int">
 		select NVL(ceil(avg(aa.resReview_star)), 0) from
