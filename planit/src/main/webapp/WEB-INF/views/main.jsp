@@ -215,6 +215,7 @@
     </div>
 </section>
  <div class = "container" style = "margin-bottom: 90px;"></div>
+ 
 <!--================ Accomodation Area  =================-->
 <!-- <div class = "container"> <hr></div>
  <section class="latest_blog_area section_gap">
