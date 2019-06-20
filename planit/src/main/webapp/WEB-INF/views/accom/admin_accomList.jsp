@@ -33,7 +33,7 @@
 								<td>${vo.sell_num}</td>
 								<td>${vo.accom_country }</td>
 								<td>${vo.accom_city }</td>
-								<td><a
+								<td><a style="color: #339af0;"
 									href="${pageContext.request.contextPath }/admin/accomDetail?accom_num=${vo.accom_num}">${vo.accom_name }</a></td>
 							</tr>
 						</c:forEach>

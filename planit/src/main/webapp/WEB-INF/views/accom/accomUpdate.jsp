@@ -46,7 +46,7 @@
 						파일명<br />
 						<input type="text" name="accom_city"
 							value="${vo.accommImg_orgImg }" disabled="disabled"><br />
-						<br /> <label>수정할파일</label>
+						<label>수정할파일</label>
 						<input type="file" name="file1" id="BSbtninfo"> 
 						<a href="#" style="margin-right: 100px;"
 							onclick="$('#form5').submit();"><i class="fas fa-thumbs-up"

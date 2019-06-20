@@ -36,7 +36,7 @@
 						<textarea rows="5" cols="50" name="accom_comm"></textarea>
 						<br /> 국가<br /> <input type="text" name="accom_country"><br />
 						도시<br /> <input type="text" name="accom_city"><br /> <label>첨부파일</label>
-						<input type="file" name="file1" id="BSbtninfo"> <a href="#"
+						<input type="file" name="file1" id="BSbtninfo"><a href="#"
 							style="margin-right: 100px;" onclick="$('#form3').submit();"><i
 							class="fas fa-thumbs-up" style="color: #339af0;">등록하기</i></a>
 					</form>
