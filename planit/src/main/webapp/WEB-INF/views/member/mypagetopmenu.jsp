@@ -5,7 +5,7 @@
 			<c:if test="${mem_tf }">
 				<ul class="nav nav-pills nav-justified">
 					<li class="nav-item">
-						<a class="nav-link ${current == 'a' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/plan/list'/>">플래너</a>
+						<a class="nav-link ${current == 'myPlanList' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/myPlanList'/>">플래너</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link ${current == 'a' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/buddyMg'/>">동행관리</a>
@@ -17,7 +17,7 @@
 						<a class="nav-link ${current == 'a' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/comments'/>">댓글 모음</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link ${current == 'a' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/reservation/list'/>">예약목록</a>
+						<a class="nav-link ${current == 'myRsvnList' ? 'active':'' }" href="<c:url value='/member/mypage/${mem_id }/myRsvnList'/>">예약목록</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link ${current == 'myAdList' ? 'active':'' }" href="<c:url value='/member/mypage/ad/${mem_id }/myAdList'/>">광고목록</a>

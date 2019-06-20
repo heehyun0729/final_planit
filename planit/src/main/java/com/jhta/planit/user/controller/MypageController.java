@@ -72,9 +72,9 @@ public class MypageController {
 		return mv;
 	}
 	
-	@RequestMapping("/member/mypage/{mem_id}/plan/list")
-	public String myPlanList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
-			String field, String keyword, Model model) {
+	@RequestMapping("/member/mypage/{mem_id}/myPlanList")
+	public String myPlanList(@PathVariable String mem_id, @RequestParam(value="pageNum",defaultValue = "1")int pageNum,
+			String field, String keyword, Model model, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field", field);
 		map.put("keyword", keyword);
@@ -99,7 +99,9 @@ public class MypageController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("field", field);
 		model.addAttribute("keyword", keyword);
-		return ".member.plan.myPlanList";
+		model.addAttribute("mem_tf", acc_member(mem_id, (String) session.getAttribute("mem_id")));
+		model.addAttribute("profilemap", profilemap(mem_id, (String) session.getAttribute("mem_id")));
+		return "^member^mypage^" + mem_id + "^myPlanList";
 	}
 	
 	@RequestMapping(value = "/member/mypage/reservation/detail", produces = "application/json;charset=utf8")
@@ -115,9 +117,9 @@ public class MypageController {
 		return json.toString();
 	}
 	
-	@RequestMapping("/member/mypage/{mem_id}/reservation/list")
+	@RequestMapping("/member/mypage/{mem_id}/myRsvnList")
 	public String myRsvnList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 
-			@PathVariable String mem_id, Model model) throws ParseException {
+			@PathVariable String mem_id, Model model, HttpSession session) throws ParseException {
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		
 		int rowCnt = rsvnService.myCount(mem_id);
@@ -154,7 +156,9 @@ public class MypageController {
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
-		return ".member.reservation.myRsvnList";
+		model.addAttribute("mem_tf", acc_member(mem_id, (String) session.getAttribute("mem_id")));
+		model.addAttribute("profilemap", profilemap(mem_id, (String) session.getAttribute("mem_id")));
+		return "^member^reservation^" + mem_id + "^myRsvnList";
 	}
 	
 	@RequestMapping(value = "/member/mypage/ad/{mem_id}/myAdList")//내 광고 리스트
