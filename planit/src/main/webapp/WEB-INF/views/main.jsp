@@ -187,7 +187,7 @@
                     <h4><a class = "sec_h4" href="<c:url value='/reservation/accomDetail?accom_num=${vo.accom_num }'/>">${avo.accom_name }</a></h4>
                     <p><i class="fas fa-map-marker-alt"></i> ${avo.accom_city }, ${avo.accom_country }</p>
                     <h5>${avo.room_price }원 ~</h5>
-                    <div class = "star">
+                    <div class = "star" style = "">
                     	<c:choose>
                     		<c:when test="${empty avo.star || avo.star == 0 }">
                     			<i class="far fa-star"></i>
