@@ -71,4 +71,7 @@ public class ReservationReviewService {
 	public List<ReservationReviewVo> reslist(int accom_num){
 		return dao.reslist(accom_num);
 	}
+	public int reviewCnt(int rsvn_num) {
+		return dao.reviewCnt(rsvn_num);
+	}
 }
