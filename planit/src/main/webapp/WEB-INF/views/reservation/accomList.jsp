@@ -98,7 +98,7 @@
                     			<c:forEach begin = "0" end = "${vo.star - 1 }">
 		                    		<i class="fas fa-star"></i>
 		                    	</c:forEach>
-		                    	<c:forEach begin = "0" end = "${4 - vo.star }">
+		                    	<c:forEach begin = "1" end = "${5 - vo.star }">
 		                    		<i class="far fa-star"></i>
 		                    	</c:forEach>
                     		</c:otherwise>
