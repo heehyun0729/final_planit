@@ -56,7 +56,7 @@
 		<div class="row d-flex" style='margin-bottom: 15px;'>
 			<div class="star p-2">
 				<c:choose>
-             		<c:when test="${star == 0 }">
+             		<c:when test="${star <= 0 }">
              			<i class="far fa-star"></i>
              			<i class="far fa-star"></i>
              			<i class="far fa-star"></i>
@@ -65,11 +65,11 @@
              		</c:when>
              		<c:otherwise>
              			<c:forEach begin = "0" end = "${star - 1 }">
-               		<i class="fas fa-star"></i>
-               	</c:forEach>
-               	<c:forEach begin = "0" end = "${4 - star }">
-               		<i class="far fa-star"></i>
-               	</c:forEach>
+               				<i class="fas fa-star"></i>
+		               	</c:forEach>
+		               	<c:forEach begin = "0" end = "${4 - star }">
+		               		<i class="far fa-star"></i>
+		               	</c:forEach>
              		</c:otherwise>
              	</c:choose>
 			</div>
