@@ -87,7 +87,7 @@
                     <h5>${vo.room_price }원 ~</h5>
                     <div class = "star">
                     	<c:choose>
-                    		<c:when test="${vo.star == 0 }">
+                    		<c:when test="${empty vo.star || vo.star == 0 }">
                     			<i class="far fa-star"></i>
                     			<i class="far fa-star"></i>
                     			<i class="far fa-star"></i>
