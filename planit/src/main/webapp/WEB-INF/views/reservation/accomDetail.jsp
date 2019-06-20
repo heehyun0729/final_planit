@@ -255,7 +255,28 @@
 		</ul>
 		<div class="tab-content" id="accomTabContent" style = "padding: 20px;">
 		  <div class="tab-pane fade show active" id="accomReview" role="tabpanel" aria-labelledby="home-tab">
-		  	후기
+		  
+		 <c:forEach var="vo" items="${rrlist }">
+						<div id="list">
+						<div class="resstar">
+								별점:<p>${vo.resReview_star }</p>
+							</div>
+							<div class="mem_id">
+								작성아이디:<p>${vo.mem_id }</p>
+							</div>
+							<div class="num">
+								제목:<p>${vo.resReview_title }</p>
+							</div>
+							<div class="content">
+								내용:<p>${vo.resReview_content }</p>
+							</div>
+							<div class="data">
+								작성일:<p>${vo.resReview_data }</p>
+							</div>
+							<a href="${pageContext.request.contextPath }/reservationReviewDelete?resReview_num=${vo.resReview_num}">후기글삭제</a>
+							<a href="${pageContext.request.contextPath }/reservationReviewUpdate?resReview_num=${vo.resReview_num}&accom_num=${accom_num}">후기글수정</a>		
+					</div>
+				</c:forEach>
 		  </div>
 		  <div class="tab-pane fade" id="accomQna" role="tabpanel" aria-labelledby="profile-tab">
 		  	<form method="post" action="<c:url value="/reservation/acqInsert"/>">

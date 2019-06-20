@@ -35,6 +35,8 @@ import com.jhta.planit.reservation.service.RsvnPayService;
 import com.jhta.planit.reservation.service.RsvnRoomService;
 import com.jhta.planit.reservation.service.RsvnService;
 import com.jhta.planit.reservation.vo.RsvnAccomVo;
+import com.jhta.planit.reservationReview.service.ReservationReviewService;
+import com.jhta.planit.reservationReview.vo.ReservationReviewVo;
 import com.jhta.planit.room.service.RoomService;
 import com.jhta.planit.room.vo.RoomVo;
 import com.jhta.planit.roomImage.service.RoomImageService;
@@ -54,6 +56,8 @@ public class RsvnController {
 	@Autowired private RsvnPayService rsvnPayService;
 	@Autowired private MembersService membersService;
 	@Autowired private AccomQnaService acqService;
+	@Autowired private ReservationReviewService reservationReviewService;
+	
 	@RequestMapping("/reservation/insert")
 	public String insert(int room_num, String checkin, String checkout, int cnt, 
 			String name, String email, String phone, String tid, int total, HttpSession session) {
@@ -267,12 +271,15 @@ public class RsvnController {
 				imgList.add(ivo.getRoomImg_saveImg());
 			}
 		} 
+		List<ReservationReviewVo> rrlist=reservationReviewService.list(accom_num);
+		model.addAttribute("rrlist", rrlist);
 		model.addAttribute("avo", avo);
 		model.addAttribute("rlist", rlist);
 		model.addAttribute("imgList", imgList);
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);
+		model.addAttribute("accom_num", accom_num);
 		
 		//¼÷¼Ò¹®ÀÇ ´ñ±Û¸ñ·Ï
 		HashMap<String, Object> map2 = new HashMap<String, Object>();
