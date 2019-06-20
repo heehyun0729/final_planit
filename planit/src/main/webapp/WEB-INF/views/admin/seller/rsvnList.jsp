@@ -83,160 +83,152 @@
 		return y + "-" + m + "-" + d + "(" + day + ")";
 	}
 </script>
-
-
-<div>
-	<section>
-		<article>
-			<div class="container">
-				<div class="row ">
-					<div class="col mt-5 text-center">
-						<div id="rsvnCalendar"></div><br><br>
-						<form method="post" action="<c:url value = '/seller/reservation/list'/>" id="sellRsvnForm">
-							<div class="row">
-								<select name="order" onchange="javascript:sellRsvnSubmit()" class="col-sm-2 custom-select">
-									<option value="num_desc"
-										<c:if test = "${order == 'num_desc' }">selected = "selected"</c:if>
-										>예약번호 내림차순</option>
-									<option value="num_asc"
-										<c:if test = "${order == 'num_asc' }">selected = "selected"</c:if>
-										>예약번호 오름차순</option>
-									<option value="checkin_asc"
-										<c:if test = "${order == 'checkin_asc' }">selected = "selected"</c:if>
-										>체크인 빠른 순</option>
-									<option value="checkin_desc"
-										<c:if test = "${order == 'checkin_desc' }">selected = "selected"</c:if>
-										>체크인 늦은 순</option>
-									<option value="checkout_asc"
-										<c:if test = "${order == 'checkout_asc' }">selected = "selected"</c:if>
-										>체크아웃 빠른 순</option>
-									<option value="checkout_desc"
-										<c:if test = "${order == 'checkout_desc' }">selected = "selected"</c:if>
-										>체크아웃 늦은 순</option>
-									<option value="accom_asc"
-										<c:if test = "${order == 'accom_asc' }">selected = "selected"</c:if>
-										>숙소명 오름차순</option>
-									<option value="accom_desc"
-										<c:if test = "${order == 'accom_desc' }">selected = "selected"</c:if>
-										>숙소명 내림차순</option>
-								</select> 
-								<div class = "col-sm-8 text-left">
-									<input type="checkbox" value="complete" name="complete" onchange="javascript:sellRsvnSubmit()" class="form-check form-check-inline"
-										<c:if test = "${complete == 'complete' }">checked = "checked"</c:if>
-									><span>완료된 예약만 보기</span>
-								</div>
-								<div class = "col-sm-2 float-right">
-									<a href="<c:url value = '/accommList'/>" target="_blank" class = "btn btn-primary">숙소 목록</a>
-								</div>
-							</div>
-							<table class="table table-hover" style = "margin-top:10px;">
-								<thead>
-									<tr>
-										<th scope="col">예약번호<br>(결제일)
-										</th>
-										<th scope="col">숙소명<br>(객실)
-										</th>
-										<th scope="col">체크인<br>~ 체크아웃
-										</th>
-										<th scope="col">인원수</th>
-										<th scope="col">예약자</th>
-										<th scope="col">투숙객명</th>
-										<th scope="col">이메일</th>
-										<th scope="col">연락처</th>
-										<th scope="col">결제금액</th>
-										<th scope="col">상태</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:if test="${empty list }">
-										<tr>
-											<td scope="row" colspan="10">조회된 결과가 없습니다.</td>
-										</tr>
-									</c:if>
-									<c:forEach var="vo" items="${list }">
-										<tr>
-											<td>${vo.rsvn_num }<br> (${vo.rsvnPay_date })
-											</td>
-											<td><a href="<c:url value = '/roomList?accom_num=${vo.accom_num }'/>" target="_blank">${vo.accom_name }</a><br>
-												(${vo.room_type } - ${vo.room_capa }인실)</td>
-											<td>${vo.rsvn_checkin }<br> ~ ${vo.rsvn_checkout }
-											</td>
-											<td>${vo.rsvn_cnt }명</td>
-											<td><a href="#" onclick="javascript:ppp()"
-												id="showMsgPopup">${vo.mem_id }</a></td>
-											<td>${vo.rsvn_name }</td>
-											<td>${vo.rsvn_email }</td>
-											<td>${vo.rsvn_phone }</td>
-											<td>${vo.rsvnPay_total }원</td>
-											<td><c:choose>
-													<c:when test="${vo.rsvnPay_stat == 0}">
-												예약 완료
-											</c:when>
-													<c:otherwise>
-												예약 취소
-											</c:otherwise>
-												</c:choose></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<div class = "row d-flex justify-content-center" style = "margin-bottom: 10px;">
-								<span><i class="far fa-calendar-alt fa-2x"></i>&nbsp;</span><input type="text" class="form-control col-sm-2" id="sellCheckin" name="checkin" value="${checkin }">
-								<span>&nbsp;~&nbsp;</span><input type="text" class="form-control col-sm-2" id="sellCheckout" name="checkout" value="${checkout }"><br>
-								<input type="hidden" value="${pageNum }" name="pageNum">
-							</div>
-							<div class="form-inline d-flex justify-content-center">
-								<input type="hidden" value="${pageNum }" name="pageNum">
-								<select name="field" class="custom-select" style = "margin-right: 5px;">
-									<option value = "rsvn_num"
-										<c:if test = "${field == 'rsvn_num' }">selected = "selected"</c:if>
-									>예약번호</option>
-									<option value = "accom_name"
-										<c:if test = "${field == 'accom_name' }">selected = "selected"</c:if>
-									>숙소명</option>
-									<option value = "room_type"
-										<c:if test = "${field == 'room_type' }">selected = "selected"</c:if>
-									>객실명</option>
-									<option value = "mem_id"
-										<c:if test = "${field == 'mem_id' }">selected = "selected"</c:if>
-									>예약자</option>
-									<option value = "rsvn_name"
-										<c:if test = "${field == 'rsvn_name' }">selected = "selected"</c:if>
-									>투숙객명</option>
-									<option value = "rsvn_email"
-										<c:if test = "${field == 'rsvn_email' }">selected = "selected"</c:if>
-									>이메일</option>
-									<option value = "rsvn_phone"
-										<c:if test = "${field == 'rsvn_phone' }">selected = "selected"</c:if>
-									>연락처</option>
-								</select>
-								<input class="form-control mr-sm-2" value="${keyword }" name="keyword" type="search">
-								<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">검색</button>
-							</div>
-						</form>
-						<div class="d-flex justify-content-center">
-							<ul class="pagination">
-								<c:if test="${startPage > 1 }">
-									<li class="page-item"><a class="page-link" href="<c:url value = '/seller/reservation/list?pageNum=${startPage - 1 }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>">◀</a></li>
-								</c:if>
-								<c:forEach var="i" begin="${startPage }" end="${endPage }">
+<section style = "margin-bottom: 120px;">
+	<div class="container">
+		<div class="row text-center" style = "margin-top:60px;margin-bottom: 50px;">
+			<div id="rsvnCalendar"></div>
+		</div>
+		<form method="post" action="<c:url value = '/seller/reservation/list'/>" id="sellRsvnForm">
+			<div class="row d-flex">
+				<select name="order" onchange="javascript:sellRsvnSubmit()" class="col-sm-2 custom-select p-2" style = "margin-right: 10px;">
+					<option value="num_desc"
+						<c:if test = "${order == 'num_desc' }">selected = "selected"</c:if>
+						>예약번호 내림차순</option>
+					<option value="num_asc"
+						<c:if test = "${order == 'num_asc' }">selected = "selected"</c:if>
+						>예약번호 오름차순</option>
+					<option value="checkin_asc"
+						<c:if test = "${order == 'checkin_asc' }">selected = "selected"</c:if>
+						>체크인 빠른 순</option>
+					<option value="checkin_desc"
+						<c:if test = "${order == 'checkin_desc' }">selected = "selected"</c:if>
+						>체크인 늦은 순</option>
+					<option value="checkout_asc"
+						<c:if test = "${order == 'checkout_asc' }">selected = "selected"</c:if>
+						>체크아웃 빠른 순</option>
+					<option value="checkout_desc"
+						<c:if test = "${order == 'checkout_desc' }">selected = "selected"</c:if>
+						>체크아웃 늦은 순</option>
+					<option value="accom_asc"
+						<c:if test = "${order == 'accom_asc' }">selected = "selected"</c:if>
+						>숙소명 오름차순</option>
+					<option value="accom_desc"
+						<c:if test = "${order == 'accom_desc' }">selected = "selected"</c:if>
+						>숙소명 내림차순</option>
+				</select> 
+				<div class = "form-inline form-check-inline">
+					<input type="checkbox" value="complete" id = "completeChk" name="complete" onchange="javascript:sellRsvnSubmit()" class="form-check-input text-left p-2"
+						<c:if test = "${complete == 'complete' }">checked = "checked"</c:if>
+					><label class="form-check-label" for = "completeChk">완료된 예약만 보기</label>
+				</div>
+				<a href="<c:url value = '/accommList'/>" target="_blank" class = "btn btn-primary p-2 ml-auto">숙소 목록</a>
+			</div>
+			<div class="row text-center">
+				<table class="table table-hover" style = "margin:10px 0 30px 0;">
+					<thead>
+						<tr>
+							<th scope="col">예약번호(결제일)</th>
+							<th scope="col">숙소명/객실</th>
+							<th scope="col">체크인/체크아웃</th>
+							<th scope="col">인원수</th>
+							<th scope="col">예약자</th>
+							<th scope="col">투숙객명</th>
+							<th scope="col">이메일</th>
+							<th scope="col">연락처</th>
+							<th scope="col">결제금액</th>
+							<th scope="col">상태</th>
+						</tr>
+					</thead>
+					<tbody style = "font-size: 14px;">
+						<c:if test="${empty list }">
+							<tr>
+								<td scope="row" colspan="10">조회된 결과가 없습니다.</td>
+							</tr>
+						</c:if>
+						<c:forEach var="vo" items="${list }">
+							<tr>
+								<td>${vo.rsvn_num }<br> (${vo.rsvnPay_date })
+								</td>
+								<td><a href="<c:url value = '/roomList?accom_num=${vo.accom_num }'/>" target="_blank">${vo.accom_name }</a><br>
+									(${vo.room_type } - ${vo.room_capa }인실)</td>
+								<td>${vo.rsvn_checkin }<br> ~ ${vo.rsvn_checkout }
+								</td>
+								<td>${vo.rsvn_cnt }명</td>
+								<td><a href="#" onclick="javascript:ppp()"
+									id="showMsgPopup">${vo.mem_id }</a></td>
+								<td>${vo.rsvn_name }</td>
+								<td>${vo.rsvn_email }</td>
+								<td>${vo.rsvn_phone }</td>
+								<td>${vo.rsvnPay_total }원</td>
+								<td>
 									<c:choose>
-										<c:when test="${i == pageNum }">
-											<li class="page-item active"><a class="page-link" href="<c:url value = '/seller/reservation/list?pageNum=${i }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>">${i }</a></li>
+										<c:when test="${vo.rsvnPay_stat == 0}">
+											예약완료
 										</c:when>
 										<c:otherwise>
-											<li class="page-item"><a class="page-link" href="<c:url value = '/seller/reservation/list?pageNum=${i }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>">${i }</a></li>
+											취소완료
 										</c:otherwise>
 									</c:choose>
-								</c:forEach>
-								<c:if test="${endPage < pageCnt }">
-									<li class="page-item"><a class="page-link" href="<c:url value = '/seller/reservation/list?pageNum=${endPage + 1 }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>">▶</a></li>
-								</c:if>
-							</ul>
-						</div>
-					</div>
-				</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
-		</article>
-	</section>
-</div>
+			<div class = "row d-flex justify-content-center" style = "margin-bottom: 10px;">
+				<span><i class="far fa-calendar-alt fa-2x"></i>&nbsp;</span><input type="text" class="form-control form-control-sm col-sm-2" id="sellCheckin" name="checkin" value="${checkin }">
+				<span>&nbsp;~&nbsp;</span><input type="text" class="form-control form-control-sm col-sm-2" id="sellCheckout" name="checkout" value="${checkout }"><br>
+				<input type="hidden" value="${pageNum }" name="pageNum">
+			</div>
+			<div class="form-inline d-flex justify-content-center" style = "margin-bottom: 30px;">
+				<input type="hidden" value="${pageNum }" name="pageNum">
+				<select name="field" class="custom-select" style = "margin-right: 10px;">
+					<option value = "rsvn_num"
+						<c:if test = "${field == 'rsvn_num' }">selected = "selected"</c:if>
+					>예약번호</option>
+					<option value = "accom_name"
+						<c:if test = "${field == 'accom_name' }">selected = "selected"</c:if>
+					>숙소명</option>
+					<option value = "room_type"
+						<c:if test = "${field == 'room_type' }">selected = "selected"</c:if>
+					>객실명</option>
+					<option value = "mem_id"
+						<c:if test = "${field == 'mem_id' }">selected = "selected"</c:if>
+					>예약자</option>
+					<option value = "rsvn_name"
+						<c:if test = "${field == 'rsvn_name' }">selected = "selected"</c:if>
+					>투숙객명</option>
+					<option value = "rsvn_email"
+						<c:if test = "${field == 'rsvn_email' }">selected = "selected"</c:if>
+					>이메일</option>
+					<option value = "rsvn_phone"
+						<c:if test = "${field == 'rsvn_phone' }">selected = "selected"</c:if>
+					>연락처</option>
+				</select>
+				<input class="form-control mr-sm-2" value="${keyword }" name="keyword" type="search">
+				<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">검색</button>
+			</div>
+		</form>
+				
+		<div class="d-flex justify-content-center">
+			<ul class="pagination">
+				<c:if test="${startPage > 1 }">
+					<li class="page-item"><a class="page-link" href="<c:url value = '/seller/reservation/list?pageNum=${startPage - 1 }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>">◀</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${startPage }" end="${endPage }">
+					<c:choose>
+						<c:when test="${i == pageNum }">
+							<li class="page-item active"><a class="page-link" href="<c:url value = '/seller/reservation/list?pageNum=${i }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>">${i }</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="<c:url value = '/seller/reservation/list?pageNum=${i }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>">${i }</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${endPage < pageCnt }">
+					<li class="page-item"><a class="page-link" href="<c:url value = '/seller/reservation/list?pageNum=${endPage + 1 }&checkin=${checkin }&checkout=${checkout }&field=${field }&keyword=${keyword }&order=${order }&complete=${complete }'/>">▶</a></li>
+				</c:if>
+			</ul>
+		</div>
+	</div>
+</section>
