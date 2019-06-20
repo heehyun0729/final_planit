@@ -9,9 +9,10 @@ public class AccomQnaVo {
 	private String accomqna_title;
 	private String accomqna_content;
 	private Date accomqna_date;
+	private String img_saveimg;
 	public AccomQnaVo() {}
 	public AccomQnaVo(int accomqna_num, String mem_id, int accom_num, String accomqna_title, String accomqna_content,
-			Date accomqna_date) {
+			Date accomqna_date, String img_saveimg) {
 		super();
 		this.accomqna_num = accomqna_num;
 		this.mem_id = mem_id;
@@ -19,6 +20,7 @@ public class AccomQnaVo {
 		this.accomqna_title = accomqna_title;
 		this.accomqna_content = accomqna_content;
 		this.accomqna_date = accomqna_date;
+		this.img_saveimg = img_saveimg;
 	}
 	public int getAccomqna_num() {
 		return accomqna_num;
@@ -55,5 +57,11 @@ public class AccomQnaVo {
 	}
 	public void setAccomqna_date(Date accomqna_date) {
 		this.accomqna_date = accomqna_date;
+	}
+	public String getImg_saveimg() {
+		return img_saveimg;
+	}
+	public void setImg_saveimg(String img_saveimg) {
+		this.img_saveimg = img_saveimg;
 	}
 }

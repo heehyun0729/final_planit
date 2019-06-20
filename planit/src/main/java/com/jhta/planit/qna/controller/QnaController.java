@@ -2,6 +2,7 @@ package com.jhta.planit.qna.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,18 +21,10 @@ public class QnaController {
 	public String insertQna() {
 		return ".qna.insertQna";
 	}
-	
 	@RequestMapping(value="qna/insertQna",method = RequestMethod.POST)
-	public ModelAndView upload(QnaVo vo) {
-		ModelAndView mv=new ModelAndView("/qna/result");
-		int n=service.insert(vo);
-		if(n>0) {
-			mv.addObject("result","success");
-		}else {
-			mv.addObject("result","fail");
-		}
-		return mv;
-		
+	public String upload(QnaVo vo,Model model) {
+		service.insert(vo);
+		model.addAttribute("vo", vo);
+		return "redirect:../qnaList";
 	}
-	
 }
