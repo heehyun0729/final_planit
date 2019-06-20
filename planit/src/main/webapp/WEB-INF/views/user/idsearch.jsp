@@ -16,6 +16,7 @@
 			<input type="text" id="mem_email" name="mem_email" class="form-control" placeholder="등록하신 이메일을 입력해 주세요" required>
 		</div>
 		<input type="submit" value="아이디 찾기" class="btn btn-primary btn-block">
+		<div style="text-align: center;"><a href="<c:url value='/user/login'/>">로그인</a></div>
 	</form>
 	<div class="errMsg">${errMsg }</div>
 </div>

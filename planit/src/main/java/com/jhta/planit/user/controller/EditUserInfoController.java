@@ -152,7 +152,7 @@ public class EditUserInfoController {
 		String mem_id = membersService.idsearch(mem_email);
 		if (mem_id != null) {
 			attributes.addFlashAttribute("authMsg", "당신의 아이디는 " + mem_id
-					+ "입니다.<br> 비밀번호를 찾으실려면 <a href='http://localhost:9090/planit/user/pwdsearch'>비밀번호 찾기</a>를 눌러 주세요");
+					+ "입니다.<br> 비밀번호를 찾으실려면 <a style='color:blue; font-weight: bold;' href='http://localhost:9090/planit/user/pwdsearch'>비밀번호 찾기</a>를 눌러 주세요");
 			return "redirect:/member/result";
 		} else {
 			model.addAttribute("errMsg", "입력하신 정보가 올바르지 않습니다.");
