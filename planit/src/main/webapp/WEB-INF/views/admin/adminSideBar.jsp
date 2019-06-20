@@ -48,7 +48,7 @@
 			<a href="#sell" id="sellBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-start align-items-center">
 					<span class="fas fa-bed fa-fw mr-3"></span>
-					<span class="menu-collapsed">숙소/예약
+					<span class="menu-collapsed">숙소
 						<span id="acBadge" class="badge badge-pill badge-primary ml-2"></span>
 					</span>
 					<span class="fas fa-caret-down ml-auto"></span>
@@ -57,9 +57,6 @@
 			<div id='sell' class="collapse sidebar-submenu">
 				<a href="<c:url value='/admin/sellerInsertListForm'/>" class="list-group-item list-group-item-action bg-dark text-white">
 					<span class="menu-collapsed">숙소 목록</span>
-				</a>
-				<a href="<c:url value = '/seller/reservation/list?mem_id=${sessionScope.mem_id }'/>" class="list-group-item list-group-item-action bg-dark text-white">
-					<span class="menu-collapsed">예약 목록</span>
 				</a>
 			</div>
 			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
