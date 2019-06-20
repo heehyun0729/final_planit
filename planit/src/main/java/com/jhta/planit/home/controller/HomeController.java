@@ -24,41 +24,19 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		adService.showAd(model);
-		return ".main";
-	}
-	/*public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, 
-			String keyword, String checkin, String checkout, 
-			@RequestParam(value = "cnt", defaultValue = "1") int cnt, Model model) {
+		
+		// 인기 후기 목록
 		HashMap<String,Object> map=new HashMap<String, Object>();
-		map.put("keyword", keyword);
-		map.put("checkin", checkin);
-		map.put("checkout", checkout);
-		map.put("cnt", cnt);
-				
+		map.put("popular", "popular");
 		int rowCnt = rsvnAccomService.count(map);
-		PageUtil pu = new PageUtil(pageNum, rowCnt, 8, 5);
+		PageUtil pu = new PageUtil(1, rowCnt, 4, 1);
 		int startRow = pu.getStartRow();
 		int endRow = pu.getEndRow();
-		int pageCnt = pu.getTotalPageCount();
-		int startPage = pu.getStartPageNum();
-		int endPage = pu.getEndPageNum();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
+		List<RsvnAccomVo> alist = rsvnAccomService.list(map);	
+		model.addAttribute("alist", alist);
 		
-		List<RsvnAccomVo> list = rsvnAccomService.list(map);		
-		model.addAttribute("list", list);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("startRow", startRow);
-		model.addAttribute("endRow", endRow);
-		model.addAttribute("pageCnt", pageCnt);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("checkin", checkin);
-		model.addAttribute("checkout", checkout);
-		model.addAttribute("cnt", cnt);
-		System.out.println(pu.getStartRow() + ", " + pu.getEndRow());
-		return ".reservation.accomList";
-	}*/
-	
+		return ".main";
+	}
 }

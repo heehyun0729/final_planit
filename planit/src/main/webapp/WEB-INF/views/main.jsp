@@ -178,30 +178,46 @@
             <h2 class="title_color">전세계 인기 숙소</h2>
         </div>
         <div class="row mb_30 text-center">
-            <div class="col-lg-3 col-sm-6">
+        	<c:forEach var="avo" items="${alist }">
+			<div class="col-lg-3 col-sm-6">
                 <div class="accomodation_item text-center">
                     <div class="hotel_img">
-                         <a href="#"><img src="<c:url value='/resources/royal/image/room1.jpg'/>" alt=""></a>
-                    </div>
-                    <h4><a href="#" class="sec_h4">숙소이름</a></h4>
-                    <p><i class="fas fa-map-marker-alt"></i> 도시, 국가</p>
-                    <h5>00000원 ~</h5>
+						<a href="<c:url value='/reservation/accomDetail?accom_num=${avo.accom_num }'/>"><img src="<c:url value='/resources/uploadAccom/${avo.accommImg_saveImg }'/>" style = "height: 270px;"></a>
+					</div>
+                    <h4><a class = "sec_h4" href="<c:url value='/reservation/accomDetail?accom_num=${vo.accom_num }'/>">${avo.accom_name }</a></h4>
+                    <p><i class="fas fa-map-marker-alt"></i> ${avo.accom_city }, ${avo.accom_country }</p>
+                    <h5>${avo.room_price }원 ~</h5>
                     <div class = "star">
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
-                    	<i class = "fa fa-star"></i>
+                    	<c:choose>
+                    		<c:when test="${empty avo.star || avo.star == 0 }">
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    			<i class="far fa-star"></i>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<c:forEach begin = "0" end = "${avo.star - 1 }">
+		                    		<i class="fas fa-star"></i>
+		                    	</c:forEach>
+		                    	<c:forEach begin = "1" end = "${5 - avo.star }">
+		                    		<i class="far fa-star"></i>
+		                    	</c:forEach>
+                    		</c:otherwise>
+                    	</c:choose>
+                    	<span style = "color: #777;">&nbsp;(${avo.reviewCnt })</span>
                     </div>
                 </div>
             </div>
+			<c:set var = "n" value = "${n + 1 }"/>
+		</c:forEach>
         </div>
     </div>
 </section>
+ <div class = "container" style = "margin-bottom: 90px;"></div>
 <!--================ Accomodation Area  =================-->
-<div class = "container"> <hr></div>
-<!--================ Latest Blog Area  =================-->
-<section class="latest_blog_area section_gap">
+<!-- <div class = "container"> <hr></div>
+ <section class="latest_blog_area section_gap">
     <div class="container">
         <div class="section_title text-center">
             <h2 class="title_color">추천 많은 여행 후기</h2>
@@ -222,3 +238,4 @@
         </div>
     </div>
 </section>
+ -->
