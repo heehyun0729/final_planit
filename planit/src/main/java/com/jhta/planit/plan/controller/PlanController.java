@@ -375,7 +375,7 @@ public class PlanController {
 		FileReader fr = null;
 		String key = "";
 		try {
-			fr = new FileReader(new File("C:\\spring\\maven.1559001609549\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
+			fr = new FileReader(new File("C:\\spring\\planit2\\src\\main\\webapp\\resources\\apiKey.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;
