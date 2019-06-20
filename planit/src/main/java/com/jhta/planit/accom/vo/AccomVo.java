@@ -26,7 +26,7 @@ public class AccomVo {
 		this.accommImg_orgImg = accommImg_orgImg;
 		this.accommImg_saveImg = accommImg_saveImg;
 		this.accomChk = accomChk;
-	}
+	} 
 	public int getAccom_num() {
 		return accom_num;
 	}
