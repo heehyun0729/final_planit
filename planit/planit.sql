@@ -356,7 +356,8 @@ create table Review
     review_title varchar2(500),
     review_content CLOB,
     review_date Date,
-    review_hit number(7), 
+    review_hit number(7),
+    review_star number(2),  
     review_like number(7),
     reviewChk number(1)
 );
@@ -380,6 +381,7 @@ CREATE TABLE ReviewLike
 );
 
 //여행 후기 댓글 테이블
+DROP TABLE ReviewComm;
 CREATE TABLE ReviewComm
 (
     rcomm_num number(7) primary key,
@@ -394,6 +396,7 @@ CREATE TABLE ReviewComm
 );
 
 CREATE SEQUENCE rrew;
+DROP TABLE reservationReview;
 create table reservationReview
 (
     resReview_num number(7) primary key,
@@ -407,6 +410,7 @@ create table reservationReview
 );
 
 CREATE SEQUENCE rrewl;
+DROP TABLE resReviewLike;
 create table resReviewLike
 (
     resReview_likenum number(7) primary key,
