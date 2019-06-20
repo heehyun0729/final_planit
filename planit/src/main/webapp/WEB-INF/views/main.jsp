@@ -120,7 +120,7 @@
 				<div class="container">
 					<div class="banner_content text-center">
 						<h6>여행지와 숙소를 소개하는 확실한 방법</h6>
-						<h2>PlantIt에 광고를 신청해 보세요</h2>
+						<h2><img src = "<c:url value = '/resources/images/logo3.png'/>" style = "width:250px;margin-bottom: 10px;margin-left: 15px;">에 광고를 신청해 보세요</h2>
 						<p>광고를 위한 통계, 광고에 대한 상세 정보가 함께 제공됩니다.<br>광고 게재에는 최대 하루가 소요될 수 있습니다.</p>
 						<a href="<c:url value='/adminAdRequestInfo'/>" class="btn theme_btn button_hover">광고 신청하기</a>
 					</div>
