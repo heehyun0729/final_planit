@@ -46,7 +46,7 @@
 										<input type="hidden" name="room_num" value="${vo.room_num}">
 										<br /> <input type="file" name="file1"
 											class="genric-btn info circle"> <a href="#"
-											style="margin-right: 100px;" onclick="$('#form12').submit();"><i
+											style="margin-right: 100px;" onclick="javascript:$(this).parent().submit();"><i
 											class="fas fa-thumbs-up" style="color: #339af0;">등록</i></a>
 									</form></td>
 							</tr>

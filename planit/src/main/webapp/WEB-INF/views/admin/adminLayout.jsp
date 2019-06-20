@@ -30,6 +30,7 @@
 		<script type="text/javascript" src="<c:url value='/resources/js/plan/jquery.qtip.min.js'/>"></script>
 		<script type="text/javascript" src="<c:url value='/resources/js/plan/fullcalendar.min.js'/>"></script>
 		<script type="text/javascript" src = "<c:url value = '/resources/js/plan/locale-all.js'/>"></script>
+		<script type = "text/javascript"src = "<c:url value = '/resources/js/admin/bootstrap-filestyle.min.js'/>"></script>
 		<title>PlanIt::관리자::</title>
 	</head>
 	<style>

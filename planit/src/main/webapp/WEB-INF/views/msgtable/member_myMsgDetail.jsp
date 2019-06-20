@@ -41,7 +41,7 @@ function detailClose() {
 </script>
 </head>
 <body>
-<h1>쪽지 상세</h1>
+<h1 style="padding-left: 10px; margin-top: 10px;">쪽지 상세</h1>
 <table class="table">
 	<tr>
 		<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
