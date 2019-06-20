@@ -15,10 +15,12 @@ $(document).ready(function() {
 						$("#followedcnt").html("");
 						if ($("#hidden_fg").val() > 0) {
 							$("#mypage_followbtn").html("팔로우");
+							$("#mypage_followbtn").attr('class','btn btn-outline-info');
 							$("#followedcnt").html(data);
 							$("#hidden_fg").val("0");
 						} else {
 							$("#mypage_followbtn").html("팔로우 됨");
+							$("#mypage_followbtn").attr('class','btn btn-outline-secondary');
 							$("#followedcnt").html(data);
 							$("#hidden_fg").val("2");
 						}

@@ -5,20 +5,20 @@
 <div class="col-sm-3" id="mypage">
 	<input type="hidden" value="${profilemap.FOLLOW_GRADE }" id="hidden_fg"><input type="hidden" value="${sessionScope.mem_id }" id="hidden_id"> <input type="hidden" value="${profilemap.PROFILE_OPEN }" id="hidden_po">
 	<div id="mypage_profile">
-		<div class="mypage_profile_imagediv2">
+		<div class="mypage_profile_imagediv">
 			<span class="mypage_profile_imagspan"><img class="card-img-top rounded-circle" src="<c:url value='${profilemap.IMG_SAVEIMG }'/>" alt="${profilemap.MEM_NICKNAME }님의 프로필 사진"></span>
 		</div>
 		<div>
 			<h1 class="card-title text-center">${profilemap.MEM_NICKNAME }</h1>
 		</div>
-		<div class="nZSzR">
+		<div class="text-center m-1">
 			<c:choose>
 				<c:when test="${mem_tf }"></c:when>
 				<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE>0 }">
-					<button class="btn btn-outline-light text-dark" id="mypage_followbtn">팔로우 됨</button>
+					<button class="btn btn-outline-secondary" id="mypage_followbtn">팔로우 됨</button>
 				</c:when>
 				<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE==0 }">
-					<button class="btn btn-outline-light text-dark" id="mypage_followbtn">팔로우</button>
+					<button class="btn btn-outline-info" id="mypage_followbtn">팔로우</button>
 				</c:when>
 			</c:choose>
 		</div>

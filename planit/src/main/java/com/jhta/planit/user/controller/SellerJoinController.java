@@ -43,7 +43,7 @@ public class SellerJoinController {
 				return "redirect:/member/result";
 			} else {
 				model.addAttribute("vo", vo);
-				model.addAttribute("submitError", "작업중 오류로 인해 취소되었습니다.");
+				model.addAttribute("errMsg", "작업중 오류로 인해 취소되었습니다.");
 				return "!user!sellerapply";
 			}
 		}else {

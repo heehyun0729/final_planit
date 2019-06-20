@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jhta.planit.user.service.MembersService;
@@ -47,7 +46,13 @@ public class EditUserInfoController {
 					return "!user!sellerapply";
 				}
 			} else if (editInfo.equals("editprofile")) {
-				return "!user!editUserChk";
+				if (membersService.userCheck(mem_id)) {
+					HashMap<String, Object> profilemap = mypageService.editprofileinfo(mem_id);
+					model.addAttribute("map", profilemap);
+					return "!user!editprofile";
+				} else {
+					return "redirect:/member/mypage/" + mem_id;
+				}
 			} else if (editInfo.equals("pwdChange")) {
 				model.addAttribute("forgot", false);
 				model.addAttribute("mem_id", mem_id);
@@ -58,24 +63,6 @@ public class EditUserInfoController {
 				return "redirect:/member/mypage/" + mem_id;
 			}
 		}
-	}
-
-	@RequestMapping(value = "/user/edituserinfochk", method = RequestMethod.POST)
-	public ModelAndView editUsercheck(String mem_pwd, HttpSession session) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		String mem_id = (String) session.getAttribute("mem_id");
-		map.put("mem_id", mem_id);
-		map.put("mem_pwd", mem_pwd);
-		ModelAndView mv = new ModelAndView();
-		if (membersService.userCheck(map)) {
-			HashMap<String, Object> profilemap = mypageService.editprofileinfo(mem_id);
-			mv.addObject("map", profilemap);
-			mv.setViewName("!user!editprofile");
-		} else {
-			mv.addObject("errMsg", "정보가 올바르지 않습니다.");
-			mv.setViewName("!user!editUserChk");
-		}
-		return mv;
 	}
 
 	@RequestMapping(value = "/user/editnickcheck", method = RequestMethod.POST)

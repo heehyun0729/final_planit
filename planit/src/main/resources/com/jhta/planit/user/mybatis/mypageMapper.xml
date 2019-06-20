@@ -15,7 +15,7 @@
 				union all
 				select nvl(count(*),0) cnt from qna where mem_id=#{mem_id}
 				union all
-				select nvl(count(*),0) cnt from acommQna where mem_id='idest01'
+				select nvl(count(*),0) cnt from acommQna where mem_id=#{mem_id}
 				)write
 			) write_cnt
 		from members m,profile p, memimage mi 

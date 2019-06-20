@@ -143,7 +143,27 @@
 	background: #f7f7f7;
 	padding: 20px;
 }
-	
+
+.editprofile{
+	width: 50%;
+	margin: 100px auto;
+}
+
+.editprofile form {
+	margin-bottom: 20px;
+	background: #f7f7f7;
+	padding: 20px;
+}
+
+.editprofile form .mypageimg{
+	text-align: center;
+}
+
+.editprofile form .mypageimg #profileImg{
+	width: 200px;
+	height: 200px;
+	display: inline-block;
+}
 .errMsg{
 	color:red;
 	text-align: center;
