@@ -9,8 +9,7 @@
 		style="background: url(../resources/images/room.jpg)"></div>
 	<div class="container">
 		<div class="page-cover text-center">
-			<h2 class="page-cover-tittle f_48">숙소예약</h2>
-			<p style="color:#D8D8D8">전세계 숙소를 최저가로 만나보세요!</p>
+			<h2 class="page-cover-tittle">숙소예약</h2>
 		</div>
 	</div>
 </section>
@@ -116,74 +115,6 @@
 				style="border-radius: 5px; padding: 30px 20px 30px 20px; background-color: #eee;">
 				<form method="post"
 					action="<c:url value = '/reservation/accomDetail?accom_num=${avo.accom_num}'/>">
-      	</div>
-      	<div class = "row d-flex" style = 'margin-bottom: 15px;'>
-      		<div class = "star p-2">
-             	<c:choose>
-             		<c:when test="${star == 0 }">
-             			<i class="far fa-star"></i>
-             			<i class="far fa-star"></i>
-             			<i class="far fa-star"></i>
-             			<i class="far fa-star"></i>
-             			<i class="far fa-star"></i>
-             		</c:when>
-             		<c:otherwise>
-             			<c:forEach begin = "0" end = "${star - 1 }">
-               		<i class="fas fa-star"></i>
-               	</c:forEach>
-               	<c:forEach begin = "0" end = "${4 - star }">
-               		<i class="far fa-star"></i>
-               	</c:forEach>
-             		</c:otherwise>
-             	</c:choose>
-             </div>
-            <div class = "p-2">
-            	<span style = "color:#52C5FD;font-size: 24px;font-weight: bold;">${star }</span><span>/10 (</span><span style = "color:#ff5252">${reviewCnt }</span><span>개의 후기)</span>
-            </div>
-      	</div>
-        <hr>
-	    <div class="row" style = "height: 500px;margin-bottom: 30px;margin-top: 15px;">
-	    	<div class = "col-lg-4" >
-	    		<div style = "overflow: auto;">
-	    			<h4 class = "sec_h4">숙소설명</h4>
-				    <p>${avo.accom_comm }</p>
-				  </div>
-	    	</div>
-	    	<div class = "col-lg-8" style = "overflow: hidden;">
-	    		<div id="accomCarousel" class="carousel slide" data-ride="carousel">
-	    			<ol class="carousel-indicators">
-					    <li data-target="#accomCarousel" data-slide-to="0" class="active"></li>
-					   	<c:set var = "n" value = "1"/>
-					    <c:forEach var = "img" items = "${imgList }">
-						   <li data-target="#accomCarousel" data-slide-to="${n }"></li>
-						   <c:set var = "n" value = "${n + 1 }"/>
-					    </c:forEach>
-					  </ol>
-					   <div class="carousel-inner">
-					    <div class="carousel-item active">
-					      <img class="d-block w-100" src="<c:url value='/resources/uploadAccom/${avo.accommImg_saveImg }'/>" style = "height: 500px;">
-					    </div>
-					    <c:forEach var = "img" items = "${imgList }">
-						    <div class="carousel-item">
-						      <img class="d-block w-100" src="<c:url value='/resources/uploadRoom/${img }'/>" style = "height: 500px;">
-						    </div>
-					    </c:forEach>
-					  </div>
-					  <a class="carousel-control-prev" href="#accomCarousel" role="button" data-slide="prev">
-					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="carousel-control-next" href="#accomCarousel" role="button" data-slide="next">
-					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
-	    		</div>
-	    	</div>
-	    </div>
-	    <!--=================================-->
-		<section style = "margin: 60px 0;">
-			<div class="container" style = "border-radius: 5px;padding:30px 20px 30px 20px;background-color: #eee;">
-				<form method="post" action="<c:url value = '/reservation/accomDetail?accom_num=${avo.accom_num}'/>">
 					<div class="row d-flex justify-content-around">
 						<div class="p-2" style="padding-right: 0; padding-left: 30px;">
 							<div class="form-inline">
