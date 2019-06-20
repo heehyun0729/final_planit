@@ -119,12 +119,23 @@
 					t.buddy_city=#{list}
 	 			</foreach>
 			</when>
+			<when test="kw_city!=null and kw_city!='' and mem_id !=null and mem_id!=''">
+				b, buddy_country c, buddy_city t 
+				where b.buddy_num=c.buddy_num and c.country_num=t.country_num and 
+				<foreach collection="kw_city" item="list"  open="(" close=")" separator="or">
+					t.buddy_city=#{list}
+	 			</foreach>
+	 			and mem_id not in(#{mem_id})
+			</when>
+			<when test="mem_id !=null and mem_id!=''">
+				where buddy_state=0 and mem_id not in(#{mem_id})
+			</when>
 			<otherwise>
 				where buddy_state=0
 			</otherwise>
 		</choose>
 	</sql>
-	
+
 	<!-- 리스트 -->
 	<select id="buddy_showAll" resultMap="buddylistvo" parameterType="hashmap">
 		select * from

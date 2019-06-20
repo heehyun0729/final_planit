@@ -67,6 +67,8 @@ public class MypageController {
 		mv.addObject("applyCk",applyCk);
 		mv.addObject("applyList",applyList);
 		mv.addObject("buddyList",buddyList);
+		mv.addObject("mem_tf", acc_member(mem_id, (String) session.getAttribute("mem_id")));
+		mv.addObject("profilemap", profilemap(mem_id, (String) session.getAttribute("mem_id")));
 		return mv;
 	}
 	

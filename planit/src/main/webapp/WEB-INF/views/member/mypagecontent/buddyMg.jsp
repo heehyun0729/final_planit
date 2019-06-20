@@ -9,192 +9,191 @@
 </style>
 
 <!--================body Area =================-->
-<div class="container">
-	<br>
-	<div class="facilities_item">
-		<h2 class="typo-list">내가 쓴 글</h2>
-		
-		<div class="page-liner"></div>
-		
-		<c:if test="${empty buddyList}">
-			<br><p class="text-center">내가 쓴 글이 없습니다.</p>
-		</c:if>
-		
-		<c:if test="${!empty buddyList}">
+<br>
+<div class="facilities_item">
+	<h2 class="typo-list">내가 쓴 글</h2>
+	
+	<div class="page-liner"></div>
+	
+	<c:if test="${empty buddyList}">
+		<br><p class="text-center">내가 쓴 글이 없습니다.</p>
+	</c:if>
+	
+	<c:if test="${!empty buddyList}">
+		<div class="progress-table-wrap">
+			<div class="progress-table">
+				<div class="table-head">
+					<div class="serial">여행자</div>
+					<div class="serial">여행날짜</div>
+					<div class="serial">희망성별</div>
+					<div class="serial">희망나이</div>
+					<div class="serial">여행 소개</div>
+					<div class="serial">여행할 도시</div>
+					<div class="serial">내 동행</div>
+					<div class="serial">삭제하기</div>
+				</div>
+				<c:forEach var="buddy" items="${buddyList}">	
+					<div class="table-row">
+						<div class="serial">${buddy.mem_id }</div>
+						<div class="serial">${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</div>
+						<c:choose>
+							<c:when test="${buddy.buddy_gender =='X'}">
+								<div class="serial">상관없음</div>
+							</c:when>
+							<c:when test="${buddy.buddy_gender =='M'}">
+								<div class="serial">남자</div>
+							</c:when>
+							<c:when test="${buddy.buddy_gender =='W'}">
+								<div class="serial">여자</div>
+							</c:when>
+						</c:choose>
+						<c:choose>
+							<c:when test="${buddy.buddy_birthyear==0 }">
+								<div class="serial">상관없음</div>
+							</c:when>
+							<c:otherwise>
+								<div class="serial">${buddy.buddy_birthyear }대</div>
+							</c:otherwise>
+						</c:choose>
+						<div class="serial">${buddy.buddy_msg }</div>
+						<div class="serial">${buddy.buddy_city }</div>
+						<c:if test="${not empty mybuddy}">
+							<div class="serial">
+								<c:forEach var="mybuddy" items="${mybuddy}">
+									<c:if test="${buddy.buddy_num==mybuddy.buddy_num}">
+										${mybuddy.mem_id}
+									</c:if>
+								</c:forEach>
+							</div>
+						</c:if>
+						<c:if test="${empty mybuddy}">
+							<div class="serial">동행이 없습니다.</div>
+						</c:if>
+						<div class="serial"><input type="button" value="삭제하기" onclick="del_buddy('${buddy.buddy_num}')"></div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</c:if>
+</div>
+
+<div class="facilities_item">
+	<h2>내가 받은 동행 요청</h2>
+	
+	<div class="page-liner"></div>
+	
+	<c:if test="${empty applyList}">
+		<br><p class="text-center">받은 동행요청이 없습니다.</p>
+	</c:if>
+	
+	<c:if test="${!empty applyList}">
+		<div class="progress-table">
+			<div class="table-head">
+				<div class="serial">아이디</div>
+				<div class="serial">상태</div>
+				<div class="serial">수락/거절</div>
+				<div class="serial">쪽지하기</div>
+			</div>
+			<c:forEach var="apply" items="${applyList}">	
+				<div class="table-row">
+					<div class="serial">${apply.mem_id}</div>
+					<c:choose>
+						<c:when test="${apply.apply_state==0}">
+							<div class="serial">대기중</div>
+						</c:when>
+						<c:when test="${apply.apply_state==1}">
+							<div class="serial">수락</div>
+						</c:when>
+						<c:when test="${apply.apply_state==2}">
+							<div class="serial">거절</div>
+						</c:when>
+					</c:choose>
+					<c:choose>
+						<c:when test="${apply.apply_state==0}">
+							<div class="serial"><a href="<c:url value='/buddyAccept?apply_num=${apply.apply_num}' />">수락</a>
+							 / <a href="<c:url value='/buddyRefuse?apply_num=${apply.apply_num}' />">거절</a></div>
+						</c:when>
+						<c:otherwise>
+							<div class="serial">-</div>
+						</c:otherwise>
+					</c:choose>
+					<div class="serial"><input type="button" value="쪽지하기" onclick="msgPopup('${apply.mem_id}')"></div>
+				</div>
+			</c:forEach>
+		</div>
+	</c:if>
+</div>
+
+<div class="facilities_item">
+	<h2>내가 신청한 동행 요청</h2>
+	
+	<div class="page-liner"></div>
+	
+	<c:if test="${empty applyCk}">
+		<br><p class="text-center">신청한 동행요청이 없습니다.</p>
+	</c:if>
+	
+	<c:if test="${!empty applyCk}">
+		<div class="progress-table">
 			<div class="progress-table-wrap">
 				<div class="progress-table">
 					<div class="table-head">
+						<div class="serial">글번호</div>
 						<div class="serial">여행자</div>
 						<div class="serial">여행날짜</div>
 						<div class="serial">희망성별</div>
 						<div class="serial">희망나이</div>
 						<div class="serial">여행 소개</div>
 						<div class="serial">여행할 도시</div>
-						<div class="serial">내 동행</div>
-						<div class="serial">삭제하기</div>
+						<div class="serial">요청상태</div>
+						<div class="serial">취소하기</div>
 					</div>
-					<c:forEach var="buddy" items="${buddyList}">	
-						<div class="table-row">
-							<div class="serial">${buddy.mem_id }</div>
-							<div class="serial">${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</div>
-							<c:choose>
-								<c:when test="${buddy.buddy_gender =='X'}">
-									<div class="serial">상관없음</div>
-								</c:when>
-								<c:when test="${buddy.buddy_gender =='M'}">
-									<div class="serial">남자</div>
-								</c:when>
-								<c:when test="${buddy.buddy_gender =='W'}">
-									<div class="serial">여자</div>
-								</c:when>
-							</c:choose>
-							<c:choose>
-								<c:when test="${buddy.buddy_birthyear==0 }">
-									<div class="serial">상관없음</div>
-								</c:when>
-								<c:otherwise>
-									<div class="serial">${buddy.buddy_birthyear }대</div>
-								</c:otherwise>
-							</c:choose>
-							<div class="serial">${buddy.buddy_msg }</div>
-							<div class="serial">${buddy.buddy_city }</div>
-							<c:if test="${not empty mybuddy}">
-								<div class="serial">
-									<c:forEach var="mybuddy" items="${mybuddy}">
-										<c:if test="${buddy.buddy_num==mybuddy.buddy_num}">
-											${mybuddy.mem_id}
-										</c:if>
-									</c:forEach>
-								</div>
-							</c:if>
-							<c:if test="${empty mybuddy}">
-								<div class="serial">동행이 없습니다.</div>
-							</c:if>
-							<div class="serial"><input type="button" value="삭제하기" onclick="del_buddy('${buddy.buddy_num}')"></div>
-						</div>
-					</c:forEach>
 				</div>
-			</div>
-		</c:if>
-	</div>
-
-	<div class="facilities_item">
-		<h2>내가 받은 동행 요청</h2>
-		
-		<div class="page-liner"></div>
-		
-		<c:if test="${empty applyList}">
-			<br><p class="text-center">받은 동행요청이 없습니다.</p>
-		</c:if>
-		
-		<c:if test="${!empty applyList}">
-			<div class="progress-table">
-				<div class="table-head">
-					<div class="serial">아이디</div>
-					<div class="serial">상태</div>
-					<div class="serial">수락/거절</div>
-					<div class="serial">쪽지하기</div>
-				</div>
-				<c:forEach var="apply" items="${applyList}">	
-					<div class="table-row">
-						<div class="serial">${apply.mem_id}</div>
+				<c:forEach var="ck" items="${applyCk}">	
+					<div class="progress-table">
+						<div class="serial">${ck.buddy_num}</div>
+						<div class="serial">${ck.mem_id }</div>
+						<div class="serial">${ck.buddy_indate } ~ ${ck.buddy_outdate }</div>
 						<c:choose>
-							<c:when test="${apply.apply_state==0}">
+							<c:when test="${ck.buddy_gender =='X'}">
+								<div class="serial">상관없음</div>
+							</c:when>
+							<c:when test="${ck.buddy_gender =='M'}">
+								<div class="serial">남자</div>
+							</c:when>
+							<c:when test="${ck.buddy_gender =='W'}">
+								<div class="serial">여자</div>
+							</c:when>
+						</c:choose>
+						<c:choose>
+							<c:when test="${ck.buddy_birthyear==0 }">
+								<div class="serial">상관없음</div>
+							</c:when>
+							<c:otherwise>
+								<div class="serial">${ck.buddy_birthyear }대</div>
+							</c:otherwise>
+						</c:choose>
+						<div class="serial">${ck.buddy_msg }</div>
+						<div class="serial">${ck.buddy_city }</div>
+						<c:choose>
+							<c:when test="${ck.apply_state==0}">
 								<div class="serial">대기중</div>
 							</c:when>
-							<c:when test="${apply.apply_state==1}">
+							<c:when test="${ck.apply_state==1}">
 								<div class="serial">수락</div>
 							</c:when>
-							<c:when test="${apply.apply_state==2}">
+							<c:when test="${ck.apply_state==2}">
 								<div class="serial">거절</div>
 							</c:when>
 						</c:choose>
-						<c:choose>
-							<c:when test="${apply.apply_state==0}">
-								<div class="serial"><a href="<c:url value='/buddyAccept?apply_num=${apply.apply_num}' />">수락</a>
-								 / <a href="<c:url value='/buddyRefuse?apply_num=${apply.apply_num}' />">거절</a></div>
-							</c:when>
-							<c:otherwise>
-								<div class="serial">-</div>
-							</c:otherwise>
-						</c:choose>
-						<div class="serial"><input type="button" value="쪽지하기" onclick="msgPopup('${apply.mem_id}')"></div>
+						<div class="serial"><input type="button" value="취소하기" onclick="cancle_apply('${ck.buddy_num}')"></div>
 					</div>
 				</c:forEach>
 			</div>
-		</c:if>
-	</div>
-	
-	<div class="facilities_item">
-		<h2>내가 신청한 동행 요청</h2>
-		
-		<div class="page-liner"></div>
-		
-		<c:if test="${empty applyCk}">
-			<br><p class="text-center">신청한 동행요청이 없습니다.</p>
-		</c:if>
-		
-		<c:if test="${!empty applyCk}">
-			<div class="progress-table">
-				<div class="progress-table-wrap">
-					<div class="progress-table">
-						<div class="table-head">
-							<div class="serial">글번호</div>
-							<div class="serial">여행자</div>
-							<div class="serial">여행날짜</div>
-							<div class="serial">희망성별</div>
-							<div class="serial">희망나이</div>
-							<div class="serial">여행 소개</div>
-							<div class="serial">여행할 도시</div>
-							<div class="serial">요청상태</div>
-							<div class="serial">취소하기</div>
-						</div>
-					</div>
-					<c:forEach var="ck" items="${applyCk}">	
-						<div class="progress-table">
-							<div class="serial">${ck.buddy_num}</div>
-							<div class="serial">${ck.mem_id }</div>
-							<div class="serial">${ck.buddy_indate } ~ ${ck.buddy_outdate }</div>
-							<c:choose>
-								<c:when test="${ck.buddy_gender =='X'}">
-									<div class="serial">상관없음</div>
-								</c:when>
-								<c:when test="${ck.buddy_gender =='M'}">
-									<div class="serial">남자</div>
-								</c:when>
-								<c:when test="${ck.buddy_gender =='W'}">
-									<div class="serial">여자</div>
-								</c:when>
-							</c:choose>
-							<c:choose>
-								<c:when test="${ck.buddy_birthyear==0 }">
-									<div class="serial">상관없음</div>
-								</c:when>
-								<c:otherwise>
-									<div class="serial">${ck.buddy_birthyear }대</div>
-								</c:otherwise>
-							</c:choose>
-							<div class="serial">${ck.buddy_msg }</div>
-							<div class="serial">${ck.buddy_city }</div>
-							<c:choose>
-								<c:when test="${ck.apply_state==0}">
-									<div class="serial">대기중</div>
-								</c:when>
-								<c:when test="${ck.apply_state==1}">
-									<div class="serial">수락</div>
-								</c:when>
-								<c:when test="${ck.apply_state==2}">
-									<div class="serial">거절</div>
-								</c:when>
-							</c:choose>
-							<div class="serial"><input type="button" value="취소하기" onclick="cancle_apply('${ck.buddy_num}')"></div>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-		</c:if>
-	</div>
+		</div>
+	</c:if>
 </div>
+
 
 <input type="hidden" id="localurl" value="<c:url value='/'/>">
 

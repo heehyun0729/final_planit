@@ -54,6 +54,7 @@ public class BuddyController {
 		
 		//°Ë»ö
 		HashMap<String, Object> find_map=new HashMap<String, Object>();
+		find_map.put("mem_id",mem_id);
 		find_map.put("kw_city",kw_city);
 		find_map.put("kw_indate",kw_indate);
 		find_map.put("kw_outdate",kw_outdate);
