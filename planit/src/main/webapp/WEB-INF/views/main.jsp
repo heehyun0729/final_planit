@@ -172,7 +172,7 @@
 <!--================ Facilities Area  =================-->
 
 <!--================ Accomodation Area  =================-->
-<section class="accomodation_area section_gap">
+<section class="accomodation_area" style = "margin-top: 120px;margin-bottom: 200px;">
     <div class="container">
         <div class="section_title text-center">
             <h2 class="title_color">전세계 인기 숙소</h2>
