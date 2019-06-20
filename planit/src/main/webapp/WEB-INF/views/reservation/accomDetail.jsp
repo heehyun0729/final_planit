@@ -56,7 +56,7 @@
 		<div class="row d-flex" style='margin-bottom: 15px;'>
 			<div class="star p-2">
 				<c:choose>
-             		<c:when test="${star <= 0 }">
+             		<c:when test="${empty star || star == 0 }">
              			<i class="far fa-star"></i>
              			<i class="far fa-star"></i>
              			<i class="far fa-star"></i>
