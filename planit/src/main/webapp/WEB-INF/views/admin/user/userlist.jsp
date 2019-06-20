@@ -55,7 +55,7 @@
 					<table class="table table-hover ">
 						<thead>
 						<tr>
-							<th scope="col">아이디</th><th scope="col">닉네임</th><th scope="col">이메일</th><th scope="col">성별</th><th scope="col">생년</th><th scope="col">회원상태</th><th scope="col">API</th><th scope="col">상태변경</th>
+							<th scope="col">아이디</th><th scope="col">닉네임</th><th scope="col">이메일</th><th scope="col">성별</th><th scope="col">생년</th><th scope="col">회원상태</th><th scope="col">상태변경</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -84,18 +84,29 @@
 												<c:otherwise>test</c:otherwise>
 											</c:choose>
 										</td>
-										<td>${vo.mem_api }</td>
 										<td>
 											<input type="hidden" id="localurl" value="<c:url value='/'/>">
-											<form method="post" action="<c:url value='/admin/user/statchange'/>" class="statchangeform">
-												<input type="hidden" name="mem_id1" value="${vo.mem_id }">
-												<select <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if> name="mem_changestat">
-													<option value="2" <c:if test="${vo.mem_stat==2 }">selected="selected"</c:if>>일반</option>
-													<option value="-2" <c:if test="${vo.mem_stat==-2 }">selected="selected"</c:if>>정지</option>
-													<option value="-3" <c:if test="${vo.mem_stat==-3 }">selected="selected" disabled="disabled"</c:if>>탈퇴</option>
-												</select>
-												<input type="submit" value="변경" class="aa" <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if>>
-											</form>
+											<c:choose>
+												<c:when test="${vo.mem_stat==0 }"></c:when>
+												<c:otherwise>
+													<form method="post" action="<c:url value='/admin/user/statchange'/>" class="statchangeform">
+														<input type="hidden" name="mem_id1" value="${vo.mem_id }">
+														<select <c:if test="${vo.mem_stat==-3 }">disabled="disabled"</c:if> name="mem_changestat">
+															<option value="2" <c:if test="${vo.mem_stat==2 }">selected="selected"</c:if>>일반</option>
+															<option value="-2" <c:if test="${vo.mem_stat==-2 }">selected="selected"</c:if>>정지</option>
+															<option value="-3" <c:if test="${vo.mem_stat==-3 }">selected="selected" disabled="disabled"</c:if>>탈퇴</option>
+														</select>
+														<c:choose>
+															<c:when test="${vo.mem_stat!=-3 }">
+																<input type="submit" class="aa btn btn-primary" value="변경">
+															</c:when>
+															<c:otherwise>
+																<input type="submit" class="aa btn" value="탈퇴" disabled="disabled">
+															</c:otherwise>
+														</c:choose>
+													</form>
+												</c:otherwise>
+											</c:choose>
 										</td>
 									</tr>
 								</c:forEach>

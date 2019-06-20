@@ -78,14 +78,14 @@ $(document).ready(function() {
 											승인됨
 										</c:when>
 										<c:otherwise>
-												<input type="hidden" id="localurl" value="<c:url value='/'/>">
-											<form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval">
+											<input type="hidden" id="localurl" value="<c:url value='/'/>">
+											<form method="post" action="<c:url value='/admin/user/sellerapproval'/>" id="sellerapproval" style="display: inline;">
 												<input type="hidden" id="mem_id1" name="mem_id1" value="${map.MEM_ID }">
-												<input type="submit" value="승인">
+												<input type="submit" class="btn btn-primary" value="승인">
 											</form>
-											<form method="post" action="<c:url value='/admin/user/sellerreturn'/>" id="sellerreturn">
+											<form method="post" action="<c:url value='/admin/user/sellerreturn'/>" id="sellerreturn" style="display: inline;">
 												<input type="hidden" id="mem_id2" name="mem_id2" value="${map.MEM_ID }">
-												<input type="submit" value="반려">
+												<input type="submit" class="btn btn-primary" value="반려">
 											</form>
 										</c:otherwise>
 									</c:choose>
@@ -93,8 +93,8 @@ $(document).ready(function() {
 							</tr>
 					</table>
 					<div>
-						<button type="button" onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerlist?info=list'">판매자회원목록</button>
-						<button type="button" onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerlist?info=approval'">판매자승인대기목록</button>
+						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerlist?info=list'">판매자회원목록</button>
+						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/admin/user/sellerlist?info=approval'">판매자승인대기목록</button>
 					</div>
 				</div>
 			</div>
