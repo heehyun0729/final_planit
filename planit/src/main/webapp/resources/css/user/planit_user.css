@@ -132,6 +132,17 @@
 	background: #f7f7f7;
 	padding: 20px;
 }
+
+.pwdchangeForm{
+	width:50%;
+	margin: 100px auto;
+}
+
+.pwdchangeForm form {
+	margin-bottom: 20px;
+	background: #f7f7f7;
+	padding: 20px;
+}
 	
 .errMsg{
 	color:red;
