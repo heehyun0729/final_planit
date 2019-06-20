@@ -347,6 +347,7 @@ create SEQUENCE rewlik_SEQ;
 create SEQUENCE rewcom_SEQ;
 CREATE SEQUENCE rewie_SEQ;
 
+DROP TABLE Review
 create table Review
 (
     review_num number(7) primary key,
@@ -363,6 +364,7 @@ create table Review
 );
 
 //여행 후기 이미지 테이블
+DROP TABLE ReviewImage;
 create table ReviewImage(
     reviewImge_num number(7) primary key,
     review_num number(7) REFERENCES review(review_num),
@@ -372,6 +374,7 @@ create table ReviewImage(
 );
 
 //여행 후기 좋아요 테이블
+DROP TABLE ReviewLike;
 CREATE TABLE ReviewLike
 (
     review_likenum number(7) primary key,
