@@ -4,14 +4,14 @@
 <footer class="footer-area section_gap">
  	<div class="single-footer-widget" style = "background-color: #eee;padding-top: 15px;margin-bottom: 50px;">
  		<div class = "container">
-   			<div class="row">
-	   			<div class = "col-1">
+   			<div class="row d-flex justify-content-start">
+	   			<div class = "p-2">
 	    			<ul class="list_style">
 						<li><a href="<c:url value='/adminAdRequestInfo'/>">광고신청</a></li>
 	    			</ul>
 	   			</div>
-	   			<span style = "color:#555">|&nbsp;&nbsp;</span>
-	   			<div class = "col-2">
+	   			<span style = "color:#555" class = "p-2">|&nbsp;&nbsp;</span>
+	   			<div class = "p-2">
 	    			<ul class="list_style">
 	    				<li><a onclick="window.open('<c:url value='/adminLogin'/>')" href = "#">관리자페이지</a></li>
 	    			</ul>

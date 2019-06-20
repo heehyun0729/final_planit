@@ -41,12 +41,11 @@
 			</c:forEach>
 		</table>
 </div>
-		<br>
-		<div id="page">
+
+	<!-- <div id="page">
 			<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 				<c:choose>
 					<c:when test="${pu.pageNum==i }">
-					<%--current page --%>
 						<a href="${pageContext.request.contextPath }/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }">
 							<span style='color:blue'>[${i }]</span>
 						</a>
@@ -58,7 +57,74 @@
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-		</div>
+		</div>-->
+		<br>
+		<div >
+		<nav class="blog-pagination justify-content-center d-flex" >
+			<ul class="pagination">
+				<li class="page-item"><c:choose>
+						<c:when test="${pu.startPageNum > 4 }">
+							<a
+								href="${pageContext.request.contextPath }/review/reviewlist.do?pageNum=${pu.startPageNum - 1}"
+								class="page-link" aria-label="Previous"> <span
+								aria-hidden="true"> <span class="lnr lnr-chevron-left"></span>
+							</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+			◀
+		</c:otherwise>
+					</c:choose></li>
+				<c:forEach var="i" begin="${pu.startPageNum }"
+					end="${pu.endPageNum }">
+					<c:choose>
+						<c:when test="${pu.pageNum == i }">
+							<li class="page-item active"><a
+								href="${pageContext.request.contextPath }/review/reviewList.do?pageNum=${i}&field=${field}&keyword=${keyword}"
+								class="page-link"> ${i}</a></li>
+
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a
+								href="${pageContext.request.contextPath }/review/reviewList.do?pageNum=${i}&field=${field}&keyword=${keyword}"
+								class="page-link"> ${i}</a></li>
+
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<li class="page-item"><c:choose>
+						<c:when test="${pu.endPageNum < pu.totalPageCount }">
+							<a
+								href="${pageContext.request.contextPath }/review/reviewList.do?pageNum=${pu.endPageNum + 1}"
+								class="page-link" aria-label="Next"> <span
+								aria-hidden="true"> <span class="lnr lnr-chevron-right"></span>
+							</span>
+							</a>
+
+						</c:when>
+						<c:otherwise>
+			▶
+		</c:otherwise>
+					</c:choose></li>
+			</ul>
+		</nav>
+	</div>
+		<!-- <div id="page">
+			<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+				<c:choose>
+					<c:when test="${pu.pageNum==i }">
+						<a href="${pageContext.request.contextPath }/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }">
+							<span style='color:blue'>[${i }]</span>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath }/qnaList?pageNum=${i }&field=${field }&keyword=${keyword }">
+						<span style='color:gray'>[${i }]</span>
+						</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</div>-->
 		<c:choose>
 			<c:when test="${sessionScope.mem_id!=null }">
 			<div class="button">
