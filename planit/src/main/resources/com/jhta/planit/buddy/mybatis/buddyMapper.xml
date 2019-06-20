@@ -182,17 +182,21 @@
 	</insert>
 
 	<!-- 국가 체크박스 생성 -->
-	<select id="buddy_showCountry" resultType="String">
-		select distinct buddy_country from buddy_country where buddy_num in (select buddy_num from buddy where buddy_state=0)
+	<select id="buddy_showCountry" resultType="String" parameterType="hashmap">
+		select distinct buddy_country from buddy_country where buddy_num in (
+		select buddy_num from buddy where buddy_state=0 
+		<if test="mem_id !=null and mem_id !=''">
+			and mem_id not in (#{mem_id})
+		</if>
+		)
 	</select>
 	<!-- 도시 체크박스 생성 -->
 	<select id="buddy_showCity" parameterType="String" resultType="com.jhta.planit.buddy.vo.BuddyCityVo">
 		select distinct buddy_city from buddy_city where country_num in 
 		(
 		select country_num from buddy_country where buddy_num in (select buddy_num from buddy where buddy_state=0) and buddy_country=#{country}
-		)	
+		)
 	</select>
-	
 	<!-- 날짜 지난 게시물 자동 업뎃 -->
 	<update id="buddy_stateUpt">
 		update buddy set buddy_state=1 

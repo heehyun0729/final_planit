@@ -48,6 +48,9 @@ public class BuddyService {
 		return dao.showAll(find_map);
 	}
 	//국가 체크박스 동적생성
+	public List<String> showCountry(HashMap<String, Object> inc_login){
+		return dao.showCoutry(inc_login);
+	}
 	public List<String> showCountry(){
 		return dao.showCoutry();
 	}

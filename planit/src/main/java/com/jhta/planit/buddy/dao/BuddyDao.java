@@ -43,6 +43,9 @@ public class BuddyDao {
 		return sqlSession.selectList(NAMESPACE + ".buddy_showAll",find_map);
 	}
 	//국가 체크박스 동적 생성
+	public List<String> showCoutry(HashMap<String, Object> inc_login){
+		return sqlSession.selectList(NAMESPACE + ".buddy_showCountry",inc_login);
+	}
 	public List<String> showCoutry(){
 		return sqlSession.selectList(NAMESPACE + ".buddy_showCountry");
 	}
