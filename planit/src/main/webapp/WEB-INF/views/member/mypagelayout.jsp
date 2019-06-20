@@ -23,6 +23,7 @@
 <link rel="stylesheet" href= "<c:url value='/resources/royal/vendors/owl-carousel/owl.carousel.min.css'/>">
 <link rel="stylesheet" href= "<c:url value='/resources/royal/css/style.css'/>">
 <link rel="stylesheet" href= "<c:url value='/resources/royal/css/responsive.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/main.css'/>">
 
 <script type="text/javascript" src = "<c:url value = '/resources/js/jquery-3.4.0.min.js'/>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
