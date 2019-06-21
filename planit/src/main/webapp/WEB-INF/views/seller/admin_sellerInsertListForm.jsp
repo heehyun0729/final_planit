@@ -18,7 +18,7 @@
 		<div class="row ">
 			<div class="col mt-5 d-flex justify-content-center">
 				<div class="text-center">
-					<h1>판매자 등록양식</h1>
+					<h1>관리자 등록양식</h1>
 					<ul>
 						<li><a style="color: #339af0;"
 							href="${pageContext.request.contextPath}/admin/accommInsert">숙소추가</a></li>
