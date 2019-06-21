@@ -192,7 +192,7 @@
 							<div class="col-lg-12"
 								onclick="javascript:openRoomDialog(${rvo.room_num})"
 								style="cursor: pointer;">
-								<span class="sec_h4">${rvo.room_type }</span><span>(${rvo.room_capa }인실)</span>
+								<span class="sec_h4">${rvo.room_type }</span><span> (${rvo.room_capa }인실)</span>
 								<hr>
 							</div>
 						</div>

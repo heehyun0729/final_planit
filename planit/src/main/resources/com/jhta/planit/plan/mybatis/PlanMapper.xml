@@ -18,14 +18,24 @@
 		            select p.plan_num plan_num, p.mem_id mem_id, p.plan_title plan_title, p.plan_startDate plan_startDate,
 		                p.plan_stays plan_stays, p.plan_img plan_img, p.plan_public plan_public, d.planDetail_country country, d.planDetail_city city
 		            from plan p, planDetail d
-		            where p.plan_num = d.plan_num and p.plan_public = 0
+		            where p.plan_num = d.plan_num
+		            <choose>
+	                   	<when test="private != null and private != ''">
+	                   		and p.plan_public = 1
+	                   	</when>
+	                   	<otherwise>
+	                   		and p.plan_public = 0
+	                   	</otherwise>
+	                   </choose>
 		        )
-		        <if test = "keyword != null and keyword != ''">
-	               	 where ${field} like '%'||#{keyword}||'%'
-                </if>
-                <if test="mem_id != null and mem_id != ''">
-					 and mem_id = #{mem_id}
-				</if>
+		        <where>
+			        <if test = "keyword != null and keyword != ''">
+		               	 ${field} like '%'||#{keyword}||'%'
+	                </if>
+	                <if test="mem_id != null and mem_id != ''">
+						 and mem_id = #{mem_id}
+					</if>
+		        </where>
 		    )
 	</select>
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.plan.vo.PlanListVo">
@@ -42,7 +52,15 @@
 		                    select p.plan_num plan_num, p.mem_id mem_id, p.plan_title plan_title, p.plan_startDate plan_startDate,
 		                        p.plan_stays plan_stays, p.plan_img plan_img, p.plan_public plan_public, d.planDetail_country country, d.planDetail_city city
 		                    from plan p, planDetail d
-		                    where p.plan_num = d.plan_num and p.plan_public = 0
+		                    where p.plan_num = d.plan_num 
+		                    <choose>
+		                    	<when test="private != null and private != ''">
+		                    		and p.plan_public = 1
+		                    	</when>
+		                    	<otherwise>
+		                    		and p.plan_public = 0
+		                    	</otherwise>
+		                    </choose>
 		                )
 		                <if test = "keyword != null and keyword != ''">
 		               	 where ${field} like '%'||#{keyword}||'%'

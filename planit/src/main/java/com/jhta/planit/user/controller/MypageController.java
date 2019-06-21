@@ -78,6 +78,8 @@ public class MypageController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field", field);
 		map.put("keyword", keyword);
+		map.put("private", "private");
+		map.put("mem_id", mem_id);
 		int cnt = planService.count(map);
 		
 		PageUtil pu = new PageUtil(pageNum, cnt, 6, 5);
