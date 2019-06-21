@@ -65,28 +65,25 @@
 				<li class="page-item"><c:choose>
 						<c:when test="${pu.startPageNum > 4 }">
 							<a
-								href="${pageContext.request.contextPath }/review/reviewlist.do?pageNum=${pu.startPageNum - 1}"
+								href="${pageContext.request.contextPath }/qnaList?pageNum=${pu.startPageNum - 1}"
 								class="page-link" aria-label="Previous"> <span
 								aria-hidden="true"> <span class="lnr lnr-chevron-left"></span>
 							</span>
 							</a>
 						</c:when>
-						<c:otherwise>
-			◀
-		</c:otherwise>
+					
 					</c:choose></li>
 				<c:forEach var="i" begin="${pu.startPageNum }"
 					end="${pu.endPageNum }">
 					<c:choose>
 						<c:when test="${pu.pageNum == i }">
 							<li class="page-item active"><a
-								href="${pageContext.request.contextPath }/review/reviewList.do?pageNum=${i}&field=${field}&keyword=${keyword}"
+								href="${pageContext.request.contextPath }/qnaList?pageNum=${i}&field=${field}&keyword=${keyword}"
 								class="page-link"> ${i}</a></li>
-
 						</c:when>
 						<c:otherwise>
 							<li class="page-item"><a
-								href="${pageContext.request.contextPath }/review/reviewList.do?pageNum=${i}&field=${field}&keyword=${keyword}"
+								href="${pageContext.request.contextPath }/qnaList?pageNum=${i}&field=${field}&keyword=${keyword}"
 								class="page-link"> ${i}</a></li>
 
 						</c:otherwise>
@@ -95,16 +92,13 @@
 				<li class="page-item"><c:choose>
 						<c:when test="${pu.endPageNum < pu.totalPageCount }">
 							<a
-								href="${pageContext.request.contextPath }/review/reviewList.do?pageNum=${pu.endPageNum + 1}"
+								href="${pageContext.request.contextPath }/qnaList?pageNum=${pu.endPageNum + 1}"
 								class="page-link" aria-label="Next"> <span
 								aria-hidden="true"> <span class="lnr lnr-chevron-right"></span>
 							</span>
 							</a>
 
 						</c:when>
-						<c:otherwise>
-			▶
-		</c:otherwise>
 					</c:choose></li>
 			</ul>
 		</nav>

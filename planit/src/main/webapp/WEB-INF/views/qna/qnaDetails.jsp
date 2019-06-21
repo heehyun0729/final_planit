@@ -152,33 +152,39 @@
 <!--<div class="container-fluid" style = "border:1px solid #aaa;border-radius: 5px;padding:30px 20px 30px 100px;"> -->
 
 
-<div id="border" style="margin-left: 100px">
-	<input type="hidden" value="${vo.qna_num }">
-	<h1>${vo.qna_title}</h1>
-	<br> 작성자 <small><a href="#">${vo.mem_id }</a> <span
-		class="glyphicon glyphicon-time"></span> ${vo.qna_date }</small> <br> <br>
-	<div>
-		<span style="font-size: 1.5em; color: gray">${vo.qna_content }</span>
-	</div>
-	<br> <br>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div style="text-align: center">
+				<input type="hidden" value="${vo.qna_num }">
+				<h1>${vo.qna_title}</h1>작성자 <small><a href="#">${vo.mem_id }</a>
+					${vo.qna_date }</small> <br> <br>
+				<div>
+					<span style="font-size: 1.5em; color: gray">${vo.qna_content }</span>
+				</div>
+			</div>
+			<br> <br>
+			<div style="margin: auto; width: 500px;">
+				<h4>댓글</h4>
+				<div>
 
-	<h4>댓글</h4>
-	<div>
-		<div class="form-group" style="width: 50%;">
-			<textarea id="qcomm_content" class="form-control" rows="5" required></textarea>
+					<textarea id="qcomm_content" class="form-control" rows="2" required></textarea>
+					<input type="button" class="genric-btn danger small" id="addBtn"
+						value="확인">
+				</div>
+			</div>
 		</div>
-		<input type="button" class="genric-btn danger small" id="addBtn"
-			value="확인">
-	</div>
-	<br> <br>
-	<div class="row2">
-		<div id="commList"></div>
+		<br> <br>
+		<div class="row2">
+			<div id="commList"></div>
 
-		<!--  <p><span class="badge">1</span> Comment:</p><br> -->
+			<!--  <p><span class="badge">1</span> Comment:</p><br> -->
+			<div id="pageList">
+				<div id="page"></div>
+			</div>
+		</div>
 	</div>
-	<div id="pageList">
-		<div id="page"></div>
-	</div>
+
 </div>
 
 
