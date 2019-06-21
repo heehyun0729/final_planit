@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<div class="login-form">
 		<form method="post" action="<c:url value='/user/login'/>" id="formLogin">
+			<input type = "hidden" value = "${referer }" name = "referer">
 			<div class="userstop">
 				<a href="<c:url value='/'/>"><img class="logoimg" src="<c:url value='/resources/images/logo1.png'/>"></a>
 			</div>

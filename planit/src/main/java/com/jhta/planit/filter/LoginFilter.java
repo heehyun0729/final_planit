@@ -28,9 +28,10 @@ public class LoginFilter implements Filter {
 		if(login) {	// 로그인한 경우
 			chain.doFilter(request, response);
 		}else {	// 로그인 하지 않은 경우
+			String referer = req.getHeader("referer");
+			session.setAttribute("referer",referer);
 			resp.sendRedirect(req.getContextPath() + "/user/login");
 		}
-		chain.doFilter(request, response);
 	}
 	public void init(FilterConfig fConfig) throws ServletException {}
 

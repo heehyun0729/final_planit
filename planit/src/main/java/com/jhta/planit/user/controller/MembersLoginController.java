@@ -23,6 +23,8 @@ public class MembersLoginController {
 
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public String login(String mem_id, String mem_pwd, Model model, HttpSession session) {
+		String referer = (String)session.getAttribute("referer");
+		session.removeAttribute("referer");
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("mem_id", mem_id);
 		map.put("mem_pwd", mem_pwd);
@@ -30,7 +32,7 @@ public class MembersLoginController {
 		if (result > -2) {
 			session.setAttribute("mem_id", mem_id);
 			session.setAttribute("mem_stat", result);
-			return "redirect:/";
+			return "redirect:" + referer;
 		} else {
 			model.addAttribute("mem_id", mem_id);
 			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
