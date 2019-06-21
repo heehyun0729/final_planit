@@ -120,6 +120,7 @@ function openRsvnDialog(room_num) {
 			}
 			$("#rsvnDialogCnt").html(str);
 			$('select').niceSelect('update');
+			cnt = $("#rsvnDialogCnt").val();
 			roomCheck();
 			setRsvnMsg();
 			setPayBtn();
@@ -183,6 +184,7 @@ function setPayBtn() {
 }
 
 function roomCheck() {
+	console.log(111);
 	checkin = $("#rsvnCheckinDatepicker").val();
 	checkout = $("#rsvnCheckoutDatepicker").val();
 	cnt = $("#rsvnDialogCnt").val();
@@ -198,13 +200,14 @@ function roomCheck() {
 				cnt: cnt
 			},
 			success: function(data) {
-				if(data.room_num == -1){
+				console.log(data);
+				if(data.room_num == -1){	// 방 예약이 이미 차있는 경우
 					cnt = -1;
 					setRsvnDialog(0);
 					setRsvnMsg();
 					setPayBtn();
 				}else{
-					setRsvnDialog(data.room_price);
+					setRsvnDialog(data.room_price);	// 예약 가능한 경우
 					setRsvnMsg();
 					setPayBtn();
 				}

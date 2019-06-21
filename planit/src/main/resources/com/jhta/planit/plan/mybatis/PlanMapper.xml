@@ -22,14 +22,14 @@
                    	<if test="private == null or private == ''">
                    		and p.plan_public = 0
                    	</if>
+	                <if test="mem_id != null and mem_id != ''">
+						 and p.mem_id = #{mem_id}
+					</if>
 		        )
 		        <where>
 			        <if test = "keyword != null and keyword != ''">
 		               	 ${field} like '%'||#{keyword}||'%'
 	                </if>
-	                <if test="mem_id != null and mem_id != ''">
-						 and mem_id = #{mem_id}
-					</if>
 		        </where>
 		    )
 	</select>
@@ -57,12 +57,12 @@
 		                </if>
 		            )
 		        and pp.mem_id = m.mem_id
+				<if test="mem_id != null and mem_id != ''">
+					 and pp.mem_id = #{mem_id}
+				</if>
 		        order by plan_num desc
 		    )aa
 		)<![CDATA[ where rnum >= #{startRow} and rnum <= #{endRow} ]]>
-		<if test="mem_id != null and mem_id != ''">
-			 and mem_id = #{mem_id}
-		</if>
 	</select>
 	<select id="detail" parameterType="int" resultType="com.jhta.planit.plan.vo.PlanVo">
 		select * from plan where plan_num = #{plan_num}
