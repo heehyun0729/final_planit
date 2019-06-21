@@ -32,7 +32,11 @@ public class MembersLoginController {
 		if (result > -2) {
 			session.setAttribute("mem_id", mem_id);
 			session.setAttribute("mem_stat", result);
-			return "redirect:" + referer;
+			if(referer != null && referer != "") {
+				return "redirect:" + referer;
+			}else {
+				return "redirect:/";
+			}
 		} else {
 			model.addAttribute("mem_id", mem_id);
 			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
