@@ -269,21 +269,22 @@
 	<select id="roomCheck" parameterType="hashmap" resultType="com.jhta.planit.room.vo.RoomVo">
 		select * from
 		(
-			select distinct r.room_num room_num
-			from room r, ( select NVL(z.room_num, -1) room_num from
-			                (
-			                select rs.room_num room_num
-			                from rsvn rs, rsvnPay rp
-			                where rs.rsvn_num = rp.rsvn_num
-			                    and rp.rsvnPay_stat = 0
-			                    and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
-			                    or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
-			                )z right outer join dual on 1 = 1
-			            )aa
-			where r.roomChk = 0
-			    and r.room_capa >= #{cnt}
-			    and r.room_num not in aa.room_num
-			    and r.room_num = #{room_num}
+		    select  r.room_num room_num
+		    from room r
+		    where r.roomChk = 0
+		        and r.room_capa >= #{cnt}
+		        and r.room_num not in (
+		            select NVL(z.room_num, -1) room_num from
+		                    (
+		                        select rs.room_num room_num
+		                        from rsvn rs, rsvnPay rp
+		                        where rs.rsvn_num = rp.rsvn_num
+		                            and rp.rsvnPay_stat = 0
+		                            and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
+		                            or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
+		                        )z right outer join dual on 1 = 1
+		                     )
+		        and r.room_num = #{room_num}
 		)qq, room rr
 		where qq.room_num = rr.room_num
 	</select>
