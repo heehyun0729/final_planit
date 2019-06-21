@@ -100,7 +100,7 @@ public class EditUserInfoController {
 				String savefilename = mypageService.getsavImginfo(img_num).getImg_saveimg();
 				File file = new File(realPath + savefilename);
 				if (!savefilename.equals(basicPhoto)) {
-					if (!file.delete()) {
+				if (!file.delete()) {
 						throw new Exception("파일삭제실패!");
 					}
 				}

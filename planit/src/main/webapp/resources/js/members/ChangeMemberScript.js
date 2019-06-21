@@ -195,9 +195,9 @@ $(document).ready(function() {
 	
 	$("#profileupdateform").submit(function(event) {
 		let formresult=true;
-		$("#submitError").text("");
+		$(".errMsg").text("");
 		if(!chknick) {
-			$("#submitError").text("닉네임 중복검사 해주시기 바랍니다");
+			$(".errMsg").text("닉네임 중복검사 해주시기 바랍니다");
 			formresult=false;
 			$("#mem_nickname").focus();
 		}

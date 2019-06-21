@@ -58,8 +58,8 @@
 			<input type="password" id="mem_pwd" name="mem_pwd" class="form-control" placeholder="비밀번호" required>
 		</div>
 		<input type="submit" class="btn btn-primary btn-block" value="수정">
+		<div class="errMsg">${errMsg }</div>
 	</form>
-	<div id="submitError"></div>
 </div>
 <script type="text/javascript">
 	var profile_comm=document.getElementById("profile_comm");
