@@ -170,6 +170,10 @@
 			alert("여행하려는 도시를 입력해주세요.");
 			$("#buddy_city").focus();
 			return false;
+		}else if($("#buddy_msg").val()==""){
+			alert("여행 소개를 입력해주세요.");
+			$("#buddy_msg").focus();
+			return false;
 		}else{
 			return true;
 		}

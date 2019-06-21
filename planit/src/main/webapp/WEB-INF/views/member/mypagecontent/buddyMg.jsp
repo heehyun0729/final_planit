@@ -4,6 +4,7 @@
 
 <!--================body Area =================-->
 <br>
+
 <div class="facilities_item">
 	<h2 class="typo-list">내가 쓴 글</h2>
 	
@@ -17,8 +18,8 @@
 		<div class="progress-table-wrap">
 			<div class="progress-table">
 				<div class="table-head">
-					<div class="serial">여행자</div>
-					<div class="serial">여행날짜</div>
+					<div class="serial">시작날짜</div>
+					<div class="serial">종료날짜</div>
 					<div class="serial">희망성별</div>
 					<div class="serial">희망나이</div>
 					<div class="serial">여행 소개</div>
@@ -28,8 +29,8 @@
 				</div>
 				<c:forEach var="buddy" items="${buddyList}">	
 					<div class="table-row">
-						<div class="serial">${buddy.mem_id }</div>
-						<div class="serial">${buddy.buddy_indate } ~ ${buddy.buddy_outdate }</div>
+						<div class="serial">${buddy.buddy_indate }</div>
+						<div class="serial">${buddy.buddy_outdate }</div>
 						<c:choose>
 							<c:when test="${buddy.buddy_gender =='X'}">
 								<div class="serial">상관없음</div>
@@ -61,13 +62,13 @@
 							</div>
 						</c:if>
 						<c:if test="${empty mybuddy}">
-							<div class="serial">동행이 없습니다.</div>
+							<div class="serial">동행이<br>없습니다.</div>
 						</c:if>
-						<div class="serial"><input type="button" value="삭제" onclick="del_buddy('${buddy.buddy_num}')"></div>
+						<div class="serial"><input type="button" class="btn btn-danger" value="삭제" onclick="del_buddy('${buddy.buddy_num}')"></div>
 					</div>
 				</c:forEach>
 			</div>
-		</div>
+		</div>	
 	</c:if>
 </div>
 
@@ -85,7 +86,8 @@
 			<div class="table-head">
 				<div class="serial">아이디</div>
 				<div class="serial">상태</div>
-				<div class="serial">수락/거절</div>
+				<div class="serial">수락</div>
+				<div class="serial">거절</div>
 				<div class="serial">쪽지</div>
 			</div>
 			<c:forEach var="apply" items="${applyList}">	
@@ -104,10 +106,11 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${apply.apply_state==0}">
-							<div class="serial"><a href="<c:url value='/buddyAccept?apply_num=${apply.apply_num}' />">수락</a>
-							 / <a href="<c:url value='/buddyRefuse?apply_num=${apply.apply_num}' />">거절</a></div>
+							<div class="serial"><a href="<c:url value='/buddyAccept?apply_num=${apply.apply_num}' />" class="btn btn-primary">수락</a></div>
+							<div class="serial"><a href="<c:url value='/buddyRefuse?apply_num=${apply.apply_num}' />" class="btn btn-danger">거절</a></div>
 						</c:when>
 						<c:otherwise>
+							<div class="serial">-</div>
 							<div class="serial">-</div>
 						</c:otherwise>
 					</c:choose>
@@ -132,7 +135,8 @@
 			<div class="progress-table">
 				<div class="table-head">
 					<div class="serial">여행자</div>
-					<div class="serial">여행날짜</div>
+					<div class="serial">시작날짜</div>
+					<div class="serial">종료날짜</div>
 					<div class="serial">희망성별</div>
 					<div class="serial">희망나이</div>
 					<div class="serial">여행 소개</div>
@@ -143,7 +147,8 @@
 				<c:forEach var="ck" items="${applyCk}">	
 					<div class="table-row">
 						<div class="serial">${ck.mem_id }</div>
-						<div class="serial">${ck.buddy_indate } ~ ${ck.buddy_outdate }</div>
+						<div class="serial">${ck.buddy_indate }</div>
+						<div class="serial">${ck.buddy_outdate }</div>
 						<c:choose>
 							<c:when test="${ck.buddy_gender =='X'}">
 								<div class="serial">상관없음</div>
@@ -176,7 +181,7 @@
 								<div class="serial">거절</div>
 							</c:when>
 						</c:choose>
-						<div class="serial"><input type="button" value="취소" onclick="cancle_apply('${ck.buddy_num}')"></div>
+						<div class="serial"><input type="button" class="btn btn-danger" value="취소" onclick="cancle_apply('${ck.buddy_num}')"></div>
 					</div>
 				</c:forEach>
 			</div>
@@ -242,6 +247,22 @@
 			window.location.href=localurl+"applyCancle?buddy_num="+buddy_num;
 		}else{
 			
+		}
+	}
+	
+	/*
+		쪽지하기 팝업 클릭 이벤트
+		- .msgBtn : 버튼 class 명
+		- #msgModal : 팝업 id 명
+	*/
+	function messagePopupFunc(msg_id) {
+			if('${mem_id}'!=null && '${mem_id}'!=""){
+			$(".msgBtn").click(function(){
+				$("#recipient-name").val(msg_id);
+				$("#msgModal").modal();
+			});
+		}else{
+			alert("로그인이 필요한 서비스 입니다.");
 		}
 	}
 	

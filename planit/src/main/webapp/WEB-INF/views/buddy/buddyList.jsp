@@ -45,7 +45,7 @@
 						
 						<br>
 						
-						<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
+						<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.1</p>
 						<div class="page-liner"></div>
 						
 						<c:if test="${empty countryList}">
@@ -54,16 +54,16 @@
 						<c:forEach var="country" items="${countryList}">
 							<div class="row">
 								<div class="col-md-3">
-									<h4 class="typo-list">${country }</h4>
+									<h4 class="typo-list">${country}</h4>
 								</div>
 								
 								<c:forEach var="city" items="${cityList}">
-									<c:if test="${city.key==country }">
+									<c:if test="${city.key==country}">
 										<div class="col-md-9">
 											<div class="btn-group-toggle" data-toggle="buttons">
 												<c:forEach var="cityVal" items="${city.value}">
 													<label class="btn btn default">
-														<input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city"> ${cityVal }
+														<input type="checkbox" id="${cityVal}" value="${cityVal}" name="kw_city"> ${cityVal}
 													</label>
 												</c:forEach>
 											</div>
@@ -126,7 +126,9 @@
 				            </div>
 				 			<div class="col-md-6">
 				 				<h3 class="typo-list">여행 끝</h3>
-					            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
+					            <label class="btn btn default">			
+					            	<input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
+					            </label>
 				 			</div>
 				        </div>
 						
@@ -141,16 +143,16 @@
 						<c:forEach var="country" items="${countryList}">
 							<div class="row">
 								<div class="col-md-3">
-									<h4 class="typo-list">${country }</h4>
+									<h4 class="typo-list">${country}</h4>
 								</div>
 								
 								<c:forEach var="city" items="${cityList}">
-									<c:if test="${city.key==country }">
+									<c:if test="${city.key==country}">
 										<div class="col-md-9">
 											<div class="btn-group-toggle" data-toggle="buttons">
 												<c:forEach var="cityVal" items="${city.value}">
 													<label class="btn btn default">
-														<input type="checkbox" id="${cityVal }" value="${cityVal }" name="kw_city"> ${cityVal }
+														<input type="checkbox" id="${cityVal}" value="${cityVal}" name="kw_city"> ${cityVal}
 													</label>
 												</c:forEach>
 											</div>
@@ -215,7 +217,7 @@
 									아이디 : 
 								</div>
 								<div class="col-md-8">
-									${sglist.mem_id }
+									${sglist.mem_id}
 								</div>
 							</div>
 							<div class="row">
@@ -223,7 +225,7 @@
 									출발 날짜 :
 								</div>
 								<div class="col-md-8">
-									${sglist.buddy_indate }
+									${sglist.buddy_indate}
 								</div>
 							</div>
 							<div class="row">
@@ -231,7 +233,7 @@
 									도착 날짜 :  
 								</div>
 								<div class="col-md-8">
-									${sglist.buddy_outdate }
+									${sglist.buddy_outdate}
 								</div>
 							</div>
 							<div class="row">
@@ -239,7 +241,7 @@
 									여행 도시 :  
 								</div>
 								<div class="col-md-8">
-									${sglist.buddy_city }
+									${sglist.buddy_city}
 								</div>
 							</div>
 							<br>
@@ -304,15 +306,15 @@
 									<c:set var="find" value="false" />
 									<c:forEach var="overlapck" items="${overlap_ck}">
 										<c:choose>
-											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='0' }">
+											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='0'}">
 												<div class="serial"><input type="button" class="btn btn-success" value="요청중" disabled="disabled"></div>
 												<c:set var="find" value="true" />
 											</c:when>
-											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='1' }">
+											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='1'}">
 												<div class="serial"><input type="button" class="btn btn-success" value="수락" disabled="disabled"></div>
 												<c:set var="find" value="true" />
 											</c:when>
-											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='2' }">
+											<c:when test="${overlapck.buddy_num==buddy.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='2'}">
 												<div class="serial"><input type="button" class="btn btn-success" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
 												<c:set var="find" value="true" />
 											</c:when>
@@ -338,26 +340,19 @@
 			<ul class="pagination">
 				<li class="page-item">
 					<c:choose>
-						<c:when test="${startPage > 1 }">
-			                <a href="<c:url value='/buddyList?pageNum=${startPage - 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Previous">
+						<c:when test="${startPage > 1}">
+			                <a href="<c:url value='/buddyList?pageNum=${startPage - 1}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Previous">
 			                    <span aria-hidden="true">
 			                        <span class="lnr lnr-chevron-left"></span>
 			                    </span>
 			                </a>
 		                </c:when>
-		                <c:otherwise>
-			                <a href="<c:url value='/buddyList?pageNum=1${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Previous">
-			                    <span aria-hidden="true">
-			                        <span class="lnr lnr-chevron-left"></span>
-			                    </span>
-			                </a>
-		                </c:otherwise>
 	                </c:choose>
 	            </li>
 				
-				<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+				<c:forEach var="i" begin="${pu.startPageNum}" end="${pu.endPageNum}">
 					<c:choose>
-						<c:when test="${pu.pageNum==i }"><%--현재 페이지 --%>
+						<c:when test="${pu.pageNum==i}"><%--현재 페이지 --%>
 							<li class="page-item active"><a href="<c:url value='/buddyList?pageNum=${i}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link">
 							${i}</a></li>
 						</c:when>
@@ -371,26 +366,12 @@
 				<li class="page-item">
 					<c:choose>
 						<c:when test="${endPage < pageCnt}">
-			                <a href="<c:url value='/buddyList?pageNum=${startPage + 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
+			                <a href="<c:url value='/buddyList?pageNum=${pageNum + 1}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
 			                    <span aria-hidden="true">
 			                        <span class="lnr lnr-chevron-right"></span>
 			                    </span>
 			                </a>
 		                </c:when>
-		                <c:when test="${pageNum == pageCnt}">
-			                <a href="<c:url value='/buddyList?pageNum=${pageNum}${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
-			                    <span aria-hidden="true">
-			                        <span class="lnr lnr-chevron-right"></span>
-			                    </span>
-			                </a>
-		                </c:when>
-		                <c:otherwise>
-		                	<a href="<c:url value='/buddyList?pageNum=${startPage + 1 }${kw_city}&kw_indate=${findList.kw_indate}&kw_outdate=${findList.kw_outdate}&kw_gender=${findList.kw_gender}&kw_birthYear=${findList.kw_birthYear}'/>" class="page-link" aria-label="Next">
-			                    <span aria-hidden="true">
-			                        <span class="lnr lnr-chevron-right"></span>
-			                    </span>
-			                </a>
-		                </c:otherwise>
 	                </c:choose>
 	            </li>
 			</ul>
