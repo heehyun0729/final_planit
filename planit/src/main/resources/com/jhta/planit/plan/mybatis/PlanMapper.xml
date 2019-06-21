@@ -19,14 +19,9 @@
 		                p.plan_stays plan_stays, p.plan_img plan_img, p.plan_public plan_public, d.planDetail_country country, d.planDetail_city city
 		            from plan p, planDetail d
 		            where p.plan_num = d.plan_num
-		            <choose>
-	                   	<when test="private != null and private != ''">
-	                   		and p.plan_public = 1
-	                   	</when>
-	                   	<otherwise>
-	                   		and p.plan_public = 0
-	                   	</otherwise>
-	                   </choose>
+                   	<if test="private == null or private == ''">
+                   		and p.plan_public = 0
+                   	</if>
 		        )
 		        <where>
 			        <if test = "keyword != null and keyword != ''">
@@ -53,14 +48,9 @@
 		                        p.plan_stays plan_stays, p.plan_img plan_img, p.plan_public plan_public, d.planDetail_country country, d.planDetail_city city
 		                    from plan p, planDetail d
 		                    where p.plan_num = d.plan_num 
-		                    <choose>
-		                    	<when test="private != null and private != ''">
-		                    		and p.plan_public = 1
-		                    	</when>
-		                    	<otherwise>
-		                    		and p.plan_public = 0
-		                    	</otherwise>
-		                    </choose>
+	                    	<if test="private == null or private == ''">
+	                    		and p.plan_public = 0
+	                    	</if>
 		                )
 		                <if test = "keyword != null and keyword != ''">
 		               	 where ${field} like '%'||#{keyword}||'%'
