@@ -23,6 +23,13 @@
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/plan/planner</url-pattern>
     <url-pattern>/reservation/book</url-pattern>
+    <url-pattern>/member/mypage</url-pattern>
+    <url-pattern>/review/reviewInsert</url-pattern>
+    <url-pattern>/qna/insertQna</url-pattern>
+    <url-pattern>/msgReceiveList</url-pattern>
+    <url-pattern>/msgSendList</url-pattern>
+    <url-pattern>/buddyInsert</url-pattern>
+    <url-pattern>/adminAdRequestForm</url-pattern>
   </filter-mapping>
   
   <context-param>
