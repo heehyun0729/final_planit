@@ -23,6 +23,10 @@ public class SellerJoinController {
 	@RequestMapping(value = "/user/sellerapply", method = RequestMethod.GET)
 	public String sellJoinForm(HttpSession session, RedirectAttributes attributes) {
 		if (session.getAttribute("mem_id") != null) {
+			String mem_id = (String) session.getAttribute("mem_id");
+			if (service.checkSeller(mem_id)!=null) {
+				return "redirect:/member/mypage/" + mem_id;
+			}
 			return "!user!sellerapply";
 		} else {
 			attributes.addFlashAttribute("errMsg", "로그인이 되어야 사용할 수 있는 기능입니다.");

@@ -28,7 +28,15 @@
 			</a> <a href="<c:url value='/member/mypage/${mem_id }/followlist'/>" class="list-group-item list-group-item-action ${current == 'followlist' ? 'active':'' }"> 팔로우<span class="badge badge-primary badge-pill" id="followcnt">${profilemap.FOLLOW }</span>
 			</a>
 			<c:if test="${mem_tf }">
-				<a href="<c:url value='/user/edit/sellerapply'/>" class="list-group-item list-group-item-action">판매자 신청</a>
+				<c:choose>
+					<c:when test="${profilemap.MEM_STAT==2 }">
+						<a href="<c:url value='/user/edit/sellerapply'/>" class="list-group-item list-group-item-action">판매자 신청</a>
+					</c:when>
+					<c:when test="${profilemap.MEM_STAT==1 || profilemap.MEM_STAT==0 }">
+						<a class="list-group-item list-group-item-action" onclick="window.open('<c:url value='/adminLogin'/>')" href = "#">관리자페이지</a>
+					</c:when>
+				</c:choose>
+				
 				<a href="<c:url value='/user/edit/editprofile'/>" class="list-group-item list-group-item-action">프로필 수정</a>
 				<a href="<c:url value='/user/edit/pwdChange'/>" class="list-group-item list-group-item-action">비밀번호 수정</a>
 				<a href="<c:url value='/user/edit/withdrawal'/>" class="list-group-item list-group-item-action">회원탈퇴</a>
