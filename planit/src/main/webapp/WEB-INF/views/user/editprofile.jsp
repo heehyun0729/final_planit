@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+#editprofilebtns .btn{width:150px; height: 40px; vertical-align: middle; margin-left: 5px;}
+</style>
 <div class="editprofile">
 	<form method="post" action="<c:url value='/user/editprofile'/>" id="profileupdateform" enctype="multipart/form-data">
 		<div class="userstop">
@@ -10,7 +13,7 @@
 		<div class="mypageimg">
 		<img id="profileImg" class="rounded-circle img-responsive center-block" src="<c:url value='${map.IMG_SAVEIMG }'/>" alt="${map.MEM_NICKNAME }님의 프로필 사진">
 		</div>
-		<div class="m-3 d-flex justify-content-center">
+		<div class="m-3 d-flex justify-content-center" id="editprofilebtns">
 			<label class="btn btn-primary btn-file" for="imgInput">
 				사진선택
 				<input type="file" id="imgInput" style="display: none;" name="imgInput" accept="image/*">
@@ -31,43 +34,37 @@
 			</select>
 		</div>
 		<div class="input-group mb-4 form-group form-group">
-			<button type="button" class="btn btn-primary" id="nickchange">닉네임 변경</button>
+			<button type="button" class="btn btn-outline-info" id="nickchange">닉네임 변경</button>
 			<div class="input-group-prepend">
 				<span class="input-group-text"><span class="fa fa-user-circle"></span></span>
 			</div>
-			<input type="text" id="mem_nickname" name="mem_nickname" value="${vo.mem_nickname }" class="form-control" placeholder="닉네임(3~10자리 한글,영문,숫자)" required><input type="button" id="nickcheck" name="nickcheck" value="중복검사" disabled="disabled">
+			<input type="text" id="mem_nickname" name="mem_nickname" value="${map.MEM_NICKNAME }" disabled="disabled" class="form-control" placeholder="닉네임(3~10자리 한글,영문,숫자)" required><input type="button" id="nickcheck" name="nickcheck" value="중복검사" disabled="disabled">
 			<div id="nickckresult" class="resultMsg"></div>
 		</div>
+		<input type="hidden" value="${map.MEM_NICKNAME }" id="mem_nick" name="mem_nick">
 		<div class="input-group form-group form-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><span class="fas fa-pen-square"></span></span>
 			</div>
-			<textarea rows="10" id="profile_comm" name="profile_comm" class="form-control" onKeyUp="javascript:fnChkByte(this,'950')">${map.PROFILE_COMM }</textarea>
+			<textarea rows="10" id="profile_comm" name="profile_comm" class="form-control" onKeyUp="javascript:fnChkByte(this,'950')" style="resize: none;">${map.PROFILE_COMM }</textarea>
 		</div>
 		<div class="mb-4 d-flex justify-content-end">
 			<div class="p-2"><span id="byteInfo">0</span>/950bytes</div>
 		</div>
-		<label for="profile_open">프로필 공개범위</label>
-		<select id="profile_open" name="profile_open">
-			<option value="4" <c:if test="${map.PROFILE_OPEN == 4 }">selected="selected"</c:if>>전체공개</option>
-			<option value="3" <c:if test="${map.PROFILE_OPEN == 3 }">selected="selected"</c:if>>친구에게만 공개</option>
-			<option value="2" <c:if test="${map.PROFILE_OPEN == 2 }">selected="selected"</c:if>>친한 친구에게만 공개</option>
-			<option value="1" <c:if test="${map.PROFILE_OPEN == 1 }">selected="selected"</c:if>>비공개</option>
-		</select>
-		<br>
-		<button type="button" id="nickchange">닉네임 변경</button>
-		<label for="mem_nickname">닉네임(3~10자리 한글,영문,숫자)</label> <input type="text" id="mem_nickname" name="mem_nickname" value="${map.MEM_NICKNAME }" disabled="disabled"><input type="button" id="nickcheck" name="nickcheck" value="중복검사" disabled="disabled"><span id="nickckresult"></span>
-		<input type="hidden" value="${map.MEM_NICKNAME }" id="mem_nick" name="mem_nick">
-		<br>
-		<label for="profile_comm">인사말</label><textarea rows="10" cols="50" id="profile_comm" name="profile_comm" onKeyUp="javascript:fnChkByte(this,'950')">${map.PROFILE_COMM }</textarea>
-		<span id="byteInfo">0</span>/950bytes 
-		<br>
-		<label for="mem_pwd">비밀번호</label><input type="password" id="mem_pwd" name="mem_pwd">
-		<br><input type="submit" value="수정">
+		<div class="input-group mb-3 form-group form-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><span class="fas fa-lock"></span></span>
+			</div>
+			<input type="password" id="mem_pwd" name="mem_pwd" class="form-control" placeholder="비밀번호" required>
+		</div>
+		<input type="submit" class="btn btn-primary btn-block" value="수정">
 	</form>
 	<div id="submitError"></div>
 </div>
 <script type="text/javascript">
+	var profile_comm=document.getElementById("profile_comm");
+	fnChkByte(profile_comm,'950');
+
 	function fnChkByte(obj, maxByte) {
 		var str = obj.value;
 		var str_len = str.length;

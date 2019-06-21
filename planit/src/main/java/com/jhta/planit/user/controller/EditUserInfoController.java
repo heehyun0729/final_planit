@@ -46,7 +46,9 @@ public class EditUserInfoController {
 					return "!user!sellerapply";
 				}
 			} else if (editInfo.equals("editprofile")) {
-				if (membersService.userCheck(mem_id)) {
+				HashMap<String, String> map=new HashMap<String, String>();
+				map.put("mem_id", mem_id);
+				if (membersService.userCheck(map)) {
 					HashMap<String, Object> profilemap = mypageService.editprofileinfo(mem_id);
 					model.addAttribute("map", profilemap);
 					return "!user!editprofile";
@@ -85,7 +87,7 @@ public class EditUserInfoController {
 
 	@RequestMapping(value = "/user/editprofile", method = RequestMethod.POST)
 	public String editprofile(int img_num, int profile_open, String profile_comm, String mem_nickname,
-			MultipartFile imgInput, String changeImg, String mem_nick, HttpSession session,Model model) {
+			MultipartFile imgInput, String changeImg, String mem_nick,String mem_pwd, HttpSession session,Model model) {
 		try {
 			String mem_id=(String) session.getAttribute("mem_id");
 			MemImageVo imgVo = null;
