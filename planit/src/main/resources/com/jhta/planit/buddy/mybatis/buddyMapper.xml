@@ -281,7 +281,7 @@
 	
 	<!-- 동행 요청 대기 -->
 	<select id="buddy_applyList" resultType="com.jhta.planit.buddy.vo.BuddyApplyVo" parameterType="String">
-		select a.apply_num, a.buddy_num, a.MEM_ID MEM_ID, a.APPLY_STATE APPLY_STATE
+		select distinct a.apply_num, a.buddy_num, a.MEM_ID MEM_ID, a.APPLY_STATE APPLY_STATE
 		from buddy b,buddy_country c,buddy_city t, buddy_apply a
 		where b.buddy_num=c.buddy_num and c.buddy_num=a.buddy_num and c.country_num=t.country_num and
 		b.buddy_state=0 and b.mem_id=#{mem_id}
@@ -316,7 +316,7 @@
 	
 	<!-- 내 동행 확인 -->
 	<select id="mybuddy_ck" resultType="com.jhta.planit.buddy.vo.BuddyVo" parameterType="String">
-		select b.BUDDY_NUM BUDDY_NUM,
+		select distinct b.BUDDY_NUM BUDDY_NUM,
 		a.MEM_ID MEM_ID
 		from buddy b,buddy_country c,buddy_city t, buddy_apply a
 		where b.buddy_num=c.buddy_num and c.buddy_num=a.buddy_num and c.country_num=t.country_num and
