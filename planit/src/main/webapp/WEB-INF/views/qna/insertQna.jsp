@@ -22,14 +22,20 @@
 	<div>
 		<form method="post" action="<c:url value="/qna/insertQna"/>" enctype="multipart/form-data">
 			<input type="hidden" name="mem_id" value="${mem_id }"> 
-			<select id="qna_cate" name="qna_cate" id="qna_cate">
-				<option value="여행">여행</option>
+			<select class="form-control" id="qna_cate" name="qna_cate" id="qna_cate">
+				<option value="카테고리">카테고리선택</option>
 				<option value="관광지">관광지</option>
+				<option value="맛집">맛집</option>
 			</select>
-			<br>
-			<input type="text" name="qna_title"><br>
+			<div style="padding-top: 100px">
+			<input class="form-control" type="text" name="qna_title">
+			</div>
+			<div style="padding-top: 20px">
 			<textarea id="summernote" name="qna_content"></textarea>
-			<input type="submit" value="등록">
+			<div style="margin:auto;">
+			<input style="margin:auto;" class="genric-btn danger radius" type="submit" value="등록">
+			</div>	
+			</div>
 		</form>
 		</div>
 		<br>
