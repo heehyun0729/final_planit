@@ -7,7 +7,7 @@ $(document).ready(function() {
 		let hidden_id = $("#hidden_id").val();
 		if (hidden_id != "") {
 			$.ajax({
-				url : $(location).attr('href') + "/follow",
+				url : $("#localurl").val() + "member/mypage/"+hidden_id+"/follow",
 				type : "post",
 				data : {'follow_grade' : $("#hidden_fg").val()},
 				success : function(data) {
