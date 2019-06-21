@@ -91,10 +91,10 @@
 						</tr>
 						<c:forEach var="dvo" items="${dlist }">
 							<tr>
-								<td>${dvo.planDetail_order + 1}</td>
-								<td>${dvo.planDetail_city }, ${dvo.planDetail_country }</td>
-								<td>${dvo.planDetail_inDate } ~ ${dvo.planDetail_outDate } (${dvo.planDetail_stay }박)</td>
-								<td>
+								<td class="align-middle">${dvo.planDetail_order + 1}</td>
+								<td class="align-middle">${dvo.planDetail_city }, ${dvo.planDetail_country }</td>
+								<td class="align-middle">${dvo.planDetail_inDate } ~ ${dvo.planDetail_outDate } (${dvo.planDetail_stay }박)</td>
+								<td class="align-middle">
 									${dvo.planDetail_detail }
 									<c:if test="${sessionScope.mem_id == vo.mem_id }">
 										<br>

@@ -17,8 +17,12 @@ public class MembersLoginController {
 	@Autowired private MembersService service;
 
 	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
-	public String loginForm() {
-		return "!user!login";
+	public String loginForm(HttpSession session) {
+		if(session.getAttribute("mem_id")!=null) {
+			return "redirect:/";
+		}else {
+			return "!user!login";
+		}
 	}
 
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)

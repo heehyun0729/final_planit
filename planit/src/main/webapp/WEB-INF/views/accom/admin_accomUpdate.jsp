@@ -36,7 +36,7 @@
 						<input type="text" name="accom_name" value="${vo.accom_name }"><br />
 						숙소주소<br />
 						<textarea rows="1" cols="50" name="accom_addr" disabled="disabled">${vo.accom_addr }</textarea>
-						<br /> 숙소평<br />
+						<br /> 숙소설명<br />
 						<textarea rows="5" cols="50" name="accom_comm">${vo.accom_comm }</textarea>
 						<br /> 국가<br /> <input type="text" name="accom_country"
 							value="${vo.accom_country }" disabled="disabled"><br />

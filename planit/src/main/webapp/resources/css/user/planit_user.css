@@ -164,6 +164,18 @@
 	height: 200px;
 	display: inline-block;
 }
+
+.withdrawalForm{
+	width: 50%;
+	margin: 100px auto;
+}
+
+.withdrawalForm form {
+	margin-bottom: 20px;
+	background: #f7f7f7;
+	padding: 20px;
+}
+
 .errMsg{
 	color:red;
 	text-align: center;

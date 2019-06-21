@@ -46,7 +46,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text"><span class="fas fa-pen-square"></span></span>
 			</div>
-			<textarea rows="10" id="profile_comm" name="profile_comm" class="form-control" onKeyUp="javascript:fnChkByte(this,'950')" style="resize: none;">${map.PROFILE_COMM }</textarea>
+			<textarea rows="5" id="profile_comm" name="profile_comm" class="form-control" onKeyUp="javascript:fnChkByte(this,'950')" style="resize: none;">${map.PROFILE_COMM }</textarea>
 		</div>
 		<div class="mb-4 d-flex justify-content-end">
 			<div class="p-2"><span id="byteInfo">0</span>/950bytes</div>
@@ -58,8 +58,8 @@
 			<input type="password" id="mem_pwd" name="mem_pwd" class="form-control" placeholder="비밀번호" required>
 		</div>
 		<input type="submit" class="btn btn-primary btn-block" value="수정">
+		<div class="errMsg">${errMsg }</div>
 	</form>
-	<div id="submitError"></div>
 </div>
 <script type="text/javascript">
 	var profile_comm=document.getElementById("profile_comm");

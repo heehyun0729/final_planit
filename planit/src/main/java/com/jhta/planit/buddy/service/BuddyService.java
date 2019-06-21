@@ -25,7 +25,7 @@ public class BuddyService {
 		String[] countries=country.split(",");
 		String city=cityVo.getBuddy_city();
 		String[] cities=city.split(",");
-		
+
 		//동행 테이블에 추가
 		int n1=dao.buddyInsert(vo);
 		System.out.println("동행등록결과 : "+n1);

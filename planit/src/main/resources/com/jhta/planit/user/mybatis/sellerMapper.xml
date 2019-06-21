@@ -22,6 +22,9 @@
 	<insert id="sellJoin">
 		insert into seller values(seller_seq.nextval,#{mem_id},#{sell_company},#{sell_postcode},#{sell_addr},#{sell_tel})
 	</insert>
+	<select id="checkSeller" resultType="com.jhta.planit.user.vo.SellerVo" parameterType="string">
+		select * from seller where mem_id=#{mem_id}
+	</select>
 	<select id="getSellerTotal" resultType="int" parameterType="hashmap">
 		select nvl(count(*),0) from seller s,members m where s.mem_id=m.mem_id <include refid="search"/>
 	</select>

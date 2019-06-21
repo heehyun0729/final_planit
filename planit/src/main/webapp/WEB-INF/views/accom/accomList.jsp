@@ -63,7 +63,7 @@
 
 										</c:when>
 										<c:otherwise>
-											<li class="page-item active"><a
+											<li class="page-item"><a
 												href="${pageContext.request.contextPath }/accommList?pageNum=${i}&sell_num=${map.sell_num}"
 												class="page-link"> ${i}</a></li>
 										</c:otherwise>

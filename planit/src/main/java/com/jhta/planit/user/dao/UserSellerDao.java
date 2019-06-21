@@ -14,4 +14,8 @@ public class UserSellerDao {
 	public int sellJoin(SellerVo vo) {
 		return sqlSession.insert(NAMESPACE+".sellJoin", vo);
 	}
+
+	public SellerVo checkSeller(String mem_id) {
+		return sqlSession.selectOne(NAMESPACE + ".checkSeller", mem_id);
+	}
 }

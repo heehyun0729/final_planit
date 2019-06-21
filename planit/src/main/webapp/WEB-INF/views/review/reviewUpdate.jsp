@@ -42,8 +42,8 @@
 		data-background=""></div>
 	<div class="container">
 		<div class="page-cover text-center">
-			<h2 class="page-cover-tittle f_48">동행 등록</h2>
-			<p style="color: #D8D8D8">나와 함께 여행할 동행을 찾기 위해 글을 등록해 보세요!!</p>
+			<h2 class="page-cover-tittle f_48">여행 후기</h2>
+			<p style="color: #D8D8D8">여행 후기 글을 수정 해주세요!!</p>
 		</div>
 	</div>
 </section>

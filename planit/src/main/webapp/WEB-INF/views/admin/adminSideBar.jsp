@@ -47,6 +47,24 @@
 			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
 				<small></small>
 			</li>
+			<!-- 관리자 전용, 숙소/예약 -->
+			<a href="#sell" id="sellBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-start align-items-center">
+					<span class="fas fa-bed fa-fw mr-3"></span>
+					<span class="menu-collapsed">숙소
+						<span id="acBadge" class="badge badge-pill badge-primary ml-2"></span>
+					</span>
+					<span class="fas fa-caret-down ml-auto"></span>
+				</div>
+			</a>	
+			<div id='sell' class="collapse sidebar-submenu">
+				<a href="<c:url value='/admin/sellerInsertListForm'/>" class="list-group-item list-group-item-action bg-dark text-white">
+					<span class="menu-collapsed">숙소 목록</span>
+				</a>
+			</div>
+			<li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+				<small></small>
+			</li>
 		</c:if>
 		<c:if test="${mem_stat==1 }">
 			<!-- 판매자 전용, 숙소/예약 -->
@@ -150,7 +168,7 @@
 		</a>
 		<script>
 				var xhr = null;
-				//var cnum=setInterval(countList);
+				var cnum=setInterval(countList);
 				function countList() {
 					xhrList = new XMLHttpRequest();
 					xhrList.onreadystatechange = countListOk;

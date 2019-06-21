@@ -31,7 +31,7 @@
 							<li class="nav-item"><a href="<c:url value='/user/logout'/>" class="nav-link" title = "로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
 							<script>
 							var xhr = null;
-						    //var cnum=setInterval(countList);
+						    var cnum=setInterval(countList);
 							function countList() {
 								xhrList = new XMLHttpRequest();
 								xhrList.onreadystatechange = countListOk;

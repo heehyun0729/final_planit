@@ -14,4 +14,7 @@ public class UserSellerService {
 		return dao.sellJoin(vo);
 	}
 	
+	public SellerVo checkSeller(String mem_id) {
+		return dao.checkSeller(mem_id);
+	}
 }

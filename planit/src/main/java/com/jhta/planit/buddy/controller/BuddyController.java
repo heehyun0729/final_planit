@@ -99,7 +99,7 @@ public class BuddyController {
 				BuddyListVo blv=new BuddyListVo();
 				blv=service.detail(sgNum.get(i));
 				sglist.add(blv);
-				if(i>=4) {
+				if(i>=2) {
 					break;
 				}
 			}
@@ -141,9 +141,10 @@ public class BuddyController {
 		return mv;
 	}
 	@RequestMapping(value="/buddyInsert", method=RequestMethod.POST)
-	public String buddyInsert(BuddyVo vo,BuddyCountryVo countryVo,BuddyCityVo cityVo) {
+	public String buddyInsert(BuddyVo vo,BuddyCountryVo countryVo,BuddyCityVo cityVo,HttpSession session) {
+		String mem_id=(String)session.getAttribute("mem_id");
 		int n=service.buddyInsert(vo,countryVo,cityVo);
-		return "redirect:/buddyList";
+		return "redirect:/member/mypage/"+mem_id+"/buddyMg";
 	}
 	
 	//마이페이지 - 버디

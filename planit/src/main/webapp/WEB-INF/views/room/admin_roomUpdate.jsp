@@ -35,7 +35,7 @@
 						방타입<br /> <input type="text" name="room_price"
 							value="${vo1.room_type }" disabled="disabled"> <br />
 						방가격<br /> <input type="text" name="room_price"
-							value="${vo1.room_price}">원<br /> 숙소평<br />
+							value="${vo1.room_price}">원<br /> 방설명<br />
 						<textarea rows="5" cols="50" name="room_comm">${vo1.room_comm }</textarea>
 						<br /> 방인원<br /> <input type="text" name="room_capa"
 							value="${vo1.room_capa}">명<br />

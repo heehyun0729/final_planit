@@ -49,7 +49,7 @@
 	<div class="container">
 		<div class="page-cover text-center">
 			<h2 class="page-cover-tittle f_48">여행후기</h2>
-			<p style="color: #D8D8D8">여행후기를 작성해주세요!!!</p>
+			<p style="color: #D8D8D8">여행후기를 글 목록!!!</p>
 		</div>
 	</div>
 </section>

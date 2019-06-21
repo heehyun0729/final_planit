@@ -13,7 +13,8 @@
 <link rel="stylesheet"
 	href="<c:url value='/resources/royal/vendors/nice-select/css/nice-select.css'/>">
 </head>
-<body>
+<body style="text-align: center;">
+<br/><br/><br/><br/><br/><br/>
 	<h1>요청작업 완료!</h1>
 	<a href="${pageContext.request.contextPath}/roomList?accom_num=${param.accom_num}"
 		class="genric-btn info circle">방리스트</a>
