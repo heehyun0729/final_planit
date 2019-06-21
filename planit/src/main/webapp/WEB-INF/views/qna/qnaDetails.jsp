@@ -167,7 +167,6 @@
 			<div style="margin: auto; width: 500px;">
 				<h4>댓글</h4>
 				<div>
-
 					<textarea id="qcomm_content" class="form-control" rows="2" required></textarea>
 					<input type="button" class="genric-btn danger small" id="addBtn"
 						value="확인">
