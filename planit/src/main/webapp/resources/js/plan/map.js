@@ -118,7 +118,7 @@ $(function() {
 						success: function(data) {
 							var result = data.result;
 							if(result == 'success'){
-								location.href = '/planit/plan/list';
+								location.href = '/planit/plan/detail?plan_num=' + plan_num;
 							}else{
 								alert('오류로 인해 저장을 실패하였습니다.');
 							}
