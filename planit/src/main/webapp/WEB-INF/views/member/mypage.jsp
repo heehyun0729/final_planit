@@ -23,7 +23,7 @@
 			</c:choose>
 		</div>
 		<div class="list-group list-group-flush">
-			<a href="<c:url value='/member/mypage/${mem_id }/postslist'/>" class="list-group-item list-group-item-action profileurl ${current == 'postslist' ? 'active':'' }"> 게시물<span class="badge badge-primary badge-pill" id="postcnt">${profilemap.WRITE_CNT }</span>
+			<a href="<c:url value='/member/mypage/${mem_id }/myPlanList'/>" class="list-group-item list-group-item-action profileurl ${current == 'myPlanList' ? 'active':'' }"> 게시물<span class="badge badge-primary badge-pill" id="postcnt">${profilemap.WRITE_CNT }</span>
 			</a> <a href="<c:url value='/member/mypage/${mem_id }/followedlist'/>" class="list-group-item list-group-item-action profileurl ${current == 'followedlist' ? 'active':'' }"> 팔로워<span class="badge badge-primary badge-pill" id="followedcnt">${profilemap.FOLLOWER }</span>
 			</a> <a href="<c:url value='/member/mypage/${mem_id }/followlist'/>" class="list-group-item list-group-item-action ${current == 'followlist' ? 'active':'' }"> 팔로우<span class="badge badge-primary badge-pill" id="followcnt">${profilemap.FOLLOW }</span>
 			</a>
