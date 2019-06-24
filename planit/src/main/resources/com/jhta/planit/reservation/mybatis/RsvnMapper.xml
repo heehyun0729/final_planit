@@ -138,6 +138,7 @@
 		where rsvn_num = #{rsvn_num}
 	</select>
 
+
 	<sql id="rsvnRoomSearch">
        select ro.* from room ro
        where ro.room_num in
