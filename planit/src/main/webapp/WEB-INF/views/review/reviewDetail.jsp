@@ -127,7 +127,7 @@
 <a href="${pageContext.request.contextPath }/review/reviewList.do"><span style="color: #339af0;">여행후기 리스트</span></a> /
 <a href="${pageContext.request.contextPath }/review/reviewUpdate?review_num=${vo.review_num}"><span style="color:#FA58F4">여행 글수정</span></a>
 <table class="table">
-
+<!--  -->
 	
 	<tr>
 		<th>글번호</th>

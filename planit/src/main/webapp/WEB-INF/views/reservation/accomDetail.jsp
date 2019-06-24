@@ -325,11 +325,11 @@
 			             		<c:otherwise>
 			             			<c:forEach begin = "0" end = "${vo.resReview_star - 1 }">
 			             			<i class="fas fa-star"></i>
-			               				채워진이미지
+			               				
 					               	</c:forEach>
 					               	<c:forEach begin = "1" end = "${5 - vo.resReview_star }">
 					               		<i class="far fa-star"></i>
-					               		a 빈이미지
+					               		
 					               	</c:forEach>
 			             		</c:otherwise>
 			             
@@ -340,10 +340,7 @@
 						</div>
 					</div>
 					
-						<div class="resstar">
-							별점:
-							<p>${vo.resReview_star }</p>
-						</div>
+						
 						<div class="mem_id">
 							작성아이디:
 							<p>${vo.mem_id }</p>
