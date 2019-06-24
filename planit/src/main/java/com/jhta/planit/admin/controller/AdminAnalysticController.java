@@ -111,6 +111,15 @@ public class AdminAnalysticController {
 		model.addAttribute("map", map);
 		return "-admin-adminBody-adminAnalytics";
 	}
+	@RequestMapping(value="/adminAnalyticsInfo")//관리자 수익 조회 페이지
+	public String adminAnalyticsInfo(Model model, HttpSession session) {
+		String mem_id=(String)session.getAttribute("mem_id");
+		int mem_stat=(Integer)session.getAttribute("mem_stat");
+		HashMap<String, Object> map=new HashMap<String, Object>();
+				
+		model.addAttribute("map", map);
+		return "-admin-adminBody-adminAnalyticsInfo";
+	}
 	@RequestMapping(value="/adminAnalytics/getDayAdInfo", produces="application/json;charset=utf-8")//일자별 광고 정보 출력
 	@ResponseBody
 	public String getDayAdInfo(String stringDays) {

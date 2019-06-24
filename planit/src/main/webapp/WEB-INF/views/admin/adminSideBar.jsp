@@ -144,9 +144,9 @@
 				<a href="#"	class="list-group-item list-group-item-action bg-dark text-white">
 					<span class="menu-collapsed">질문 게시판</span>
 				</a>
-				<a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+				<!-- <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
 					<span class="menu-collapsed">후기 게시판</span>
-				</a>
+				</a> -->
 				<a href="<c:url value = '/admin/plan/list'/>" class="list-group-item list-group-item-action bg-dark text-white">
 					<span class="menu-collapsed">일정 게시판</span>
 				</a>
@@ -168,7 +168,7 @@
 		</a>
 		<script>
 				var xhr = null;
-				var cnum=setInterval(countList);
+				//var cnum=setInterval(countList);
 				function countList() {
 					xhrList = new XMLHttpRequest();
 					xhrList.onreadystatechange = countListOk;
@@ -190,12 +190,22 @@
 					}
 				}
 				</script>
-		<li class="list-group-item sidebar-separator menu-collapsed"></li>
-		<a href="<c:url value="/adminAnalytics"/>" class="bg-dark list-group-item list-group-item-action">
+		<li class="list-group-item sidebar-separator menu-collapsed"></li>		
+		<a href="#analytics" id="analyticsBtn" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
 			<div class="d-flex w-100 justify-content-start align-items-center">
 				<span class="fas fa-chart-bar fa-fw mr-3"></span>
 				<span class="menu-collapsed">통계</span>
+				<span class="fas fa-caret-down ml-auto"></span>
 			</div>
 		</a>
+		<div id='analytics' class="collapse sidebar-submenu">
+			<a href="<c:url value="/adminAnalytics"/>"	class="list-group-item list-group-item-action bg-dark text-white">
+				<span class="menu-collapsed">기본 통계</span>
+			</a>
+			<a href="<c:url value="/adminAnalyticsInfo"/>" class="list-group-item list-group-item-action bg-dark text-white">
+				<span class="menu-collapsed">수익 조회</span>
+			</a>
+		</div>
+		
 	</ul>
 </div>

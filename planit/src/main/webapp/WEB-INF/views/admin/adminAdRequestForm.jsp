@@ -64,7 +64,7 @@
 		color: blue;
 	}
 	.dayName{
-		width: 158px; height: 20px; background-color: #f8f9fa; cursor:default;
+		width: 169px; height: 20px; background-color: #f8f9fa; cursor:default;
 	}
 	.dateNum{
 		width: 158px; height: 20px; text-align: left; text-indent: 10px; cursor:default;
@@ -263,9 +263,9 @@
 			const total_amount=$("input[name='ad_price']").val();
 			const vat_amount=$("input[name='ad_price']").val()/10;
 			const tax_free_amount="0";
-			const approval_url="http://localhost:9090/planit/adminAdKakaoPayApproval";
-			const fail_url="http://localhost:9090/planit/adminAdKakaoPayFail";
-			const cancel_url="http://localhost:9090/planit/adminAdKakaoPayCancel";
+			const approval_url="http://192.168.0.21:9090/planit/adminAdKakaoPayApproval";
+			const fail_url="http://192.168.0.21:9090/planit/adminAdKakaoPayFail";
+			const cancel_url="http://192.168.0.21:9090/planit/adminAdKakaoPayCancel";
 			$.getJSON("<c:url value='/adminAdKakaoPay'/>",{cid:cid, partner_order_id:partner_order_id, partner_user_id:partner_user_id, item_name:item_name, quantity:quantity, total_amount:total_amount, vat_amount:vat_amount, tax_free_amount:tax_free_amount, approval_url:approval_url, fail_url:fail_url, cancel_url:cancel_url} ,
 				function(data) {
 					if(data!=null){
@@ -605,8 +605,23 @@
 		});
 	}    
 </script>
+<style type="text/css">
+.breadcrumb_area .bg-ad {
+  background: url("<c:url value='/resources/adminImages/graphs.jpg'/>") no-repeat scroll center 0/cover;
+  opacity: 0.50;
+  z-index: -1;
+}	
+</style>
 <div class="wrapper">
 <header>
+<section class="breadcrumb_area">
+	<div class="overlay bg-ad" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+	<div class="container">
+		<div class="page-cover text-center">
+			<h2 class="page-cover-tittle">광고 신청</h2>
+		</div>
+	</div>
+</section>
 </header>
 <section id="containerDiv" class="container">
 	<article class="formWrapper">		
