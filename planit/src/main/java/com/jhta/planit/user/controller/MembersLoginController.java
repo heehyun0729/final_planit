@@ -33,7 +33,7 @@ public class MembersLoginController {
 		map.put("mem_id", mem_id);
 		map.put("mem_pwd", mem_pwd);
 		int result = service.login(map);
-		if (result > -2) {
+		/*if (result > -2) {
 			session.setAttribute("mem_id", mem_id);
 			session.setAttribute("mem_stat", result);
 			if(referer != null && referer != "") {
@@ -45,10 +45,15 @@ public class MembersLoginController {
 			model.addAttribute("mem_id", mem_id);
 			model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
 			return "!user!login";
-		}
-		/*if (result >= 0) {
+		}*/
+		if (result >= 0) {
 			session.setAttribute("mem_id", mem_id);
-			return "redirect:/";
+			session.setAttribute("mem_stat", result);
+			if(referer != null && referer != "") {
+				return "redirect:" + referer;
+			}else {
+				return "redirect:/";
+			}
 		} else {
 			model.addAttribute("mem_id", mem_id);
 			if (result == -1) {
@@ -56,8 +61,8 @@ public class MembersLoginController {
 			} else {
 				model.addAttribute("errMsg", "로그인 정보가 올바르지 않습니다.");
 			}
-			return "user/login";
-		}*/
+			return "!user!login";
+		}
 
 	}
 
