@@ -284,6 +284,10 @@ public class MypageController {
 		if(parammap.get("session_mem_id")==null) {
 			parammap.put("session_mem_id", "");
 		}
-		return service.profileInfo(parammap);
+		HashMap<Object, Object> map=service.profileInfo(parammap);
+		String comm=(String) map.get("PROFILE_COMM");
+		comm=comm.replace("\n", "<br>");
+		map.put("PROFILE_COMM", comm);
+		return map;
 	}
 }
