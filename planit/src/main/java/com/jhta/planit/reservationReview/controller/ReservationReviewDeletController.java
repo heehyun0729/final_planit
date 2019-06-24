@@ -13,12 +13,13 @@ public class ReservationReviewDeletController {
 	@Autowired private ReservationReviewService service;
 	
 	@RequestMapping(value="/reservationReviewDelete")
-	public String delete(@RequestParam(value="resReview_num", required=true)int resReview_num ,Model model) {
+	public String delete(int accom_num , @RequestParam(value="resReview_num",required=true )int resReview_num ,Model model) {
+		System.out.println("accom_num11:"+ accom_num);
 		System.out.println("delete1:" + resReview_num);
 		int n=service.updateResReviewChk(resReview_num);
 		System.out.println("delete:" +resReview_num);
 		if(n>0) {
-			return "redirect:/reservation/accomDetail";
+			return "redirect:/reservation/accomDetail?accom_num="+accom_num;
 		}else {
 			model.addAttribute("result","fail");
 			return "result";
