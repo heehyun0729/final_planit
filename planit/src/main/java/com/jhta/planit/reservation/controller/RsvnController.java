@@ -158,6 +158,7 @@ public class RsvnController {
         params.add("quantity", "1");
         params.add("total_amount", total_amount);
         params.add("tax_free_amount", "0");
+        
         params.add("approval_url", "http://192.168.0.21:9090/planit/reservation/payApproval");
         params.add("cancel_url", "http://192.168.0.21:9090/planit/reservation/payCancel");
         params.add("fail_url", "http://192.168.0.21:9090/planit/reservation/payFail");
