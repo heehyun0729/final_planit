@@ -284,6 +284,9 @@ public class MypageController {
 		if(parammap.get("session_mem_id")==null) {
 			parammap.put("session_mem_id", "");
 		}
-		return service.profileInfo(parammap);
+		HashMap<Object, Object> map=service.profileInfo(parammap);
+		String comm=(String) map.get("PROFILE_COMM");
+		comm.replace("\n", "<br>");
+		return map;
 	}
 }
