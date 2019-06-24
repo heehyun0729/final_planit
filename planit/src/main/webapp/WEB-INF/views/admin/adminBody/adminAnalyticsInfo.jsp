@@ -32,6 +32,7 @@
 				}
 			}
 		});
+		$("#downloadMsg").hide();
 		$("#date1").datepicker({
 			dateFormat: "yy-mm-dd",
 			maxDate: "+0M"
@@ -45,6 +46,7 @@
 			if($("#date2").val()!=""){
 				$("#infoMsg").hide();
 				getProfit();
+				$("#downloadMsg").show();
 			}
 		});
 		$("#date2").on("change", function(){
@@ -52,15 +54,26 @@
 			if($("#date1").val()!=""){
 				$("#infoMsg").hide();
 				getProfit();
+				$("#downloadMsg").show();
 			}
 		});
+		$("#downloadMsg").on("click", function(){
+			$.getJSON("<c:url value='/adminAnalytics/profitInfoDownload'/>", {stringDays:days.toString(), stringAdProfit:adProfit.toString(), stringSellProfit:sellProfit.toString(), stringTotalProfit:totalProfit.toString()}, function(data) {
+				if(data!=null){
+					alert(data.code);
+				}
+			});
+		});
 	});
+	var days=[];
+	var adProfit=[];
+	var sellProfit=[];
+	var totalProfit=[];
 	<c:if test="${mem_stat==0 }">
 		function getProfit(){
 			let date1=new Date($("#date1").val());
 			let date2=new Date($("#date2").val());
 			let day=Math.ceil((date2-date1)/24/60/60/1000);
-			let days=[];
 			var getDays=new Date($("#date1").val());
 			for(var i=1;i<day+2;i++){//날짜
 				let todayYear=getDays.getFullYear();//년
@@ -76,9 +89,6 @@
 				getDays.setDate(getDays.getDate()+1);
 				days.push(date);
 			}
-			var adProfit=[];
-			var sellProfit=[];
-			var totalProfit=[];
 			var ctx1 = $("#profitChart");
 			$.getJSON("<c:url value='/admin/adminAdManagement/getDayAdProfit'/>", {stringDays:days.toString()}, function(data) {
 				if(data!=null){
@@ -262,6 +272,7 @@
 										</div>
 									</div>
 								</div>
+								<a href="#" id="downloadMsg" class="float-right"><p class="fas fa-download">다운로드</p></a>
 							</div>
 						</div>
 					</div>

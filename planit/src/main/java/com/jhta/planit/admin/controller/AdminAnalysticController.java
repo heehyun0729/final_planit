@@ -1,5 +1,9 @@
 package com.jhta.planit.admin.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -8,12 +12,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.planit.admin.service.AdService;
@@ -136,5 +146,73 @@ public class AdminAnalysticController {
 			jsonArray.put(jsonObject);
 		}
 		return jsonArray.toString();
+	}
+	@RequestMapping(value="/adminAnalytics/profitInfoDownload", produces="application/json;charset=utf-8")//일자별 광고 정보 출력
+	@ResponseBody
+	public HashMap<String, String> downloadExcel(String stringDays, @RequestParam(value = "stringAdProfit", defaultValue = "")String stringAdProfit, String stringSellProfit, @RequestParam(value = "stringTotalProfit", defaultValue = "")String stringTotalProfit) {
+		String[] days=stringDays.split(",");
+		String[] adProfit=stringAdProfit.split(",");
+		String[] sellProfit=stringSellProfit.split(",");
+		String[] totalProfit=stringTotalProfit.split(",");
+		System.out.println("@"+stringDays);
+		System.out.println("@@"+stringAdProfit);
+		System.out.println("@@@"+stringSellProfit);
+		System.out.println("@@@@"+stringTotalProfit);
+		Workbook wb = new HSSFWorkbook(); // Excel 2007 이전 버전 Workbook 생성
+		Sheet sheet1 = wb.createSheet("new sheet");// Sheet 생성
+		
+		Row row = null;
+	    Cell cell = null;
+     
+		row=sheet1.createRow(0);
+         
+        cell=row.createCell(0);
+        cell.setCellValue("날짜");
+        
+        if(adProfit[0]!=null) {
+        	cell=row.createCell(1);
+            cell.setCellValue("광고매출");
+            cell=row.createCell(2);
+            cell.setCellValue("숙소매출");
+            cell=row.createCell(3);
+            cell.setCellValue("총 매출");
+    	}else {
+    		cell=row.createCell(1);
+            cell.setCellValue("숙소매출");
+    	}
+        
+        for(int i=0;i<days.length;i++) {
+        	row=sheet1.createRow(i+1);
+        	cell=row.createCell(0);
+        	cell.setCellValue(days[i]);
+        	if(adProfit[0]!=null) {
+        		cell=row.createCell(1);
+        		cell.setCellValue(adProfit[i]);
+        		cell=row.createCell(2);
+        		cell.setCellValue(sellProfit[i]);
+        		cell=row.createCell(3);
+        		cell.setCellValue(totalProfit[i]);
+        	}else {
+        		cell=row.createCell(1);
+            	cell.setCellValue(sellProfit[i]);
+        	}        	
+        }
+        HashMap<String, String> code=new HashMap<String, String>();
+        // excel 파일 저장
+        try {
+            File xlsFile = new File("C:\\Users\\JHTA\\Downloads\\profitExcel.xls");
+            FileOutputStream fileOut = new FileOutputStream(xlsFile);
+            wb.write(fileOut);
+            code.put("code", "success");
+            return code;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            code.put("code", "fail");
+            return code;
+        } catch (IOException e) {
+            e.printStackTrace();
+            code.put("code", "fail");
+            return code;
+        }
 	}
 }
