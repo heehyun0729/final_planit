@@ -118,7 +118,7 @@ $(function() {
 						success: function(data) {
 							var result = data.result;
 							if(result == 'success'){
-								location.href = '/planit/plan/list';
+								location.href = '/planit/plan/detail?plan_num=' + plan_num;
 							}else{
 								alert('오류로 인해 저장을 실패하였습니다.');
 							}
@@ -438,7 +438,7 @@ function setRouteDiv() {
 		str += "<div class = 'routelist' style = 'padding-left: 5px;cursor:pointer;'>" +
 				"<div style='width:37px;height:7pt;border-right:3px solid #ff5252'></div>" +
 					"<div style = 'width:70px;height:70px;display:inline-block;float:left;margin-right:15px;border:3px solid #ff5252;border-radius:50%;'>" +
-						"<select id = 'stay" + i + "' class = 'nice-select' style = 'width:55px;height:30px;margin-top:17px;margin-left:5px;padding:0 8px 0 8px;' onchange = 'javascript:changeStay(" + i + ")'>";
+						"<select id = 'stay" + i + "' class = 'nice-select' style = 'width:55px;height:30px;padding:0 0 0 8px;margin-top:17px;margin-left:5px;' onchange = 'javascript:changeStay(" + i + ")'>";
 							for(var j = 0 ; j < 10 ; j++){
 								str += "<option value = '" + j + "' ";
 								if(j == routelist[i].stay){
