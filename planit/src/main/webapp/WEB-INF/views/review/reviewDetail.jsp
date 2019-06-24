@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-.comm{width:300px;height: 200px; text-align: center; }
+.comm{width:600px;height: 200px;  border:2px solid #aaa;}
 </style>
 <div>
 <script>
@@ -82,7 +82,7 @@
 					$("#commList").append(str);
 					
 				});
-				var pageHTML="<div style='text-align:center'>";
+				var pageHTML="<div>";
 				var startPageNum=parseInt($(data).find("startPageNum").text());
 				var endPageNum=parseInt($(data).find("endPageNum").text());
 				var pageCount=parseInt($(data).find("pageCount").text());
@@ -91,18 +91,19 @@
 					pageHTML +="<a href='javascript:getList("+(startPageNum-1) +")'>[이전]</a>";
 
 				}
-				
+				pageHTML += "<nav class='blog-pagination justify-content-center d-flex'><ul class='pagination'>";
 				for(var i=startPageNum; i<=endPageNum;i++){
 					if(i==pageNum){ 
-						pageHTML += "<a href='javascript:getList("+ i +")'><span style='color:blue'>["+ i +"]</span></a>";
+						pageHTML += "<li class='page-item active'><a class='page-link' href='javascript:getList("+ i +")'>"+ i +"</span></a></li>";
 						
 					}else{
-						pageHTML +="<a href='javascript:getList("+ i +")'><span style='color:gray'>[" + i + "]</span></a>";
+						pageHTML +="<li class='page-item'><a class='page-link' href='javascript:getList("+ i +")'>" + i + "</a></li>";
 						}
 					}
 				if(endPageNum<pageCount){
 					pageHTML +="<a href='javascript:getList("+(endPageNum+1)+")'>[다음]</a>";
 				}
+				pageHTML += "</ul></nav>";
 				pageHTML +="</div>";
 				$("#page").html(pageHTML);
 				}
@@ -121,12 +122,12 @@
 
 
 <div class="container">
-<h1>여행후기 글</h1>
+<h1>상세 화면</h1>
 
 <a href="${pageContext.request.contextPath }/review/reviewList.do"><span style="color: #339af0;">여행후기 리스트</span></a> /
 <a href="${pageContext.request.contextPath }/review/reviewUpdate?review_num=${vo.review_num}"><span style="color:#FA58F4">여행 글수정</span></a>
 <table class="table">
-
+<!--  -->
 	
 	<tr>
 		<th>글번호</th>
@@ -162,7 +163,7 @@
 	
 	<tr>
 		<th>사진/글 내용</th>
-		<td style="text-align: center;"><div>${vo.review_content }</div></td>
+		<td style="text-align: center; "><div class="img-thumbnail">${vo.review_content }</div></td>
 		<!--  <td><textarea rows="3" cols="40" readonly="readonly"><div>${vo.review_content }</div></textarea>-->
 	</tr>
 	
@@ -204,7 +205,7 @@
 <table class="table">
 	<tr>
 		<th>댓글입력 </th>
-		<td style="text-align: center;"><textarea rows="3" cols="40" id="rcomm_content"></textarea><br>
+		<td style="text-align: center;"><textarea rows="3" cols="40" id="rcomm_content" placeholder="Text input"></textarea><br>
 		<input type="button" value="등록" id="addBtn">
 		</td>
 	</tr>
