@@ -146,8 +146,13 @@
               (
                   select r.room_num
                   from room r
-                  <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
-                  , ( select NVL(z.room_num, -1) room_num from
+                  where r.roomChk = 0
+                  	<if test="cnt != null and cnt != ''">
+                      and r.room_capa >= #{cnt}
+                      </if>
+                      <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
+                      and r.room_num not in (
+                      	select NVL(z.room_num, -1) room_num from
                                   (
                                   select rs.room_num room_num
                                   from rsvn rs, rsvnPay rp
@@ -156,14 +161,7 @@
                                       and rs.rsvn_checkin between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
                                       or rs.rsvn_checkout - 1 between to_date(#{checkin}, 'yyyy-mm-dd') and (to_date(#{checkout}, 'yyyy-mm-dd') - 1)
                                   )z right outer join dual on 1 = 1
-                              )aa 
-                  </if>
-                  where r.roomChk = 0
-                  	<if test="cnt != null and cnt != ''">
-                      and r.room_capa >= #{cnt}
-                      </if>
-                      <if test="checkin != null and checkin != '' and checkout != null and checkout != ''">
-                      and r.room_num not in aa.room_num 
+                      )
                       </if>
               )y right outer join dual on 1 = 1
           )       
