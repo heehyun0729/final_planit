@@ -116,8 +116,8 @@ public class AccomInsertController {
 	public String getApi() throws IOException {
 		FileReader fr = null;
 		String key = "";
-		try {
-			fr = new FileReader(new File("C:\\spring\\planit2\\src\\main\\webapp\\resources\\apiKey2.txt"));
+		try {							
+			fr = new FileReader(new File("C:\\spring\\workspace\\maven.1560944618293\\planit\\src\\main\\webapp\\resources\\apiKey2.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;

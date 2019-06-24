@@ -6,7 +6,7 @@
 			<c:choose>
 				<c:when test="${!mem_tf }">비공개 프로필입니다.</c:when>
 				<c:otherwise>
-					<div style="word-break:break-all; word-wrap:break-word;">${profilemap.PROFILE_COMM }</div>
+					<pre style="word-break:break-all; word-wrap:break-word;">${profilemap.PROFILE_COMM }</pre>
 				</c:otherwise>
 			</c:choose>
 		</c:when>
@@ -14,7 +14,7 @@
 			<c:choose>
 				<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE==1 }">서로 팔로우 되어 있는 사람만 볼 수 있는 프로필입니다.</c:when>
 				<c:otherwise>
-					<div style="word-break:break-all; word-wrap:break-word;">${profilemap.PROFILE_COMM }</div>
+					<pre style="word-break:break-all; word-wrap:break-word;">${profilemap.PROFILE_COMM }</pre>
 				</c:otherwise>
 			</c:choose>
 		</c:when>
@@ -22,12 +22,12 @@
 			<c:choose>
 				<c:when test="${!mem_tf && profilemap.FOLLOW_GRADE==2 }">팔로우 해야 볼 수 있는 프로필입니다.</c:when>
 				<c:otherwise>
-					<div style="word-break:break-all; word-wrap:break-word;">${profilemap.PROFILE_COMM }</div>
+					<pre style="word-break:break-all; word-wrap:break-word;">${profilemap.PROFILE_COMM }</pre>
 				</c:otherwise>
 			</c:choose>
 		</c:when>
 		<c:otherwise>
-			<div style="word-break:break-all; word-wrap:break-word;">${profilemap.PROFILE_COMM }</div>
+			<pre style="word-break:break-all; word-wrap:break-word;">${profilemap.PROFILE_COMM }</pre>
 		</c:otherwise>
 	</c:choose>
 </div>

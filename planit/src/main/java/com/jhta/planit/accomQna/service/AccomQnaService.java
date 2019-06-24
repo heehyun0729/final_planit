@@ -19,4 +19,7 @@ public class AccomQnaService {
 	public int count(HashMap<String, Object>map) {
 		return dao.count(map);
 	}
+	public int delete(HashMap<String, Object>map) {
+		return dao.deleteAcq(map);
+	}
 }
