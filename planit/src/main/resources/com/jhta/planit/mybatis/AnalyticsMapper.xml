@@ -24,11 +24,13 @@
 	</select>
 	<select id="getPaidRoomsCount" parameterType="String" resultType="double">
 		select NVL(count(rs.room_num),0)
-		                from rsvn rs, rsvnPay rp
-		                where rs.rsvn_num = rp.rsvn_num
-		                    and rp.rsvnPay_stat = 0
-		                    and to_char(rs.rsvn_checkin, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd')
-                            and mem_id=#{mem_id}
+		from rsvn rs, rsvnPay rp, room rm, accom ac, seller sell 
+		where rs.rsvn_num = rp.rsvn_num 
+		and rs.room_num=rm.room_num 
+		and rm.accom_num=ac.accom_num 
+		and ac.sell_num=sell.sell_num 
+		and rp.rsvnPay_stat = 0 
+		and to_char(rs.rsvn_checkin, 'yyyy-mm-dd')=to_char(sysdate, 'yyyy-mm-dd') and sell.mem_id=#{mem_id}
 	</select>
 	<select id="getAllRoomsCount" resultType="double">
 		select NVL(count(*),0) from room

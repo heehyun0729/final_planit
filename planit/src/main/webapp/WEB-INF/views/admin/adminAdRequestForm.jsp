@@ -262,10 +262,10 @@
 			const quantity=$("input[name='order']").length;
 			const total_amount=$("input[name='ad_price']").val();
 			const vat_amount=$("input[name='ad_price']").val()/10;
-			const tax_free_amount="0";
-			const approval_url="http://192.168.0.21:9090/planit/adminAdKakaoPayApproval";
-			const fail_url="http://192.168.0.21:9090/planit/adminAdKakaoPayFail";
-			const cancel_url="http://192.168.0.21:9090/planit/adminAdKakaoPayCancel";
+			const tax_free_amount="0";//192.168.0.21
+			const approval_url="http://localhost:9090/planit/adminAdKakaoPayApproval";
+			const fail_url="http://localhost:9090/planit/adminAdKakaoPayFail";
+			const cancel_url="http://localhost:9090/planit/adminAdKakaoPayCancel";
 			$.getJSON("<c:url value='/adminAdKakaoPay'/>",{cid:cid, partner_order_id:partner_order_id, partner_user_id:partner_user_id, item_name:item_name, quantity:quantity, total_amount:total_amount, vat_amount:vat_amount, tax_free_amount:tax_free_amount, approval_url:approval_url, fail_url:fail_url, cancel_url:cancel_url} ,
 				function(data) {
 					if(data!=null){
