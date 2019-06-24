@@ -149,7 +149,7 @@ public class AdminAnalysticController {
 	}
 	@RequestMapping(value="/adminAnalytics/profitInfoDownload", produces="application/json;charset=utf-8")//일자별 광고 정보 출력
 	@ResponseBody
-	public HashMap<String, String> downloadExcel(String stringDays, @RequestParam(value = "stringAdProfit", defaultValue = "")String stringAdProfit, String stringSellProfit, @RequestParam(value = "stringTotalProfit", defaultValue = "")String stringTotalProfit) {
+	public HashMap<String, String> downloadExcel(int mem_stat, String stringDays, @RequestParam(value = "stringAdProfit", defaultValue = "")String stringAdProfit, String stringSellProfit, @RequestParam(value = "stringTotalProfit", defaultValue = "")String stringTotalProfit) {
 		String[] days=stringDays.split(",");
 		String[] adProfit=stringAdProfit.split(",");
 		String[] sellProfit=stringSellProfit.split(",");
@@ -169,7 +169,7 @@ public class AdminAnalysticController {
         cell=row.createCell(0);
         cell.setCellValue("날짜");
         
-        if(adProfit[0]!=null) {
+        if(mem_stat==0) {
         	cell=row.createCell(1);
             cell.setCellValue("광고매출");
             cell=row.createCell(2);
@@ -185,7 +185,7 @@ public class AdminAnalysticController {
         	row=sheet1.createRow(i+1);
         	cell=row.createCell(0);
         	cell.setCellValue(days[i]);
-        	if(adProfit[0]!=null) {
+        	if(mem_stat==0) {
         		cell=row.createCell(1);
         		cell.setCellValue(adProfit[i]);
         		cell=row.createCell(2);

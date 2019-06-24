@@ -9,6 +9,7 @@
 	<select id="getRoomNum" resultType="int" >
   		select max(room_num) from room
   	</select>
+  	
   	<sql id="search">
 		where roomChk=0
 		<if test="field!=null and field!=''">
@@ -16,6 +17,7 @@
 		</if>
 		and accom_num=#{accom_num}
 	</sql>
+	
 	<!-- 전체글의갯수 -->
 	<select id="count" resultType="int" parameterType="hashmap"> 
 		select NVL(count(*),0) cnt from room
