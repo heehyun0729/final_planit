@@ -318,11 +318,17 @@
 				 <c:forEach var="vo" items="${rrlist }">
 					<div id="list">
 					
-								<div class="row d-flex" style='margin-bottom: 15px;'>
+						<div class="row d-flex" style='margin-bottom: 15px;'>
 						<div class="star p-2">
 						
-			             		
-			             		<c:otherwise>
+			             		<c:choose>
+			             			<c:when test="${vo.resReview_star==0}">
+			             				<c:forEach begin = "1" end = "5">
+					               		<i class="far fa-star"></i>
+					               		
+					               	</c:forEach>
+			             			</c:when>
+			             			<c:otherwise>
 			             			<c:forEach begin = "0" end = "${vo.resReview_star - 1 }">
 			             			<i class="fas fa-star"></i>
 			               				
@@ -332,6 +338,8 @@
 					               		
 					               	</c:forEach>
 			             		</c:otherwise>
+			             		</c:choose>
+			             	
 			             
 						</div>
 						<div class="p-2">
@@ -340,7 +348,6 @@
 						</div>
 					</div>
 					
-						
 						<div class="mem_id">
 							작성아이디:
 							<p>${vo.mem_id }</p>
