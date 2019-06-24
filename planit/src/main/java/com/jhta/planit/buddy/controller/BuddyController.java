@@ -99,9 +99,6 @@ public class BuddyController {
 				BuddyListVo blv=new BuddyListVo();
 				blv=service.detail(sgNum.get(i));
 				sglist.add(blv);
-				if(i>=2) {
-					break;
-				}
 			}
 			mv.addObject("sglist",sglist);
 		}

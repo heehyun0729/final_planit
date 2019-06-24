@@ -26,255 +26,173 @@
 
 <!--================body Area =================-->
 <br>
-<div class="container">
-	<c:if test="${empty sglist}">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="facilities_item">
-					<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
-						<div class="row">
-							<div class="col-md-6">
-								<h3 class="typo-list">여행 시작</h3>
-					            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="kw_indate">
-				            </div>
-				 			<div class="col-md-6">
-				 				<h3 class="typo-list">여행 끝</h3>
-					            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
-				 			</div>
-				        </div>
-						
-						<br>
-						
-						<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
-						<div class="page-liner"></div>
-						
-						<c:if test="${empty countryList}">
-							<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
-						</c:if>
-						<c:forEach var="country" items="${countryList}">
+<c:if test="${!empty sglist}">
+	<section class="testimonial_area section_gap">
+	    <div class="container">
+	        <p>※ 동행추천 : 나와 비슷한 일정에 같은 도시를 여행하는 사람</p>
+	        <div class="testimonial_slider owl-carousel">
+	        	<c:forEach var="sglist" items="${sglist}">
+		            <div class="media testimonial_item">
+		                <div class="media-body">
+		                    <div class="row">
+								<div class="col-md-3">
+									<p>아이디 :</p> 
+								</div>
+								<div class="col-md-9">
+									<p>${sglist.mem_id}</p>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col-md-3">
-									<h4 class="typo-list">${country}</h4>
+									<p>출발 날짜 :</p>
 								</div>
-								
-								<c:forEach var="city" items="${cityList}">
-									<c:if test="${city.key==country}">
-										<div class="col-md-9">
-											<div class="btn-group-toggle" data-toggle="buttons">
-												<c:forEach var="cityVal" items="${city.value}">
-													<label class="btn btn default">
-														<input type="checkbox" id="${cityVal}" value="${cityVal}" name="kw_city"> ${cityVal}
-													</label>
-												</c:forEach>
-											</div>
-										</div>
-									</c:if>
-								</c:forEach>
+								<div class="col-md-3">
+									<p>${sglist.buddy_indate}</p>
+								</div>
+								<div class="col-md-3">
+									<p>도착 날짜 :</p>
+								</div>
+								<div class="col-md-3">
+									<p>${sglist.buddy_outdate}</p>
+								</div>
 							</div>
-							<div class="page-liner"></div>
-						</c:forEach>
-						
-						<div class="page-liner"></div>
-						
-						<div>
-							<label>성별</label>
-						</div>
-						<div class="form-group">
-							<select name="kw_gender" class="nice-select wide">
-								<option value="X">상관없음</option>
-								<option value="M">남자</option>
-								<option value="W">여자</option>
-							</select>
-						</div>
-						
-						<br>
-						<div class="page-liner"></div>
-						
-						<div>
-							<label>연령대</label>
-						</div>
-						<div class="form-group">
-							<select name="kw_birthYear" class="nice-select wide">
-								<option value="0">상관없음</option>
-								<option value="20">20대</option>
-								<option value="30">30대</option>
-								<option value="40">40대</option>
-								<option value="50">50대</option>
-								<option value="60">60대 이상</option>
-							</select>
-						</div>
-						
-						<div class="page-liner"></div>
-						
-						<div class="text-center">
-							<input type="submit" class="genric-btn primary circle arrow" value="검색">
-						</div>
-					</form>
-				</div>
-			</div>
+							<div class="row">
+								<div class="col-md-3">
+									<p>여행 도시 :</p>
+								</div>
+								<div class="col-md-9">
+									<p>${sglist.buddy_city}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<p>여행 소개 :</p>
+								</div>
+								<div class="col-md-9">
+									<p>${sglist.buddy_msg}</p>
+								</div>
+							</div>
+							<br>
+							<div class="text-center">
+								<input type="button" value="쪽지하기" onclick="messagePopupFunc('${sglist.mem_id}')" class="btn btn-success msgBtn"> 
+								<c:choose>
+									<c:when test="${empty overlap_ck}">
+										<input type="button" class="btn btn-success" value="동행요청" onclick="apply_buddy('${sglist.buddy_num}')">
+									</c:when>
+									<c:otherwise>
+										<c:set var="find" value="false" />
+										<c:forEach var="overlapck" items="${overlap_ck}">
+											<c:choose>
+												<c:when test="${overlapck.buddy_num==sglist.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='0'}">
+													<input type="button" class="btn btn-success" value="요청중" disabled="disabled">
+													<c:set var="find" value="true" />
+												</c:when>
+												<c:when test="${overlapck.buddy_num==sglist.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='1'}">
+													<input type="button" class="btn btn-success" value="수락" disabled="disabled">
+													<c:set var="find" value="true" />
+												</c:when>
+											</c:choose>
+										</c:forEach>
+										<c:if test="${not find}">
+											<input type="button" class="btn btn-success" value="동행요청" onclick="apply_buddy('${sglist.buddy_num}')">
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+							</div>
+		                </div>
+		            </div>
+	            </c:forEach>   
+	        </div>
 		</div>
-	</c:if>
-	<c:if test="${!empty sglist}">
-		<div class="row">
-			<div class="col-lg-8">
-				<div class="facilities_item">
-					<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
+	</section>
+</c:if>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="facilities_item">
+				<form method="post" action="<c:url value='/buddyList'/>" onsubmit="return check()">
+					<div class="row">
+						<div class="col-md-6">
+							<h3 class="typo-list">여행 시작</h3>
+				            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="kw_indate">
+			            </div>
+			 			<div class="col-md-6">
+			 				<h3 class="typo-list">여행 끝</h3>
+				            <input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
+			 			</div>
+			        </div>
+					
+					<br>
+					
+					<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
+					<div class="page-liner"></div>
+					
+					<c:if test="${empty countryList}">
+						<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
+					</c:if>
+					<c:forEach var="country" items="${countryList}">
 						<div class="row">
-							<div class="col-md-6">
-								<h3 class="typo-list">여행 시작</h3>
-					            <input type="text" class="form-control" placeholder="Input date" id="buddy_indate" name="kw_indate">
-				            </div>
-				 			<div class="col-md-6">
-				 				<h3 class="typo-list">여행 끝</h3>
-					            <label class="btn btn default">			
-					            	<input type="text" class="form-control" placeholder="Input date" id="buddy_outdate" name="kw_outdate">
-					            </label>
-				 			</div>
-				        </div>
-						
-						<br>
-						
-						<p>※ 게시판에 등록되어 있는 국가와 도시만 표시합니다. 글 등록 시 국가와 도시가 갱신됩니다.</p>
-						<div class="page-liner"></div>
-						
-						<c:if test="${empty countryList}">
-							<br><p class="text-center">※ 등록된 국가 혹은 도시가 없습니다.</p>
-						</c:if>
-						<c:forEach var="country" items="${countryList}">
-							<div class="row">
-								<div class="col-md-3">
-									<h4 class="typo-list">${country}</h4>
-								</div>
-								
-								<c:forEach var="city" items="${cityList}">
-									<c:if test="${city.key==country}">
-										<div class="col-md-9">
-											<div class="btn-group-toggle" data-toggle="buttons">
-												<c:forEach var="cityVal" items="${city.value}">
-													<label class="btn btn default">
-														<input type="checkbox" id="${cityVal}" value="${cityVal}" name="kw_city"> ${cityVal}
-													</label>
-												</c:forEach>
-											</div>
-										</div>
-									</c:if>
-								</c:forEach>
+							<div class="col-md-3">
+								<h4 class="typo-list">${country}</h4>
 							</div>
-							<div class="page-liner"></div>
-						</c:forEach>
-						
+							
+							<c:forEach var="city" items="${cityList}">
+								<c:if test="${city.key==country}">
+									<div class="col-md-9">
+										<div class="btn-group-toggle" data-toggle="buttons">
+											<c:forEach var="cityVal" items="${city.value}">
+												<label class="btn btn default">
+													<input type="checkbox" id="${cityVal}" value="${cityVal}" name="kw_city"> ${cityVal}
+												</label>
+											</c:forEach>
+										</div>
+									</div>
+								</c:if>
+							</c:forEach>
+						</div>
 						<div class="page-liner"></div>
-						
-						<div>
-							<label>성별</label>
-						</div>
-						<div class="form-group">
-							<select name="kw_gender" class="nice-select wide">
-								<option value="X">상관없음</option>
-								<option value="M">남자</option>
-								<option value="W">여자</option>
-							</select>
-						</div>
-						
-						<br>
-						<div class="page-liner"></div>
-						
-						<div>
-							<label>연령대</label>
-						</div>
-						<div class="form-group">
-							<select name="kw_birthYear" class="nice-select wide">
-								<option value="0">상관없음</option>
-								<option value="20">20대</option>
-								<option value="30">30대</option>
-								<option value="40">40대</option>
-								<option value="50">50대</option>
-								<option value="60">60대 이상</option>
-							</select>
-						</div>
-						
-						<div class="page-liner"></div>
-						
-						<div class="text-center">
-							<input type="submit" class="genric-btn primary circle arrow" value="검색">
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="text-center">
-					<div class="blog_right_sidebar">
-						<p class="text-left">동행추천 :</p>
-						<p>※ 나와 비슷한 일정에 같은 도시를 여행하는 사람</p>
+					</c:forEach>
+					
+					<div class="page-liner"></div>
+					
+					<div>
+						<label>성별</label>
+					</div>
+					<div class="form-group">
+						<select name="kw_gender" class="nice-select wide">
+							<option value="X">상관없음</option>
+							<option value="M">남자</option>
+							<option value="W">여자</option>
+						</select>
+					</div>
+					
+					<br>
+					<div class="page-liner"></div>
+					
+					<div>
+						<label>연령대</label>
+					</div>
+					<div class="form-group">
+						<select name="kw_birthYear" class="nice-select wide">
+							<option value="0">상관없음</option>
+							<option value="20">20대</option>
+							<option value="30">30대</option>
+							<option value="40">40대</option>
+							<option value="50">50대</option>
+							<option value="60">60대 이상</option>
+						</select>
 					</div>
 					
 					<div class="page-liner"></div>
 					
-					<c:forEach var="sglist" items="${sglist}">
-						<div class="blog_right_sidebar">
-							<div class="row">
-								<div class="col-md-4">
-									아이디 : 
-								</div>
-								<div class="col-md-8">
-									${sglist.mem_id}
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4">
-									출발 날짜 :
-								</div>
-								<div class="col-md-8">
-									${sglist.buddy_indate}
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4">
-									도착 날짜 :  
-								</div>
-								<div class="col-md-8">
-									${sglist.buddy_outdate}
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4">
-									여행 도시 :  
-								</div>
-								<div class="col-md-8">
-									${sglist.buddy_city}
-								</div>
-							</div>
-							<br>
-							<input type="button" value="쪽지하기" onclick="messagePopupFunc('${sglist.mem_id}')" class="btn btn-success msgBtn"> 
-							<c:choose>
-								<c:when test="${empty overlap_ck}">
-									<div class="serial"><input type="button" class="btn btn-success" value="동행요청" onclick="apply_buddy('${sglist.buddy_num}')"></div>
-								</c:when>
-								<c:otherwise>
-									<c:set var="find" value="false" />
-									<c:forEach var="overlapck" items="${overlap_ck}">
-										<c:choose>
-											<c:when test="${overlapck.buddy_num==sglist.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='0'}">
-												<input type="button" class="btn btn-success" value="요청중" disabled="disabled">
-												<c:set var="find" value="true" />
-											</c:when>
-											<c:when test="${overlapck.buddy_num==sglist.buddy_num && overlapck.mem_id == mem_id && overlapck.apply_state=='1'}">
-												<input type="button" class="btn btn-success" value="수락" disabled="disabled">
-												<c:set var="find" value="true" />
-											</c:when>
-										</c:choose>
-									</c:forEach>
-									<c:if test="${not find}">
-										<input type="button" class="btn btn-success" value="동행요청" onclick="apply_buddy('${sglist.buddy_num}')">
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<div class="page-liner"></div>
-					</c:forEach>
-				</div>
+					<div class="text-center">
+						<input type="submit" class="genric-btn primary circle arrow" value="검색">
+					</div>
+				</form>
 			</div>
 		</div>
+	</div>
+	<c:if test="${empty sglist}">
 	</c:if>
 	<div class="facilities_item">
 		<c:if test="${empty buddyList}">
@@ -322,7 +240,7 @@
 							<div class="serial"><input type="button" class="btn btn-success msgBtn" value="쪽지하기" onclick="messagePopupFunc('${buddy.mem_id}')"></div>
 							<c:choose>
 								<c:when test="${empty overlap_ck}">
-									<div class="serial"><input type="button" class="btn btn-success" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
+									<div class="serial"><input type="button" class="btn btn-success" value="동행요청" onclick="apply_buddy('${buddy.buddy_num}')"></div>
 								</c:when>
 								<c:otherwise>
 									<c:set var="find" value="false" />
@@ -339,7 +257,7 @@
 										</c:choose>
 									</c:forEach>
 									<c:if test="${not find}">
-										<div class="serial"><input type="button" class="btn btn-success" value="동행요청하기" onclick="apply_buddy('${buddy.buddy_num}')"></div>
+										<div class="serial"><input type="button" class="btn btn-success" value="동행요청" onclick="apply_buddy('${buddy.buddy_num}')"></div>
 									</c:if>
 								</c:otherwise>
 							</c:choose>

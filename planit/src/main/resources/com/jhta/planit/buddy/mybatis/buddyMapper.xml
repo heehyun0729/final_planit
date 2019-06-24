@@ -209,17 +209,25 @@
 	
 	<!-- 동행추천 -->
 	<select id="buddy_sameDateCity" parameterType="String" resultType="String">
-		select b.buddy_num
-		from buddy b, buddy_country c, buddy_city t
+		select b.buddy_num from buddy b, buddy_country c, buddy_city t
 		where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0 and t.buddy_city in
 		(
 		    select t.buddy_city from buddy b, buddy_country c, buddy_city t
-		    where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0
-		    and b.mem_id=#{id}
+		    where b.buddy_num=c.buddy_num and c.country_num=t.country_num and b.buddy_state=0 and b.mem_id=#{id}
 		) 
 		and b.buddy_indate in 
 		(
+		    <![CDATA[select distinct buddy_indate from buddy where buddy_indate>=]]>
+		    (
 		    select distinct buddy_indate from buddy where mem_id=#{id}
+		    )
+		)
+		and b.buddy_outdate in
+		(
+		    <![CDATA[select distinct buddy_outdate from buddy where buddy_outdate<=]]>
+		    (
+		    select distinct buddy_outdate from buddy where mem_id=#{id}
+		    )
 		)
 		and not b.mem_id in(#{id})
 	</select>
