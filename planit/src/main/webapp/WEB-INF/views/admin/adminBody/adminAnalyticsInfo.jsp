@@ -43,12 +43,14 @@
 		$("#date1").on("change", function(){
 			$("#date2").datepicker("option", "minDate", $("#date1").val());
 			if($("#date2").val()!=""){
+				$("#infoMsg").hide();
 				getProfit();
 			}
 		});
 		$("#date2").on("change", function(){
 			$("#date1").datepicker("option", "maxDate", $("#date2").val());
 			if($("#date1").val()!=""){
+				$("#infoMsg").hide();
 				getProfit();
 			}
 		});
@@ -253,10 +255,10 @@
 						<div class="row  mt-3">
 							<div class="col">
 								<div class="card">
-									<h4 class="card-header">수익</h4>
 									<div class="card-body text-center">
 										<div class="chart">
-											<canvas id="profitChart" width="100" height="200"></canvas>
+											<h6 id="infoMsg">조회할 일자를 선택해 주세요.</h6>
+											<canvas id="profitChart" width="100" height="500"></canvas>
 										</div>
 									</div>
 								</div>
