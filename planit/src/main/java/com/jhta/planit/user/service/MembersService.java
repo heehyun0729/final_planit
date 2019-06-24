@@ -44,7 +44,7 @@ public class MembersService {
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[Planit 서비스 이메일 인증]");
 		sendMail.setText(new StringBuffer().append("<h1>Planit 회원 가입 인증</h1>")
-				.append("<a href='http://localhost:9090/planit/member/emailConfirm?mem_email=")
+				.append("<a href='http://192.168.0.21:9090/planit/member/emailConfirm?mem_email=")
 				.append(vo.getMem_email()).append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>")
 				.toString());
 		sendMail.setFrom("limsr95@gmail.com", "Planit");
@@ -158,7 +158,7 @@ public class MembersService {
 			MailHandler sendMail = new MailHandler(mailSender);
 			sendMail.setSubject("[Planit 비밀번호 찾기]");
 			sendMail.setText(new StringBuffer().append("<h1>Planit 회원 비밀번호 찾기</h1>")
-					.append("<a href='http://localhost:9090/planit/member/pwdChangeemailConfirm?mem_email=")
+					.append("<a href='http://192.168.0.21:9090/planit/member/pwdChangeemailConfirm?mem_email=")
 					.append(map.get("mem_email")).append("&key=").append(key).append("' target='_blenk'>비밀번호 찾기</a>")
 					.toString());
 			sendMail.setFrom("limsr95@gmail.com", "Planit");
