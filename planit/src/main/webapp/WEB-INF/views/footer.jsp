@@ -12,7 +12,7 @@
 	   			</div>
 	   			<c:if test="${sessionScope.mem_stat==0 || sessionScope.mem_stat==1}">
 		   			<span style = "color:#555" class = "p-2">|&nbsp;&nbsp;</span>
-		   			<div class = "p-2">
+		   			<div class = "p-2"> 
 		    			<ul class="list_style">
 		    				<li><a onclick="window.open('<c:url value='/adminLogin'/>')" href = "#">관리자페이지</a></li>
 		    			</ul>
