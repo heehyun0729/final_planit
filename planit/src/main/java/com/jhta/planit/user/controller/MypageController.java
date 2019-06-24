@@ -144,7 +144,7 @@ public class MypageController {
 			// status ==> 0: 리뷰 없음(이용 전) / 1: 리뷰 없음(이용 중) / 2: 리뷰 없음(이용 후) / 3: 리뷰 있음
 			if(rcnt > 0) {
 				vo.setStatus(3);
-			}else if(n >= 0){	// 체크인 날짜가 지났으면 status를 1로 변경
+			}else if(n >= 0 && n1 < 0){	// 체크인 날짜가 지났으면 status를 1로 변경
 				vo.setStatus(1);	// 체크아웃날짜가 지났으면 status를 2로 변경
 			}else if(n1 >= 0){
 				vo.setStatus(2);

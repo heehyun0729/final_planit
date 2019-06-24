@@ -7,10 +7,37 @@ $(function(){
 		e.preventDefault();
 	});
 });
-function ppp(mem_id){
-	var popUrl = "<c:url value='/msgSendForm?id=" + mem_id + "'/>";
-	var popOption = "width=800, height=400, resizable=no, scrollbars=no, status=no;";
-		window.open(popUrl,"쪽지보내기",popOption);
+function messagePopupFunc(msg_id) {
+	if('${mem_id}'!=null && '${mem_id}'!=""){
+		$("#recipient-name").val(msg_id);
+		$("#planMsgModal").modal();
+	}else{
+		alert("로그인이 필요한 서비스 입니다.");
+	}
+}
+//메세지 보내기
+function sendMessage() {
+	var memId = document.getElementById("recipient-name").value;
+	var content = document.getElementById("message-text").value;
+	xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=sendMessageResult;
+	xhr.open("post","${pageContext.request.contextPath}/msgSendForm",true);	
+	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xhr.send("receiveMemId=${mem_id}&sendMemId=" + memId+"&msgContent="+content);
+}
+//메세지 대기
+function sendMessageResult() {
+	if(xhr.readyState==4 && xhr.status==200){
+		var data=xhr.responseText;
+		var result=eval("(" + data +")");
+		if (result.code == "success") {			
+			$('#planMsgModal').modal('hide');
+			$("#recipient-name").val("");
+			$("#message-text").val("");
+		} else {
+			document.location="${pageContext.request.contextPath}/msgSendList?memId=${sessionScope.mem_id }&msgType=SEND&errMsg=오류가 발생했습니다.";
+		}
+	}
 }
 </script>
 <!--================Breadcrumb Area =================-->
@@ -92,7 +119,7 @@ function ppp(mem_id){
 						  <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${vo.mem_id }</a>
 						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 						  	<a class="dropdown-item" href = "<c:url value = '/member/mypage/${vo.mem_id}'/>" target = "_blank">프로필 보기</a>
-							<a class="dropdown-item" href = "#" onclick="javascript:ppp('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a>
+							<a class="dropdown-item" href = "#" onclick="javascript:messagePopupFunc('${vo.mem_id}')" id = "showMsgPopup">쪽지 보내기</a>
 						  </div>
 						</div>
 					</div>
@@ -134,3 +161,36 @@ function ppp(mem_id){
            </ul>
        </nav>
 </section>
+<!-- 
+	*******************************************
+	modal  : 쪽지하기
+	*******************************************	
+-->
+<div class="modal fade" id="planMsgModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">쪽지보내기</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="recipient-name" class="control-label">받는사람 :</label>
+						<input type="text" class="form-control" value="" id="recipient-name" disabled="disabled">
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="control-label">메세지 :</label>
+						<textarea class="form-control" id="message-text" style="height: 150px;"></textarea>
+					</div>
+				</form>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="genric-btn primary circle" onclick="sendMessage()">보내기</button>
+				<button type="button" class="genric-btn primary circle" data-dismiss="modal">취소</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
