@@ -58,10 +58,10 @@
 <link rel="stylesheet"
 	href="<c:url value='/resources/royal/vendors/nice-select/css/nice-select.css'/>">
 </head>
-<body>
-<p><div class="text-bottom">
+<body style="text-align: center;">
+
 <h1>요청작업 완료!</h1>
 <a href="${pageContext.request.contextPath }/" class="genric-btn info circle">메인페이지 이동</a>  
 <a href="${pageContext.request.contextPath }/review/reviewList" class="genric-btn info circle">여행후기 리스트 이동</a><br>
-</p></div>
+
 </body>
