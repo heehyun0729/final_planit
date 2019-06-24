@@ -72,20 +72,18 @@
 							<p> 아이디<input class="form-control" type="text" readonly="readonly" name="mem_id" value="${sessionScope.mem_id }"><br></p>
 							<p> 제목<input class="form-control" type="text" name="resReview_title" placeholder="입력해주세요"><br></p>
 							 내용<textarea rows="5" cols="50" name="resReview_content" id="summernote"></textarea><br>
-						</form>	
-							<div id="resReview_star"> 
+						<div id="resReview_star"> 
 								별점 <input type="radio" name="resReview_star" id="star5" value="5" checked="checked"/><label id="full" for="star5">★★★★★</label>
 								<label id="full" for="star4"><input type="radio" name="resReview_star" id="star4" value="4">★★★★</label>
 								<input type="radio" name="resReview_star" id="star3" value="3"><label id="full" for="star3">★★★</label>
 								<input type="radio" name="resReview_star" id="star2" value="2"><label id="full" for="star2">★★</label>
 								<input type="radio" name="resReview_star" id="star1" value="1"><label id="full" for="star1">★</label>
 							</div>
-							
-									
-							<!--  	</div>  -->
-								<input type="submit" class="genric-btn primary circle small" value="숙소 후기 등록">
+							<input type="submit" class="genric-btn primary circle small" value="숙소 후기 등록">
 								<input type="button" class="genric-btn primary circle small" value="숙소 후기 취소">
-					<!--  </form>-->
+						
+						</form>	
+						
 					<br>
 						<script>
 						 $("#summernote").summernote({

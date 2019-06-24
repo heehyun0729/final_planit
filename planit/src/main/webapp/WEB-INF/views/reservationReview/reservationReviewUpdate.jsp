@@ -79,11 +79,14 @@
 								<input type="radio" name="resReview_star" id="star2" value="2"><label id="full" for="star2">★★</label>
 								<input type="radio" name="resReview_star" id="star1" value="1"><label id="full" for="star1">★</label>
 							</div>
-									</form>
-								</div> 
-								<p><div class="text-right">
+							<p><div class="text-right">
 								<input type="submit" class="genric-btn primary circle small" value="숙소 후기 수정">
 								<input type="button" class="genric-btn primary circle small" value="숙소 후기  수정 취소">
+								</div>
+		</form>
+									
+								</div> 
+								
 				       			
 				</div>
 		
