@@ -286,7 +286,8 @@ public class MypageController {
 		}
 		HashMap<Object, Object> map=service.profileInfo(parammap);
 		String comm=(String) map.get("PROFILE_COMM");
-		comm.replace("\n", "<br>");
+		comm=comm.replace("\n", "<br>");
+		map.put("PROFILE_COMM", comm);
 		return map;
 	}
 }
