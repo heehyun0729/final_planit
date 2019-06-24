@@ -30,6 +30,7 @@ import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.accomQna.service.AccomQnaService;
 import com.jhta.planit.accomQna.vo.AccomQnaVo;
+import com.jhta.planit.qna.service.QnaService;
 import com.jhta.planit.reservation.service.RsvnAccomService;
 import com.jhta.planit.reservation.service.RsvnPayService;
 import com.jhta.planit.reservation.service.RsvnRoomService;
@@ -205,7 +206,7 @@ public class RsvnController {
 		FileReader fr = null;
 		String key = "";
 		try {
-			fr = new FileReader(new File("C:\\spring\\planit2\\src\\main\\webapp\\resources\\apiKey.txt"));
+			fr = new FileReader(new File("C:\\spring\\workspace\\maven.1560944618293\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;
@@ -348,4 +349,16 @@ public class RsvnController {
 		acqService.insertAcq(map);
 		return "redirect:/reservation/accomDetail?accom_num=" + accom_num +"&tab=" + tab;
 	}
+	
+		
+	/*	@RequestMapping("/accomqna/deleteAccomqna")
+		public String delete(int accomqna_num,int accom_num) {
+			ModelAndView mv=new ModelAndView();
+			HashMap<String, Object>map = new HashMap<String, Object>();
+			map.put("accomqna_num",accomqna_num);
+			map.put("accom_num",accom_num);
+			mv.addObject("accom_num", accom_num);
+			acqService.delete(map);
+			return "redirect:/reservation/accomDetail?accom_num="+ accom_num;	
+		}*/
 }

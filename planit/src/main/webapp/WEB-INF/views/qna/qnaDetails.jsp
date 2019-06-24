@@ -63,7 +63,7 @@
 											"qcomm_content").text();
 									var qcomm_date = $(this).find("qcomm_date")
 											.text();
-									var str = "<h5>" + mem_id + "</h5><small>"
+									var str = "<h5><a href= " + mem_id + "</h5><small>"
 											+ qcomm_date + "</small></h4>"
 											+ "<p>" + qcomm_content
 											+ "</p><br>";
@@ -156,16 +156,26 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div style="text-align: center">
+			<table class="table">
 				<input type="hidden" value="${vo.qna_num }">
-				<h1>${vo.qna_title}</h1>작성자 <small><a href="#">${vo.mem_id }</a>
+				<tr>
+					<th>제목</th>
+					<td style="text-align: center;margin:auto;">${vo.qna_title}</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td style="font-size: 1.5em; color: gray">${vo.qna_content }</td>
+				</tr>
+				<!--  <h1>제목: ${vo.qna_title}</h1>작성자 <small><a href="#">${vo.mem_id }</a>
 					${vo.qna_date }</small> <br> <br>
 				<div>
 					<span style="font-size: 1.5em; color: gray">${vo.qna_content }</span>
-				</div>
+				</div>-->
 			</div>
+			</table>
 			<br> <br>
 			<div style="margin: auto; width: 500px;">
-				<h4>댓글</h4>
+				<h4>댓글남기기</h4>
 				<div>
 					<textarea id="qcomm_content" class="form-control" rows="2" required></textarea>
 					<input type="button" class="genric-btn danger small" id="addBtn"

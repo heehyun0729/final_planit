@@ -368,12 +368,12 @@
 							</div>
 							<div class="desc">
 								<h5>
-									<a
-										href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>">${vo.mem_id}</a>
+									<a href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>">${vo.mem_id}</a>
 								</h5>
-								<p class="date">${vo.accomqna_date}</p>
+								<p class="date">${vo.accomqna_date}<a href="${pageContext.request.contextPath }/accomqna/deleteAccomqna?accomqna_num=${vo.accomqna_num}">[삭제]</a></p>
 								<p style="font-weight: bold">${vo.accomqna_title}</p>
 								<p class="comment">${vo.accomqna_content }</p>
+								
 							</div>
 						</div>
 						<div class="reply-btn">
