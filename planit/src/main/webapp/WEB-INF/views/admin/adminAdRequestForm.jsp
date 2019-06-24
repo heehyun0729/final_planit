@@ -64,16 +64,16 @@
 		color: blue;
 	}
 	.dayName{
-		width: 169px; height: 20px; background-color: #f8f9fa; cursor:default;
+		width: 162px; height: 20px; background-color: #f8f9fa; cursor:default;
 	}
 	.dateNum{
-		width: 158px; height: 20px; text-align: left; text-indent: 10px; cursor:default;
+		width: 162px; height: 20px; text-align: left; text-indent: 10px; cursor:default;
 	}
 	.dateNumColor{
 		background-color: #f8f9fa;
 	}
 	.dayDo{
-		width: 158px; height: 70px; display: table-cell; vertical-align: middle;
+		width: 162px; height: 70px; display: table-cell; vertical-align: middle;
 	}
 	.hover{
 		
@@ -613,15 +613,13 @@
 }	
 </style>
 <div class="wrapper">
-<header>
-<section class="breadcrumb_area">
+<header class="breadcrumb_area">
 	<div class="overlay bg-ad" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
 	<div class="container">
 		<div class="page-cover text-center">
 			<h2 class="page-cover-tittle">광고 신청</h2>
 		</div>
 	</div>
-</section>
 </header>
 <section id="containerDiv" class="container">
 	<article class="formWrapper">		
@@ -658,6 +656,7 @@
 				<img id="rightBtn" class="cursor" alt="다음 정보" src="<c:url value='/resources/adminImages/right-arrow.png'/>">
 			</div>			
 		</div>
+		<div style="clear:both"></div>
 		<div id="chanceDiv" class="chanceDiv"></div>
 		<div id="none" style="display: none;"></div>
 	</article>
