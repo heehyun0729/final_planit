@@ -43,23 +43,179 @@
 		$("#date1").on("change", function(){
 			$("#date2").datepicker("option", "minDate", $("#date1").val());
 			if($("#date2").val()!=""){
-				
+				getProfit();
 			}
 		});
 		$("#date2").on("change", function(){
 			$("#date1").datepicker("option", "maxDate", $("#date2").val());
 			if($("#date1").val()!=""){
-				
+				getProfit();
 			}
 		});
 	});
-	
-	function getDays(){
-		let date1=$("#date1").val();
-		let date2=$("#date2").val();
-		let days=[];
-		//date1 date2 사이 날짜 하나씩 getjson 데이터 받아오기
-	}
+	<c:if test="${mem_stat==0 }">
+		function getProfit(){
+			let date1=new Date($("#date1").val());
+			let date2=new Date($("#date2").val());
+			let day=Math.ceil((date2-date1)/24/60/60/1000);
+			let days=[];
+			var getDays=new Date($("#date1").val());
+			for(var i=1;i<day+2;i++){//날짜
+				let todayYear=getDays.getFullYear();//년
+				let todayMonth=getDays.getMonth()+1;//월
+				if(todayMonth.toString().length==1){
+					todayMonth="0"+todayMonth;
+				}
+				let todayDate=getDays.getDate();//일
+				if(todayDate.toString().length==1){
+					todayDate="0"+todayDate;
+				}
+				const date=todayYear + "-" + todayMonth + "-" + todayDate;
+				getDays.setDate(getDays.getDate()+1);
+				days.push(date);
+			}
+			var adProfit=[];
+			var sellProfit=[];
+			var totalProfit=[];
+			var ctx1 = $("#profitChart");
+			$.getJSON("<c:url value='/admin/adminAdManagement/getDayAdProfit'/>", {stringDays:days.toString()}, function(data) {
+				if(data!=null){
+					for(var i=0;i<(data.length/2);i++){//광고수익
+						var dayAdProfit=data[i].adProfit;
+						adProfit.push(dayAdProfit);
+					}
+					for(var i=(data.length/2);i<data.length;i++){//예약수익
+						var daySellProfit=data[i].sellProfit;
+						sellProfit.push(daySellProfit);
+					}
+					for(var i=0;i<data.length;i++){//총수익
+						totalProfit.push(adProfit[i]+sellProfit[i]);
+					}
+					
+					var monthProfitChart = new Chart(ctx1, {
+					    type: 'line',
+					    data: {
+					        labels: days,
+					        datasets: [
+					        	{
+						            label: '# 광고 수익',
+						            data: adProfit,
+						            fill: false,
+						            borderColor: [
+						                'rgba(95, 0, 255, 1)'
+						            ],
+						            borderWidth: 2
+						        },
+						        {
+						            label: '# 판매 수익',
+						            data: sellProfit,
+						            fill: false,
+						            borderColor: [
+						                'rgba(75, 192, 192, 1)'
+						            ],
+						            borderWidth: 2
+					       		},
+					       		{
+						            label: '# 총 수익',
+						            data: totalProfit,
+						            fill: false,
+						            borderColor: [
+						                'rgba(29, 219, 22, 1)'
+						            ],
+						            borderWidth: 2
+					       		}
+						    ]
+					    },
+					    options: {
+					    	legend: {display: false},
+					    	maintainAspectRatio: false,
+					        scales: {
+					            yAxes: [{
+					            	gridLines:{display: false},
+					                ticks: {
+					                    beginAtZero: true
+					                }
+					            }],
+					            xAxes: [{
+					            	gridLines:{display: false},
+					                ticks: {
+					                    beginAtZero: true
+					                }
+					            }]
+					        }
+					    }
+					});
+				}
+			});
+		}
+	</c:if>
+	<c:if test="${mem_stat==1 }">
+		function getProfit(){
+			let date1=new Date($("#date1").val());
+			let date2=new Date($("#date2").val());
+			let day=Math.ceil((date2-date1)/24/60/60/1000);
+			let days=[];
+			var getDays=new Date($("#date1").val());
+			for(var i=1;i<day+2;i++){//날짜
+				let todayYear=getDays.getFullYear();//년
+				let todayMonth=getDays.getMonth()+1;//월
+				if(todayMonth.toString().length==1){
+					todayMonth="0"+todayMonth;
+				}
+				let todayDate=getDays.getDate();//일
+				if(todayDate.toString().length==1){
+					todayDate="0"+todayDate;
+				}
+				const date=todayYear + "-" + todayMonth + "-" + todayDate;
+				getDays.setDate(getDays.getDate()+1);
+				days.push(date);
+			}
+			var sellProfit=[];
+			var ctx1 = $("#profitChart");
+			$.getJSON("<c:url value='/admin/adminAdManagement/getSellerDayProfit'/>", {stringDays:days.toString(), mem_id:"${mem_id}"}, function(data) {
+				if(data!=null){
+					for(var i=0;i<data.length;i++){//총수익
+						sellProfit.push(data[i].sellProfit);
+					}
+					var monthProfitChart = new Chart(ctx1, {
+					    type: 'line',
+					    data: {
+					        labels: days,
+					        datasets: [
+					       		{
+						            label: '# 숙박 예약 수익',
+						            data: sellProfit,
+						            fill: false,
+						            borderColor: [
+						                'rgba(29, 219, 22, 1)'
+						            ],
+						            borderWidth: 2
+					       		}
+						    ]
+					    },
+					    options: {
+					    	legend: {display: false},
+					    	maintainAspectRatio: false,
+					        scales: {
+					            yAxes: [{
+					            	gridLines:{display: false},
+					                ticks: {
+					                    beginAtZero: true
+					                }
+					            }],
+					            xAxes: [{
+					            	gridLines:{display: false},
+					                ticks: {
+					                    beginAtZero: true
+					                }
+					            }]
+					        }
+					    }
+					});
+				}
+			});	
+		}
+	</c:if>	
 </script>
 <div class="container mt-5">
 	<div class="row mt-5">
@@ -94,44 +250,18 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col col d-flex justify-content-start align-items-center">
-								<c:if test="${mem_stat==0 }">
-									<div class="card mr-5 w-50 h-100">
-										<h4 class="card-header">광고율/수익</h4>
-										<div class="card-body text-center">
-											<div class="chart">
-												<canvas id="todayAdChart" ></canvas>
-											</div>
-											<span><fmt:formatNumber value="${map.adProfit }" pattern="#,###" />&#8361;</span>
-										</div>
-									</div>
-									<div class="card w-50 h-100">
-										<h4 class="card-header">숙소 예약율/수익</h4>
-										<div class="card-body text-center">
-											<div class="chart">
-												<canvas id="todaySellChart" ></canvas>
-											</div>
-											<span><fmt:formatNumber value="${map.todaySellProfit }" pattern="#,###" />&#8361;</span>
-										</div>
-									</div>
-								</c:if>
-							</div>
-						</div>
-						<c:if test="${mem_stat==0 }">
-							<div class="row  mt-3">
-								<div class="col">
-									<div class="card">
-										<h4 class="card-header">수익</h4>
-										<div class="card-body text-center">
-											<div class="chart">
-												<canvas id="monthProfitChart" width="100" height="200"></canvas>
-											</div>
+						<div class="row  mt-3">
+							<div class="col">
+								<div class="card">
+									<h4 class="card-header">수익</h4>
+									<div class="card-body text-center">
+										<div class="chart">
+											<canvas id="profitChart" width="100" height="200"></canvas>
 										</div>
 									</div>
 								</div>
 							</div>
-						</c:if>
+						</div>
 					</div>
 				</div>
 			</div>
