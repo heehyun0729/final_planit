@@ -49,7 +49,7 @@
 	<div class="container">
 		<div class="page-cover text-center">
 			<h2 class="page-cover-tittle f_48">여행후기</h2>
-			<p style="color: #D8D8D8">여행후기를 글 목록!!!</p>
+			<p style="color: #D8D8D8">여행후기 글 목록!!</p>
 		</div>
 	</div>
 </section>
@@ -145,8 +145,8 @@
 			<select name="field" class="custom-select" style="width: 100px;">
 				<option value="review_title"
 					<c:if test="${field=='review_title' }">selected="selected"</c:if>>글제목</option>
-				<option value="review_content"
-					<c:if test="${field=='review_content' }">selected="selected"</c:if>>글내용</option>
+				<option value="review_city"
+					<c:if test="${field=='review_city' }">selected="selected"</c:if>>도시</option>
 				<option value="review_country"
 					<c:if test="${field=='vo.review_country' }">selected="selected"</c:if>>국가</option>
 			</select> <input type="text" name="keyword" value="${keyword }" style="width:300px;height: 42px">

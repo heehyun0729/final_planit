@@ -315,8 +315,31 @@
 			<div class="tab-pane fade show active" id="accomReview"
 				role="tabpanel" aria-labelledby="home-tab">
 
-				<c:forEach var="vo" items="${rrlist }">
+				 <c:forEach var="vo" items="${rrlist }">
 					<div id="list">
+					
+								<div class="row d-flex" style='margin-bottom: 15px;'>
+						<div class="star p-2">
+						
+			             		
+			             		<c:otherwise>
+			             			<c:forEach begin = "0" end = "${vo.resReview_star - 1 }">
+			             			<i class="fas fa-star"></i>
+			               				채워진이미지
+					               	</c:forEach>
+					               	<c:forEach begin = "1" end = "${5 - vo.resReview_star }">
+					               		<i class="far fa-star"></i>
+					               		a 빈이미지
+					               	</c:forEach>
+			             		</c:otherwise>
+			             
+						</div>
+						<div class="p-2">
+							<span style = "color:#52C5FD;font-size: 24px;font-weight: bold;">${star }</span>
+
+						</div>
+					</div>
+					
 						<div class="resstar">
 							별점:
 							<p>${vo.resReview_star }</p>
@@ -331,18 +354,21 @@
 						</div>
 						<div class="content">
 							내용:
-							<p>${vo.resReview_content }</p>
+							<div>${vo.resReview_content }</div>
 						</div>
 						<div class="data">
 							작성일:
 							<p>${vo.resReview_data }</p>
 						</div>
-						<a
-							href="${pageContext.request.contextPath }/reservationReviewDelete?resReview_num=${vo.resReview_num}">후기글삭제</a>
-						<a
-							href="${pageContext.request.contextPath }/reservationReviewUpdate?resReview_num=${vo.resReview_num}&accom_num=${accom_num}">후기글수정</a>
+						<a style="color: #339af0;" href="${pageContext.request.contextPath }/reservationReview/reservationReviewInsert?resReview_num=${vo.resReview_num}">후기 글 등록</a> / 
+						<a style="color: #FA58F4;"
+							href="${pageContext.request.contextPath }/reservationReviewUpdate?resReview_num=${vo.resReview_num}&accom_num=${accom_num}">후기 글 수정</a> / 
+						<a style="color: #FE2E64;"
+							href="${pageContext.request.contextPath }/reservationReviewDelete?resReview_num=${vo.resReview_num}">후기 글 삭제</a>
+						
+						
 					</div>
-				</c:forEach>
+				</c:forEach> 
 			</div>
 			<div class="tab-pane fade" id="accomQna" role="tabpanel"
 				aria-labelledby="profile-tab">
