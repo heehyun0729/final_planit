@@ -63,7 +63,7 @@
 											"qcomm_content").text();
 									var qcomm_date = $(this).find("qcomm_date")
 											.text();
-									var str = "<h5><a href= " + mem_id + "</h5><small>"
+									var str = "<h5>" + mem_id + "</h5><small>"
 											+ qcomm_date + "</small></h4>"
 											+ "<p>" + qcomm_content
 											+ "</p><br>";
@@ -160,7 +160,7 @@
 				<input type="hidden" value="${vo.qna_num }">
 				<tr>
 					<th>제목</th>
-					<td style="text-align: center;margin:auto;">${vo.qna_title}</td>
+					<td style="font-size:30px;text-align: center;margin:auto;">${vo.qna_title}</td>
 				</tr>
 				<tr>
 					<th>내용</th>
@@ -171,7 +171,6 @@
 				<div>
 					<span style="font-size: 1.5em; color: gray">${vo.qna_content }</span>
 				</div>-->
-			</div>
 			</table>
 			<br> <br>
 			<div style="margin: auto; width: 500px;">
