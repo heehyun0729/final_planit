@@ -43,7 +43,7 @@
 							</c:when>
 							<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 2}">
 								<td class = "align-middle">이용완료</td>
-								<td class = "align-middle"><a href = "#" class="genric-btn primary small">후기작성</a></td>
+								<td class = "align-middle"><a href = "<c:url value='/reservationReview/reservationReviewInsert?rsvn_num=${vo.rsvn_num }'/>" class="genric-btn primary small">후기작성</a></td>
 							</c:when>
 							<c:when test="${vo.rsvnPay_stat == 0 && vo.status == 3}">
 								<td class = "align-middle">이용완료</td>

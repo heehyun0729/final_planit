@@ -28,10 +28,10 @@
 				<option value="맛집">맛집</option>
 			</select>
 			<div style="padding-top: 100px">
-			<input class="form-control" type="text" name="qna_title">
+			제목<input class="form-control" type="text" name="qna_title">
 			</div>
 			<div style="padding-top: 20px">
-			<textarea id="summernote" name="qna_content"></textarea>
+			내용<textarea id="summernote" name="qna_content"></textarea>
 			<div style="margin:auto;">
 			<input style="margin:auto;" class="genric-btn danger radius" type="submit" value="등록">
 			</div>	

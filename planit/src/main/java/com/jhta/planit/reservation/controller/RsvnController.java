@@ -30,6 +30,7 @@ import com.jhta.planit.accom.service.AccomService;
 import com.jhta.planit.accom.vo.AccomVo;
 import com.jhta.planit.accomQna.service.AccomQnaService;
 import com.jhta.planit.accomQna.vo.AccomQnaVo;
+import com.jhta.planit.qna.service.QnaService;
 import com.jhta.planit.reservation.service.RsvnAccomService;
 import com.jhta.planit.reservation.service.RsvnPayService;
 import com.jhta.planit.reservation.service.RsvnRoomService;
@@ -80,7 +81,7 @@ public class RsvnController {
 			int n1 = rsvnPayService.insert(map);
 			if(n1 > 0) {
 				// 마이페이지 예약내역
-				return "redirect:/member/mypage/" + mem_id + "/reservation/list";
+				return "redirect:/member/mypage/" + mem_id + "/myRsvnList";
 			}else {
 				return ".error";
 			}
@@ -158,9 +159,10 @@ public class RsvnController {
         params.add("quantity", "1");
         params.add("total_amount", total_amount);
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "http://localhost:9090/planit/reservation/payApproval");
-        params.add("cancel_url", "http://localhost:9090/planit/reservation/payCancel");
-        params.add("fail_url", "http://localhost:9090/planit/reservation/payFail");
+        
+        params.add("approval_url", "http://192.168.0.21:9090/planit/reservation/payApproval");
+        params.add("cancel_url", "http://192.168.0.21:9090/planit/reservation/payCancel");
+        params.add("fail_url", "http://192.168.0.21:9090/planit/reservation/payFail");
  
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         Object object = restTemplate.postForObject(host, body, Map.class);        
@@ -205,7 +207,8 @@ public class RsvnController {
 		FileReader fr = null;
 		String key = "";
 		try {
-			fr = new FileReader(new File("C:\\spring\\planit2\\src\\main\\webapp\\resources\\apiKey.txt"));
+			fr = new FileReader(new File("C:\\spring\\workspace\\maven.1560944618293\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
+			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;
@@ -272,6 +275,10 @@ public class RsvnController {
 			}
 		} 
 		List<ReservationReviewVo> rrlist=reservationReviewService.list(accom_num);
+		System.out.println("@@@@@@@@@ " + rrlist);
+		int star = rsvnAccomService.avgStar(accom_num);
+		int reviewCnt = rsvnAccomService.reviewCount(accom_num);
+		
 		model.addAttribute("rrlist", rrlist);
 		model.addAttribute("avo", avo);
 		model.addAttribute("rlist", rlist);
@@ -280,6 +287,8 @@ public class RsvnController {
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("accom_num", accom_num);
+		model.addAttribute("star", star);
+		model.addAttribute("reviewCnt", reviewCnt);
 		
 		//숙소문의 댓글목록
 		HashMap<String, Object> map2 = new HashMap<String, Object>();
@@ -318,7 +327,7 @@ public class RsvnController {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		
-		List<RsvnAccomVo> list = rsvnAccomService.list(map);
+		List<RsvnAccomVo> list = rsvnAccomService.list(map);		
 		model.addAttribute("list", list);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("startRow", startRow);
@@ -330,7 +339,6 @@ public class RsvnController {
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("cnt", cnt);
-		System.out.println(pu.getStartRow() + ", " + pu.getEndRow());
 		return ".reservation.accomList";
 	}
 	//숙소 댓글 등록
@@ -348,4 +356,16 @@ public class RsvnController {
 		acqService.insertAcq(map);
 		return "redirect:/reservation/accomDetail?accom_num=" + accom_num +"&tab=" + tab;
 	}
+	
+		
+	/*	@RequestMapping("/accomqna/deleteAccomqna")
+		public String delete(int accomqna_num,int accom_num) {
+			ModelAndView mv=new ModelAndView();
+			HashMap<String, Object>map = new HashMap<String, Object>();
+			map.put("accomqna_num",accomqna_num);
+			map.put("accom_num",accom_num);
+			mv.addObject("accom_num", accom_num);
+			acqService.delete(map);
+			return "redirect:/reservation/accomDetail?accom_num="+ accom_num;	
+		}*/
 }

@@ -19,13 +19,14 @@ public class AccomQnaDao {
 	public int insertAcq(HashMap<String, Object>map) {
 		return sqlSession.insert(NAMESPACE + ".insert",map);
 	}
-	/*public List<AccomQnaVo> acqList(HashMap<String, Object>map){
-		return sqlSession.selectList(NAMESPACE + ".list",map);
-	}*/
+	public int deleteAcq(HashMap<String, Object>map) {
+		return sqlSession.delete(NAMESPACE + ".delete", map);
+	}
 	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
 		return sqlSession.selectList(NAMESPACE + ".list",map);
 	}
 	public int count(HashMap<String, Object>map) {
 		return sqlSession.selectOne(NAMESPACE + ".count",map);
 	}
+	
 }
