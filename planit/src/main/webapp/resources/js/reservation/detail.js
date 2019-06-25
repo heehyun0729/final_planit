@@ -3,7 +3,6 @@ var num;
 var addr, name;
 var checkin, checkout, cnt;
 $(function() {
-
 		var from = $( "#rsvnCheckinDatepicker" ).datepicker({
 		dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
 		monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", 
