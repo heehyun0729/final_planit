@@ -343,7 +343,7 @@
 			             
 						</div>
 						<div class="p-2">
-							<span style = "color:#52C5FD;font-size: 24px;font-weight: bold;">${star }</span>
+							<span style = "color:#52C5FD;font-size: 24px;font-weight: bold;">${vo.resReview_star }</span>
 
 						</div>
 					</div>

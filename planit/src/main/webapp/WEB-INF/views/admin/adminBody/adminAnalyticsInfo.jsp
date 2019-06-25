@@ -58,11 +58,12 @@
 			}
 		});
 		$("#downloadMsg").on("click", function(){
-			$.getJSON("<c:url value='/adminAnalytics/profitInfoDownload'/>", {mem_stat:${mem_stat}, stringDays:days.toString(), stringAdProfit:adProfit.toString(), stringSellProfit:sellProfit.toString(), stringTotalProfit:totalProfit.toString()}, function(data) {
-				if(data!=null){
-					alert(data.code);
-				}
-			});
+			$(location).attr("href", "<c:url value='/adminAnalytics/profitInfoDownload?stringDays="+days.toString()+"&stringAdProfit="+adProfit.toString()+"&stringSellProfit="+sellProfit.toString()+"&stringTotalProfit="+totalProfit.toString()+"&mem_stat="+${mem_stat}+"'/>");
+			//$.getJSON("<c:url value='/adminAnalytics/profitInfoDownload'/>", {mem_stat:${mem_stat}, stringDays:days.toString(), stringAdProfit:adProfit.toString(), stringSellProfit:sellProfit.toString(), stringTotalProfit:totalProfit.toString()}, function(data) {
+			//	if(data!=null){
+			//		alert(data.code);
+			//	}
+			//});
 		});
 	});
 	var days=[];
