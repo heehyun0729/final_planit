@@ -77,6 +77,6 @@
  and r.resreview_chk!=1 and o.accom_num=#{accom_num}
  	</select>
  	<select id="reslist" parameterType="int" resultType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
-   select * from ReservationReview where accom_num=#{accom_num}
+  select * from ReservationReview where accom_num=#{accom_num} order by resReview_num desc, resReview_data desc
    </select>
    </mapper>
