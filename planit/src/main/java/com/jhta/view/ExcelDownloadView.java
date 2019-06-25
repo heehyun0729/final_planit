@@ -25,8 +25,7 @@ public class ExcelDownloadView extends AbstractExcelView{
 		String[] sellProfit=(String[])model.get("sellProfit");
 		String[] totalProfit=(String[])model.get("totalProfit");
 		
-		HSSFSheet sheet1 = workbook.createSheet("sheet1");// Sheet »ý¼º
-		
+		HSSFSheet sheet1 = workbook.createSheet("sheet1");
 		HSSFRow row = null;
 	    HSSFCell cell = null;
      
