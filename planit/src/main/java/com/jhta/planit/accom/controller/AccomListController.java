@@ -53,9 +53,6 @@ public class AccomListController {
 		map.put("field",field);
 		map.put("keyword",keyword);
 		map.put("mem_id",session.getAttribute("mem_id"));
-		SellerVo vo1 = service.find((String)map.get("mem_id"));
-		int sell_num=vo1.getSell_num();
-		map.put("sell_num", sell_num);
 		//전체 글의갯수
 		int totalRowCount=service.count(map);
 		PageUtil pu=new PageUtil(pageNum,totalRowCount,10, 10);

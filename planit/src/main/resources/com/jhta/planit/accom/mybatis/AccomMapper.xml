@@ -13,7 +13,9 @@
 		<if test="field!=null and field!=''">
 		    and ${field} like '%'||#{keyword}||'%'
 		</if>
-		and sell_num=#{sell_num}
+		<if test="sell_num!=null and sell_num!=''">
+			and sell_num=#{sell_num}
+		</if>
 	</sql>
 	<!-- 전체글의갯수 -->
 	<select id="count" resultType="int" parameterType="hashmap"> 
