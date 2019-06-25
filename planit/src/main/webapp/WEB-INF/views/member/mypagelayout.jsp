@@ -53,11 +53,12 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
-	<section class="breadcrumb_area">
+<section class="breadcrumb_area">
 	<div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
 	<div class="container">
 		<div class="page-cover text-center">
-			<h2 class="page-cover-tittle">마이페이지</h2>
+			<h2 class="page-cover-tittle f_48">마이페이지</h2>
+			<p style="color: #D8D8D8">나를 소개해보세요!</p>
 		</div>
 	</div>
 </section>
