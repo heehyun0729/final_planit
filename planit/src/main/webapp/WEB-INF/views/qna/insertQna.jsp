@@ -32,8 +32,8 @@
 			</div>
 			<div style="padding-top: 20px">
 			내용<textarea id="summernote" name="qna_content"></textarea>
-			<div style="margin:auto;">
-			<input style="margin:auto;" class="genric-btn danger radius" type="submit" value="등록">
+			<div style="margin-top: 20px;">
+			<input style="margin:auto;margin-left: 500px;" class="genric-btn danger radius" type="submit" value="등록">
 			</div>	
 			</div>
 		</form>
@@ -43,7 +43,7 @@
 		<div>
 		<script>
 			$("#summernote").summernote({
-				height : 300px,
+				height : 300,
 				minHeight : null,
 				maxHeight : null
 			});
