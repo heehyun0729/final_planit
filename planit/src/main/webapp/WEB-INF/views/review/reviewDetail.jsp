@@ -112,14 +112,17 @@
 </script>
 <!--================Breadcrumb Area =================-->
 <section class="breadcrumb_area">
-    <div class="overlay bg-parallax" style = "background: url(../resources/images/map.jpg)" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">여행후기</h2>
-        </div>
-    </div>
+	<div class="overlay bg-parallax"
+		style="background: url(../resources/images/buddy02.jpg)"
+		data-stellar-ratio="0.8" data-stellar-vertical-offset="0"
+		data-background=""></div>
+	<div class="container">
+		<div class="page-cover text-center">
+			<h2 class="page-cover-tittle f_48">여행후기</h2>
+			<p style="color: #D8D8D8"></p>
+		</div>
+	</div>
 </section>
-
 
 <div class="container">
 <h1>상세 화면</h1>

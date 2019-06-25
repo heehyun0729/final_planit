@@ -37,13 +37,13 @@
 <!--================Breadcrumb Area =================-->
 <section class="breadcrumb_area">
 	<div class="overlay bg-parallax"
-		style="background: url(resources/images/buddy02.jpg)"
+		style="background: url(../resources/images/buddy02.jpg)"
 		data-stellar-ratio="0.8" data-stellar-vertical-offset="0"
 		data-background=""></div>
 	<div class="container">
 		<div class="page-cover text-center">
-			<h2 class="page-cover-tittle f_48">여행 후기</h2>
-			<p style="color: #D8D8D8">여행 후기 글을 수정 해주세요!!</p>
+			<h2 class="page-cover-tittle f_48">여행후기</h2>
+			<p style="color: #D8D8D8"></p>
 		</div>
 	</div>
 </section>
