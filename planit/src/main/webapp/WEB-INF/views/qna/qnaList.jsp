@@ -8,7 +8,6 @@
 			}
 	.tag{color:#EE4141}
 	.button{text-align:center;}
-	.container{margin-top:80px;}
 </style>
 
 <section class="breadcrumb_area">
@@ -23,7 +22,7 @@
 
 <div id="list">
 	<div class="container">
-		<table class="table table-hover">
+		<table class="table table-hover" style="margin-top:80px";>
 			<tr>
 				<th>글번호</th>
 				<th>카테고리</th>
