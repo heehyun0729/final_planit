@@ -152,7 +152,7 @@
 <!--<div class="container-fluid" style = "border:1px solid #aaa;border-radius: 5px;padding:30px 20px 30px 100px;"> -->
 
 
-<div class="container">
+<div class="container" style="margin-top:50px">
 	<div class="row">
 		<div class="col-lg-12">
 			<div style="text-align: center">
@@ -160,7 +160,7 @@
 				<input type="hidden" value="${vo.qna_num }">
 				<tr>
 					<th>제목</th>
-					<td style="font-size:30px;text-align: center;margin:auto;">${vo.qna_title}</td>
+					<td style="font-size:20px;text-align: center;margin:auto;">${vo.qna_title}</td>
 				</tr>
 				<tr>
 					<th>내용</th>

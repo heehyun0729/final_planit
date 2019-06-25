@@ -395,14 +395,14 @@
 								<img src="<c:url value = '${vo.img_saveimg }'/>" class="avatar"
 									style="margin-bottom: 5px; width: 50px; height: 50px;">
 							</div>
-							<div class="desc">
+							<div class="desc" style="margin-left:20px;">
 								<h5>
 									<a href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>">${vo.mem_id}</a>
 								</h5>
 								<p class="date">${vo.accomqna_date} 
 								<a href="${pageContext.request.contextPath }/deleteAccomqna?accomqna_num=${vo.accomqna_num}&accom_num=${avo.accom_num}"> [삭제]</a></p>
-								<p style="font-weight: bold">${vo.accomqna_title}</p>
-								<p class="comment">${vo.accomqna_content }</p>
+								<p style="font-weight: bold; margin-left:10px;">${vo.accomqna_title}</p>
+								<p class="comment" style="font-weight: bold; margin-left:10px;">${vo.accomqna_content }</p>
 								
 							</div>
 						</div>

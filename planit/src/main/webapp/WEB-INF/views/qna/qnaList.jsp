@@ -8,6 +8,7 @@
 			}
 	.tag{color:#EE4141}
 	.button{text-align:center;}
+	.container{margin-top:80px;}
 </style>
 
 <section class="breadcrumb_area">
