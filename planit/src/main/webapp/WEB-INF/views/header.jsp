@@ -31,7 +31,7 @@
 							<li class="nav-item"><a href="<c:url value='/user/logout'/>" class="nav-link" title = "로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
 							<script>
 							var xhr = null;
-						    var cnum=setInterval(countList);
+						    var cnum=setInterval(countList,100);
 							function countList() {
 								xhrList = new XMLHttpRequest();
 								xhrList.onreadystatechange = countListOk;
@@ -45,9 +45,12 @@
 									var result=data.getElementsByTagName("result")[0];
 									var comm = result.getElementsByTagName("comm")[0];
 									var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
-									if(c!=0){
-										messageBadge.innerHTML=  c;
-								    }
+									messageBadge.innerHTML=  c;
+									if(c==0)
+										{
+										messageBadge.innerHTML="";
+										}
+								   
 								}
 							}
 							</script>
