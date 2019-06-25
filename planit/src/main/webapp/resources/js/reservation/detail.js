@@ -184,7 +184,6 @@ function setPayBtn() {
 }
 
 function roomCheck() {
-	console.log(111);
 	checkin = $("#rsvnCheckinDatepicker").val();
 	checkout = $("#rsvnCheckoutDatepicker").val();
 	cnt = $("#rsvnDialogCnt").val();
