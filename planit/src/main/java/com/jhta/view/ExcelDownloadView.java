@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
 
 public class ExcelDownloadView extends AbstractExcelView{
@@ -24,7 +25,7 @@ public class ExcelDownloadView extends AbstractExcelView{
 		String[] sellProfit=(String[])model.get("sellProfit");
 		String[] totalProfit=(String[])model.get("totalProfit");
 		
-		Workbook wb = new HSSFWorkbook(); // Excel 2007 捞傈 滚傈 Workbook 积己
+		XSSFWorkbook wb = new XSSFWorkbook(); // workbook 积己
 		Sheet sheet1 = wb.createSheet("new sheet");// Sheet 积己
 		
 		Row row = null;
