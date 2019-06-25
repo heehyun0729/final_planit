@@ -74,9 +74,7 @@
  	select r.resReview_num,r.resReview_title, r.resReview_content , r.resReview_data, r.resReview_star,r.mem_id
  from reservationReview r , rsvn s, room o , accom a
  where s.rsvn_num =r.rsvn_num and o.room_num=s.room_num and o.accom_num= a.accom_num
- and r.resreview_chk!=1 and o.accom_num=#{accom_num}
+ and r.resreview_chk!=1 and o.accom_num=#{accom_num} 
+ order by r.resReview_data desc
  	</select>
- 	<select id="reslist" parameterType="int" resultType="com.jhta.planit.reservationReview.vo.ReservationReviewVo">
-  select * from ReservationReview where accom_num=#{accom_num} order by resReview_num desc, resReview_data desc
-   </select>
    </mapper>
