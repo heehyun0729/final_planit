@@ -208,7 +208,6 @@ public class RsvnController {
 		String key = "";
 		try {
 			fr = new FileReader(new File("C:\\spring\\workspace\\maven.1560944618293\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
-			fr = new FileReader(new File("C:\\Users\\JHTA\\git\\repository\\planit\\src\\main\\webapp\\resources\\apiKey.txt"));
 			while(true) {
 				int n = fr.read();
 				if(n == -1) break;
@@ -293,6 +292,7 @@ public class RsvnController {
 		//¼÷¼Ò¹®ÀÇ ´ñ±Û¸ñ·Ï
 		HashMap<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("pageNum", pageNum);
+		map2.put("accom_num", accom_num);
 		int totalRowCount = acqService.count(map2);
 		PageUtil pu = new PageUtil(pageNum, totalRowCount, 5, 5);
 		map2.put("startRow", pu.getStartRow());
@@ -300,7 +300,7 @@ public class RsvnController {
 		List<AccomQnaVo> list=acqService.acqList(map2);
 		model.addAttribute("list", list);
 		model.addAttribute("pu", pu);
-
+		model.addAttribute("accom_num", accom_num);
 		
 		return ".reservation.accomDetail";
 

@@ -21,7 +21,7 @@
 			)acq
 		)	-->
 			select aa.*, m.img_saveImg img_saveImg from accomqna aa, memImage m
-			where aa.mem_id = m.mem_id 
+			where aa.mem_id = m.mem_id and aa.accom_num=#{accom_num}
 			<!--  <![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>-->
 	</select>	
 	
