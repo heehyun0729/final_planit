@@ -198,7 +198,6 @@ function roomCheck() {
 				cnt: cnt
 			},
 			success: function(data) {
-				console.log(data);
 				if(data.room_num == -1){	// 방 예약이 이미 차있는 경우
 					cnt = -1;
 					setRsvnDialog(0);
