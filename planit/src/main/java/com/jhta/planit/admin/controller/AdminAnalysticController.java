@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -148,71 +149,17 @@ public class AdminAnalysticController {
 		return jsonArray.toString();
 	}
 	@RequestMapping(value="/adminAnalytics/profitInfoDownload", produces="application/json;charset=utf-8")//일자별 광고 정보 출력
-	@ResponseBody
-	public HashMap<String, String> downloadExcel(int mem_stat, String stringDays, @RequestParam(value = "stringAdProfit", defaultValue = "")String stringAdProfit, String stringSellProfit, @RequestParam(value = "stringTotalProfit", defaultValue = "")String stringTotalProfit) {
+	public String downloadExcel(Model model, int mem_stat, String stringDays, @RequestParam(value = "stringAdProfit", defaultValue = "")String stringAdProfit, String stringSellProfit, @RequestParam(value = "stringTotalProfit", defaultValue = "")String stringTotalProfit) {
 		String[] days=stringDays.split(",");
 		String[] adProfit=stringAdProfit.split(",");
 		String[] sellProfit=stringSellProfit.split(",");
 		String[] totalProfit=stringTotalProfit.split(",");
-		System.out.println("@"+stringDays);
-		System.out.println("@@"+stringAdProfit);
-		System.out.println("@@@"+stringSellProfit);
-		System.out.println("@@@@"+stringTotalProfit);
-		Workbook wb = new HSSFWorkbook(); // Excel 2007 이전 버전 Workbook 생성
-		Sheet sheet1 = wb.createSheet("new sheet");// Sheet 생성
-		
-		Row row = null;
-	    Cell cell = null;
-     
-		row=sheet1.createRow(0);
-         
-        cell=row.createCell(0);
-        cell.setCellValue("날짜");
-        
-        if(mem_stat==0) {
-        	cell=row.createCell(1);
-            cell.setCellValue("광고매출");
-            cell=row.createCell(2);
-            cell.setCellValue("숙소매출");
-            cell=row.createCell(3);
-            cell.setCellValue("총 매출");
-    	}else {
-    		cell=row.createCell(1);
-            cell.setCellValue("숙소매출");
-    	}
-        
-        for(int i=0;i<days.length;i++) {
-        	row=sheet1.createRow(i+1);
-        	cell=row.createCell(0);
-        	cell.setCellValue(days[i]);
-        	if(mem_stat==0) {
-        		cell=row.createCell(1);
-        		cell.setCellValue(adProfit[i]);
-        		cell=row.createCell(2);
-        		cell.setCellValue(sellProfit[i]);
-        		cell=row.createCell(3);
-        		cell.setCellValue(totalProfit[i]);
-        	}else {
-        		cell=row.createCell(1);
-            	cell.setCellValue(sellProfit[i]);
-        	}        	
-        }
-        HashMap<String, String> code=new HashMap<String, String>();
-        // excel 파일 저장
-        try {
-            File xlsFile = new File("C:\\Users\\JHTA\\Downloads\\profitExcel.xls");
-            FileOutputStream fileOut = new FileOutputStream(xlsFile);
-            wb.write(fileOut);
-            code.put("code", "success");
-            return code;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            code.put("code", "fail");
-            return code;
-        } catch (IOException e) {
-            e.printStackTrace();
-            code.put("code", "fail");
-            return code;
-        }
+		model.addAttribute("mem_stat", mem_stat);
+		model.addAttribute("days", days);
+		model.addAttribute("adProfit", adProfit);
+		model.addAttribute("sellProfit", sellProfit);
+		model.addAttribute("totalProfit", totalProfit);
+        return "ExcelDownloadView";
 	}
+	
 }

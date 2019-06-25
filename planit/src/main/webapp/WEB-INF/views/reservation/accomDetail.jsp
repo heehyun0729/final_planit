@@ -314,7 +314,7 @@
 		<div class="tab-content" id="accomTabContent" style="padding: 20px;">
 			<div class="tab-pane fade show active" id="accomReview"
 				role="tabpanel" aria-labelledby="home-tab">
-
+				<a style="color: #339af0;" href="${pageContext.request.contextPath }/reservationReview/reservationReviewInsert?accom_num=${accom_num}">후기 글 등록</a>	
 				 <c:forEach var="vo" items="${rrlist }">
 					<div id="list">
 					
@@ -343,7 +343,7 @@
 			             
 						</div>
 						<div class="p-2">
-							<span style = "color:#52C5FD;font-size: 24px;font-weight: bold;">${star }</span>
+							<span style = "color:#52C5FD;font-size: 24px;font-weight: bold;">${vo.resReview_star }</span>
 
 						</div>
 					</div>
@@ -363,8 +363,7 @@
 						<div class="data">
 							작성일:
 							<p>${vo.resReview_data }</p>
-						</div>
-						<a style="color: #339af0;" href="${pageContext.request.contextPath }/reservationReview/reservationReviewInsert?resReview_num=${vo.resReview_num}">후기 글 등록</a> / 
+						</div> 
 						<a style="color: #FA58F4;"
 							href="${pageContext.request.contextPath }/reservationReviewUpdate?resReview_num=${vo.resReview_num}&accom_num=${accom_num}">후기 글 수정</a> / 
 						<a style="color: #FE2E64;"

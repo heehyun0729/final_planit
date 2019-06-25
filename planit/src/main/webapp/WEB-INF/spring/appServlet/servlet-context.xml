@@ -45,11 +45,17 @@
 		<beans:property name="order" value="4"/>
 	</beans:bean>
 
+	<!-- ExcelDownloadView -->
+	<beans:bean id="ExcelDownloadView" class="com.jhta.view.ExcelDownloadView"/>
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="5"/>
+	</beans:bean>
+	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-		<beans:property name="order" value="5"/>
+		<beans:property name="order" value="6"/>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.jhta.planit.*.controller"/>

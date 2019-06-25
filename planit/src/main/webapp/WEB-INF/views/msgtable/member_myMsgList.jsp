@@ -126,7 +126,7 @@
 	}
 </script>
 <body>
-	<div class="container" style="width: 500px; margin: auto;">
+	<div class="container" style="width:700px; margin: auto;" >
 		<div class="row mt-5">
 			<div
 				class="col d-flex justify-content-start align-items-center text-center mt-5">
@@ -141,7 +141,7 @@
 								class="genric-btn info circle">받은 쪽지함</a> &nbsp;&nbsp;&nbsp; <a
 								href="${pageContext.request.contextPath}/msgSendList?memId=${mem_id }&msgType=SEND"
 								class="genric-btn info circle">보낸쪽지함</a> <br /> <br />
-							<table class="table">
+							<table class="table" style="width: 700px;">
 								<tr>
 									<th>${type=="SEND" ? "받은사람" : "보낸사람"}</th>
 									<th>쪽지내용</th>
@@ -169,7 +169,7 @@
 											<tr>
 												<td>${type=="SEND" ? vo.receiveMemId : vo.sendMemId}</td>
 												<td onclick="dm('${vo.msgNum}')"><a
-													style="color: pink;" href="#"><nobr>${vo.msgContent.replace("<br/>","")}</nobr></a>
+													style="color: pink;" href="#"><nobr>${vo.msgContent.substring(0,3)}..</nobr></a>
 												</td>
 												<td>${vo.msgWdate}</td>
 												<c:if test="${type=='SEND'}">
@@ -236,11 +236,11 @@
 									<div>
 										<form method="post" id="form1"
 											action="<c:url value='/msgReceiveList?memId=${mem_id }&msgType=RECEIVE'/>">
-											<select name="field">
+											<select style="margin-left: 300px;" name="field">
 												<option value="sendMemId"
 													<c:if test="${field=='sendMemId'}">selected="selected"</c:if>>보낸아이디</option>
 											</select> <input type="text" name="keyword" value="${keyword }">
-											<a href="#" style="margin-right: 100px;"
+											<a href="#" style="margin-right: 300px;"
 												onclick="$('#form1').submit();"><i class="fas fa-search"
 												style="color: #339af0;"></i></a>
 										</form>
@@ -298,7 +298,7 @@
 												<option value="receiveMemId"
 													<c:if test="${field=='receiveMemId'}">selected="selected"</c:if>>받은아이디</option>
 											</select> <input type="text" name="keyword" value="${keyword }">
-											<a href="#" style="margin-right: 100px;"
+											<a href="#" style="margin-right: 300px;"
 												onclick="$('#form1').submit();"><i class="fas fa-search"
 												style="color: #339af0;"></i></a>
 										</form>
