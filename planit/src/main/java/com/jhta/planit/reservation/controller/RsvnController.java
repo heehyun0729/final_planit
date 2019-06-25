@@ -357,15 +357,11 @@ public class RsvnController {
 		return "redirect:/reservation/accomDetail?accom_num=" + accom_num +"&tab=" + tab;
 	}
 	
-		
-	/*	@RequestMapping("/accomqna/deleteAccomqna")
+	//渤旋餉薯
+		@RequestMapping("/deleteAccomqna")
 		public String delete(int accomqna_num,int accom_num) {
-			ModelAndView mv=new ModelAndView();
-			HashMap<String, Object>map = new HashMap<String, Object>();
-			map.put("accomqna_num",accomqna_num);
-			map.put("accom_num",accom_num);
-			mv.addObject("accom_num", accom_num);
-			acqService.delete(map);
+			System.out.println(accomqna_num+"之之之之之之之之之之渠渤");
+			acqService.delete(accomqna_num);
 			return "redirect:/reservation/accomDetail?accom_num="+ accom_num;	
-		}*/
+		}
 }

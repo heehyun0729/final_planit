@@ -7,8 +7,8 @@
 		insert into accomqna 
 		values(accomqna_num_seq.nextval,#{mem_id},#{accom_num},#{accomqna_title},#{accomqna_content},sysdate) 
 	</insert>
-	<delete id="delete" parameterType="hashmap">
-		delete from accomqna where accomqna_num=#{accomqna_num} and accom_num=#{accom_num}
+	<delete id="delete" parameterType="int">
+		delete from accomqna where accomqna_num=#{accomqna_num}
 	</delete>
 	<select id="count" resultType="int" parameterType="hashmap">
 		select NVL(count(*),0) cnt from accomqna

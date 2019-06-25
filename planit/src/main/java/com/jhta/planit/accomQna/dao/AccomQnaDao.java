@@ -19,8 +19,8 @@ public class AccomQnaDao {
 	public int insertAcq(HashMap<String, Object>map) {
 		return sqlSession.insert(NAMESPACE + ".insert",map);
 	}
-	public int deleteAcq(HashMap<String, Object>map) {
-		return sqlSession.delete(NAMESPACE + ".delete", map);
+	public int deleteAcq(int accomqna_num) {
+		return sqlSession.delete(NAMESPACE + ".delete", accomqna_num);
 	}
 	public List<AccomQnaVo> acqList(HashMap<String, Object>map){
 		return sqlSession.selectList(NAMESPACE + ".list",map);
