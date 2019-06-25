@@ -157,10 +157,9 @@
 										</span> <input type="number" id="rsvnCnt" min="1" name="cnt"
 											value="${cnt }" class="form-control single-input"
 											style="width: 100px;"> <span
-											class="btn sub-btn disabled">명</span> <span
+											class="btn sub-btn disabled" style = "padding-right:0;">명</span> <span
 											class="input-group-btn">
-											<button type="button" class="btn" onclick="increaseCnt()"
-												style="padding-left: 0;">
+											<button type="button" class="btn" onclick="increaseCnt()">
 												<span style="color: #52C5FD"><i class="fas fa-plus"></i></span>
 											</button>
 										</span>
