@@ -46,7 +46,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text"><span class="fas fa-pen-square"></span></span>
 			</div>
-			<textarea rows="5" id="profile_comm" name="profile_comm" class="form-control" onKeyUp="javascript:fnChkByte(this,'950')" style="resize: none;">${map.PROFILE_COMM }</textarea>
+			<textarea id="profile_comm" name="profile_comm" class="form-control" onKeyUp="javascript:fnChkByte(this,'950')">${map.PROFILE_COMM }</textarea>
 		</div>
 		<div class="mb-4 d-flex justify-content-end">
 			<div class="p-2"><span id="byteInfo">0</span>/950bytes</div>
@@ -97,4 +97,11 @@
 			document.getElementById('byteInfo').innerText = rbyte;
 		}
 	}
+	
+	$("#profile_comm").summernote({
+		height: 300,
+		minHeight : 300,
+		maxHeight : 500
+	});
+	
 </script>
