@@ -382,9 +382,9 @@
 						<input type="hidden" name="accom_num" value="${avo.accom_num }">
 						<input type="hidden" name="mem_id" value="${sessionScope.mem_id }">
 						<input type="text" name="accomqna_title" class="form-control"
-							placeholder="제목입력"><br>
+							placeholder="제목입력" style="border:solid 1px #ff4444"><br>
 						<textarea rows="5" cols="40" name="accomqna_content"
-							placeholder="내용을 입력하세요." class="form-control mb-10"></textarea>
+							placeholder="내용을 입력하세요." class="form-control mb-10" style="border:solid 1px #ff4444"></textarea>
 						<br> <input type="submit" class="genric-btn danger small" value="확인">
 					</div>
 					<br>
@@ -400,7 +400,8 @@
 								<h5>
 									<a href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>">${vo.mem_id}</a>
 								</h5>
-								<p class="date">${vo.accomqna_date}<a href="${pageContext.request.contextPath }/deleteAccomqna?accomqna_num=${vo.accomqna_num}&accom_num=${avo.accom_num}"> [삭제]</a></p>
+								<p class="date">${vo.accomqna_date} 
+								<a href="${pageContext.request.contextPath }/deleteAccomqna?accomqna_num=${vo.accomqna_num}&accom_num=${avo.accom_num}"> [삭제]</a></p>
 								<p style="font-weight: bold">${vo.accomqna_title}</p>
 								<p class="comment">${vo.accomqna_content }</p>
 								

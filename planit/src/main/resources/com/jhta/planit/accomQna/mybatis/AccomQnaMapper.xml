@@ -15,15 +15,10 @@
 	</select>
 	
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.accomQna.vo.AccomQnaVo"><!-- "com.jhta.planit.accomQna.vo.AccomQnaVo" -->
-		<!-- select * from(
-			select acq.*,rownum rnum from(
-			select * from accomqna
-			order by accomqna_num desc 
-			)acq
-		)	-->
+	
 			select aa.*, m.img_saveImg img_saveImg from accomqna aa, memImage m
 			where aa.mem_id = m.mem_id and aa.accom_num=#{accom_num} order by accomqna_num desc
-			<!--  <![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>-->
+			 <!-- <![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]> -->
 	</select>	
 	
 </mapper>
