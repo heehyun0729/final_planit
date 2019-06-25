@@ -68,6 +68,7 @@
 	<div class="container">
 		
 					<form method="post" action="${pageContext.request.contextPath }/reservationReview/reservationReviewInsert" >
+							<input class="form-control" type="hidden" readonly="readonly" name="accom_num" value="${param.accom_num }">
 							<br>예약번호<input class="form-control" type="text" readonly="readonly" name="rsvn_num" value="1"> <br>
 							<p> 아이디<input class="form-control" type="text" readonly="readonly" name="mem_id" value="${sessionScope.mem_id }"><br></p>
 							<p> 제목<input class="form-control" type="text" name="resReview_title" placeholder="입력해주세요"><br></p>
