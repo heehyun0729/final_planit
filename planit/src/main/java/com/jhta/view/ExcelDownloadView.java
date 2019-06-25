@@ -5,12 +5,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
 
 public class ExcelDownloadView extends AbstractExcelView{
@@ -18,18 +18,17 @@ public class ExcelDownloadView extends AbstractExcelView{
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		response.setHeader("Content-Disposition", "attachment; filename=\"profits.xls\";"); 
+		response.setHeader("Content-Disposition", "attachment;filename=\"profits.xls\";"); 
 		int mem_stat=(Integer)model.get("mem_stat");
 		String[] days=(String[])model.get("days");
 		String[] adProfit=(String[])model.get("adProfit");
 		String[] sellProfit=(String[])model.get("sellProfit");
 		String[] totalProfit=(String[])model.get("totalProfit");
 		
-		XSSFWorkbook wb = new XSSFWorkbook(); // workbook 持失
-		Sheet sheet1 = wb.createSheet("new sheet");// Sheet 持失
+		HSSFSheet sheet1 = workbook.createSheet("sheet1");// Sheet 持失
 		
-		Row row = null;
-	    Cell cell = null;
+		HSSFRow row = null;
+	    HSSFCell cell = null;
      
 		row=sheet1.createRow(0);
          
