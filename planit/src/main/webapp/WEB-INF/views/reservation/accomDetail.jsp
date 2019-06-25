@@ -211,7 +211,7 @@
 								</div>
 							</div>
 							<div class="col-lg-4 d-flex justify-content-end"
-								style="padding-top: 50px;">
+								style="padding-top: 30px;">
 								<div class="col-md-7 p-2 text-center">
 									<span>1박 가격</span>
 									<h3 style="color: #52C5FD;">${rvo.room_price }원</h3>
