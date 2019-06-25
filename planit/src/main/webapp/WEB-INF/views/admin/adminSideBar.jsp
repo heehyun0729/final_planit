@@ -183,9 +183,11 @@
 						var result=data.getElementsByTagName("result")[0];
 						var comm = result.getElementsByTagName("comm")[0];
 						var c = comm.getElementsByTagName("c")[0].firstChild.nodeValue;
-					    if(c!=0){
-					    	messageBadge.innerHTML=  c;
-					    }
+						messageBadge.innerHTML=  c;
+						if(c==0)
+							{
+							messageBadge.innerHTML="";
+							}
 						
 					}
 				}
