@@ -13,6 +13,7 @@
 	<select id="count" resultType="int" parameterType="hashmap">
 		select NVL(count(*),0) cnt from accomqna
 	</select>
+	
 	<select id="list" parameterType="hashmap" resultType="com.jhta.planit.accomQna.vo.AccomQnaVo"><!-- "com.jhta.planit.accomQna.vo.AccomQnaVo" -->
 		<!-- select * from(
 			select acq.*,rownum rnum from(
