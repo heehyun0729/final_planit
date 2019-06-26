@@ -397,12 +397,13 @@
 							<div class="desc" style="margin-left:20px;">
 								<h5>
 									<a href="<c:url value="/member/mypage/${sessionScope.mem_id}"/>">${vo.mem_id}</a>
-								</h5>
-								<p class="date">${vo.accomqna_date} 
-								<a href="${pageContext.request.contextPath }/deleteAccomqna?accomqna_num=${vo.accomqna_num}&accom_num=${avo.accom_num}"> [삭제]</a></p>
+								</h5>					
+								${vo.accomqna_date} 	
+								<c:if test="${sessionScope.mem_id == vo.mem_id }">				
+								<a href="${pageContext.request.contextPath }/deleteAccomqna?accomqna_num=${vo.accomqna_num}&accom_num=${avo.accom_num}"> [삭제]</a>
+								</c:if>
 								<p style="font-weight: bold; margin-left:10px;">${vo.accomqna_title}</p>
-								<p class="comment" style="font-weight: bold; margin-left:10px;">${vo.accomqna_content }</p>
-								
+								<p class="comment" style="margin-left:10px;">${vo.accomqna_content }</p>
 							</div>
 						</div>
 						<div class="reply-btn">
